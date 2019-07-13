@@ -10,6 +10,8 @@ import { StoreNavigationComponent } from './components/store-navigation.componen
 import { HeaderComponent } from './components/header.component';
 import { FooterComponent } from './components/footer.component';
 import { CoreModule } from '../core/core.module';
+import { BasicUsesAvatarModule } from './UI/basic-uses-avatar/basic-uses-avatar.module';
+import { BasicUsesAvatarComponent } from './UI/basic-uses-avatar/basic-uses-avatar-component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { CoreModule } from '../core/core.module';
     CommonModule
     , CoreModule
     , SharedRoutingModule
+    , BasicUsesAvatarModule
   ],
   exports: [
     NavigationComponent
@@ -32,6 +35,7 @@ import { CoreModule } from '../core/core.module';
     , NotFoundComponent
     , HeaderComponent
     , FooterComponent
+    , BasicUsesAvatarComponent
   ]
 })
 export class SharedModule { }
