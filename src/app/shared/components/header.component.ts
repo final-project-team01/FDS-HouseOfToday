@@ -1,18 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from 'src/app/core/user.service';
 
 @Component({
   selector: 'app-header',
   template: `
-    <app-navigation></app-navigation>
-    <app-community-navigation></app-community-navigation>
-    <app-store-navigation></app-store-navigation>
+    <header>
+      <app-navigation></app-navigation>
+      <app-community-navigation></app-community-navigation>
+      <app-store-navigation></app-store-navigation>
+    </header>
   `,
-  styles: []
+  styles: [
+    `
+      header{
+      }
+    `
+  ]
 })
 export class HeaderComponent implements OnInit {
 
   constructor(private userService: UserService) { }
+  @Input() where: string;
 
   ngOnInit() {
   }
