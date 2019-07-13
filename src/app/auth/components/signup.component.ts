@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/core/user.service';
 
 @Component({
   selector: 'app-signup',
@@ -6,12 +7,13 @@ import { Component, OnInit } from '@angular/core';
     <p>
       signup works!
     </p>
+    <app-footer></app-footer>
   `,
   styles: []
 })
 export class SignupComponent implements OnInit {
 
-  constructor() { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
   }

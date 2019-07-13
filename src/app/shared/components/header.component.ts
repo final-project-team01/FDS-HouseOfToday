@@ -2,16 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/core/user.service';
 
 @Component({
-  selector: 'app-signin',
+  selector: 'app-header',
   template: `
-    <p>
-      signin works!
-    </p>
-    <app-footer></app-footer>
+    <app-navigation></app-navigation>
+    <app-community-navigation></app-community-navigation>
+    <app-store-navigation></app-store-navigation>
   `,
   styles: []
 })
-export class SigninComponent implements OnInit {
+export class HeaderComponent implements OnInit {
 
   constructor(private userService: UserService) { }
 

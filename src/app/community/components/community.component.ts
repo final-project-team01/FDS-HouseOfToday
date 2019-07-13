@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
+import { CommunityService } from 'src/app/core/community.service';
 
 @Component({
   selector: 'app-community',
   template: `
-  <app-navigation></app-navigation>
-  <app-community-navigation></app-community-navigation>
-  <app-store-navigation></app-store-navigation>
+    <app-header></app-header>
     <p>
       community works!
     </p>
+    <app-footer></app-footer>
   `,
   styles: []
 })
 export class CommunityComponent implements OnInit {
 
-  constructor() { }
+  constructor(private communityService: CommunityService) { }
 
   ngOnInit() {
   }

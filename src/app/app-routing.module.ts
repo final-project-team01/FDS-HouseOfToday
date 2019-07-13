@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { NotFoundComponent } from './shared/components/not-found.component';
-import { CommunityComponent } from './community/components/community.component';
-import { StoreComponent } from './store/components/store.component';
-import { PhotoComponent } from './community/components/photo.component';
-import { KnowhowComponent } from './community/components/knowhow.component';
-import { CategoryComponent } from './store/components/category.component';
-import { RankComponent } from './store/components/rank.component';
-import { SigninComponent } from './auth/components/signin.component';
-import { SignupComponent } from './auth/components/signup.component';
+// import { CommunityComponent } from './community/components/community.component';
+// import { StoreComponent } from './store/components/store.component';
+// import { PhotoComponent } from './community/components/photo.component';
+// import { KnowhowComponent } from './community/components/knowhow.component';
+// import { CategoryComponent } from './store/components/category.component';
+// import { RankComponent } from './store/components/rank.component';
+// import { SigninComponent } from './auth/components/signin.component';
+// import { SignupComponent } from './auth/components/signup.component';
 
 const routes: Routes = [
   // { path: '', redirectTo: 'community', pathMatch: 'full' },

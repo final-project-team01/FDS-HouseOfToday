@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
+import { StoreService } from 'src/app/core/store.service';
 
 @Component({
   selector: 'app-store',
   template: `
-  <app-navigation></app-navigation>
-  <app-community-navigation></app-community-navigation>
-  <app-store-navigation></app-store-navigation>
+    <app-header></app-header>
     <p>
       store works!
     </p>
+    <app-footer></app-footer>
   `,
   styles: []
 })
 export class StoreComponent implements OnInit {
 
-  constructor() { }
+  constructor(private storeService: StoreService) { }
 
   ngOnInit() {
   }

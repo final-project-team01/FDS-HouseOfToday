@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
 import { CommunityComponent } from './components/community.component';
 import { KnowhowComponent } from './components/knowhow.component';
 import { PhotoComponent } from './components/photo.component';
+
 import { AuthGuard } from '../auth.guard';
 
 
