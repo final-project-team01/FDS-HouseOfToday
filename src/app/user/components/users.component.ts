@@ -4,6 +4,7 @@ import { UserService } from 'src/app/core/user.service';
 @Component({
   selector: 'app-users',
   template: `
+    <app-user-nav></app-user-nav>
     <div class="container">
       <div class="row">
         <div class="col-12 profile">
@@ -46,6 +47,7 @@ import { UserService } from 'src/app/core/user.service';
   `,
   styles: [
     `
+      /* user profile */
       body {
         font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', '맑은 고딕';
         letter-spacing: -0.4px;

@@ -4,17 +4,14 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-user-nav',
   template: `
     <nav>
-      <a routerLink="/user/123" routerLinkActive="active">프로필</a>
+      <a routerLink="/users/123" routerLinkActive="active">프로필</a>
       <a routerLink="/orderList/123" routerLinkActive="active">주문</a>
     </nav>
   `,
   styles: []
 })
 export class UserNavComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }
