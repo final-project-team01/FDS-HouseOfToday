@@ -9,6 +9,8 @@ import { SharedModule } from '../shared/shared.module';
 import { StoreDetailComponent } from './components/store-detail.component';
 import { CoreModule } from '../core/core.module';
 
+import { LyCarouselModule } from '@alyle/ui/carousel';
+
 @NgModule({
   declarations: [
     StoreComponent
@@ -21,6 +23,7 @@ import { CoreModule } from '../core/core.module';
     , CoreModule
     , SharedModule
     , StoreRoutingModule
+    , LyCarouselModule
   ]
 })
 export class StoreModule { }
