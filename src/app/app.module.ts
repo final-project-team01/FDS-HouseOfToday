@@ -12,6 +12,7 @@ import { CoreModule } from './core/core.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LyThemeModule, LY_THEME } from '@alyle/ui';
 import { MinimaLight } from '@alyle/ui/themes/minima';
+import { UserModule } from './user/user.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { MinimaLight } from '@alyle/ui/themes/minima';
     , StoreModule
     , AuthModule
     , CoreModule
+    , UserModule
     , BrowserAnimationsModule
     , LyThemeModule.setTheme('minima-light')
     , AppRoutingModule
