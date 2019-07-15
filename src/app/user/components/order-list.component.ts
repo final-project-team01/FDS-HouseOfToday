@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from 'src/app/core/user.service';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-order-list',
@@ -115,7 +115,7 @@ import { UserService } from 'src/app/core/user.service';
   ]
 })
 export class OrderListComponent implements OnInit {
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 }
