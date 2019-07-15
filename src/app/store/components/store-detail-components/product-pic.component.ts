@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-product-pic',
   template: `
-  <div class="container">
+  <div class="product-pic-container">
     <div class="pic-list">
       <button class="pic-item" *ngFor="let pic of productDetailImages; let i=index"
       [style.backgroundImage]="'url('+ pic.pd_detail_image +')'"
@@ -18,7 +18,7 @@ import { Component, OnInit } from '@angular/core';
   </div>
   `,
   styles: [`
-  .container{
+  .product-pic-container{
     width: 550px;
     display: inline-block;
     position: relative;
