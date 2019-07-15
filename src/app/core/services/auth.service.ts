@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { CoreModule } from './core.module';
+import { CoreModule } from '../core.module';
 import { HttpClient } from '@angular/common/http';
-import { ServiceCore } from './serviceCore';
+import { ServiceCore } from '../serviceCore';
 
 
 @Injectable({
@@ -17,6 +17,5 @@ export class AuthService {
     const fullPath = ServiceCore.getFullPath(path);
 
     this.httpClient.post(fullPath, { username, password }).subscribe(req => console.log(req));
-
   }
 }
