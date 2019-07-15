@@ -17,7 +17,7 @@ import { KeyAttribute } from '@alyle/ui';
         <div>
         <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <input type="text" placeholder="이메일" class="email form-control"
-          formControlName="email">
+          formControlName="email" autofocus="autofocus">
           <input type="password" placeholder="비밀번호" 
           class="password form-control" (keyup)="isOnCapslock($event);"
           formControlName="password">
@@ -70,9 +70,7 @@ import { KeyAttribute } from '@alyle/ui';
       background-repeat: no-repeat;
       display: inline-block;
     }
-    .login-form{
-      padding-top: 20px;
-    }
+    
     .form-control:hover, .form-control:active {
       background-color: #fafafa;
       border-color: #bdbdbd;
@@ -90,6 +88,10 @@ import { KeyAttribute } from '@alyle/ui';
       background-color: white;
       color: #424242;
       font-size: 12px;
+    }
+    .form-control:focus{
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(130,224,250,0.5);
     }
     .email, .password{
       display: block;

@@ -13,8 +13,11 @@ import { Component, OnInit } from '@angular/core';
           <a routerLink="/community" routerLinkActive="active">커뮤니티</a>
           <a routerLink="/store" routerLinkActive="active">스토어</a>
         </div>
-        <a routerLink="/signin" routerLinkActive="active">로그인</a>
-        <a routerLink="/signup" routerLinkActive="active"><app-basic-uses-avatar ></app-basic-uses-avatar></a>
+        <div class="user-unlogged">
+          <a routerLink="/signin" routerLinkActive="active" class="auth-menu signin">로그인</a>
+          <a routerLink="/signup" routerLinkActive="active" class="auth-menu">회원가입</a>
+        </div>
+        <!--<a routerLink="/signup" routerLinkActive="active"><app-basic-uses-avatar ></app-basic-uses-avatar></a>-->
         
       </nav>
       
@@ -59,9 +62,9 @@ import { Component, OnInit } from '@angular/core';
       white-space: nowrap;
       flex: 1 0 auto;
     }
-    .navigation-primary > a, .navigation-primary > .navigation-menu  > a{
+    .navigation-primary > .navigation-menu  > a{
       position: relative;
-      margin: 0 25px -23px -15px;
+      padding: 25px 15px;
       font-size: 18px;
       font-weight: bold;
       padding: 25px 15px;
@@ -71,6 +74,34 @@ import { Component, OnInit } from '@angular/core';
     
     .navigation-primary > a.active, .navigation-primary > .navigation-menu  > a.active{
       color: #35C5F0;
+    }
+    .user-unlogged{
+      font-size: 0;
+      margin-left: 1.5px;
+      margin-bottom: 3px;
+      position: relative;
+      display:inline-block;
+    }
+    .signin:after{
+      content: '';
+      display: inline-block;
+      width: 0;
+      height: 15px;
+      padding-left: 10px;
+      margin-right: 10px;
+      vertical-align: -2px;
+      border-right: 1px solid #757575;
+    }
+    .user-unlogged > a.auth-menu{
+      color: rgb(117, 117, 117);
+      cursor: pointer;
+      display: inline-block;
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 15px;
+      text-decoration-color: rgb(117, 117, 117);
+      text-decoration-style: solid;
+      touch-action: manipulation;
     }
   `]
 })
