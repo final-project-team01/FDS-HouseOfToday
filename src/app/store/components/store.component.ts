@@ -72,7 +72,38 @@ const styles = {
       </section>
       <section class="container store-index-section">
         <h1>인기 키워드</h1>
-        <div class="row keyword-list"></div>
+        <div class="row keyword-list">
+          <div class="col-6 col-md-3 keyword-wrap">
+            <a href="#">
+              <div class="keyword">
+                <span style="position:relative">#장마철 #건조기 #제습기</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+      <section class="container store-index-section store-index-product-list">
+        <h1>인기 상품</h1>
+        <div class="filter store-index-product-list__filter">
+          <div class="filter-bar">
+            <div class="filter-bar__control-list">
+              <ly-field class="freeShipping" appearance="filled">
+                <ly-label>무료배송</ly-label>
+                <ly-select placeholder="Placeholder">
+                  <ly-option class="freeShippingDetail" value="1">무료배송</ly-option>
+                </ly-select>
+              </ly-field>
+              <ly-field class="filter">
+              <ly-label>인기순</ly-label>
+              <ly-select  class="filterDetail" placeholder="Placeholder">
+                <ly-option value="1">Item 1</ly-option>
+                <ly-option value="2">Item 2</ly-option>
+                <ly-option value="3">Item 3</ly-option>
+              </ly-select>
+            </ly-field>
+            </div>
+          </div>
+        </div>
       </section>
     </div>
     <app-footer></app-footer>
@@ -246,9 +277,99 @@ const styles = {
     color: #757575;
     line-height: 16px;
   }
+
   h1 {
     font-weight: inherit;
   }
+
+  .production-item-badge-list {
+    border-radius: 3px;
+    border-box: solid 1px;
+    background-color: #d6d6d6;
+    font-size: 11px;
+  }
+
+  .store-index-section {
+    margin-top: 40px;
+  }
+
+  .container {
+    margin-right: auto;
+    margin-left: auto;
+    width: 1136px;
+    max-width: 100%;
+    box-sizing: border-box;
+    min-height: 1px;
+  }
+
+  .store-index-section>h1 {
+    color: #000;
+    font-weight: 700;
+    font-size: 20px;
+    margin-bottom: 14px;
+    position: relative;
+  }
+
+  .keyword-list {
+    margin: -5px 0;
+  }
+
+  .keyword-wrap {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
+  .col-md-3 {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .keyword {
+    background-color: green;
+    background-size: cover!important;
+    background-position: 50%;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 17px;
+    color: #fff;
+    height: 120px;
+    line-height: 120px;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+    width: 230px;
+  }
+
+  .filter-bar__control-list {
+    position: relative;
+    width: 1136px;
+  }
+
+  .freeShipping {
+    width: 70px;
+    font-size: 10px;
+    flex: 0 0 auto;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    white-space: nowrap;
+  }
+
+  .freeShippingDetail {
+    width: 70px;
+    font-size: 10px;
+  }
+
+  .filter {
+    width: 70px;
+    font-size: 10px;
+  }
+
   `]
 })
 export class StoreComponent implements OnInit {
