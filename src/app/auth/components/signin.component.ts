@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { UserService } from 'src/app/core/user.service';
 import { KeyAttribute } from '@alyle/ui';
+import { AuthService } from 'src/app/core/auth.service';
 
 @Component({
   selector: 'app-signin',
@@ -200,7 +200,7 @@ export class SigninComponent implements OnInit {
   messageOpacity = 0;
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private userService: UserService) { }
+  constructor(private fb: FormBuilder, private authService: AuthService) { }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -212,7 +212,15 @@ export class SigninComponent implements OnInit {
     this.capsOpacity = e.getModifierState("CapsLock") ? 1 : 0;
   }
   onSubmit() {
-    if (this.loginForm.invalid) this.messageOpacity = 1;
-    setTimeout(() => { this.messageOpacity = 0; }, 2000);
+    if (this.loginForm.invalid) {
+      this.messageOpacity = 1;
+      setTimeout(() => { this.messageOpacity = 0; }, 2000);
+    }
+    else {
+      const email = this.loginForm.get("email").value;
+      const password = this.loginForm.get("password").value;
+
+      const req = this.authService.getToken(email, password);
+    }
   }
 }
