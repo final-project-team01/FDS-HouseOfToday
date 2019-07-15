@@ -4,6 +4,7 @@ import { UserService } from 'src/app/core/user.service';
 @Component({
   selector: 'app-order-list',
   template: `
+    <app-user-nav></app-user-nav>
     <div class="shopping_order_list">
       <div class="my_mileage">
         <div class="mileage_item">coupon</div>

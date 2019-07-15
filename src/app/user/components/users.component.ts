@@ -53,16 +53,6 @@ import { UserService } from 'src/app/core/user.service';
         letter-spacing: -0.4px;
         background-color: antiquewhite;
       }
-      .page-navigation {
-        height: 60px;
-        text-align: center;
-      }
-      .page_nav_item {
-        display: inline-block;
-        line-height: 60px;
-        margin: 0 15px;
-        font-size: 18px;
-      }
 
       .container {
         background-color: yellow;
