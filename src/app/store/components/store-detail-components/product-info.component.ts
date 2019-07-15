@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-product-info',
   template: `
-  <div class="container">
+  <div class="product-info-container">
     <a href="#"><small class="text-grey">{{ productInfo.brand_name }}</small></a>
     <h1 class="product-name">{{ productInfo.name }}</h1>
     <div class="star-grade">
@@ -26,10 +26,9 @@ import { Component, OnInit } from '@angular/core';
     </div>
   `,
   styles: [`
-  .container{
+  .product-info-container{
     float: right;
     width: 480px;
-    height: 600px;
     background-color: lightgrey;
   }
   .product-name{
