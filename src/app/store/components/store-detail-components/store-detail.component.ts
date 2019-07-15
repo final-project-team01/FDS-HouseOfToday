@@ -7,12 +7,24 @@ import { UserService } from 'src/app/core/user.service';
   selector: 'app-store-detail',
   template: `
     <app-header></app-header>
-    <p>
-      store-detail works!
-    </p>
+    <div class="wrapper">
+      <app-product-pic></app-product-pic>
+      <app-product-info></app-product-info>
+      <app-product-nav></app-product-nav>
+    </div>
     <app-footer></app-footer>
   `,
-  styles: []
+  styles: [`
+  .wrapper{
+    margin: 30px auto 0 auto;
+    box-sizing: border-box;
+    width: 1136px;
+    height: auto;
+    box-sizing: border-box;
+    min-height: 1px;
+    background-color: yellow;
+  }
+  `]
 })
 export class StoreDetailComponent implements OnInit {
   id: number;
