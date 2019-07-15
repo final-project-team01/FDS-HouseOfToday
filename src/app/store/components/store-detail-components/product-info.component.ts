@@ -7,12 +7,12 @@ import { Component, OnInit } from '@angular/core';
     <a href="#"><small class="text-grey">{{ productInfo.brand_name }}</small></a>
     <h1 class="product-name">{{ productInfo.name }}</h1>
     <div class="star-grade">
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star half"></span>
-    85개 리뷰
+      <span class="star"></span>
+      <span class="star"></span>
+      <span class="star"></span>
+      <span class="star"></span>
+      <span class="star half"></span>
+        85개 리뷰
     </div>
     <mark class="product-price">{{ productInfo.price }}<span>원</span></mark>
     <span class="sprite lowest"></span>
@@ -22,6 +22,7 @@ import { Component, OnInit } from '@angular/core';
     <span class="sprite delivery"></span>
     <hr>
     <a href="#" class="goToShop"><span class="sprite shop"></span>{{ productInfo.brand_name }} 상품보기</a>
+    <app-product-option></app-product-option>
     </div>
   `,
   styles: [`

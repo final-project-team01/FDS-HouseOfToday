@@ -11,13 +11,14 @@ import { CoreModule } from '../core/core.module';
 import { ProductInfoComponent } from './components/store-detail-components/product-info.component';
 import { ProductPicComponent } from './components/store-detail-components/product-pic.component';
 import { ProductNavComponent } from './components/store-detail-components/product-nav.component';
+import { ProductOptionComponent } from './components/store-detail-components/product-option.component';
 
 @NgModule({
   declarations: [
     StoreComponent
     , CategoryComponent
     , RankComponent
-    , StoreDetailComponent, ProductInfoComponent, ProductPicComponent, ProductNavComponent
+    , StoreDetailComponent, ProductInfoComponent, ProductPicComponent, ProductNavComponent, ProductOptionComponent
   ],
   imports: [
     CommonModule
