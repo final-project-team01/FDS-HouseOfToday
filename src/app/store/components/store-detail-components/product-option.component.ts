@@ -44,8 +44,8 @@ import { FormGroup, FormControl } from '@angular/forms';
           <button class="selected-item-btn increase"></button>
           <button class="selected-item-btn decrease"></button>
         </div>
-        <span class="selected-item-price">16900원</span>
-        <span class="selected-item-cancel icon"></span>
+        <span class="selected-item-price">16,900원</span>
+        <button class="selected-item-cancel icon"></button>
       </div>
       <div class="price">
         <span>주문금액</span>
@@ -144,12 +144,15 @@ import { FormGroup, FormControl } from '@angular/forms';
       font-size: 13px;
     }
     .selected-item-cancel{
+      width: 12px;
+      height: 12px;
+      border: none;
+      background-position: top -39px left -270px;
+      background-color: transparent;
       position: absolute;
       right: 15px;
       top: 15px;
-      width: 12px;
-      height: 12px;
-      background-position: top -39px left -270px;
+      cursor: pointer;
     }
     .price{
       margin: 40px 0 20px 0;
