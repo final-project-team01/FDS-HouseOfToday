@@ -14,6 +14,7 @@ import { ProductInfoComponent } from './components/store-detail-components/produ
 import { ProductPicComponent } from './components/store-detail-components/product-pic.component';
 import { ProductNavComponent } from './components/store-detail-components/product-nav.component';
 import { ProductOptionComponent } from './components/store-detail-components/product-option.component';
+import { ProductDetailComponent } from './components/store-detail-components/product-detail.component';
 
 
 @NgModule({
@@ -25,7 +26,7 @@ import { ProductOptionComponent } from './components/store-detail-components/pro
     , ProductInfoComponent
     , ProductPicComponent
     , ProductNavComponent
-    , ProductOptionComponent
+    , ProductOptionComponent, ProductDetailComponent
   ],
   imports: [
     CommonModule

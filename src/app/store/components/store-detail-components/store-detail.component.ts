@@ -11,6 +11,7 @@ import { UserService } from 'src/app/core/user.service';
       <app-product-pic></app-product-pic>
       <app-product-info></app-product-info>
       <app-product-nav></app-product-nav>
+      <app-product-detail></app-product-detail>
     </div>
     <app-footer></app-footer>
   `,
