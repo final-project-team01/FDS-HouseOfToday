@@ -14,7 +14,7 @@ import { Component, OnInit } from '@angular/core';
       <span class="star half"></span>
         85개 리뷰
     </div>
-    <mark class="product-price">{{ productInfo.price }}<span>원</span></mark>
+    <mark class="product-price">{{ addComma(productInfo.price) }}<span>원</span></mark>
     <span class="sprite lowest"></span>
     <p class="text-grey"><mark class="point">{{ productInfo.price / 100 }}P</mark> 적립해드립니다.</p>
     <hr>
@@ -28,8 +28,7 @@ import { Component, OnInit } from '@angular/core';
   styles: [`
   .product-info-container{
     float: right;
-    width: 480px;
-    background-color: lightgrey;
+    width: 40%;
   }
   .product-name{
     color: black;
@@ -116,6 +115,7 @@ import { Component, OnInit } from '@angular/core';
     color: #35C5F0;
     font-size: 15px;
     line-height: 15px;
+    margin-bottom: 65px;
   }
   `]
 })
@@ -126,6 +126,11 @@ export class ProductInfoComponent implements OnInit {
 
   ngOnInit() {
     this.productInfo = { id: 1, name: '1+1+1+1 시그니처퍼퓸디퓨저 200ml', price: 16900, brand_name: '데일리콤마' }
+  }
+  
+  addComma(num: number){
+    const regexp = /\B(?=(\d{3})+(?!\d))/g;
+    return num.toString().replace(regexp, ',');
   }
 
 }
