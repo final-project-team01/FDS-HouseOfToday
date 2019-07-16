@@ -19,7 +19,7 @@ import { Component, OnInit } from '@angular/core';
   `,
   styles: [`
   .product-pic-container{
-    width: 550px;
+    width: 570px;
     display: inline-block;
     position: relative;
     margin-left: 65px;
@@ -53,8 +53,8 @@ import { Component, OnInit } from '@angular/core';
   .main-picture{
     display: none;
     border-radius: 10px;
-    width: 100%;
-    height: 500px;
+    width: 570px;
+    height: 570px;
   }
   .main-picture.active{
     display: block;
