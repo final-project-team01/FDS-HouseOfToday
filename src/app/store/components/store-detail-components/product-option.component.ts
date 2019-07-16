@@ -52,13 +52,16 @@ import { FormGroup, FormControl } from '@angular/forms';
         <mark class="order-price">{{ actualPrice }}<span>원</span></mark>
       </div>
       </form>
+      <div class="btn-container">
       <button type="submit" class="basket">장바구니담기</button>
       <button class="purchase">구매하기</button>
+      </div>
     </div>
   `,
   styles: [`
     .product-option-container{
-      margin-top: 65px;
+      display: inline-block;
+      width: 100%;
     }
     .option{
       position: relative;
@@ -172,8 +175,11 @@ import { FormGroup, FormControl } from '@angular/forms';
       font-weight: normal;
       font-size: 28px;
     }
+    .btn-container{
+      display: flex;
+    }
     .basket, .purchase{
-      width: 225px;
+      flex-grow: 1;
       height: 60px;
       line-height: 60px;
       border-radius: 4px;
@@ -183,7 +189,7 @@ import { FormGroup, FormControl } from '@angular/forms';
       cursor: pointer;
     }
     .basket{
-      margin-right: 10px;
+      margin-right: 9px;
       background-color: white;
       border: 1px solid #35C5F0;
       color: #35C5F0;

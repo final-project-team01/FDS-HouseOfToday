@@ -10,8 +10,10 @@ import { UserService } from 'src/app/core/user.service';
     <div class="wrapper">
       <app-product-pic></app-product-pic>
       <app-product-info></app-product-info>
-      <app-product-nav></app-product-nav>
-      <app-product-detail></app-product-detail>
+      <div class="wrapper">
+        <app-product-nav></app-product-nav>
+        <app-product-detail></app-product-detail>
+      <div class="wrapper">
     </div>
     <app-footer></app-footer>
   `,

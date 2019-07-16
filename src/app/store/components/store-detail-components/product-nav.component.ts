@@ -8,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
       <ul class="navigation">
         <li class="tab" 
         *ngFor="let nav of navMenu; let i=index"
-        (click)="setActive(i)" [class.active]="nav.active">{{ nav.title }}</li>
+        (click)="setActive(i)" [class.active]="nav.active">
+        <h2>{{ nav.title }}</h2>
+        </li>
         <li class="tab last"></li>
       </ul>
     </div>
@@ -27,20 +29,22 @@ import { Component, OnInit } from '@angular/core';
   }
   .tab{
     display: inline-block;
-    line-height: 50px;
     width: 150px;
     height: 50px;
-    font-weight: bold;
     text-align: center;
     padding: 0 10px;
     vertical-align: middle;
-    font-size: 15px;
     border-top: solid 1px #ededed;
     border-bottom: solid 1px #ededed;
     border-left: solid 1px #ededed;
     background-color: #f7f7f7;
-    color: #585858;
     cursor: pointer;
+  }
+  .tab > h2{
+    line-height: 50px;
+    font-weight: bold;
+    font-size: 15px;
+    color: #585858;
   }
   .tab.active{
     border-color: #bdbdbd;
