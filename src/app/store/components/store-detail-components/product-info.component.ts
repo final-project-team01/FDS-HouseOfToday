@@ -29,7 +29,6 @@ import { Component, OnInit } from '@angular/core';
   .product-info-container{
     float: right;
     width: 460px;
-    background-color: lightgrey;
   }
   .product-name{
     color: black;

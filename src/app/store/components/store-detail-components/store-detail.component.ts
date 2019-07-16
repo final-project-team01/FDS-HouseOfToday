@@ -20,9 +20,7 @@ import { UserService } from 'src/app/core/user.service';
     box-sizing: border-box;
     width: 1136px;
     height: auto;
-    box-sizing: border-box;
     min-height: 1px;
-    background-color: yellow;
   }
   `]
 })

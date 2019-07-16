@@ -12,7 +12,7 @@ import { FormGroup, FormControl } from '@angular/forms';
           <option *ngFor="let option of product_options1" FormGroupName="firstOption"
           value="{{ option.option_name }}">{{ option.option_name }} ({{ option.option_price }}원)</option>
         </select>
-        <span class="icon"></span>
+        <span class="product-option-icon icon"></span>
       </div>
       <div class="option" *ngIf="product_options2">
         <select class="option-list" *ngIf="!showSecondOption; else secondOption"
@@ -26,7 +26,7 @@ import { FormGroup, FormControl } from '@angular/forms';
             value="{{ option.option_name }}">{{ option.option_name }} ({{ option.option_price }}원)</option>
           </select>
         </ng-template>
-        <span class="icon"></span>
+        <span class="product-option-icon icon"></span>
       </div>
       <hr>
       <div class="option" *ngIf="extra_options">
@@ -35,7 +35,17 @@ import { FormGroup, FormControl } from '@angular/forms';
           <option *ngFor="let option of extra_options" 
           value="{{ option.option_name }}">{{ option.option_name }} ({{ option.option_price }}원)</option>
         </select>
-        <span class="icon"></span>
+        <span class="product-option-icon icon"></span>
+      </div>
+      <div class="selected-items">
+        <p class="selected-item-name">로즈부케 X2</p>
+        <div class="ea-container">
+          <input type="number" value="1" class="selected-item-ea">
+          <button class="selected-item-btn increase"></button>
+          <button class="selected-item-btn decrease"></button>
+        </div>
+        <span class="selected-item-price">16900원</span>
+        <span class="selected-item-cancel icon"></span>
       </div>
       <div class="price">
         <span>주문금액</span>
@@ -48,9 +58,7 @@ import { FormGroup, FormControl } from '@angular/forms';
   `,
   styles: [`
     .product-option-container{
-      background-color: skyblue;
       margin-top: 65px;
-      background-color: white;
     }
     .option{
       position: relative;
@@ -69,21 +77,79 @@ import { FormGroup, FormControl } from '@angular/forms';
       color: #424242;
       font-size: 12px;
     }
-    .icon{
-      display: inline-block;
+    .product-option-icon{
       width: 16px;
       height: 8px;
-      background-image: url('../../../../assets/image/icon-pointer.png');
       background-position: top -39px left 0;
       position: absolute;
       right: 15px;
       top: 50%;
       transform: translateY(-50%);
     }
+    .icon{
+      display: inline-block;
+      background-image: url('../../../../assets/image/icon-pointer.png');
+    }
     hr{
       border: none;
       border-bottom: solid 1px #ededed;
       margin: 15px 0;
+    }
+    .selected-items{
+      width: 100%;
+      box-sizing: border-box;
+      padding: 15px;
+      position: relative;
+      background: #f7f7f7;
+      border-top: solid 1px #ededed;
+      border-bottom: solid 1px #ededed;
+      position: relative;
+    }
+    .selected-item-name{
+      font-size: 13px;
+    }
+    .ea-container{
+      display: inline-block;
+      position: relative;
+      padding-left: 22px;
+      margin-top: 15px;
+    }
+    .selected-item-ea{
+      font-size: 13px;
+      border: none;
+      background-color: transparent;
+      text-align: center;
+      width: 60px;
+    }
+    .selected-item-btn{
+      width: 22px;
+      height: 22px;
+      background-image: url('../../../../assets/image/icon-etc.png');
+      border: none;
+      vertical-align: middle;
+      cursor: pointer;
+    }
+    .increase{
+      background-position: top -264px left -149px;
+    }
+    .decrease{
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-position: top -264px left -97px;
+    }
+    .selected-item-price{
+      float: right;
+      margin-top: 15px;
+      font-size: 13px;
+    }
+    .selected-item-cancel{
+      position: absolute;
+      right: 15px;
+      top: 15px;
+      width: 12px;
+      height: 12px;
+      background-position: top -39px left -270px;
     }
     .price{
       margin: 40px 0 20px 0;
