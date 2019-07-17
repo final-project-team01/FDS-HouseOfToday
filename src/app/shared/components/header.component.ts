@@ -21,11 +21,15 @@ import { ServiceCore } from 'src/app/core/serviceCore';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private userService: UserService, private storageService: StorageService) { }
+  constructor(private userService: UserService, private storageService: StorageService) {
+    if (!ServiceCore.Token) {
+      const user = this.storageService.getLocal("user");
+      console.log(user);
+      ServiceCore.setToken(user);
+    }
+  }
 
   ngOnInit() {
-    if (!ServiceCore.Token) {
-      ServiceCore.setToken(this.storageService.getLocal("user"));
-    }
+
   }
 }
