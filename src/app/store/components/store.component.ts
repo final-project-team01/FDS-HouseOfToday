@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { StoreService } from 'src/app/core/store.service';
 import { LyTheme2 } from '@alyle/ui';
+import { StoreService } from 'src/app/core/services/store.service';
 
 const styles = {
   carousel: {
@@ -382,17 +382,17 @@ export class StoreComponent implements OnInit {
     {
       title: 'Mountains',
       img: 'https://firebasestorage.googleapis.com/v0/b/alyle-ui.appspot.com/o/img%2F' +
-      'Mountains-Blue.jpg?alt=media&token=d04f0279-79c6-4752-8b5a-cccd73720243'
+        'Mountains-Blue.jpg?alt=media&token=d04f0279-79c6-4752-8b5a-cccd73720243'
     },
     {
       title: 'Four Lakes, Queshuachaca',
       img: 'https://firebasestorage.googleapis.com/v0/b/head-expeditions.appspot.com/o/img%2F' +
-      'files%2F61028703-1476458588-5a289afc-59e8-4a8d-1dea-369e-570b-cfb2.jpg?alt=media&token=ceaf31b5-2b87-438b-b0d1-e4cc4f8603a2'
+        'files%2F61028703-1476458588-5a289afc-59e8-4a8d-1dea-369e-570b-cfb2.jpg?alt=media&token=ceaf31b5-2b87-438b-b0d1-e4cc4f8603a2'
     },
     {
       title: 'Mountains',
       img: 'https://firebasestorage.googleapis.com/v0/b/alyle-ui.appspot.com/o/img%2F' +
-          'mads-schmidt-rasmussen-567063-unsplash.jpg?alt=media&token=5acdfbb2-7eff-4879-b7d0-a441826d88ae'
+        'mads-schmidt-rasmussen-567063-unsplash.jpg?alt=media&token=5acdfbb2-7eff-4879-b7d0-a441826d88ae'
     }
   ];
 
@@ -404,10 +404,10 @@ export class StoreComponent implements OnInit {
   ]
 
   keywords = [
-    { words: '#장마철 #건조기 #제습기'},
-    { words: '#한샘브랜드위크 #7%쿠폰'},
-    { words: '#취향에 맞는 화장대'},
-    { words: '#데스크테리어 #필기도구'},
+    { words: '#장마철 #건조기 #제습기' },
+    { words: '#한샘브랜드위크 #7%쿠폰' },
+    { words: '#취향에 맞는 화장대' },
+    { words: '#데스크테리어 #필기도구' },
   ]
 
   constructor(private storeService: StoreService, private theme: LyTheme2) { }
