@@ -20,7 +20,7 @@ import { FormGroup, FormControl } from '@angular/forms';
           <option value="0" disabled="" selected="">향선택2</option>
         </select>
         <ng-template #secondOption>
-          <select class="option-list" (change)="secondSelect()">
+          <select class="option-list" (change)="secondSelect(optionForm)">
             <option value="0" disabled="" selected="">향선택2</option>
             <option #secondOption *ngFor="let option of product_options2" FormGroupName="secondOption"
             value="{{ option.option_name }}">{{ option.option_name }} ({{ option.option_price }}원)</option>
@@ -242,7 +242,7 @@ export class ProductOptionComponent implements OnInit {
     this.showSecondOption = true; 
   }
   
-  secondSelect(){
-    console.dir();
+  secondSelect(form){
+    console.dir(form);
   }
 }
