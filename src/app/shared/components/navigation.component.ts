@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ServiceCore } from 'src/app/core/serviceCore';
+import { StateService } from 'src/app/core/services/state.service';
 
 @Component({
   selector: 'app-navigation',
@@ -108,8 +108,9 @@ import { ServiceCore } from 'src/app/core/serviceCore';
 })
 export class NavigationComponent implements OnInit {
 
-  isLogin = ServiceCore.isLogin();
-  constructor() { }
+  isLogin = this.stateService.isLogin();
+  constructor(private stateService: StateService
+  ) { }
 
   ngOnInit() {
     console.log(this.isLogin);
