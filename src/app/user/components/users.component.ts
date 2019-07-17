@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from 'src/app/core/user.service';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-users',
   template: `
+    <app-navigation></app-navigation>
     <app-user-nav></app-user-nav>
     <div class="container">
       <div class="row">
         <div class="col-12 profile">
           <div class="profile_data">
-            <div class="profile_share">share_btn</div>
-            <div class="profile_pic">profile-photo</div>
+            <div class="profile_share"></div>
+            <div class="profile_pic"></div>
             <div class="profile_info">
               <div class="profile_name"><strong>#NAME</strong></div>
               <div class="profile_follow_state">
@@ -18,9 +19,14 @@ import { UserService } from 'src/app/core/user.service';
                 <div><a href="#"></a>팔로잉0</div>
               </div>
               <div class="short-cut">
-                <div><a href="#">스크랩북</a></div>
-                <div><a href="#">좋아요</a></div>
-                <div><a href="#">설명</a></div>
+                <div class="short-cut-item">
+                  <a href="#"
+                    ><div class="short-cut-icon"></div>
+                    스크랩북</a
+                  >
+                </div>
+                <div class="short-cut-item"><a href="#">좋아요</a></div>
+                <div class="short-cut-item"><a href="#">설명</a></div>
               </div>
               <div class="addFriend_btn">
                 <button><a href="#">친구초대 +5000P</a></button>
@@ -32,11 +38,11 @@ import { UserService } from 'src/app/core/user.service';
         <div class="col-12 profileContent">
           <div class="contents">
             <section class="post post_photo">
-              <h5 class="post_title">사진 0</h5>
+              <h5 class="post_title">사진 <strong>0</strong></h5>
               <a href="#" class="upload_photo">첫 번째 사진을 올려보세요</a>
             </section>
             <section class="post post_project">
-              <h5 class="post_title">집들이 0</h5>
+              <h5 class="post_title">집들이 <strong>0</strong></h5>
               <a href="#" class="upload_project">첫 번째 집들이를 올려보세요</a>
             </section>
           </div>
@@ -53,19 +59,7 @@ import { UserService } from 'src/app/core/user.service';
         letter-spacing: -0.4px;
         background-color: antiquewhite;
       }
-      .page-navigation {
-        height: 60px;
-        text-align: center;
-      }
-      .page_nav_item {
-        display: inline-block;
-        line-height: 60px;
-        margin: 0 15px;
-        font-size: 18px;
-      }
-
       .container {
-        background-color: yellow;
         width: 1136px;
         max-width: 100%;
         margin-left: auto;
@@ -74,37 +68,36 @@ import { UserService } from 'src/app/core/user.service';
         margin-bottom: 40px;
       }
       .row {
-        background-color: blue;
         display: flex;
       }
       .col-12 {
-        background-color: blueviolet;
         width: 100%;
         display: inline-block;
         position: relative;
         padding-top: 30px;
-        /* padding-right: 10px;
-    padding-left: 10px; */
       }
       .profile {
         max-width: 25%;
       }
       .profile_data {
-        background-color: violet;
         position: relative;
       }
       .profile_share {
-        background-color: tomato;
-        width: 40px;
-        height: 40px;
         position: absolute;
         right: 0;
         display: block;
+        background-image: url(assets/image/common-action@2x.png);
+        background-position-x: -360px;
+        background-position-y: -280px;
+        width: 24px;
+        height: 24px;
+        background-size: 400px auto;
       }
       .profile_pic {
         background-color: burlywood;
         width: 130px;
         height: 130px;
+        border-radius: 50%;
       }
       .profile_name {
         font-size: 30px;
@@ -112,21 +105,40 @@ import { UserService } from 'src/app/core/user.service';
         margin: 10px 0;
       }
       .profile_follow_state {
-        background-color: turquoise;
         display: block;
+        margin-left: -10px;
+        margin-right: -10px;
+        color: #bdbdbd;
       }
       .profile_follow_state > div {
         display: inline-block;
         padding: 0 10px;
+        color: #bdbdbd;
+        font-size: 13px;
       }
       .short-cut {
-        background-color: brown;
         display: flex;
         margin-top: 30px;
         box-sizing: border-box;
         font-size: 13px;
         font-weight: 700;
         text-align: center;
+      }
+
+      .short-cut-item {
+        background-color: yellow;
+        width: 33.3%;
+        padding-right: 16px;
+      }
+      .short-cut-icon {
+        background-image: url(assets/image/common-action@2x.png);
+        background-color: red;
+        background-position-x: -757px;
+        background-position-y: -712px;
+        height: 24px;
+        width: 24px;
+        background-size: auto 400px;
+        position: relative;
       }
       .addFriend_btn > button {
         border-radius: 16px;
@@ -135,17 +147,13 @@ import { UserService } from 'src/app/core/user.service';
         height: 32px;
         background-color: #ededed;
         margin-top: 30px;
-      }
-      .addFriend_btn > button > a {
+        border: none;
+        font-size: 13px;
+        line-height: 16px;
         color: #757575;
       }
-      .short-cut > div {
-        background-color: chocolate;
-        width: 33.3%;
-        padding-right: 16px;
-      }
+
       .profileContent {
-        background-color: cyan;
         display: inline-block;
         margin-left: 8.4%;
         max-width: 75%;
@@ -159,30 +167,35 @@ import { UserService } from 'src/app/core/user.service';
       }
       .post_title {
         margin-bottom: 20px;
+        font-weight: 700;
+        font-size: 18px;
+      }
+      .post_title > strong {
+        color: #35c5f0;
       }
       .post_photo {
-        background-color: coral;
       }
       .upload_photo {
-        background-color: crimson;
         display: flex;
         justify-content: center;
         padding: 80px 0;
+        border-style: dashed;
+        border: 1px dashed #dbdbdb;
       }
       .post_project {
-        background-color: cornflowerblue;
       }
       .upload_project {
-        background-color: crimson;
         display: flex;
         justify-content: center;
         padding: 80px 0;
+        border-style: dashed;
+        border: 1px dashed #dbdbdb;
       }
     `
   ]
 })
 export class UsersComponent implements OnInit {
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommunityService } from 'src/app/core/community.service';
+import { CommunityService } from 'src/app/core/services/community.service';
 
 @Component({
   selector: 'app-knowhow',
