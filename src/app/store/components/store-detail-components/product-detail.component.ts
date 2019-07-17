@@ -7,10 +7,6 @@ import { Component, OnInit } from '@angular/core';
     <section class="product-detail-container">
       <img src="../../../../assets/image/daily_comma.jpg">
     </section>
-    <section class="product-option">
-      <h2>옵션 선택</h2>
-      <app-product-option></app-product-option>
-    </section>
   <div>
   `,
   styles: [`
@@ -19,27 +15,16 @@ import { Component, OnInit } from '@angular/core';
   }
   .wrapper{
     background-color: yellow;
-    display: flex;
-    align-items: flex-start;
     padding: 60px 30px 30px 30px;
   }
   .product-detail-container{
     display: inline-block;
-    width: 750px;
+    width: 690px;
     color: yellow;
   }
   .product-detail-container > img{
     display: inline-block;
     width: 690px;
-  }
-  .product-option{
-    display: inline-block;
-    width: 31%;
-  }
-  .product-option > h2{
-    margin-bottom: 20px;
-    font-size: 20px;
-    font-weight: bold;
   }
   `]
 })
