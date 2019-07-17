@@ -1,3 +1,5 @@
+import { StorageService } from './services/storage.service';
+
 export class ServiceCore {
   private static _token: string = null;
   private static _id: string = "";
@@ -26,5 +28,4 @@ export class ServiceCore {
   public static getFullPath(path: string) {
     return this.url[this.url.length - 1] === '/' ? this.url + path : this.url + "/" + path;
   }
-
 }
