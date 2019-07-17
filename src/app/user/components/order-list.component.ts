@@ -269,7 +269,7 @@ import { UserService } from 'src/app/core/services/user.service';
   ]
 })
 export class OrderListComponent implements OnInit {
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 }
