@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from 'src/app/core/services/user.service';
 import { StorageService } from 'src/app/core/services/storage.service';
-import { ServiceCore } from 'src/app/core/serviceCore';
+import { StateService } from 'src/app/core/services/state.service';
 
 @Component({
   selector: 'app-header',
@@ -21,13 +21,18 @@ import { ServiceCore } from 'src/app/core/serviceCore';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private userService: UserService, private storageService: StorageService) {
-    if (!ServiceCore.Token) {
+
+  constructor(private userService: UserService
+    , private storageService: StorageService
+    , private stateService: StateService
+  ) {
+    if (!this.stateService.Token) {
       const user = this.storageService.getLocal("user");
-      console.log(user);
-      ServiceCore.setToken(user);
+      console.log("header", user);
+      this.stateService.setToken(user);
     }
   }
+
 
   ngOnInit() {
 
