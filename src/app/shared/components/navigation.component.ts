@@ -17,7 +17,7 @@ import { StorageService } from 'src/app/core/services/storage.service';
           <a routerLink="/store" routerLinkActive="active">스토어</a>
         </div>        
         <div class="user-logged" *ngIf="isLogin; else elseBlock">
-          <div class="action-logged"></div>        
+          <div class="action-logged">        
           <app-basic-uses-avatar ></app-basic-uses-avatar>
           <div class="navigation-primary__user__list">
             <ul class="navigation-user-menu">
@@ -25,20 +25,21 @@ import { StorageService } from 'src/app/core/services/storage.service';
               <li><a routerLink="/">나의 쇼핑</a></li>
               <li><a routerLink="/"(click)="logout($event)">로그아웃</a></li>              
             </ul>
-
             </div>
+          </div>
         </div>
         <ng-template class="user-unlogged" #elseBlock>
-          <div class="action-unlogged"></div>        
-          <a routerLink="/signin" routerLinkActive="active" class="auth-menu signin">로그인</a>
-          <a routerLink="/signup" routerLinkActive="active" class="auth-menu">회원가입</a>
+          <div class="action-unlogged">
+            <a routerLink="/signin" routerLinkActive="active" class="auth-menu signin">로그인</a>
+            <a routerLink="/signup" routerLinkActive="active" class="auth-menu">회원가입</a>
+          </div>
         </ng-template>
       </nav>
       </div>
   `,
   styles: [`
     .main-nav{
-      position: fixed;
+      /*position: fixed;*/
       top: 0;
       z-index: 100;
       left: 0;
@@ -100,7 +101,7 @@ import { StorageService } from 'src/app/core/services/storage.service';
     }
     .action-unlogged{
       display:inline-block;
-      width:116px;
+      
     }
     .user-unlogged{
       font-size: 0;
