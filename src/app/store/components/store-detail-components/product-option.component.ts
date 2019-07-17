@@ -47,6 +47,26 @@ import { FormGroup, FormControl } from '@angular/forms';
         <span class="selected-item-price">16,900원</span>
         <button class="selected-item-cancel icon"></button>
       </div>
+      <div class="selected-items">
+        <p class="selected-item-name">로즈부케 X2</p>
+        <div class="ea-container">
+          <input type="number" value="1" class="selected-item-ea">
+          <button class="selected-item-btn increase"></button>
+          <button class="selected-item-btn decrease"></button>
+        </div>
+        <span class="selected-item-price">16,900원</span>
+        <button class="selected-item-cancel icon"></button>
+      </div>
+      <div class="selected-items">
+        <p class="selected-item-name">로즈부케 X2</p>
+        <div class="ea-container">
+          <input type="number" value="1" class="selected-item-ea">
+          <button class="selected-item-btn increase"></button>
+          <button class="selected-item-btn decrease"></button>
+        </div>
+        <span class="selected-item-price">16,900원</span>
+        <button class="selected-item-cancel icon"></button>
+      </div>
       <div class="price">
         <span>주문금액</span>
         <mark class="order-price">{{ actualPrice }}<span>원</span></mark>

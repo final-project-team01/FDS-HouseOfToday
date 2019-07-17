@@ -21,11 +21,14 @@ import { ServiceCore } from 'src/app/core/serviceCore';
           <a routerLink="/signin" routerLinkActive="active" class="auth-menu signin">로그인</a>
           <a routerLink="/signup" routerLinkActive="active" class="auth-menu">회원가입</a>
         </ng-template>
-        
       </nav>
+      </div>
   `,
   styles: [`
     .main-nav{
+      position: fixed;
+      top: 0;
+      z-index: 100;
       left: 0;
       right: 0;
       transition: top .1s;

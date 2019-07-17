@@ -10,20 +10,24 @@ import { UserService } from 'src/app/core/services/user.service';
     <div class="wrapper">
       <app-product-pic></app-product-pic>
       <app-product-info></app-product-info>
-      <div class="wrapper">
+      <div class="wrapper2">
         <app-product-nav></app-product-nav>
         <app-product-detail></app-product-detail>
-      <div class="wrapper">
+      </div>
     </div>
     <app-footer></app-footer>
   `,
   styles: [`
   .wrapper{
-    margin: 30px auto 0 auto;
+    margin: 120px auto 0 auto;
     box-sizing: border-box;
     width: 1136px;
     height: auto;
     min-height: 1px;
+  }
+  .wrapper2{
+    clear: both;
+    padding-top: 80px;
   }
   `]
 })
