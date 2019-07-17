@@ -73,10 +73,10 @@ const styles = {
       <section class="container store-index-section">
         <h1>인기 키워드</h1>
         <div class="row keyword-list">
-          <div class="col-6 col-md-3 keyword-wrap">
+          <div *ngFor="let keyword of keywords" class="col-6 col-md-3 keyword-wrap">
             <a href="#">
               <div class="keyword">
-                <span style="position:relative">#장마철 #건조기 #제습기</span>
+                <span style="position:relative">{{keyword.words}}</span>
               </div>
             </a>
           </div>
@@ -93,24 +93,28 @@ const styles = {
                   <ly-option class="freeShippingDetail" value="1">무료배송</ly-option>
                 </ly-select>
               </ly-field>
-              <ly-field class="filter">
-              <ly-label>인기순</ly-label>
-              <ly-select  class="filterDetail" placeholder="Placeholder">
-                <ly-option value="1">Item 1</ly-option>
-                <ly-option value="2">Item 2</ly-option>
-                <ly-option value="3">Item 3</ly-option>
-              </ly-select>
+              <ly-field class="filteredList">
+                <ly-label>인기순</ly-label>
+                <ly-select  class="filteredListDetail" placeholder="Placeholder">
+                  <ly-option value="1">Item 1</ly-option>
+                  <ly-option value="2">Item 2</ly-option>
+                  <ly-option value="3">Item 3</ly-option>
+                </ly-select>
             </ly-field>
             </div>
           </div>
         </div>
+        <div class="store-index-today-deal-list__content row2">
+          <app-product-list [productItems]="productItems"></app-product-list>
+        </div>
       </section>
     </div>
-    <app-footer></app-footer>
+    <div class="footer">
+      <app-footer></app-footer>
+    </div>
   `,
   styles: [`
   .featured-banner {
-    background: pink;
     position: relative;
     height: 375px;
     overflow: hidden;
@@ -139,7 +143,6 @@ const styles = {
     box-sizing: border-box;
     width: 1136px;
     max-width: 100%;
-    box-sizing: border-box;
     min-height: 1px;
   }
 
@@ -211,7 +214,6 @@ const styles = {
     font-weight: 400;
     line-height: 17px;
     max-height: 34px;
-    -webkit-line-clamp: 2;
   }
 
   .store-index-today-deal-item {
@@ -293,15 +295,6 @@ const styles = {
     margin-top: 40px;
   }
 
-  .container {
-    margin-right: auto;
-    margin-left: auto;
-    width: 1136px;
-    max-width: 100%;
-    box-sizing: border-box;
-    min-height: 1px;
-  }
-
   .store-index-section>h1 {
     color: #000;
     font-weight: 700;
@@ -341,7 +334,11 @@ const styles = {
     text-align: center;
     overflow: hidden;
     position: relative;
-    width: 230px;
+    width: 250px;
+  }
+
+  .keyword:hover {
+    text-decoration: underline;
   }
 
   .filter-bar__control-list {
@@ -365,11 +362,17 @@ const styles = {
     font-size: 10px;
   }
 
-  .filter {
+  .filteredList {
     width: 70px;
     font-size: 10px;
+    float: right;
+    margin-top: -5px;
   }
 
+  .row2 {
+    display: relative;
+    flex-wrap:wrap;
+  }
   `]
 })
 export class StoreComponent implements OnInit {
@@ -398,6 +401,13 @@ export class StoreComponent implements OnInit {
     { id: 2, productdetail: '1+1+1+1 시그니쳐퍼퓸디퓨저 200ml', businessname: '데일리콤마', price: '16,900', discount: '52', stars: '4.2', reviews: '84' },
     { id: 3, productdetail: '1+1+1+1 시그니쳐퍼퓸디퓨저 200ml', businessname: '데일리콤마', price: '16,900', discount: '52', stars: '4.2', reviews: '84' },
     { id: 4, productdetail: '1+1+1+1 시그니쳐퍼퓸디퓨저 200ml', businessname: '데일리콤마', price: '16,900', discount: '52', stars: '4.2', reviews: '84' },
+  ]
+
+  keywords = [
+    { words: '#장마철 #건조기 #제습기'},
+    { words: '#한샘브랜드위크 #7%쿠폰'},
+    { words: '#취향에 맞는 화장대'},
+    { words: '#데스크테리어 #필기도구'},
   ]
 
   constructor(private storeService: StoreService, private theme: LyTheme2) { }
