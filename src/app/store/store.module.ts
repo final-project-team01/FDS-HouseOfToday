@@ -17,6 +17,11 @@ import { ProductOptionComponent } from './components/store-detail-components/pro
 import { ProductDetailComponent } from './components/store-detail-components/product-detail.component';
 
 
+import { LyCarouselModule } from '@alyle/ui/carousel';
+import { LyFieldModule } from '@alyle/ui/field';
+import { LySelectModule } from '@alyle/ui/select';
+import { LyTypographyModule } from '@alyle/ui/typography';
+
 @NgModule({
   declarations: [
     StoreComponent
@@ -34,6 +39,13 @@ import { ProductDetailComponent } from './components/store-detail-components/pro
     , SharedModule
     , StoreRoutingModule
     , ReactiveFormsModule
+    , LyCarouselModule
+    , LyFieldModule
+    , LySelectModule
+    , LyTypographyModule
+  ],
+  exports: [
+    StoreComponent
   ]
 })
 export class StoreModule { }
