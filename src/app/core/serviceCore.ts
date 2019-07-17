@@ -1,4 +1,5 @@
 import { StorageService } from './services/storage.service';
+import { StoreService } from './services/store.service';
 
 export class ServiceCore {
   private static _token: string = null;
