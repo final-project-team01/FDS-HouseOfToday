@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StateService } from 'src/app/core/services/state.service';
+import { Router } from '@angular/router';
+import { StorageService } from 'src/app/core/services/storage.service';
 
 @Component({
   selector: 'app-navigation',
@@ -15,9 +17,19 @@ import { StateService } from 'src/app/core/services/state.service';
           <a routerLink="/store" routerLinkActive="active">스토어</a>
         </div>        
         <div class="user-logged" *ngIf="isLogin; else elseBlock">
-          <a routerLink="/signup" routerLinkActive="active"><app-basic-uses-avatar ></app-basic-uses-avatar></a>
+          <div class="action-logged"></div>        
+          <app-basic-uses-avatar ></app-basic-uses-avatar>
+          <div class="navigation-primary__user__list">
+            <ul class="navigation-user-menu">
+              <li><a routerLink="/">마이홈</a></li>
+              <li><a routerLink="/">나의 쇼핑</a></li>
+              <li><a routerLink="/"(click)="logout($event)">로그아웃</a></li>              
+            </ul>
+
+            </div>
         </div>
         <ng-template class="user-unlogged" #elseBlock>
+          <div class="action-unlogged"></div>        
           <a routerLink="/signin" routerLinkActive="active" class="auth-menu signin">로그인</a>
           <a routerLink="/signup" routerLinkActive="active" class="auth-menu">회원가입</a>
         </ng-template>
@@ -79,6 +91,14 @@ import { StateService } from 'src/app/core/services/state.service';
     .user-logged{
       display:inline-block;
     }
+    .action-logged{
+      display:inline-block;
+      width:155px;
+    }
+    .action-unlogged{
+      display:inline-block;
+      width:116px;
+    }
     .user-unlogged{
       font-size: 0;
       margin-left: 1.5px;
@@ -107,12 +127,35 @@ import { StateService } from 'src/app/core/services/state.service';
       text-decoration-style: solid;
       touch-action: manipulation;
     }
+    .navigation-primary__user__list{
+      position: absolute;
+      z-index: 1010;
+      top: 100%;
+      right: 80px;
+      width: 140px;
+      padding: 12.5px 10px;
+      border-radius: 4px;
+      background-color: white;
+      box-shadow: 0 1px 4px 0 rgba(0,0,0,0.3);
+      opacity: 1;
+      transform: none;
+      transition: opacity 0.1s, transform 0.1s;
+    }
+    .navigation-primary__user__list a{
+      display: block;
+      padding: 7.5px 10px;
+      font-size: 15px;
+      border-radius: 2px;
+      color: #424242;
+    }
   `]
 })
 export class NavigationComponent implements OnInit {
 
   isLogin: boolean;
   constructor(private stateService: StateService
+    , private router: Router
+    , private storageService: StorageService
   ) {
     this.isLogin = this.stateService.isLogin();
   }
@@ -120,5 +163,11 @@ export class NavigationComponent implements OnInit {
   ngOnInit() {
     console.log("nav", this.isLogin);
   }
-
+  logout(e: Event) {
+    e.preventDefault();
+    this.storageService.removeLocal("user");
+    this.storageService.removeSession("user");
+    this.stateService.setToken("");
+    this.isLogin = this.stateService.isLogin();
+  }
 }
