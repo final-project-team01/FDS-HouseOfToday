@@ -3,9 +3,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { KeyAttribute } from '@alyle/ui';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { ServiceCore } from 'src/app/core/serviceCore';
 import { Router } from '@angular/router';
 import { StorageService } from 'src/app/core/services/storage.service';
+import { StateService } from 'src/app/core/services/state.service';
 
 
 @Component({
@@ -207,7 +207,8 @@ export class SigninComponent implements OnInit {
   constructor(private fb: FormBuilder
     , private authService: AuthService
     , private router: Router
-    , private storageService: StorageService) { }
+    , private storageService: StorageService
+    , private stateService: StateService) { }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -229,15 +230,15 @@ export class SigninComponent implements OnInit {
 
       this.authService.getToken(email, password).subscribe(req => {
         if (req["token"]) this.loginSuccess(req["token"]);
-
+        else console.log("onSubmit fail");
       });
     }
   }
   loginSuccess(token: string) {
-    ServiceCore.setToken(token);
+    this.stateService.setToken(token);
     this.storageService.setLocal("user", token);
     this.storageService.setSession("user", token);
-    console.log(ServiceCore.Token);
+    console.log("loginSuccess", this.stateService.Token);
     this.router.navigate(['/']);
   }
   loginFail() {

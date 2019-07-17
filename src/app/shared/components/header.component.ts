@@ -26,9 +26,9 @@ export class HeaderComponent implements OnInit {
     , private storageService: StorageService
     , private stateService: StateService
   ) {
-    if (this.stateService.Token) {
+    if (!this.stateService.Token) {
       const user = this.storageService.getLocal("user");
-      console.log(user);
+      console.log("header", user);
       this.stateService.setToken(user);
     }
   }

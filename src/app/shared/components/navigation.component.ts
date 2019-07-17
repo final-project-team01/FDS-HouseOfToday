@@ -76,6 +76,9 @@ import { StateService } from 'src/app/core/services/state.service';
     .navigation-primary > a.active, .navigation-primary > .navigation-menu  > a.active{
       color: #35C5F0;
     }
+    .user-logged{
+      display:inline-block;
+    }
     .user-unlogged{
       font-size: 0;
       margin-left: 1.5px;
@@ -108,12 +111,14 @@ import { StateService } from 'src/app/core/services/state.service';
 })
 export class NavigationComponent implements OnInit {
 
-  isLogin = this.stateService.isLogin();
+  isLogin: boolean;
   constructor(private stateService: StateService
-  ) { }
+  ) {
+    this.isLogin = this.stateService.isLogin();
+  }
 
   ngOnInit() {
-    console.log(this.isLogin);
+    console.log("nav", this.isLogin);
   }
 
 }

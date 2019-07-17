@@ -27,6 +27,7 @@ export class StateService {
   }
 
   public isLogin() {
+    console.log("isLogin", this._token);
     return this._token ? true : false;
   }
 
