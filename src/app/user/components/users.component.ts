@@ -21,12 +21,22 @@ import { UserService } from 'src/app/core/services/user.service';
               <div class="short-cut">
                 <div class="short-cut-item">
                   <a href="#"
-                    ><div class="short-cut-icon"></div>
+                    ><div class="short-cut-icon scrap"></div>
                     스크랩북</a
                   >
                 </div>
-                <div class="short-cut-item"><a href="#">좋아요</a></div>
-                <div class="short-cut-item"><a href="#">설명</a></div>
+                <div class="short-cut-item">
+                  <a href="#"
+                    ><div class="short-cut-icon like"></div>
+                    좋아요</a
+                  >
+                </div>
+                <div class="short-cut-item">
+                  <a href="#"
+                    ><div class="short-cut-icon description"></div>
+                    설명</a
+                  >
+                </div>
               </div>
               <div class="addFriend_btn">
                 <button><a href="#">친구초대 +5000P</a></button>
@@ -81,9 +91,11 @@ import { UserService } from 'src/app/core/services/user.service';
       }
       .profile_data {
         position: relative;
+        padding-top: 10px;
       }
       .profile_share {
         position: absolute;
+        margin: 0 10px;
         right: 0;
         display: block;
         background-image: url(assets/image/common-action@2x.png);
@@ -126,19 +138,36 @@ import { UserService } from 'src/app/core/services/user.service';
       }
 
       .short-cut-item {
-        background-color: yellow;
         width: 33.3%;
         padding-right: 16px;
       }
       .short-cut-icon {
+        background-size: auto 400px;
+        position: relative;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 6px;
+      }
+      .scrap {
         background-image: url(assets/image/common-action@2x.png);
-        background-color: red;
         background-position-x: -757px;
         background-position-y: -712px;
         height: 24px;
         width: 24px;
-        background-size: auto 400px;
-        position: relative;
+      }
+      .like {
+        background-image: url(assets/image/common-action@2x.png);
+        background-position-x: 178px;
+        background-position-y: 88px;
+        height: 24px;
+        width: 27px;
+      }
+      .description {
+        background-image: url(assets/image/icons8-settings-50.png);
+        background-repeat: no-repeat;
+        background-size: 27px;
+        height: 27px;
+        width: 27px;
       }
       .addFriend_btn > button {
         border-radius: 16px;
@@ -152,7 +181,6 @@ import { UserService } from 'src/app/core/services/user.service';
         line-height: 16px;
         color: #757575;
       }
-
       .profileContent {
         display: inline-block;
         margin-left: 8.4%;
@@ -173,29 +201,23 @@ import { UserService } from 'src/app/core/services/user.service';
       .post_title > strong {
         color: #35c5f0;
       }
-      .post_photo {
-      }
-      .upload_photo {
-        display: flex;
-        justify-content: center;
-        padding: 80px 0;
-        border-style: dashed;
-        border: 1px dashed #dbdbdb;
-      }
-      .post_project {
-      }
+      .upload_photo,
       .upload_project {
         display: flex;
         justify-content: center;
         padding: 80px 0;
         border-style: dashed;
         border: 1px dashed #dbdbdb;
+        box-sizing: border-box;
+        color: #757575;
+        font-weight: 700;
+        font-size: 13px;
       }
     `
   ]
 })
 export class UsersComponent implements OnInit {
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 }
