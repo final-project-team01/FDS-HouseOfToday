@@ -1,41 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-product-option',
   template: `
     <div class="product-option-container">
-    <form [formGroup]="optionForm">
-      <div class="option">
-        <select class="option-list" (change)="firstSelect()">
-          <option value="0" disabled="" selected="">향선택1</option>
-          <option *ngFor="let option of product_options1" FormGroupName="firstOption"
-          value="{{ option.option_name }}">{{ option.option_name }} ({{ option.option_price }}원)</option>
-        </select>
+      <div class="selectbox" (clickOutside)="hide()">
+      <input type="text" placeholder="향선택1" readonly (focus)="show()" #selectBox>
         <span class="product-option-icon icon"></span>
-      </div>
-      <div class="option" *ngIf="product_options2">
-        <select class="option-list" *ngIf="!showSecondOption; else secondOption"
-          FormGroupName="secondOption">
-          <option value="0" disabled="" selected="">향선택2</option>
-        </select>
-        <ng-template #secondOption>
-          <select class="option-list" (change)="secondSelect()">
-            <option value="0" disabled="" selected="">향선택2</option>
-            <option #secondOption *ngFor="let option of product_options2" FormGroupName="secondOption"
-            value="{{ option.option_name }}">{{ option.option_name }} ({{ option.option_price }}원)</option>
-          </select>
-        </ng-template>
-        <span class="product-option-icon icon"></span>
-      </div>
-      <hr>
-      <div class="option" *ngIf="extra_options">
-        <select class="option-list">
-          <option value="0" disabled="" selected="">추가상품을 선택해주세요</option>
-          <option *ngFor="let option of extra_options" 
-          value="{{ option.option_name }}">{{ option.option_name }} ({{ option.option_price }}원)</option>
-        </select>
-        <span class="product-option-icon icon"></span>
+        <ul class="option-item-list" *ngIf="visible">
+          <li *ngFor="let option of product_options1; let i = index" class="option-item">
+          {{ option.option_name }} ({{ option.option_price }}원)
+          </li>
+        </ul>
       </div>
       <div class="selected-items">
         <p class="selected-item-name">로즈부케 X2</p>
@@ -51,7 +27,6 @@ import { FormGroup, FormControl } from '@angular/forms';
         <span>주문금액</span>
         <mark class="order-price">{{ actualPrice }}<span>원</span></mark>
       </div>
-      </form>
       <div class="btn-container">
       <button type="submit" class="basket">장바구니담기</button>
       <button class="purchase">구매하기</button>
@@ -59,26 +34,47 @@ import { FormGroup, FormControl } from '@angular/forms';
     </div>
   `,
   styles: [`
+  *{
+    box-sizing: border-box;
+  }
     .product-option-container{
       display: inline-block;
       width: 100%;
     }
-    .option{
-      position: relative;
-      margin-bottom: 10px;
-    }
-    .option-list{
+    .selectbox{
       width: 100%;
-      font-size: 13px;
-      padding-left: 15px;
-      padding-right: 15px;
       border-radius: 4px;
-      height: 40px;
-      line-height: 40px;
       border: solid 1px #dbdbdb;
       background-color: white;
-      color: #424242;
+      position: relative;
       font-size: 12px;
+      margin-bottom: 10px;
+      line-height: 40px;
+    }
+    .selectbox input{
+      width: 100%;
+      height: 40px;
+      color: #424242;
+      border-radius: 4px;
+      padding: 0 15px;
+      border: none;
+      cursor: pointer;
+    }
+    .option-item-list{
+      position: absolute;
+      top: 39px;
+      left: 0;
+      background-color: white;
+      z-index: 10;
+      width: 100%;
+      border: solid 1px #dbdbdb;
+    }
+    .option-item{
+      padding: 0 15px;
+    }
+    .option-item:hover{
+      background-color: rgb(30, 144, 255);
+      color: white;
     }
     .product-option-icon{
       width: 16px;
@@ -92,11 +88,6 @@ import { FormGroup, FormControl } from '@angular/forms';
     .icon{
       display: inline-block;
       background-image: url('../../../../assets/image/icon-pointer.png');
-    }
-    hr{
-      border: none;
-      border-bottom: solid 1px #ededed;
-      margin: 15px 0;
     }
     .selected-items{
       width: 100%;
@@ -137,7 +128,7 @@ import { FormGroup, FormControl } from '@angular/forms';
     }
     .decrease{
       position: absolute;
-      top: 0;
+      top: 2px;
       left: 0;
       background-position: top -264px left -97px;
     }
@@ -207,7 +198,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class ProductOptionComponent implements OnInit {
   
-  optionForm: FormGroup;
+  visible = false;
 
   product_options1 = [];
   product_options2 = [];
@@ -218,10 +209,6 @@ export class ProductOptionComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.optionForm = new FormGroup({
-      firstOption: new FormControl(''),
-      secondOption: new FormControl('')
-    });
     this.product_options1 = [
       { id: 1, option_name: '블랙체리 X2', option_price: 16900 },
       { id: 2, option_name: '로즈부케 X2', option_price: 16900 },
@@ -238,11 +225,11 @@ export class ProductOptionComponent implements OnInit {
     ]
   }
 
-  firstSelect(){
-    this.showSecondOption = true; 
+  show(){
+    this.visible = true;
   }
-  
-  secondSelect(){
-    console.dir();
+  hide(){
+    this.visible = false;
   }
+
 }
