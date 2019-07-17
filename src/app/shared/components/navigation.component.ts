@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ServiceCore } from 'src/app/core/serviceCore';
 
 @Component({
   selector: 'app-navigation',
@@ -12,16 +13,16 @@ import { Component, OnInit } from '@angular/core';
         <div class="navigation-menu">
           <a routerLink="/community" routerLinkActive="active">커뮤니티</a>
           <a routerLink="/store" routerLinkActive="active">스토어</a>
+        </div>        
+        <div class="user-logged" *ngIf="isLogin; else elseBlock">
+          <a routerLink="/signup" routerLinkActive="active"><app-basic-uses-avatar ></app-basic-uses-avatar></a>
         </div>
-        <div class="user-unlogged">
+        <ng-template class="user-unlogged" #elseBlock>
           <a routerLink="/signin" routerLinkActive="active" class="auth-menu signin">로그인</a>
           <a routerLink="/signup" routerLinkActive="active" class="auth-menu">회원가입</a>
-        </div>
-        <!--<a routerLink="/signup" routerLinkActive="active"><app-basic-uses-avatar ></app-basic-uses-avatar></a>-->
+        </ng-template>
         
       </nav>
-      
-    </div>
   `,
   styles: [`
     .main-nav{
@@ -107,9 +108,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavigationComponent implements OnInit {
 
+  isLogin = ServiceCore.isLogin();
   constructor() { }
 
   ngOnInit() {
+    console.log(this.isLogin);
   }
 
 }
