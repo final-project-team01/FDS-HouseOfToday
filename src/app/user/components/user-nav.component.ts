@@ -20,12 +20,17 @@ import { Component, OnInit } from '@angular/core';
       .page-navigation {
         height: 60px;
         text-align: center;
+        border-bottom: 1px solid #ededed;
       }
       .page_nav_item {
         display: inline-block;
         line-height: 60px;
         margin: 0 15px;
         font-size: 18px;
+        font-weight: 700;
+      }
+      .page_nav_item.active {
+        color: #35c5f0;
       }
     `
   ]
