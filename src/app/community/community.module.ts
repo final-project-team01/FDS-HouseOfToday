@@ -5,17 +5,15 @@ import { CommunityRoutingModule } from './community-routing.module';
 import { SharedModule } from '../shared/shared.module';
 
 import { CommunityComponent } from './components/community.component';
-import { PhotoComponent } from './components/photo.component';
-import { KnowhowComponent } from './components/knowhow.component';
-import { CoreModule } from '../core/core.module';
-
+import { PhotoComponent } from './components/photo.component'; 
+  import { CoreModule } from '../core/core.module';
+  
 @NgModule({
-  declarations: [
-    CommunityComponent
-    , PhotoComponent
-    , KnowhowComponent
+declarations: [
+  CommunityComponent
+  , PhotoComponent
   ],
-  imports: [
+imports: [
     CommonModule
     , SharedModule
     , CoreModule
