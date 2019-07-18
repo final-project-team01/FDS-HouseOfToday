@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
         <span class="product-option-icon icon"></span>
         <ul class="option-item-list" *ngIf="visible">
           <li *ngFor="let option of product_options1; let i = index" class="option-item"
-          (click)="test(option, input)">
+          (click)="addOption(option, input)">
           {{ option.name }}
           </li>
         </ul>
@@ -39,7 +39,7 @@ import { Component, OnInit } from '@angular/core';
     box-sizing: border-box;
   }
     .product-option-container{
-      display: inline-block;
+      float:right;
       width: 100%;
     }
     .selectbox{
@@ -203,10 +203,7 @@ export class ProductOptionComponent implements OnInit {
   visible = false;
 
   product_options1 = [];
-  product_options2 = [];
-  extra_options = [];
   chosen_options = [];
-  showSecondOption = false;
 
   constructor() { }
 
@@ -216,15 +213,6 @@ export class ProductOptionComponent implements OnInit {
       { id: 2, name: '로즈부케 X2(16,900원)', price: 16900, type: '향선택1' },
       { id: 3, name: '데일리런드리 X2(16,900원)', price: 16900, type: '향선택1' }
     ];
-    this.product_options2 = [
-      { id: 1, name: '블랙체리 X2(16,900원)', price: 16900, type: '향선택2' },
-      { id: 2, name: '로즈부케 X2(16,900원)', price: 16900, type: '향선택2' },
-      { id: 3, name: '데일리런드리 X2(16,900원)', price: 16900, type: '향선택2' }
-    ];
-    this.extra_options = [
-      { id: 1, name: '섬유리드 9P', price: 1500 },
-      { id: 2, name: '데일리콤마쇼핑백', price: 1000 }
-    ]
   }
 
   show() {
@@ -235,7 +223,7 @@ export class ProductOptionComponent implements OnInit {
     this.visible = false;
   }
 
-  test(option: object, input: HTMLInputElement) {
+  addOption(option: object, input: HTMLInputElement) {
     input.value = `${option['name']}`;
     const chosen = { id: this.generateId(), name: this.getName(option['name']), price: option['price'] };
     this.chosen_options = [ ...this.chosen_options, chosen ];
@@ -257,8 +245,7 @@ export class ProductOptionComponent implements OnInit {
     const prices = this.chosen_options.map(option => option.price);
     console.log(prices);
     const sum = prices.reduce(
-      (previous, current) => { return previous + current }
-    )
+      (previous, current) => { return previous + current });
     return this.addComma(sum);
   }
 

@@ -8,9 +8,14 @@ import { UserService } from 'src/app/core/services/user.service';
   template: `
     <app-header></app-header>
     <div class="wrapper">
-      <app-product-pic></app-product-pic>
-      <app-product-info></app-product-info>
-      <div class="wrapper2">
+      <div class="pic-container">
+        <app-product-pic></app-product-pic>
+      </div>
+      <div class="info-container">
+        <app-product-info></app-product-info>
+        <app-product-option></app-product-option>
+      </div>
+      <div class="nav-container">
         <app-product-nav></app-product-nav>
         <app-product-detail></app-product-detail>
       </div>
@@ -25,7 +30,14 @@ import { UserService } from 'src/app/core/services/user.service';
     height: auto;
     min-height: 1px;
   }
-  .wrapper2{
+  .pic-container{
+    display: inline-block;
+  }
+  .info-container{
+    width: 450px;
+    float: right;
+  }
+  .nav-container{
     clear: both;
     padding-top: 80px;
   }
