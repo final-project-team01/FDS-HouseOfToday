@@ -100,7 +100,7 @@ const styles = {
                   <ly-option value="2">Item 2</ly-option>
                   <ly-option value="3">Item 3</ly-option>
                 </ly-select>
-            </ly-field>
+              </ly-field>
             </div>
           </div>
         </div>
