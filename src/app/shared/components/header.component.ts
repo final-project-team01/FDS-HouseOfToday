@@ -8,34 +8,29 @@ import { StateService } from 'src/app/core/services/state.service';
   template: `
     <header>
       <app-navigation></app-navigation>
-      <app-community-navigation></app-community-navigation>
-      <app-store-navigation></app-store-navigation>
-    </header>
+      <app-community-navigation *ngIf="!stateService.getIsStore()"></app-community-navigation>
+      <app-store-navigation *ngIf="stateService.getIsStore()"></app-store-navigation>
+      
+    </header>    
   `,
   styles: [
-    `
-      header{
-       
-      }
-    `
   ]
 })
 export class HeaderComponent implements OnInit {
 
+  private location: number;
 
+  @Input() isStore: boolean;
   constructor(private userService: UserService
     , private storageService: StorageService
     , private stateService: StateService
   ) {
     if (!this.stateService.Token) {
       const user = this.storageService.getLocal("user");
-      console.log("header", user);
       this.stateService.setToken(user);
     }
   }
 
-
   ngOnInit() {
-
   }
 }

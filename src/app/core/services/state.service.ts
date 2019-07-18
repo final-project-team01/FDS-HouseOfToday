@@ -7,6 +7,7 @@ import { CoreModule } from '../core.module';
 export class StateService {
   private _token: string = null;
   private _id: string = "";
+  private isStore = false;
 
   public readonly url: string = "http://52.78.112.247/";
   constructor() { }
@@ -34,5 +35,16 @@ export class StateService {
   public getFullPath(path: string) {
     return this.url[this.url.length - 1] === '/' ? this.url + path : this.url + "/" + path;
   }
+
+  public setIsStore(isStore: boolean) {
+    this.isStore = isStore;
+  }
+
+  public getIsStore() {
+    return this.isStore;
+  }
+
+
+
 
 }

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-community-navigation',
   template: `
+  <div class="navigation-secondary">
     <nav>
       <a routerLink="/community" routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }">홈</a>
@@ -13,15 +14,9 @@ import { Component, OnInit } from '@angular/core';
       <a routerLink="/community/#" routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }">질문과 답변</a>
     </nav>
+  </div>
   `,
-  styles: [`
-    nav > a{
-      margin-right:10px;
-    }
-    a.active{
-      font-weight:bold;
-    }
-  `]
+  styleUrls: [`./secondaryNav.scss`]
 })
 export class CommunityNavigationComponent implements OnInit {
 

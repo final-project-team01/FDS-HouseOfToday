@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StoreService } from 'src/app/core/services/store.service';
+import { StateService } from 'src/app/core/services/state.service';
 
 @Component({
   selector: 'app-category',
@@ -77,21 +78,24 @@ import { StoreService } from 'src/app/core/services/store.service';
 })
 export class CategoryComponent implements OnInit {
   categoryLists = [
-    { categoryName: '가구'},
-    { categoryName: '여름 인테리어'},
-    { categoryName: '패브릭'},
-    { categoryName: '홈데코/조명'},
-    { categoryName: '가전'},
-    { categoryName: '수납/생활'},
-    { categoryName: '주방'},
-    { categoryName: 'DIY셀프시공'},
-    { categoryName: '시공/서비스'},
-    { categoryName: '반려동물'},
+    { categoryName: '가구' },
+    { categoryName: '여름 인테리어' },
+    { categoryName: '패브릭' },
+    { categoryName: '홈데코/조명' },
+    { categoryName: '가전' },
+    { categoryName: '수납/생활' },
+    { categoryName: '주방' },
+    { categoryName: 'DIY셀프시공' },
+    { categoryName: '시공/서비스' },
+    { categoryName: '반려동물' },
   ]
 
-  constructor(private storeService: StoreService) { }
+  constructor(private storeService: StoreService
+    , private stateService: StateService
+  ) { }
 
   ngOnInit() {
+    this.stateService.setIsStore(true);
   }
 
 }
