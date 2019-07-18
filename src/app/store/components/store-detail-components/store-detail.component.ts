@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { StoreService } from 'src/app/core/services/store.service';
+import { StateService } from 'src/app/core/services/state.service';
 import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
@@ -34,9 +35,13 @@ import { UserService } from 'src/app/core/services/user.service';
 export class StoreDetailComponent implements OnInit {
   id: number;
 
-  constructor(private route: ActivatedRoute, private storeService: StoreService, private userService: UserService) { }
+  constructor(private route: ActivatedRoute
+    , private storeService: StoreService
+    , private userService: UserService
+    , private stateService: StateService) { }
 
   ngOnInit() {
+    this.stateService.setIsStore(true);
     console.log("detail");
     this.route.paramMap
       .subscribe(params => this.id = +params.get('id'));
