@@ -5,27 +5,28 @@ import { Component, OnInit } from '@angular/core';
   template: `
     <div class="product-option-container">
       <div class="selectbox" (clickOutside)="hide()">
-      <input type="text" placeholder="향선택1" readonly (focus)="show()" #selectBox>
+      <input type="text" placeholder="향선택1" readonly (focus)="show()" #input>
         <span class="product-option-icon icon"></span>
         <ul class="option-item-list" *ngIf="visible">
-          <li *ngFor="let option of product_options1; let i = index" class="option-item">
-          {{ option.option_name }} ({{ option.option_price }}원)
+          <li *ngFor="let option of product_options1; let i = index" class="option-item"
+          (click)="test(option, input)">
+          {{ option.name }}
           </li>
         </ul>
       </div>
-      <div class="selected-items">
-        <p class="selected-item-name">로즈부케 X2</p>
+      <div class="selected-items" *ngFor="let option of chosen_options">
+        <p class="selected-item-name">{{ option.name }}</p>
         <div class="ea-container">
           <input type="number" value="1" class="selected-item-ea">
           <button class="selected-item-btn increase"></button>
           <button class="selected-item-btn decrease"></button>
         </div>
-        <span class="selected-item-price">16,900원</span>
+        <span class="selected-item-price">{{ addComma(option.price) + '원' }}</span>
         <button class="selected-item-cancel icon"></button>
       </div>
       <div class="price">
         <span>주문금액</span>
-        <mark class="order-price">{{ actualPrice }}<span>원</span></mark>
+        <mark class="order-price">{{ getTotalPrice() }}<span>원</span></mark>
       </div>
       <div class="btn-container">
       <button type="submit" class="basket">장바구니담기</button>
@@ -71,6 +72,7 @@ import { Component, OnInit } from '@angular/core';
     }
     .option-item{
       padding: 0 15px;
+      cursor: pointer;
     }
     .option-item:hover{
       background-color: rgb(30, 144, 255);
@@ -203,33 +205,65 @@ export class ProductOptionComponent implements OnInit {
   product_options1 = [];
   product_options2 = [];
   extra_options = [];
-  actualPrice = 0;
+  chosen_options = [];
   showSecondOption = false;
 
   constructor() { }
 
   ngOnInit() {
     this.product_options1 = [
-      { id: 1, option_name: '블랙체리 X2', option_price: 16900 },
-      { id: 2, option_name: '로즈부케 X2', option_price: 16900 },
-      { id: 3, option_name: '데일리런드리 X2', option_price: 16900 }
+      { id: 1, name: '블랙체리 X2(16,900원)', price: 16900, type: '향선택1' },
+      { id: 2, name: '로즈부케 X2(16,900원)', price: 16900, type: '향선택1' },
+      { id: 3, name: '데일리런드리 X2(16,900원)', price: 16900, type: '향선택1' }
     ];
     this.product_options2 = [
-      { id: 1, option_name: '블랙체리 X2', option_price: 16900 },
-      { id: 2, option_name: '로즈부케 X2', option_price: 16900 },
-      { id: 3, option_name: '데일리런드리 X2', option_price: 16900 }
+      { id: 1, name: '블랙체리 X2(16,900원)', price: 16900, type: '향선택2' },
+      { id: 2, name: '로즈부케 X2(16,900원)', price: 16900, type: '향선택2' },
+      { id: 3, name: '데일리런드리 X2(16,900원)', price: 16900, type: '향선택2' }
     ];
     this.extra_options = [
-      { id: 1, option_name: '섬유리드 9P', option_price: 1500 },
-      { id: 2, option_name: '데일리콤마쇼핑백', option_price: 1000 }
+      { id: 1, name: '섬유리드 9P', price: 1500 },
+      { id: 2, name: '데일리콤마쇼핑백', price: 1000 }
     ]
   }
 
-  show(){
+  show() {
     this.visible = true;
   }
-  hide(){
+
+  hide() {
     this.visible = false;
   }
 
+  test(option: object, input: HTMLInputElement) {
+    input.value = `${option['name']}`;
+    const chosen = { id: this.generateId(), name: this.getName(option['name']), price: option['price'] };
+    this.chosen_options = [ ...this.chosen_options, chosen ];
+    this.hide();
+  }
+
+  getName(name: string){
+    const i = name.indexOf('(');
+    return name.slice(0, i);
+  }
+
+  generateId(){
+    return this.chosen_options.length 
+      ? Math.max(...this.chosen_options.map(option => option.id)) : 1;
+  }
+
+  getTotalPrice() {
+    if (this.chosen_options.length === 0) return 0;
+    const prices = this.chosen_options.map(option => option.price);
+    console.log(prices);
+    const sum = prices.reduce(
+      (previous, current) => { return previous + current }
+    )
+    return this.addComma(sum);
+  }
+
+  addComma(num: number){
+    const regexp = /\B(?=(\d{3})+(?!\d))/g;
+    return num.toString().replace(regexp, ',');
+  }
 }
