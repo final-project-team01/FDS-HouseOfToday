@@ -18,7 +18,7 @@ export class AuthService {
 
   getToken(username: string, password: string): Observable<token | non_field_errors> {
     // this.httpClient.post(BaseService.url)
-    const path = "api/get_token/";
+    const path = "get_token/";
     const fullPath = this.stateService.getFullPath(path);
 
     return this.httpClient.post<token | non_field_errors>(fullPath, { username, password });
