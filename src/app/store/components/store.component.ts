@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LyTheme2 } from '@alyle/ui';
 import { StoreService } from 'src/app/core/services/store.service';
-import { StateService } from 'src/app/core/services/state.service';
 
 const styles = {
   carousel: {
@@ -101,12 +100,12 @@ const styles = {
                   <ly-option value="2">Item 2</ly-option>
                   <ly-option value="3">Item 3</ly-option>
                 </ly-select>
-            </ly-field>
+              </ly-field>
             </div>
           </div>
         </div>
         <div class="store-index-today-deal-list__content row2">
-          <app-product-list [productItems]="productItems"></app-product-list>
+          <app-product-list [productItems]="productItems" [menuWidth]="menuWidth"></app-product-list>
         </div>
       </section>
     </div>
@@ -397,10 +396,14 @@ export class StoreComponent implements OnInit {
     }
   ];
 
+  menuWidth: string = '25%'
+
   productItems = [
     { id: 1, productdetail: '1+1+1+1 시그니쳐퍼퓸디퓨저 200ml', businessname: '데일리콤마', price: '16,900', discount: '52', stars: '4.2', reviews: '84' },
     { id: 2, productdetail: '1+1+1+1 시그니쳐퍼퓸디퓨저 200ml', businessname: '데일리콤마', price: '16,900', discount: '52', stars: '4.2', reviews: '84' },
     { id: 3, productdetail: '1+1+1+1 시그니쳐퍼퓸디퓨저 200ml', businessname: '데일리콤마', price: '16,900', discount: '52', stars: '4.2', reviews: '84' },
+    { id: 4, productdetail: '1+1+1+1 시그니쳐퍼퓸디퓨저 200ml', businessname: '데일리콤마', price: '16,900', discount: '52', stars: '4.2', reviews: '84' },
+    { id: 4, productdetail: '1+1+1+1 시그니쳐퍼퓸디퓨저 200ml', businessname: '데일리콤마', price: '16,900', discount: '52', stars: '4.2', reviews: '84' },
     { id: 4, productdetail: '1+1+1+1 시그니쳐퍼퓸디퓨저 200ml', businessname: '데일리콤마', price: '16,900', discount: '52', stars: '4.2', reviews: '84' },
   ]
 
@@ -411,11 +414,9 @@ export class StoreComponent implements OnInit {
     { words: '#데스크테리어 #필기도구' },
   ]
 
-  constructor(private storeService: StoreService, private theme: LyTheme2
-    , private stateService: StateService) { }
+  constructor(private storeService: StoreService, private theme: LyTheme2) { }
 
   ngOnInit() {
-    this.stateService.setIsStore(true);
   }
 
 }
