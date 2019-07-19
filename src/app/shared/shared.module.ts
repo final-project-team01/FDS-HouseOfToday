@@ -12,6 +12,7 @@ import { FooterComponent } from './components/footer.component';
 import { CoreModule } from '../core/core.module';
 import { BasicUsesAvatarModule } from './UI/basic-uses-avatar/basic-uses-avatar.module';
 import { BasicUsesAvatarComponent } from './UI/basic-uses-avatar/basic-uses-avatar-component';
+import { ProductListComponent } from './components/product-list.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { BasicUsesAvatarComponent } from './UI/basic-uses-avatar/basic-uses-avat
     , CommunityNavigationComponent
     , StoreNavigationComponent
     , HeaderComponent
-    , FooterComponent
+    , FooterComponent, ProductListComponent
   ],
   imports: [
     CommonModule
@@ -36,6 +37,7 @@ import { BasicUsesAvatarComponent } from './UI/basic-uses-avatar/basic-uses-avat
     , HeaderComponent
     , FooterComponent
     , BasicUsesAvatarComponent
+    , ProductListComponent
   ]
 })
 export class SharedModule { }

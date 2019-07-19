@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { StateService } from 'src/app/core/services/state.service';
+import { Router } from '@angular/router';
+import { StorageService } from 'src/app/core/services/storage.service';
 
 @Component({
   selector: 'app-navigation',
@@ -10,21 +13,35 @@ import { Component, OnInit } from '@angular/core';
           <span  class="logo" aria-label="오늘의집"></span>
         </a>
         <div class="navigation-menu">
-          <a routerLink="/community" routerLinkActive="active">커뮤니티</a>
-          <a routerLink="/store" routerLinkActive="active">스토어</a>
+          <a routerLink="/community" routerLinkActive="active" (hover)="changMenu(1)">커뮤니티</a>
+          <a routerLink="/store" routerLinkActive="active" (hover)="changMenu(2)">스토어</a>
+        </div>        
+        <div class="user-logged" *ngIf="isLogin; else elseBlock">
+          <div class="action-logged">        
+          <app-basic-uses-avatar ></app-basic-uses-avatar>
+          <div class="navigation-primary__user__list">
+            <ul class="navigation-user-menu">
+              <li><a routerLink="/">마이홈</a></li>
+              <li><a routerLink="/">나의 쇼핑</a></li>
+              <li><a routerLink="/"(click)="logout($event)">로그아웃</a></li>              
+            </ul>
+            </div>
+          </div>
         </div>
-        <div class="user-unlogged">
-          <a routerLink="/signin" routerLinkActive="active" class="auth-menu signin">로그인</a>
-          <a routerLink="/signup" routerLinkActive="active" class="auth-menu">회원가입</a>
-        </div>
-        <!--<a routerLink="/signup" routerLinkActive="active"><app-basic-uses-avatar ></app-basic-uses-avatar></a>-->
-        
+        <ng-template class="user-unlogged" #elseBlock>
+          <div class="action-unlogged">
+            <a routerLink="/signin" routerLinkActive="active" class="auth-menu signin">로그인</a>
+            <a routerLink="/signup" routerLinkActive="active" class="auth-menu">회원가입</a>
+          </div>
+        </ng-template>
       </nav>
-      
-    </div>
+      </div>
   `,
   styles: [`
     .main-nav{
+      /*position: fixed;*/
+      top: 0;
+      z-index: 100;
       left: 0;
       right: 0;
       transition: top .1s;
@@ -75,6 +92,17 @@ import { Component, OnInit } from '@angular/core';
     .navigation-primary > a.active, .navigation-primary > .navigation-menu  > a.active{
       color: #35C5F0;
     }
+    .user-logged{
+      display:inline-block;
+    }
+    .action-logged{
+      display:inline-block;
+      width:155px;
+    }
+    .action-unlogged{
+      display:inline-block;
+      
+    }
     .user-unlogged{
       font-size: 0;
       margin-left: 1.5px;
@@ -103,13 +131,47 @@ import { Component, OnInit } from '@angular/core';
       text-decoration-style: solid;
       touch-action: manipulation;
     }
+    .navigation-primary__user__list{
+      position: absolute;
+      z-index: 1010;
+      top: 100%;
+      right: 80px;
+      width: 140px;
+      padding: 12.5px 10px;
+      border-radius: 4px;
+      background-color: white;
+      box-shadow: 0 1px 4px 0 rgba(0,0,0,0.3);
+      opacity: 1;
+      transform: none;
+      transition: opacity 0.1s, transform 0.1s;
+    }
+    .navigation-primary__user__list a{
+      display: block;
+      padding: 7.5px 10px;
+      font-size: 15px;
+      border-radius: 2px;
+      color: #424242;
+    }
   `]
 })
 export class NavigationComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit() {
+  isLogin: boolean;
+  constructor(private stateService: StateService
+    , private router: Router
+    , private storageService: StorageService
+  ) {
+    this.isLogin = this.stateService.isLogin();
   }
 
+  ngOnInit() {
+
+  }
+  logout(e: Event) {
+    e.preventDefault();
+    this.storageService.removeLocal("user");
+    this.storageService.removeSession("user");
+    this.stateService.setToken("");
+    this.isLogin = this.stateService.isLogin();
+  }
 }

@@ -7,9 +7,10 @@ import { OrderListComponent } from './components/order-list.component';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { UserNavComponent } from './components/user-nav.component';
+import { UserModifyComponent } from './components/user-modify.component';
 
 @NgModule({
-  declarations: [UsersComponent, OrderListComponent, UserNavComponent],
+  declarations: [UsersComponent, OrderListComponent, UserNavComponent, UserModifyComponent],
   imports: [
     CommonModule
     , CoreModule
