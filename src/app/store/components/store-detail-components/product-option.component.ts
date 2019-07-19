@@ -1,31 +1,53 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
 
 @Component({
   selector: 'app-product-option',
   template: `
     <div class="product-option-container">
       <div class="selectbox" (clickOutside)="hide()">
-      <input type="text" placeholder="향선택1" readonly (focus)="show()" #selectBox>
+      <input type="text" placeholder="향선택1" readonly (focus)="show()" #input>
         <span class="product-option-icon icon"></span>
         <ul class="option-item-list" *ngIf="visible">
-          <li *ngFor="let option of product_options1; let i = index" class="option-item">
-          {{ option.option_name }} ({{ option.option_price }}원)
+          <li *ngFor="let option of product_options; let i = index" class="option-item"
+          (click)="add(option, input)">
+          {{ option.name }}
           </li>
         </ul>
       </div>
-      <div class="selected-items">
-        <p class="selected-item-name">로즈부케 X2</p>
-        <div class="ea-container">
-          <input type="number" value="1" class="selected-item-ea">
-          <button class="selected-item-btn increase"></button>
-          <button class="selected-item-btn decrease"></button>
+      <div class="selected-items-container scroll" *ngIf="scroll; else noscroll">
+        <div class="selected-items" *ngFor="let option of chosenOptions">
+          <p class="selected-item-name">{{ option.name }}</p>
+          <div class="ea-container">
+            <input type="number" [value]="option.amount" class="selected-item-ea"
+              #input (keyup.enter)="setAmount(option, input)">
+            <button class="selected-item-btn increase"
+              (click)="increaseAmount(option)"></button>
+            <button class="selected-item-btn decrease"
+              (click)="decreaseAmount(option)"></button>
+          </div>
+          <span class="selected-item-price">{{ addComma(option.price * option.amount) + '원' }}</span>
+          <button class="selected-item-cancel icon" (click)="remove(option.id)"></button>
         </div>
-        <span class="selected-item-price">16,900원</span>
-        <button class="selected-item-cancel icon"></button>
       </div>
+      <ng-template #noscroll>
+      <div class="selected-items" *ngFor="let option of chosenOptions">
+        <p class="selected-item-name">{{ option.name }}</p>
+        <div class="ea-container">
+          <input type="number" [value]="option.amount" class="selected-item-ea"
+            #input (keyup.enter)="setAmount(option, input)">
+          <button class="selected-item-btn increase"
+            (click)="increaseAmount(option)"></button>
+          <button class="selected-item-btn decrease"
+            (click)="decreaseAmount(option)"></button>
+        </div>
+        <span class="selected-item-price">{{ addComma(option.price * option.amount) + '원' }}</span>
+        <button class="selected-item-cancel icon" (click)="remove(option.id)"></button>
+      </div>
+      </ng-template>
       <div class="price">
         <span>주문금액</span>
-        <mark class="order-price">{{ actualPrice }}<span>원</span></mark>
+        <mark class="order-price">{{ getTotalPrice() }}<span>원</span></mark>
       </div>
       <div class="btn-container">
       <button type="submit" class="basket">장바구니담기</button>
@@ -38,7 +60,7 @@ import { Component, OnInit } from '@angular/core';
     box-sizing: border-box;
   }
     .product-option-container{
-      display: inline-block;
+      float:right;
       width: 100%;
     }
     .selectbox{
@@ -71,6 +93,7 @@ import { Component, OnInit } from '@angular/core';
     }
     .option-item{
       padding: 0 15px;
+      cursor: pointer;
     }
     .option-item:hover{
       background-color: rgb(30, 144, 255);
@@ -88,6 +111,11 @@ import { Component, OnInit } from '@angular/core';
     .icon{
       display: inline-block;
       background-image: url('../../../../assets/image/icon-pointer.png');
+    }
+    .selected-items-container{
+      overflow-y: scroll;
+      height: 150px;
+      border: 1px solid #F1F1F1;
     }
     .selected-items{
       width: 100%;
@@ -199,37 +227,68 @@ import { Component, OnInit } from '@angular/core';
 export class ProductOptionComponent implements OnInit {
   
   visible = false;
+  product_options = [];
 
-  product_options1 = [];
-  product_options2 = [];
-  extra_options = [];
-  actualPrice = 0;
-  showSecondOption = false;
+  @Input() totalPrice: number;
+  @Input() chosenOptions: ChosenOption[];
+  @Input() scroll: boolean;
+  @Output() addOption = new EventEmitter();
+  @Output() deleteOption = new EventEmitter();
+  @Output() increase = new EventEmitter();
+  @Output() decrease = new EventEmitter();
+  @Output() set = new EventEmitter<object>();
 
   constructor() { }
 
   ngOnInit() {
-    this.product_options1 = [
-      { id: 1, option_name: '블랙체리 X2', option_price: 16900 },
-      { id: 2, option_name: '로즈부케 X2', option_price: 16900 },
-      { id: 3, option_name: '데일리런드리 X2', option_price: 16900 }
+    this.product_options = [
+      { id: 1, name: '블랙체리 X2(16,900원)', price: 16900, type: '향선택1' },
+      { id: 2, name: '로즈부케 X2(16,900원)', price: 16900, type: '향선택1' },
+      { id: 3, name: '데일리런드리 X2(16,900원)', price: 16900, type: '향선택1' }
     ];
-    this.product_options2 = [
-      { id: 1, option_name: '블랙체리 X2', option_price: 16900 },
-      { id: 2, option_name: '로즈부케 X2', option_price: 16900 },
-      { id: 3, option_name: '데일리런드리 X2', option_price: 16900 }
-    ];
-    this.extra_options = [
-      { id: 1, option_name: '섬유리드 9P', option_price: 1500 },
-      { id: 2, option_name: '데일리콤마쇼핑백', option_price: 1000 }
-    ]
   }
 
-  show(){
+  show() {
     this.visible = true;
   }
-  hide(){
+
+  hide() {
     this.visible = false;
   }
 
+  add(option: object, input: HTMLInputElement) {
+    input.value = `${option['name']}`;
+    this.addOption.emit(option);
+    this.hide();
+  }
+
+  remove(id: number) {
+    this.deleteOption.emit(id);
+  }
+
+  addComma(num: number){
+    const regexp = /\B(?=(\d{3})+(?!\d))/g;
+    return num.toString().replace(regexp, ',');
+  }
+
+  getTotalPrice() {
+    if (this.chosenOptions.length === 0) return 0;
+    const prices = this.chosenOptions.map(option => option.price * option.amount);
+    const sum = prices.reduce(
+      (previous, current) => { return previous + current });
+    return this.addComma(sum);
+  }
+
+  increaseAmount(option){
+    this.increase.emit(option);
+  }
+
+  decreaseAmount(option){
+    this.decrease.emit(option);
+  }
+
+  setAmount(option, input){
+    this.set.emit({ option, input });
+  }
+  
 }

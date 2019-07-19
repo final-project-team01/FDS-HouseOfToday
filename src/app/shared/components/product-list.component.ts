@@ -3,7 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 @Component({
   selector: 'app-product-list',
   template: `
-    <div *ngFor="let productItem of productItems" class="col-12 col-md-4 col-lg-3">
+    <div *ngFor="let productItem of productItems" class="col-12 col-md-4 col-lg-3" [style.max-width]="menuWidth">
       <article class="store-index-today-deal-item">
         <a class="store-index-today-deal-item__overlay" href="#"></a>
         <div class="store-index-today-deal-item__image">
@@ -71,7 +71,6 @@ import { Component, OnInit, Input } from '@angular/core';
     min-height: 1px;
     box-sizing: border-box;
     flex: 0 0 25%;
-    max-width: 25%;
     padding-right: 5px;
     padding-left: 5px;
     display: inline-block;
@@ -111,7 +110,6 @@ import { Component, OnInit, Input } from '@angular/core';
     font-weight: 400;
     line-height: 17px;
     max-height: 34px;
-    -webkit-line-clamp: 2;
   }
 
   .store-index-today-deal-item {
@@ -193,15 +191,6 @@ import { Component, OnInit, Input } from '@angular/core';
     margin-top: 40px;
   }
 
-  .container {
-    margin-right: auto;
-    margin-left: auto;
-    width: 1136px;
-    max-width: 100%;
-    box-sizing: border-box;
-    min-height: 1px;
-  }
-
   .store-index-section>h1 {
     color: #000;
     font-weight: 700;
@@ -213,6 +202,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ProductListComponent implements OnInit {
   @Input() productItems;
+  @Input() menuWidth: string;
 
   constructor() { }
 

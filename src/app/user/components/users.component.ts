@@ -49,11 +49,17 @@ import { UserService } from 'src/app/core/services/user.service';
           <div class="contents">
             <section class="post post_photo">
               <h5 class="post_title">사진 <strong>0</strong></h5>
-              <a href="#" class="upload_photo">첫 번째 사진을 올려보세요</a>
+              <a href="#" class="upload_photo">
+                <span class="more_icon"></span>
+                첫 번째 사진을 올려보세요</a
+              >
             </section>
             <section class="post post_project">
               <h5 class="post_title">집들이 <strong>0</strong></h5>
-              <a href="#" class="upload_project">첫 번째 집들이를 올려보세요</a>
+              <a href="#" class="upload_project">
+                <span class="more_icon"></span>
+                첫 번째 집들이를 올려보세요</a
+              >
             </section>
           </div>
         </div>
@@ -212,6 +218,15 @@ import { UserService } from 'src/app/core/services/user.service';
         color: #757575;
         font-weight: 700;
         font-size: 13px;
+        align-items: center;
+      }
+      .more_icon {
+        background-image: url(assets/image/common-etc.png);
+        background-position-x: -160px;
+        background-position-y: 400px;
+        width: 12px;
+        height: 12px;
+        margin-right: 5px;
       }
     `
   ]
