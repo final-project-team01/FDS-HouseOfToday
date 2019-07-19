@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { StoreService } from 'src/app/core/services/store.service';
 import { StateService } from 'src/app/core/services/state.service';
 import { UserService } from 'src/app/core/services/user.service';
-import { ChosenOption } from 'src/app/core/models/option.interface';
+import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
 
 @Component({
   selector: 'app-store-detail',
