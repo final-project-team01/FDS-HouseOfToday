@@ -3,8 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-product-nav',
   template: `
-  <div class="product-nav-container" #nav (window:load)="getNavOffset(nav)"
-    (window:scroll)="stickyNav()" [class.sticky]="sticky">
+  <div class="product-nav-container" [class.sticky]="sticky">
     <div class="nav-list">
       <ul class="navigation">
         <li class="tab" 
@@ -15,20 +14,13 @@ import { Component, OnInit } from '@angular/core';
         <li class="tab last"></li>
       </ul>
     </div>
-    <div class="product-option">
-      <h2>옵션 선택</h2>
-      <app-product-option></app-product-option>
-    </div>
   </div>
   `,
   styles: [`
   *{
     box-sizing: border-box;
   }
-  .product-nav-container{
-    padding-top: 80px;
-    bottom: auto;
-  }
+
   .nav-list{
     width: 1136px;
   }
@@ -63,26 +55,10 @@ import { Component, OnInit } from '@angular/core';
     border-right: solid 1px #ededed;
     cursor: default;
   }
-  .product-option{
-    float: right;
-    margin: 50px 30px 0 0;
-    width: 31%;
-    background-color: #f7f7f7;
-  }
-  .product-option > h2{
-    margin-bottom: 20px;
-    font-size: 20px;
-    font-weight: bold;
-  }
-  .sticky{
-    position: fixed;
-    top: 0;
-  }
   `]
 })
 export class ProductNavComponent implements OnInit {
-  
-  navOffset: number;
+
   sticky = false;
 
   navMenu = [ 
@@ -97,19 +73,14 @@ export class ProductNavComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  getNavOffset(nav){
-    this.navOffset = nav.offsetTop;
-    console.log(this.navOffset);
-  }
   
   setActive(i: number){
     this.navMenu.map((nav, index) => nav.active = index === i ? true : false);
   }
 
-  stickyNav(){
-    if(this.navOffset < window.pageYOffset) this.sticky = true;
-    else this.sticky = false;
-  }
+  // stickyNav(){
+  //   if(this.navOffset < window.pageYOffset) this.sticky = true;
+  //   else this.sticky = false;
+  // }
 
 }
