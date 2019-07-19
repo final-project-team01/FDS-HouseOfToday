@@ -11,9 +11,9 @@ import { Component, OnInit } from '@angular/core';
       <form class="edit_user_profile">
         <div class="field">
           <div class="user_modi_subtitle">이메일</div>
-          <input type="text" class="email" value="{{ email }}" />
+          <input type="text" class="email" value="email" />
           <span>@</span>
-          <input type="text" class="email" value="{{ email.format }}" />
+          <input type="text" class="email" value="email.format" />
           <div class="email_alert">
             이메일을 변경하시려면 운영자에게 이메일을 보내주세요.
           </div>
@@ -23,7 +23,7 @@ import { Component, OnInit } from '@angular/core';
           <input
             type="text"
             class="nickname"
-            value="{{ name }}"
+            value="name"
             placeholder="별명을 입력해주세요."
           />
         </div>
@@ -35,6 +35,16 @@ import { Component, OnInit } from '@angular/core';
           <div class="user_modi_subtitle">셩별</div>
           <input type="radio" value="gender" name="male" />남자
           <input type="radio" value="gender" name="Female" />여자
+        </div>
+        <div class="field">
+          <div class="user_modi_subtitle">생년월일</div>
+          <input type="text" placeholder="YYYY" />
+          <input type="text" placeholder="MM" />
+          <input type="text" placeholder="DD" />
+        </div>
+        <div class="field">
+          <div class="user_modi_subtitle">프로필 이미지</div>
+          <input />
         </div>
       </form>
     </div>
