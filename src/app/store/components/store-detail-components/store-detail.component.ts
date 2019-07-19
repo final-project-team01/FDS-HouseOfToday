@@ -8,6 +8,11 @@ import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
 @Component({
   selector: 'app-store-detail',
   template: `
+    <app-header [thisNav]="stateService.getNav()"></app-header>
+    <div class="wrapper">
+      <app-product-pic></app-product-pic>
+      <app-product-info></app-product-info>
+      <div class="wrapper2">
     <app-header></app-header>
     <div class="top-wrapper">
       <div class="pic-container">
@@ -97,57 +102,59 @@ export class StoreDetailComponent implements OnInit {
     , private stateService: StateService) { }
 
   ngOnInit() {
-    this.stateService.setIsStore(true);
+    this.stateService.setLocate(1);
+    this.stateService.setNav(1);
     console.log("detail");
     this.route.paramMap
       .subscribe(params => this.id = +params.get('id'));
   }
-  
-  addOption(option){
-    const chosen = { 
-      id: this.generateId(), name: this.getName(option['name']), price: option['price'], amount: 1 };
-    this.chosenOptions = [ ...this.chosenOptions, chosen ];
+
+  addOption(option) {
+    const chosen = {
+      id: this.generateId(), name: this.getName(option['name']), price: option['price'], amount: 1
+    };
+    this.chosenOptions = [...this.chosenOptions, chosen];
   }
 
-  deleteOption(id: number){
+  deleteOption(id: number) {
     this.chosenOptions = this.chosenOptions.filter(option => option.id !== id);
   }
 
-  generateId(){
-    return this.chosenOptions.length 
+  generateId() {
+    return this.chosenOptions.length
       ? Math.max(...this.chosenOptions.map(option => option.id)) + 1 : 1;
   }
 
-  getName(name: string){
+  getName(name: string) {
     const i = name.indexOf('(');
     return name.slice(0, i);
   }
 
-  addComma(num: number){
+  addComma(num: number) {
     const regexp = /\B(?=(\d{3})+(?!\d))/g;
     return num.toString().replace(regexp, ',');
   }
 
-  stickyNav(nav: HTMLDivElement){
-    if(nav.offsetTop <= window.pageYOffset) this.sticky = true;
+  stickyNav(nav: HTMLDivElement) {
+    if (nav.offsetTop <= window.pageYOffset) this.sticky = true;
     else this.sticky = false;
   }
 
-  increase(option: ChosenOption){
+  increase(option: ChosenOption) {
     const id = option.id;
     this.chosenOptions = this.chosenOptions.map(
-      option => option.id === id ? 
+      option => option.id === id ?
         { ...option, amount: option.amount += 1 } : { ...option, amount: option.amount });
   }
-  decrease(option: ChosenOption){
+  decrease(option: ChosenOption) {
     const id = option.id;
-    if(option.amount <= 1) return;
+    if (option.amount <= 1) return;
     this.chosenOptions = this.chosenOptions.map(
-      option => option.id === id ? 
+      option => option.id === id ?
         { ...option, amount: option.amount -= 1 } : { ...option, amount: option.amount });
   }
-  
-  setAmount(data){
+
+  setAmount(data) {
     data.option.amount = +data.input.value;
   }
 }

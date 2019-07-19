@@ -5,7 +5,7 @@ import { StateService } from 'src/app/core/services/state.service';
 @Component({
   selector: 'app-rank',
   template: `
-    <app-header></app-header>
+    <app-header [thisNav]="stateService.getNav()"></app-header>
     <p>
       rank works!
     </p>
@@ -20,7 +20,8 @@ export class RankComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.stateService.setIsStore(true);
+    this.stateService.setLocate(1);
+    this.stateService.setNav(1);
   }
 
 }
