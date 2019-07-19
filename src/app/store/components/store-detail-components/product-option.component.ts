@@ -19,13 +19,14 @@ import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
         <div class="selected-items" *ngFor="let option of chosenOptions">
           <p class="selected-item-name">{{ option.name }}</p>
           <div class="ea-container">
-            <input type="number" [value]="option.amount" class="selected-item-ea">
+            <input type="number" [value]="option.amount" class="selected-item-ea"
+              #input (keyup.enter)="setAmount(option, input)">
             <button class="selected-item-btn increase"
               (click)="increaseAmount(option)"></button>
             <button class="selected-item-btn decrease"
               (click)="decreaseAmount(option)"></button>
           </div>
-          <span class="selected-item-price">{{ addComma(option.price) + '원' }}</span>
+          <span class="selected-item-price">{{ addComma(option.price * option.amount) + '원' }}</span>
           <button class="selected-item-cancel icon" (click)="remove(option.id)"></button>
         </div>
       </div>
@@ -33,13 +34,14 @@ import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
       <div class="selected-items" *ngFor="let option of chosenOptions">
         <p class="selected-item-name">{{ option.name }}</p>
         <div class="ea-container">
-          <input type="number" [value]="option.amount" class="selected-item-ea" #count>
+          <input type="number" [value]="option.amount" class="selected-item-ea"
+            #input (keyup.enter)="setAmount(option, input)">
           <button class="selected-item-btn increase"
             (click)="increaseAmount(option)"></button>
           <button class="selected-item-btn decrease"
             (click)="decreaseAmount(option)"></button>
         </div>
-        <span class="selected-item-price">{{ addComma(option.price) + '원' }}</span>
+        <span class="selected-item-price">{{ addComma(option.price * option.amount) + '원' }}</span>
         <button class="selected-item-cancel icon" (click)="remove(option.id)"></button>
       </div>
       </ng-template>
@@ -234,6 +236,7 @@ export class ProductOptionComponent implements OnInit {
   @Output() deleteOption = new EventEmitter();
   @Output() increase = new EventEmitter();
   @Output() decrease = new EventEmitter();
+  @Output() set = new EventEmitter<object>();
 
   constructor() { }
 
@@ -282,6 +285,10 @@ export class ProductOptionComponent implements OnInit {
 
   decreaseAmount(option){
     this.decrease.emit(option);
+  }
+
+  setAmount(option, input){
+    this.set.emit({ option, input });
   }
   
 }

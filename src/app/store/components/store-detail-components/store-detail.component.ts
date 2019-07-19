@@ -20,6 +20,7 @@ import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
           (deleteOption)="deleteOption($event)"
           (increase)="increase($event)"
           (decrease)="decrease($event)"
+          (set)="setAmount($event)"
           [chosenOptions]="chosenOptions" [scroll]="false"></app-product-option>
       </div>
     </div>
@@ -35,6 +36,7 @@ import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
             (deleteOption)="deleteOption($event)"
             (increase)="increase($event)"
             (decrease)="decrease($event)"
+            (set)="setAmount($event)"
             [chosenOptions]="chosenOptions" [scroll]="true"></app-product-option>
         </div>
       </div>
@@ -143,5 +145,9 @@ export class StoreDetailComponent implements OnInit {
     this.chosenOptions = this.chosenOptions.map(
       option => option.id === id ? 
         { ...option, amount: option.amount -= 1 } : { ...option, amount: option.amount });
+  }
+  
+  setAmount(data){
+    data.option.amount = +data.input.value;
   }
 }
