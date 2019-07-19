@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CoreModule } from '../core.module';
 import { HttpClient } from '@angular/common/http';
-import { token, non_field_errors } from '../models/auth.interface';
+import { token, non_field_errors, account } from '../models/auth.interface';
 import { Observable } from 'rxjs/internal/Observable';
 import { StateService } from './state.service';
 
@@ -22,5 +22,13 @@ export class AuthService {
     const fullPath = this.stateService.getFullPath(path);
 
     return this.httpClient.post<token | non_field_errors>(fullPath, { username, password });
+  }
+
+  createAccounts(email: string, password: string, username: string) {
+    const path = "/accounts/create/";
+    const fullPath = this.stateService.getFullPath(path);
+
+    return this.httpClient.post<account>(fullPath, { email, password, username });
+
   }
 }

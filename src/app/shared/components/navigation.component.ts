@@ -13,8 +13,8 @@ import { StorageService } from 'src/app/core/services/storage.service';
           <span  class="logo" aria-label="오늘의집"></span>
         </a>
         <div class="navigation-menu">
-          <a routerLink="/community" routerLinkActive="active">커뮤니티</a>
-          <a routerLink="/store" routerLinkActive="active">스토어</a>
+          <a routerLink="/community" routerLinkActive="active" (hover)="changMenu(1)">커뮤니티</a>
+          <a routerLink="/store" routerLinkActive="active" (hover)="changMenu(2)">스토어</a>
         </div>        
         <div class="user-logged" *ngIf="isLogin; else elseBlock">
           <div class="action-logged">        
@@ -165,7 +165,7 @@ export class NavigationComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("nav", this.isLogin);
+
   }
   logout(e: Event) {
     e.preventDefault();
