@@ -3,9 +3,11 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-product-detail',
   template: `
-  <div class="wrapper">
-    <section class="product-detail-container">
+  <div class="product-detail-container">
+    <section class="product-img">
       <img src="../../../../assets/image/daily_comma.jpg">
+    </section>
+    <section class="product-review">
     </section>
   <div>
   `,
@@ -13,17 +15,14 @@ import { Component, OnInit } from '@angular/core';
   *{
     box-sizing: border-box;
   }
-  .wrapper{
-    background-color: yellow;
-    padding: 60px 30px 30px 30px;
-  }
   .product-detail-container{
-    display: inline-block;
-    width: 690px;
-    color: yellow;
+    padding: 60px 30px 30px 30px;
+    border-right: 1px solid #ededed;
   }
-  .product-detail-container > img{
-    display: inline-block;
+  .product-img > img{
+    width: 690px;
+  }
+  .product-review{
     width: 690px;
   }
   `]
