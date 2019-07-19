@@ -9,7 +9,7 @@ import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
   selector: 'app-store-detail',
   template: `
     <app-header></app-header>
-    <div class="wrapper">
+    <div class="top-wrapper">
       <div class="pic-container">
         <app-product-pic></app-product-pic>
       </div>
@@ -19,9 +19,12 @@ import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
           (deleteOption)="deleteOption($event)"
           [chosenOptions]="chosenOptions"></app-product-option>
       </div>
-      <div class="nav-container">
+    </div>
+    <div class="bottom-wrapper" #nav (window:scroll)="stickyNav(nav)">
+      <app-product-detail></app-product-detail>
+      <div class="nav-container"
+        [class.sticky]="sticky">
         <app-product-nav></app-product-nav>
-        <app-product-detail></app-product-detail>
         <div class="product-option">
           <h2>옵션 선택</h2>
           <app-product-option (addOption)="addOption($event)"
@@ -33,24 +36,27 @@ import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
     <app-footer></app-footer>
   `,
   styles: [`
-  .wrapper{
+  .top-wrapper, .bottom-wrapper{
+    display: flex;
     margin: 120px auto 0 auto;
     box-sizing: border-box;
     width: 1136px;
     height: auto;
     min-height: 1px;
+    position: relative;
   }
   .pic-container{
     display: inline-block;
+    margin-right: auto;
   }
   .info-container{
     width: 450px;
-    float: right;
-    padding-bottom: 80px;
+    display: inline-block;
   }
   .nav-container{
     clear: both;
-    position: relative;
+    position: absolute;
+    top: -30px;
   }
   .product-option{
     position: absolute;
@@ -63,11 +69,17 @@ import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
     font-size: 20px;
     font-weight: bold;
   }
+  .sticky{
+    position: fixed;
+    top: 0;
+    bottom: auto;
+  }
   `]
 })
 export class StoreDetailComponent implements OnInit {
 
   id: number;
+  sticky = false;
   chosenOptions: ChosenOption[] = [];
 
   constructor(private route: ActivatedRoute
@@ -104,5 +116,12 @@ export class StoreDetailComponent implements OnInit {
   addComma(num: number){
     const regexp = /\B(?=(\d{3})+(?!\d))/g;
     return num.toString().replace(regexp, ',');
+  }
+
+  stickyNav(nav){
+    console.log(nav.offsetTop);
+    
+    if(nav.offsetTop < window.pageYOffset) this.sticky = true;
+    else this.sticky = false;
   }
 }

@@ -26,7 +26,7 @@ import { Component, OnInit } from '@angular/core';
   `,
   styles: [`
   .product-info-container{
-    float: right;
+
     width: 100%;
   }
   .product-name{

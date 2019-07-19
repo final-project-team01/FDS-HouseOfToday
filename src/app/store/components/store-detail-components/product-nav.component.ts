@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-product-nav',
   template: `
-  <div class="product-nav-container" [class.sticky]="sticky">
+  <div class="product-nav-container">
     <div class="nav-list">
       <ul class="navigation">
         <li class="tab" 
@@ -59,8 +59,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductNavComponent implements OnInit {
 
-  sticky = false;
-
   navMenu = [ 
     { title: '상품정보', active: true },
     { title: '추천', active: false },
@@ -77,10 +75,5 @@ export class ProductNavComponent implements OnInit {
   setActive(i: number){
     this.navMenu.map((nav, index) => nav.active = index === i ? true : false);
   }
-
-  // stickyNav(){
-  //   if(this.navOffset < window.pageYOffset) this.sticky = true;
-  //   else this.sticky = false;
-  // }
 
 }
