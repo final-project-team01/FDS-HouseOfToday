@@ -49,6 +49,9 @@ import { StateService } from 'src/app/core/services/state.service';
                 </div>
               </div>
             </div>
+            <div class="product-list">
+              <app-product-list [productItems]="productItems" [menuWidth]="menuWidth"></app-product-list>
+            </div>
           </div>
         </div>
       </div>
@@ -149,6 +152,7 @@ import { StateService } from 'src/app/core/services/state.service';
       z-index: 100;
       transition: top .1s;
       margin-bottom: 5px;
+      width: 100%;
     }
 
     .sticky-content-wrap {
@@ -181,14 +185,20 @@ import { StateService } from 'src/app/core/services/state.service';
     }
 
     .filteredList {
-      margin-left: 650px;
+      margin-left: 800px;
       margin-bottom: 10px;
       width: 50px;
       font-size: 10px;
     }
+
+    .product-list {
+      width: 900px;
+    }
   `]
 })
 export class CategoryComponent implements OnInit {
+  menuWidth: string = '33%';
+
   categoryLists = [
     { categoryName: '가구' },
     { categoryName: '여름 인테리어' },
@@ -200,6 +210,13 @@ export class CategoryComponent implements OnInit {
     { categoryName: 'DIY셀프시공' },
     { categoryName: '시공/서비스' },
     { categoryName: '반려동물' },
+  ]
+
+  productItems = [
+    { id: 1, productdetail: '1+1+1+1 시그니쳐퍼퓸디퓨저 200ml', businessname: '데일리콤마', price: '16,900', discount: '52', stars: '4.2', reviews: '84' },
+    { id: 2, productdetail: '1+1+1+1 시그니쳐퍼퓸디퓨저 200ml', businessname: '데일리콤마', price: '16,900', discount: '52', stars: '4.2', reviews: '84' },
+    { id: 3, productdetail: '1+1+1+1 시그니쳐퍼퓸디퓨저 200ml', businessname: '데일리콤마', price: '16,900', discount: '52', stars: '4.2', reviews: '84' },
+    { id: 4, productdetail: '1+1+1+1 시그니쳐퍼퓸디퓨저 200ml', businessname: '데일리콤마', price: '16,900', discount: '52', stars: '4.2', reviews: '84' },
   ]
 
   constructor(private storeService: StoreService
