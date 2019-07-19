@@ -15,9 +15,12 @@ import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
       </div>
       <div class="info-container">
         <app-product-info></app-product-info>
-        <app-product-option (addOption)="addOption($event)"
+        <app-product-option 
+          (addOption)="addOption($event)"
           (deleteOption)="deleteOption($event)"
-          [chosenOptions]="chosenOptions"></app-product-option>
+          (increase)="increase($event)"
+          (decrease)="decrease($event)"
+          [chosenOptions]="chosenOptions" [scroll]="false"></app-product-option>
       </div>
     </div>
     <div class="bottom-wrapper" #nav (window:scroll)="stickyNav(nav)">
@@ -27,9 +30,12 @@ import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
         <app-product-nav></app-product-nav>
         <div class="product-option">
           <h2>옵션 선택</h2>
-          <app-product-option (addOption)="addOption($event)"
+          <app-product-option 
+            (addOption)="addOption($event)"
             (deleteOption)="deleteOption($event)"
-            [chosenOptions]="chosenOptions"></app-product-option>
+            (increase)="increase($event)"
+            (decrease)="decrease($event)"
+            [chosenOptions]="chosenOptions" [scroll]="true"></app-product-option>
         </div>
       </div>
     </div>
@@ -60,9 +66,10 @@ import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
   }
   .product-option{
     position: absolute;
-    top: 100px;
-    right: 40px;
+    background-color: #FAFAFA;
+    right: 0;
     width: 30%;
+    padding: 35px 22px;
   }
   .product-option > h2{
     margin-bottom: 20px;
@@ -95,7 +102,8 @@ export class StoreDetailComponent implements OnInit {
   }
   
   addOption(option){
-    const chosen = { id: this.generateId(), name: this.getName(option['name']), price: option['price'] };
+    const chosen = { 
+      id: this.generateId(), name: this.getName(option['name']), price: option['price'], amount: 1 };
     this.chosenOptions = [ ...this.chosenOptions, chosen ];
   }
 
@@ -118,10 +126,22 @@ export class StoreDetailComponent implements OnInit {
     return num.toString().replace(regexp, ',');
   }
 
-  stickyNav(nav){
-    console.log(nav.offsetTop);
-    
-    if(nav.offsetTop < window.pageYOffset) this.sticky = true;
+  stickyNav(nav: HTMLDivElement){
+    if(nav.offsetTop <= window.pageYOffset) this.sticky = true;
     else this.sticky = false;
+  }
+
+  increase(option: ChosenOption){
+    const id = option.id;
+    this.chosenOptions = this.chosenOptions.map(
+      option => option.id === id ? 
+        { ...option, amount: option.amount += 1 } : { ...option, amount: option.amount });
+  }
+  decrease(option: ChosenOption){
+    const id = option.id;
+    if(option.amount <= 1) return;
+    this.chosenOptions = this.chosenOptions.map(
+      option => option.id === id ? 
+        { ...option, amount: option.amount -= 1 } : { ...option, amount: option.amount });
   }
 }

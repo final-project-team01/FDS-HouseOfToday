@@ -15,16 +15,34 @@ import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
           </li>
         </ul>
       </div>
+      <div class="selected-items-container scroll" *ngIf="scroll; else noscroll">
+        <div class="selected-items" *ngFor="let option of chosenOptions">
+          <p class="selected-item-name">{{ option.name }}</p>
+          <div class="ea-container">
+            <input type="number" [value]="option.amount" class="selected-item-ea">
+            <button class="selected-item-btn increase"
+              (click)="increaseAmount(option)"></button>
+            <button class="selected-item-btn decrease"
+              (click)="decreaseAmount(option)"></button>
+          </div>
+          <span class="selected-item-price">{{ addComma(option.price) + '원' }}</span>
+          <button class="selected-item-cancel icon" (click)="remove(option.id)"></button>
+        </div>
+      </div>
+      <ng-template #noscroll>
       <div class="selected-items" *ngFor="let option of chosenOptions">
         <p class="selected-item-name">{{ option.name }}</p>
         <div class="ea-container">
-          <input type="number" value="1" class="selected-item-ea">
-          <button class="selected-item-btn increase"></button>
-          <button class="selected-item-btn decrease"></button>
+          <input type="number" [value]="option.amount" class="selected-item-ea" #count>
+          <button class="selected-item-btn increase"
+            (click)="increaseAmount(option)"></button>
+          <button class="selected-item-btn decrease"
+            (click)="decreaseAmount(option)"></button>
         </div>
         <span class="selected-item-price">{{ addComma(option.price) + '원' }}</span>
         <button class="selected-item-cancel icon" (click)="remove(option.id)"></button>
       </div>
+      </ng-template>
       <div class="price">
         <span>주문금액</span>
         <mark class="order-price">{{ getTotalPrice() }}<span>원</span></mark>
@@ -91,6 +109,11 @@ import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
     .icon{
       display: inline-block;
       background-image: url('../../../../assets/image/icon-pointer.png');
+    }
+    .selected-items-container{
+      overflow-y: scroll;
+      height: 150px;
+      border: 1px solid #F1F1F1;
     }
     .selected-items{
       width: 100%;
@@ -206,8 +229,11 @@ export class ProductOptionComponent implements OnInit {
 
   @Input() totalPrice: number;
   @Input() chosenOptions: ChosenOption[];
+  @Input() scroll: boolean;
   @Output() addOption = new EventEmitter();
   @Output() deleteOption = new EventEmitter();
+  @Output() increase = new EventEmitter();
+  @Output() decrease = new EventEmitter();
 
   constructor() { }
 
@@ -244,10 +270,18 @@ export class ProductOptionComponent implements OnInit {
 
   getTotalPrice() {
     if (this.chosenOptions.length === 0) return 0;
-    const prices = this.chosenOptions.map(option => option.price);
+    const prices = this.chosenOptions.map(option => option.price * option.amount);
     const sum = prices.reduce(
       (previous, current) => { return previous + current });
     return this.addComma(sum);
+  }
+
+  increaseAmount(option){
+    this.increase.emit(option);
+  }
+
+  decreaseAmount(option){
+    this.decrease.emit(option);
   }
   
 }
