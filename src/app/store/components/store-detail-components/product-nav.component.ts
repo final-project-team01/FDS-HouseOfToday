@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-product-nav',
   template: `
   <div class="product-nav-container" #nav (window:load)="getNavOffset(nav)"
-    (window:scroll)="test()" [class.sticky]="sticky">
+    (window:scroll)="stickyNav()" [class.sticky]="sticky">
     <div class="nav-list">
       <ul class="navigation">
         <li class="tab" 
@@ -107,7 +107,7 @@ export class ProductNavComponent implements OnInit {
     this.navMenu.map((nav, index) => nav.active = index === i ? true : false);
   }
 
-  test(){
+  stickyNav(){
     if(this.navOffset < window.pageYOffset) this.sticky = true;
     else this.sticky = false;
   }

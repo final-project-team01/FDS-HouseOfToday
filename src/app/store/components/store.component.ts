@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LyTheme2 } from '@alyle/ui';
 import { StoreService } from 'src/app/core/services/store.service';
+import { StateService } from 'src/app/core/services/state.service';
 
 const styles = {
   carousel: {
@@ -410,9 +411,11 @@ export class StoreComponent implements OnInit {
     { words: '#데스크테리어 #필기도구' },
   ]
 
-  constructor(private storeService: StoreService, private theme: LyTheme2) { }
+  constructor(private storeService: StoreService, private theme: LyTheme2
+    , private stateService: StateService) { }
 
   ngOnInit() {
+    this.stateService.setIsStore(true);
   }
 
 }

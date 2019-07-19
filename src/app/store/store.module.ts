@@ -35,6 +35,7 @@ import { ClickOutsideDirective } from './components/store-detail-components/clic
     , ProductOptionComponent
     , ProductDetailComponent
     , ClickOutsideDirective
+    , StoreDetailComponent
   ],
   imports: [
     CommonModule

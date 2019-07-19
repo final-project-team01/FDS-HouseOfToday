@@ -22,13 +22,12 @@ import { Component, OnInit } from '@angular/core';
     <span class="sprite delivery"></span>
     <hr>
     <a href="#" class="goToShop"><span class="sprite shop"></span>{{ productInfo.brand_name }} 상품보기</a>
-    <app-product-option></app-product-option>
     </div>
   `,
   styles: [`
   .product-info-container{
     float: right;
-    width: 40%;
+    width: 100%;
   }
   .product-name{
     color: black;
