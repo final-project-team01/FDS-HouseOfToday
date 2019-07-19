@@ -5,7 +5,7 @@ import { StateService } from 'src/app/core/services/state.service';
 @Component({
   selector: 'app-community',
   template: `
-    <app-header [isStore]="stateService.getIsStore()"></app-header>
+    <app-header [thisNav]="stateService.getNav()"></app-header>
     <p>
       community works!
     </p>
@@ -20,7 +20,8 @@ export class CommunityComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.stateService.setIsStore(false);
+    this.stateService.setLocate(0);
+    this.stateService.setNav(0);
   }
 
 }

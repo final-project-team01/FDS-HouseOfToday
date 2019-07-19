@@ -7,7 +7,7 @@ import { UserService } from 'src/app/core/services/user.service';
 @Component({
   selector: 'app-store-detail',
   template: `
-    <app-header></app-header>
+    <app-header [thisNav]="stateService.getNav()"></app-header>
     <div class="wrapper">
       <app-product-pic></app-product-pic>
       <app-product-info></app-product-info>
@@ -41,7 +41,8 @@ export class StoreDetailComponent implements OnInit {
     , private stateService: StateService) { }
 
   ngOnInit() {
-    this.stateService.setIsStore(true);
+    this.stateService.setLocate(1);
+    this.stateService.setNav(1);
     console.log("detail");
     this.route.paramMap
       .subscribe(params => this.id = +params.get('id'));

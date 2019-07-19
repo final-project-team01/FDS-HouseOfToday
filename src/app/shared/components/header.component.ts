@@ -8,8 +8,8 @@ import { StateService } from 'src/app/core/services/state.service';
   template: `
     <header>
       <app-navigation></app-navigation>
-      <app-community-navigation *ngIf="!stateService.getIsStore()"></app-community-navigation>
-      <app-store-navigation *ngIf="stateService.getIsStore()"></app-store-navigation>
+      <app-community-navigation *ngIf="stateService.getNav()===0"></app-community-navigation>
+      <app-store-navigation *ngIf="stateService.getNav()===1"></app-store-navigation>
       
     </header>    
   `,
@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
 
   private location: number;
 
-  @Input() isStore: boolean;
+  @Input() thisNav: number;
   constructor(private userService: UserService
     , private storageService: StorageService
     , private stateService: StateService

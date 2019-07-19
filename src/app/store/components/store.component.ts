@@ -17,7 +17,7 @@ const styles = {
 @Component({
   selector: 'app-store',
   template: `
-    <app-header></app-header>
+    <app-header [thisNav]="stateService.getNav()"></app-header>
     <div class="featured-banner">
       <ly-carousel class="store-carousel"
         [withClass]="classes.carousel">
@@ -415,7 +415,8 @@ export class StoreComponent implements OnInit {
     , private stateService: StateService) { }
 
   ngOnInit() {
-    this.stateService.setIsStore(true);
+    this.stateService.setLocate(1);
+    this.stateService.setNav(1);
   }
 
 }

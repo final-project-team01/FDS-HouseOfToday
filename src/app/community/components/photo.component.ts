@@ -5,7 +5,7 @@ import { StateService } from 'src/app/core/services/state.service';
 @Component({
   selector: 'app-photo',
   template: `
-    <app-header [isStore]="stateService.getIsStore()"></app-header>  
+    <app-header [thisNav]="stateService.getNav()"></app-header>  
     <p>
       photo works!
     </p>
@@ -19,7 +19,8 @@ export class PhotoComponent implements OnInit {
     , private stateService: StateService) { }
 
   ngOnInit() {
-    this.stateService.setIsStore(false);
+    this.stateService.setLocate(0);
+    this.stateService.setNav(0);
   }
 
 }
