@@ -6,7 +6,7 @@ import { StorageService } from 'src/app/core/services/storage.service';
 @Component({
   selector: 'app-navigation',
   template: `
-    <div class="main-nav">
+    <div class="main-nav" NavFixed>
       <nav class="navigation-primary">              
         <a routerLink="/" routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }" class="primary-logo">
