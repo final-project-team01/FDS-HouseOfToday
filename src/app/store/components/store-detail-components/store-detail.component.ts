@@ -30,7 +30,10 @@ import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
       </div>
     </div>
     <div class="bottom-wrapper" #nav (window:scroll)="stickyNav(nav)">
-      <app-product-detail></app-product-detail>
+      <div class="detail-container">
+        <app-product-detail></app-product-detail>
+        <app-product-review></app-product-review>
+      </div>
       <div class="nav-container"
         [class.sticky]="sticky">
         <app-product-nav></app-product-nav>
@@ -58,6 +61,9 @@ import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
     min-height: 1px;
     position: relative;
   }
+  .detail-container{
+    border-right: 1px solid #ededed;
+  }
   .pic-container{
     display: inline-block;
     margin-right: auto;
@@ -69,7 +75,7 @@ import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
   .nav-container{
     clear: both;
     position: absolute;
-    top: -30px;
+    top: -50px;
   }
   .product-option{
     position: absolute;
