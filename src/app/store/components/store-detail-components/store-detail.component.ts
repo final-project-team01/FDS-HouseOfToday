@@ -9,11 +9,6 @@ import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
   selector: 'app-store-detail',
   template: `
     <app-header [thisNav]="stateService.getNav()"></app-header>
-    <div class="wrapper">
-      <app-product-pic></app-product-pic>
-      <app-product-info></app-product-info>
-      <div class="wrapper2">
-    <app-header></app-header>
     <div class="top-wrapper">
       <div class="pic-container">
         <app-product-pic></app-product-pic>
