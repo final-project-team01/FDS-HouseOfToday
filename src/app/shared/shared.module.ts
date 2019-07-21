@@ -14,6 +14,7 @@ import { BasicUsesAvatarModule } from './UI/basic-uses-avatar/basic-uses-avatar.
 import { BasicUsesAvatarComponent } from './UI/basic-uses-avatar/basic-uses-avatar-component';
 import { ProductListComponent } from './components/product-list.component';
 import { NavFixedDirective } from './components/nav-fixed.directive';
+import { SubNavFixedDirective } from './components/sub-nav-fixed.directive';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { NavFixedDirective } from './components/nav-fixed.directive';
     , HeaderComponent
     , FooterComponent
     , ProductListComponent
-    , NavFixedDirective
+    , NavFixedDirective, SubNavFixedDirective
   ],
   imports: [
     CommonModule

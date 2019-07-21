@@ -8,12 +8,23 @@ import { StateService } from 'src/app/core/services/state.service';
   template: `
     <header>
       <app-navigation></app-navigation>
-      <app-community-navigation *ngIf="stateService.getNav()===0"></app-community-navigation>
-      <app-store-navigation *ngIf="stateService.getNav()===1"></app-store-navigation>
-      
+      <div class="sub-nav" SubNavFixed>
+        <app-community-navigation *ngIf="stateService.getNav()===0"></app-community-navigation>
+        <app-store-navigation *ngIf="stateService.getNav()===1"></app-store-navigation>
+      </div>
     </header>    
   `,
-  styles: [
+  styles: [`
+    .sub-nav{
+      z-index: 502;
+      left: 0;
+      right: 0;
+      transition: top 0.1s;
+      background-color: white;
+      border-bottom: 1px solid #ededed;
+      position: relative;
+    }
+  `
   ]
 })
 export class HeaderComponent implements OnInit {
