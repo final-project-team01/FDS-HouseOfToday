@@ -51,5 +51,7 @@ export class StateService {
     return this.nav;
   }
 
-
+  public resetNav() {
+    this.nav = this.locate;
+  }
 }
