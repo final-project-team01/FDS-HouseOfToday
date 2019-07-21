@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { StateService } from 'src/app/core/services/state.service';
 
 @Component({
   selector: 'app-store-navigation',
   template: `
-  <div class="navigation-secondary">
+  <div class="navigation-secondary" (mouseout)="resetNav($event)">
     <nav>
       <a routerLink="/store" routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }">스토어 홈</a>
@@ -16,9 +17,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StoreNavigationComponent implements OnInit {
 
-  constructor() { }
+  constructor(private stateService: StateService) { }
 
   ngOnInit() {
   }
+  resetNav(event) {
+    if (event.clientY > 130)
+      this.stateService.resetNav();
 
+  }
 }
