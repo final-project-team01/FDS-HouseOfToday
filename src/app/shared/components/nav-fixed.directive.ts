@@ -11,14 +11,13 @@ export class NavFixedDirective {
     if (window.pageYOffset > 0)
       this.toggleNavFixed(true);
     else this.toggleNavFixed(false);
-    console.log("!");
 
   }
 
-  toggleNavFixed(sticky: boolean) {
+  toggleNavFixed(fixed: boolean) {
     this.renderer.setStyle(
       this.el.nativeElement,
-      "position", sticky ? "fixed" : "relative"
+      "position", fixed ? "fixed" : "relative"
     );
   }
 }
