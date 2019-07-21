@@ -10,11 +10,12 @@ import { StoreNavigationComponent } from './components/store-navigation.componen
 import { HeaderComponent } from './components/header.component';
 import { FooterComponent } from './components/footer.component';
 import { CoreModule } from '../core/core.module';
-import { BasicUsesAvatarModule } from './UI/basic-uses-avatar/basic-uses-avatar.module';
+import { AvatarModule } from './UI/avatar.module';
 import { BasicUsesAvatarComponent } from './UI/basic-uses-avatar/basic-uses-avatar-component';
 import { ProductListComponent } from './components/product-list.component';
 import { NavFixedDirective } from './components/nav-fixed.directive';
 import { SubNavFixedDirective } from './components/sub-nav-fixed.directive';
+import { AvatarWithButtonComponent } from './UI/avatar-with-button/avatar-with-button.component';
 
 @NgModule({
   declarations: [
@@ -25,13 +26,14 @@ import { SubNavFixedDirective } from './components/sub-nav-fixed.directive';
     , HeaderComponent
     , FooterComponent
     , ProductListComponent
-    , NavFixedDirective, SubNavFixedDirective
+    , NavFixedDirective
+    , SubNavFixedDirective
   ],
   imports: [
     CommonModule
     , CoreModule
+    , AvatarModule
     , SharedRoutingModule
-    , BasicUsesAvatarModule
   ],
   exports: [
     NavigationComponent
@@ -42,6 +44,7 @@ import { SubNavFixedDirective } from './components/sub-nav-fixed.directive';
     , FooterComponent
     , BasicUsesAvatarComponent
     , ProductListComponent
+    , AvatarWithButtonComponent
   ]
 })
 export class SharedModule { }

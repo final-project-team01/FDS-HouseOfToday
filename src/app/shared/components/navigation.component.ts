@@ -16,16 +16,16 @@ import { StorageService } from 'src/app/core/services/storage.service';
           <a routerLink="/community" routerLinkActive="active" (mouseover)="changMenu(0)">커뮤니티</a>
           <a routerLink="/store" routerLinkActive="active" (mouseover)="changMenu(1)">스토어</a>
         </div>        
-        <div class="user-logged" *ngIf="isLogin; else elseBlock">
+        <div class="user-logged" *ngIf="stateService.isLogin(); else elseBlock">
           <div class="action-logged">        
-          <app-basic-uses-avatar ></app-basic-uses-avatar>
-          <div class="navigation-primary__user__list">
+            <aui-avatar-with-button></aui-avatar-with-button>
+          <!--<div class="navigation-primary__user__list">
             <ul class="navigation-user-menu">
               <li><a routerLink="/">마이홈</a></li>
               <li><a routerLink="/">나의 쇼핑</a></li>
-              <li><a routerLink="/"(click)="logout($event)">로그아웃</a></li>              
+              <li><a routerLink="/"(click)="logout($event)">로그아웃</a></li>               
             </ul>
-            </div>
+            </div>-->
           </div>
         </div>
         <ng-template class="user-unlogged" #elseBlock>
@@ -156,12 +156,10 @@ import { StorageService } from 'src/app/core/services/storage.service';
 })
 export class NavigationComponent implements OnInit {
 
-  isLogin: boolean;
   constructor(private stateService: StateService
     , private router: Router
     , private storageService: StorageService
   ) {
-    this.isLogin = this.stateService.isLogin();
   }
 
   ngOnInit() {
@@ -172,7 +170,6 @@ export class NavigationComponent implements OnInit {
     this.storageService.removeLocal("user");
     this.storageService.removeSession("user");
     this.stateService.setToken("");
-    this.isLogin = this.stateService.isLogin();
   }
   changMenu(nav: number) {
     this.stateService.setNav(nav);
