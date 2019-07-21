@@ -33,8 +33,12 @@ import { Component, OnInit } from '@angular/core';
         </div>
         <div class="field">
           <div class="user_modi_subtitle">셩별</div>
-          <input type="radio" value="gender" name="male" />남자
-          <input type="radio" value="gender" name="Female" />여자
+          <div class="gender_input">
+            <input type="radio" value="gender" name="male" />남자
+          </div>
+          <div class="gender_input">
+            <input type="radio" value="gender" name="Female" />여자
+          </div>
         </div>
         <div class="field">
           <div class="user_modi_subtitle">생년월일</div>
@@ -46,6 +50,15 @@ import { Component, OnInit } from '@angular/core';
           <div class="user_modi_subtitle">프로필 이미지</div>
           <input />
         </div>
+        <div class="field">
+          <div class="user_modi_subtitle">커버 이미지</div>
+          <input />
+        </div>
+        <div class="field">
+          <div class="user_modi_subtitle">한줄 소개</div>
+          <input />
+        </div>
+        <button>회원 정보 수정</button>
       </form>
     </div>
     <app-footer></app-footer>
@@ -79,10 +92,20 @@ import { Component, OnInit } from '@angular/core';
         margin-top: 30px;
       }
       .user_modi_subtitle {
+        background-color: pink;
         display: inline-block;
+        width: 144px;
+        line-height: 40px;
       }
       .email_alert {
         margin-top: 12px;
+      }
+      .field > input {
+        height: 40px;
+      }
+
+      .gender_input {
+        display: inline-block;
       }
     `
   ]
