@@ -11,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
       <ul>
         <li class="review-filter-menu">베스트순</li>
         <li class="review-filter-menu">최신순</li>
-        <li class="review-filter-menu">사진리뷰</li>
+        <li class="review-filter-menu"><span class="pic-icon"></span>사진리뷰</li>
       </ul>
       <ul class="filter-btns">
         <li>
@@ -52,7 +52,6 @@ import { HttpClient } from '@angular/common/http';
   styles: [`
   .product-review-container{
     width: 690px;
-    background-color: pink;
     padding: 60px 30px 30px 30px;
     position: relative;
   }
@@ -76,12 +75,18 @@ import { HttpClient } from '@angular/common/http';
     font-weight: 700;
   }
   .filter-container{
-    background-color: skyblue;
+    // background-color: skyblue;
     margin: 15px 0;
     padding: 15px 15px;
     border-top: 1px solid lightgrey;
     border-bottom: 1px solid lightgrey;
     position: relative;
+  }
+  .pic-icon{
+    width: 23px;
+    height: 18px;
+    background-position: -180px -663px;
+    vertical-align: middle;
   }
   .review-filter-menu{
     display: inline-block;
@@ -104,10 +109,11 @@ import { HttpClient } from '@angular/common/http';
   .review-filter-btn{
     font-size: 15px;
     line-height: 19px;
+    font-weight: bold;
     padding: 7px 8px 6px;
     border-style: none;
     border-radius: 4px;
-    background-color: #f5f5f5;
+    background-color: #f4f4f4;
     border-color: #f5f5f5;
     color: #757575;
     cursor: pointer;
@@ -125,9 +131,11 @@ import { HttpClient } from '@angular/common/http';
   .star-score{
     display: inline-block;
   }
-  .star{
+  .star, .pic-icon{
     display: inline-block;
     background-image: url('../../../../assets/image/icon-etc.png');
+  }
+  .star{
     width: 16px;
     height: 16px;
     background-position: 106px 0;
