@@ -4,11 +4,9 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-product-detail',
   template: `
   <div class="product-detail-container">
-    <section class="product-img">
+    <div class="product-img">
       <img src="../../../../assets/image/daily_comma.jpg">
-    </section>
-    <section class="product-review">
-    </section>
+    </div>
   <div>
   `,
   styles: [`
@@ -17,7 +15,6 @@ import { Component, OnInit } from '@angular/core';
   }
   .product-detail-container{
     padding: 60px 30px 30px 30px;
-    border-right: 1px solid #ededed;
   }
   .product-img > img{
     width: 690px;
