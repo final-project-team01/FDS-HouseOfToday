@@ -4,7 +4,7 @@ import { StateService } from 'src/app/core/services/state.service';
 @Component({
   selector: 'app-community-navigation',
   template: `
-  <div class="navigation-secondary" (mouseout)="resetNav($event)">
+  <div class="navigation-secondary">
     <nav>
       <a routerLink="/community" routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }">홈</a>
@@ -24,10 +24,6 @@ export class CommunityNavigationComponent implements OnInit {
   constructor(private stateService: StateService) { }
 
   ngOnInit() {
-  }
-  resetNav(event) {
-    if (event.clientY > 130)
-      this.stateService.resetNav();
   }
 
 }
