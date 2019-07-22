@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
-
 import { CoreModule } from '../core.module';
-import { store_list } from '../models/store.interface';
 import { StateService } from './state.service';
 
 @Injectable({
@@ -30,6 +28,6 @@ export class StoreService {
   getProductList() {
     const path = `products/product/list/`;
     const fullPath = this.stateService.getFullPath(path);
-    return this.httpClient.get<store_list>(fullPath);
+    return this.httpClient.get(fullPath);
   }
 } 

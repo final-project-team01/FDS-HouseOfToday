@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { StateService } from 'src/app/core/services/state.service';
+import { product_info } from 'src/app/core/models/store.interface';
 
 @Component({
   selector: 'app-product-info',
@@ -121,7 +122,7 @@ import { StateService } from 'src/app/core/services/state.service';
 })
 export class ProductInfoComponent implements OnInit {
 
-  @Input() productInfo;
+  @Input() productInfo: product_info;
 
   constructor(private stateService: StateService) { }
 
