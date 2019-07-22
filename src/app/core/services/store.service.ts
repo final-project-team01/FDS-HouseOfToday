@@ -16,9 +16,9 @@ export class StoreService {
   ) { }
 
   getCategoryList() {
-    const path = "products/category/list/";
+    const path = `products/category/list/`;
     const fullPath = this.stateService.getFullPath(path);
-    return this.httpClient.get<store_list[]>(fullPath);
+    return this.httpClient.get(fullPath);
   }
 
   getProductInfo(id: number){
@@ -27,4 +27,9 @@ export class StoreService {
     return this.httpClient.get(fullPath);
   }
 
+  getProductList() {
+    const path = `products/product/list/`;
+    const fullPath = this.stateService.getFullPath(path);
+    return this.httpClient.get<store_list>(fullPath);
+  }
 } 

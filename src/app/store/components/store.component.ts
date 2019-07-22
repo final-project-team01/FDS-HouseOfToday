@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LyTheme2 } from '@alyle/ui';
 import { StoreService } from 'src/app/core/services/store.service';
 import { StateService } from 'src/app/core/services/state.service';
+import { store_list } from 'src/app/core/models/store.interface';
 
 const styles = {
   carousel: {
@@ -42,14 +43,14 @@ const styles = {
               <a class="store-index-today-deal-item__overlay" href="#"></a>
               <div class="store-index-today-deal-item__image">
                 <div class="production-item-image">
-                  <img class="image" src="" alt>
+                  <img class="image" src="{{productItem.thumnail_images[0].image}}">
                   <button class="production-item-scrap-badge production-item-image__scrap-badge" type="button"></button>
                 </div>
               </div>
               <div class="store-index-today-deal-item__content">
                 <h1 class="store-index-today-deal-item__header">
-                  <span class="store-index-today-deal-item__header__brand">{{productItem.businessname}}</span>
-                  <span class="store-index-today-deal-item__header__name">{{productItem.productdetail}}</span>
+                  <span class="store-index-today-deal-item__header__brand">{{productItem.brand_name}}</span>
+                  <span class="store-index-today-deal-item__header__name">{{productItem.name}}</span>
                 </h1>
                 <span class="production-item-price">
                   <span class="production-item-price__rate">{{productItem.discount}}<span 
@@ -105,7 +106,7 @@ const styles = {
             </div>
           </div>
         </div>
-        <div class="store-index-today-deal-list__content row2">
+        <div class="store-index-today-deal-list__content">
           <app-product-list [productItems]="productItems" [menuWidth]="menuWidth"></app-product-list>
         </div>
       </section>
@@ -266,6 +267,13 @@ const styles = {
     font-weight: 700;
   }
 
+  .production-item-image {
+    padding-bottom: 100%;
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+  }
+
   .production-item-image>.image {
     position: absolute;
     top: 50%;
@@ -369,11 +377,6 @@ const styles = {
     float: right;
     margin-top: -5px;
   }
-
-  .row2 {
-    display: relative;
-    flex-wrap:wrap;
-  }
   `]
 })
 export class StoreComponent implements OnInit {
@@ -399,14 +402,7 @@ export class StoreComponent implements OnInit {
 
   menuWidth: string = '25%'
 
-  productItems = [
-    { id: 1, productdetail: '1+1+1+1 시그니쳐퍼퓸디퓨저 200ml', businessname: '데일리콤마', price: '16,900', discount: '52', stars: '4.2', reviews: '84' },
-    { id: 2, productdetail: '1+1+1+1 시그니쳐퍼퓸디퓨저 200ml', businessname: '데일리콤마', price: '16,900', discount: '52', stars: '4.2', reviews: '84' },
-    { id: 3, productdetail: '1+1+1+1 시그니쳐퍼퓸디퓨저 200ml', businessname: '데일리콤마', price: '16,900', discount: '52', stars: '4.2', reviews: '84' },
-    { id: 4, productdetail: '1+1+1+1 시그니쳐퍼퓸디퓨저 200ml', businessname: '데일리콤마', price: '16,900', discount: '52', stars: '4.2', reviews: '84' },
-    { id: 4, productdetail: '1+1+1+1 시그니쳐퍼퓸디퓨저 200ml', businessname: '데일리콤마', price: '16,900', discount: '52', stars: '4.2', reviews: '84' },
-    { id: 4, productdetail: '1+1+1+1 시그니쳐퍼퓸디퓨저 200ml', businessname: '데일리콤마', price: '16,900', discount: '52', stars: '4.2', reviews: '84' },
-  ]
+  productItems: store_list;
 
   keywords = [
     { words: '#장마철 #건조기 #제습기' },
@@ -420,6 +416,8 @@ export class StoreComponent implements OnInit {
   ngOnInit() {
     this.stateService.setLocate(1);
     this.stateService.setNav(1);
+    this.storeService.getProductList()
+      .subscribe(data => this.productItems = data);
   }
 
 }
