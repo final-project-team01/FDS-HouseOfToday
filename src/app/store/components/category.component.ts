@@ -185,7 +185,6 @@ import { StateService } from 'src/app/core/services/state.service';
     }
 
     .filteredList {
-      margin-left: 800px;
       margin-bottom: 10px;
       width: 50px;
       font-size: 10px;
