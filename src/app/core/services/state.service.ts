@@ -81,7 +81,7 @@ export class StateService {
   }
   public getUserDetail() {
     return this.userDetail;
-
+  }
 
   public addComma(num: number){
     const regexp = /\B(?=(\d{3})+(?!\d))/g;

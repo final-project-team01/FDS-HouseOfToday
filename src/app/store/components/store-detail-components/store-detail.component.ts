@@ -111,13 +111,13 @@ export class StoreDetailComponent implements OnInit {
   id: number;
   activeId: number;
   sticky = false;
-  productInfo: product_info;
-  productImages: thumbnail_image;
-  productDetailImages: detail_image;
-  productOption: product_option;
-  productReviews: review;
-  productQnas: qna;
-  chosenReviews: ChosenOption;
+  productInfo: any;
+  productImages: thumbnail_image[];
+  productDetailImages: detail_image[];
+  productOption: product_option[];
+  productReviews: review[];
+  productQnas: qna[];
+  chosenReviews: review[];
   reviewAmount: number;
   qnaAmount: number;
   pages = [];
@@ -197,7 +197,7 @@ export class StoreDetailComponent implements OnInit {
         { ...option, amount: option.amount -= 1 } : { ...option, amount: option.amount });
   }
 
-  setAmount(data: product_info) {
+  setAmount(data: any) {
     data.option.amount = +data.input.value;
   }
 }
