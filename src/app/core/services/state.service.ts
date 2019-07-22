@@ -7,7 +7,9 @@ import { CoreModule } from '../core.module';
 export class StateService {
   private _token: string = null;
   private _id: string = "";
-  private isStore = false;
+  private locate: number; //페이지 0커뮤니티, 1스토어
+  private nav: number;//메뉴 변경여부
+  private isNavFiexd = false;
 
   public readonly url: string = "http://52.78.112.247/";
   constructor() { }
@@ -36,15 +38,28 @@ export class StateService {
     return this.url[this.url.length - 1] === '/' ? this.url + path : this.url + "/" + path;
   }
 
-  public setIsStore(isStore: boolean) {
-    this.isStore = isStore;
+  public setLocate(nav: number) {
+    this.locate = nav;
+  }
+  public getLocate() {
+    return this.locate;
   }
 
-  public getIsStore() {
-    return this.isStore;
+  public setNav(nav: number) {
+    this.nav = nav;
+  }
+  public getNav() {
+    return this.nav;
   }
 
+  public resetNav() {
+    this.nav = this.locate;
+  }
 
-
-
+  public setIsNavFixed(isFixed: boolean) {
+    this.isNavFiexd = isFixed;
+  }
+  public getIsNavFixed() {
+    return this.isNavFiexd;
+  }
 }

@@ -6,7 +6,7 @@ import { StateService } from 'src/app/core/services/state.service';
 @Component({
   selector: 'app-category',
   template: `
-    <app-header></app-header>
+    <app-header [thisNav]="stateService.getNav()"></app-header>
     <div class="category-container">
       <div class="category-wrap container">
         <div class="category row">
@@ -223,7 +223,8 @@ export class CategoryComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.stateService.setIsStore(true);
+    this.stateService.setLocate(1);
+    this.stateService.setNav(1);
   }
 
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
 
 @Component({
   selector: 'app-product-option',
@@ -8,22 +9,42 @@ import { Component, OnInit } from '@angular/core';
       <input type="text" placeholder="향선택1" readonly (focus)="show()" #input>
         <span class="product-option-icon icon"></span>
         <ul class="option-item-list" *ngIf="visible">
-          <li *ngFor="let option of product_options1; let i = index" class="option-item"
-          (click)="addOption(option, input)">
+          <li *ngFor="let option of product_options; let i = index" class="option-item"
+          (click)="add(option, input)">
           {{ option.name }}
           </li>
         </ul>
       </div>
-      <div class="selected-items" *ngFor="let option of chosen_options">
+      <div class="selected-items-container scroll" *ngIf="scroll; else noscroll">
+        <div class="selected-items" *ngFor="let option of chosenOptions">
+          <p class="selected-item-name">{{ option.name }}</p>
+          <div class="ea-container">
+            <input type="number" [value]="option.amount" class="selected-item-ea"
+              #input (keyup.enter)="setAmount(option, input)">
+            <button class="selected-item-btn increase"
+              (click)="increaseAmount(option)"></button>
+            <button class="selected-item-btn decrease"
+              (click)="decreaseAmount(option)"></button>
+          </div>
+          <span class="selected-item-price">{{ addComma(option.price * option.amount) + '원' }}</span>
+          <button class="selected-item-cancel icon" (click)="remove(option.id)"></button>
+        </div>
+      </div>
+      <ng-template #noscroll>
+      <div class="selected-items" *ngFor="let option of chosenOptions">
         <p class="selected-item-name">{{ option.name }}</p>
         <div class="ea-container">
-          <input type="number" value="1" class="selected-item-ea">
-          <button class="selected-item-btn increase"></button>
-          <button class="selected-item-btn decrease"></button>
+          <input type="number" [value]="option.amount" class="selected-item-ea"
+            #input (keyup.enter)="setAmount(option, input)">
+          <button class="selected-item-btn increase"
+            (click)="increaseAmount(option)"></button>
+          <button class="selected-item-btn decrease"
+            (click)="decreaseAmount(option)"></button>
         </div>
-        <span class="selected-item-price">{{ addComma(option.price) + '원' }}</span>
-        <button class="selected-item-cancel icon"></button>
+        <span class="selected-item-price">{{ addComma(option.price * option.amount) + '원' }}</span>
+        <button class="selected-item-cancel icon" (click)="remove(option.id)"></button>
       </div>
+      </ng-template>
       <div class="price">
         <span>주문금액</span>
         <mark class="order-price">{{ getTotalPrice() }}<span>원</span></mark>
@@ -90,6 +111,11 @@ import { Component, OnInit } from '@angular/core';
     .icon{
       display: inline-block;
       background-image: url('../../../../assets/image/icon-pointer.png');
+    }
+    .selected-items-container{
+      overflow-y: scroll;
+      height: 150px;
+      border: 1px solid #F1F1F1;
     }
     .selected-items{
       width: 100%;
@@ -201,14 +227,21 @@ import { Component, OnInit } from '@angular/core';
 export class ProductOptionComponent implements OnInit {
   
   visible = false;
+  product_options = [];
 
-  product_options1 = [];
-  chosen_options = [];
+  @Input() totalPrice: number;
+  @Input() chosenOptions: ChosenOption[];
+  @Input() scroll: boolean;
+  @Output() addOption = new EventEmitter();
+  @Output() deleteOption = new EventEmitter();
+  @Output() increase = new EventEmitter();
+  @Output() decrease = new EventEmitter();
+  @Output() set = new EventEmitter<object>();
 
   constructor() { }
 
   ngOnInit() {
-    this.product_options1 = [
+    this.product_options = [
       { id: 1, name: '블랙체리 X2(16,900원)', price: 16900, type: '향선택1' },
       { id: 2, name: '로즈부케 X2(16,900원)', price: 16900, type: '향선택1' },
       { id: 3, name: '데일리런드리 X2(16,900원)', price: 16900, type: '향선택1' }
@@ -223,34 +256,39 @@ export class ProductOptionComponent implements OnInit {
     this.visible = false;
   }
 
-  addOption(option: object, input: HTMLInputElement) {
+  add(option: object, input: HTMLInputElement) {
     input.value = `${option['name']}`;
-    const chosen = { id: this.generateId(), name: this.getName(option['name']), price: option['price'] };
-    this.chosen_options = [ ...this.chosen_options, chosen ];
+    this.addOption.emit(option);
     this.hide();
   }
 
-  getName(name: string){
-    const i = name.indexOf('(');
-    return name.slice(0, i);
-  }
-
-  generateId(){
-    return this.chosen_options.length 
-      ? Math.max(...this.chosen_options.map(option => option.id)) : 1;
-  }
-
-  getTotalPrice() {
-    if (this.chosen_options.length === 0) return 0;
-    const prices = this.chosen_options.map(option => option.price);
-    console.log(prices);
-    const sum = prices.reduce(
-      (previous, current) => { return previous + current });
-    return this.addComma(sum);
+  remove(id: number) {
+    this.deleteOption.emit(id);
   }
 
   addComma(num: number){
     const regexp = /\B(?=(\d{3})+(?!\d))/g;
     return num.toString().replace(regexp, ',');
   }
+
+  getTotalPrice() {
+    if (this.chosenOptions.length === 0) return 0;
+    const prices = this.chosenOptions.map(option => option.price * option.amount);
+    const sum = prices.reduce(
+      (previous, current) => { return previous + current });
+    return this.addComma(sum);
+  }
+
+  increaseAmount(option){
+    this.increase.emit(option);
+  }
+
+  decreaseAmount(option){
+    this.decrease.emit(option);
+  }
+
+  setAmount(option, input){
+    this.set.emit({ option, input });
+  }
+  
 }

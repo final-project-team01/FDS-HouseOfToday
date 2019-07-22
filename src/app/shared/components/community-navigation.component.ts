@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StateService } from 'src/app/core/services/state.service';
 
 @Component({
   selector: 'app-community-navigation',
@@ -20,7 +21,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CommunityNavigationComponent implements OnInit {
 
-  constructor() { }
+  constructor(private stateService: StateService) { }
 
   ngOnInit() {
   }
