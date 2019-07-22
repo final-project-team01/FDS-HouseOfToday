@@ -190,8 +190,8 @@ import { review } from 'src/app/core/models/store.interface';
 })
 export class ProductReviewComponent implements OnInit {
 
-  @Input() productReviews: review;
-  @Input() chosenReviews: review;
+  @Input() productReviews: review[];
+  @Input() chosenReviews: review[];
   @Input() pages: any;
 
   constructor() { }
