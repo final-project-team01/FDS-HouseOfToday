@@ -62,4 +62,9 @@ export class StateService {
   public getIsNavFixed() {
     return this.isNavFiexd;
   }
+
+  public addComma(num: number){
+    const regexp = /\B(?=(\d{3})+(?!\d))/g;
+    return num.toString().replace(regexp, ',');
+  }
 }

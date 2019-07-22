@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'app-product-nav',
@@ -58,6 +58,9 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
   `]
 })
 export class ProductNavComponent implements OnInit {
+
+  @Input() reviewAmount: number;
+  @Input() qnaAmount: number;
 
   navMenu = [ 
     { title: '상품정보', active: true },
