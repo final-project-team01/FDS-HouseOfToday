@@ -18,6 +18,8 @@ export class StoreService {
   getCategoryList() {
     const path = "products/category/list/";
     const fullPath = this.stateService.getFullPath(path);
+    console.log(fullPath);
+    
     return this.httpClient.get<store_list[]>(fullPath);
   }
 

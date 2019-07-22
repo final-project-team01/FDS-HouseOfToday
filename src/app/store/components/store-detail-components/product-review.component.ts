@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { review } from 'src/app/core/models/store.interface';
+import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
 
 @Component({
   selector: 'app-product-review',
@@ -190,8 +192,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ProductReviewComponent implements OnInit {
 
-  @Input() productReviews;
-  @Input() chosenReviews;
+  @Input() productReviews: review;
+  @Input() chosenReviews: review;
   @Input() pages: any;
 
   constructor(private http: HttpClient) { }

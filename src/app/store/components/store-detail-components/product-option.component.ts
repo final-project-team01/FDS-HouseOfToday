@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
 import { StateService } from 'src/app/core/services/state.service';
+import { product_option } from 'src/app/core/models/store.interface';
 
 @Component({
   selector: 'app-product-option',
@@ -234,7 +235,7 @@ export class ProductOptionComponent implements OnInit {
   visible = false;
 
   @Input() totalPrice: number;
-  @Input() productOption;
+  @Input() productOption: product_option;
   @Input() chosenOptions: ChosenOption[];
   @Input() scroll: boolean;
   @Output() addOption = new EventEmitter();

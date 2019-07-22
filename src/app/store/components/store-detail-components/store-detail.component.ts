@@ -5,6 +5,8 @@ import { StateService } from 'src/app/core/services/state.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
 import { HttpClient } from '@angular/common/http';
+import { product_info, thumbnail_image, detail_image, product_option, review, qna } 
+  from 'src/app/core/models/store.interface';
 
 @Component({
   selector: 'app-store-detail',
@@ -35,7 +37,9 @@ import { HttpClient } from '@angular/common/http';
           [productReviews]="productReviews"
           [chosenReviews]="chosenReviews"
           [pages]="pages"
-          ></app-product-review>
+        ></app-product-review>
+        <app-product-qna
+        [productQnas]="productQnas"></app-product-qna>
       </div>
       <div class="nav-container"
         [class.sticky]="sticky">
@@ -107,13 +111,13 @@ export class StoreDetailComponent implements OnInit {
   id: number;
   activeId: number;
   sticky = false;
-  productInfo;
-  productImages = [];
-  productDetailImages = [];
-  productOption = [];
-  productReviews = [];
-  productQnas = [];
-  chosenReviews = [];
+  productInfo: product_info;
+  productImages: thumbnail_image;
+  productDetailImages: detail_image;
+  productOption: product_option;
+  productReviews: review;
+  productQnas: qna;
+  chosenReviews: ChosenOption;
   reviewAmount: number;
   qnaAmount: number;
   pages = [];
@@ -193,7 +197,7 @@ export class StoreDetailComponent implements OnInit {
         { ...option, amount: option.amount -= 1 } : { ...option, amount: option.amount });
   }
 
-  setAmount(data) {
+  setAmount(data: product_info) {
     data.option.amount = +data.input.value;
   }
 }

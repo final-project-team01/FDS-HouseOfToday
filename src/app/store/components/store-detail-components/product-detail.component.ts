@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { detail_image } from 'src/app/core/models/store.interface';
 
 @Component({
   selector: 'app-product-detail',
@@ -28,7 +29,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ProductDetailComponent implements OnInit {
   
-  @Input() productDetailImages;
+  @Input() productDetailImages: detail_image;
 
   constructor() { }
 
