@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LyTheme2 } from '@alyle/ui';
 import { StoreService } from 'src/app/core/services/store.service';
 import { StateService } from 'src/app/core/services/state.service';
+import { store_list } from 'src/app/core/models/store.interface';
 
 @Component({
   selector: 'app-category',
@@ -14,7 +15,7 @@ import { StateService } from 'src/app/core/services/state.service';
             <section class="commerce-category">
               <ul *ngFor="let categoryList of categoryLists" class="commerce-category-list">
                 <li class="commerce-category-list_item">
-                  <a href="#">{{ categoryList.categoryName }}</a>
+                  <a href="#">{{ categoryList.name }}</a>
                 </li>
               </ul>
             </section>
@@ -185,7 +186,6 @@ import { StateService } from 'src/app/core/services/state.service';
     }
 
     .filteredList {
-      margin-left: 800px;
       margin-bottom: 10px;
       width: 50px;
       font-size: 10px;
@@ -199,25 +199,9 @@ import { StateService } from 'src/app/core/services/state.service';
 export class CategoryComponent implements OnInit {
   menuWidth: string = '33%';
 
-  categoryLists = [
-    { categoryName: '가구' },
-    { categoryName: '여름 인테리어' },
-    { categoryName: '패브릭' },
-    { categoryName: '홈데코/조명' },
-    { categoryName: '가전' },
-    { categoryName: '수납/생활' },
-    { categoryName: '주방' },
-    { categoryName: 'DIY셀프시공' },
-    { categoryName: '시공/서비스' },
-    { categoryName: '반려동물' },
-  ]
+  categoryLists: object;
 
-  productItems = [
-    { id: 1, productdetail: '1+1+1+1 시그니쳐퍼퓸디퓨저 200ml', businessname: '데일리콤마', price: '16,900', discount: '52', stars: '4.2', reviews: '84' },
-    { id: 2, productdetail: '1+1+1+1 시그니쳐퍼퓸디퓨저 200ml', businessname: '데일리콤마', price: '16,900', discount: '52', stars: '4.2', reviews: '84' },
-    { id: 3, productdetail: '1+1+1+1 시그니쳐퍼퓸디퓨저 200ml', businessname: '데일리콤마', price: '16,900', discount: '52', stars: '4.2', reviews: '84' },
-    { id: 4, productdetail: '1+1+1+1 시그니쳐퍼퓸디퓨저 200ml', businessname: '데일리콤마', price: '16,900', discount: '52', stars: '4.2', reviews: '84' },
-  ]
+  productItems: store_list;
 
   constructor(private storeService: StoreService
     , private stateService: StateService
@@ -226,6 +210,10 @@ export class CategoryComponent implements OnInit {
   ngOnInit() {
     this.stateService.setLocate(1);
     this.stateService.setNav(1);
+    this.storeService.getProductList()
+      .subscribe(data => this.productItems = data);
+    this.storeService.getCategoryList()
+      .subscribe(data => this.categoryLists = data);
   }
 
 }

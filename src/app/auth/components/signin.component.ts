@@ -196,6 +196,9 @@ import { StateService } from 'src/app/core/services/state.service';
       line-height: 50px;
       color: white;
     }
+    ::placeholder {
+      color: black;
+    }
     `
   ]
 })

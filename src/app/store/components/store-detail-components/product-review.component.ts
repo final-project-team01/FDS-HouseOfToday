@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit, Input } from '@angular/core';
+import { review } from 'src/app/core/models/store.interface';
 
 @Component({
   selector: 'app-product-review',
   template: `
     <div class="product-review-container">
-      <h3>리뷰 <span class="review-amount" *ngIf="reviews">{{ reviews.length }}</span></h3>
+      <h3>리뷰 <span class="review-amount">{{ productReviews.length }}</span></h3>
       <a href="" class="write-review">리뷰쓰기</a>
       <div class="filter-container">
       <ul>
@@ -52,7 +52,7 @@ import { HttpClient } from '@angular/common/http';
   styles: [`
   .product-review-container{
     width: 690px;
-    padding: 60px 30px 30px 30px;
+    padding: 60px 30px 0 30px;
     position: relative;
   }
   h3{
@@ -75,7 +75,6 @@ import { HttpClient } from '@angular/common/http';
     font-weight: 700;
   }
   .filter-container{
-    // background-color: skyblue;
     margin: 15px 0;
     padding: 15px 15px;
     border-top: 1px solid lightgrey;
@@ -191,20 +190,14 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ProductReviewComponent implements OnInit {
 
-  reviews: any;
-  chosenReviews: any;
-  pages: any;
+  @Input() productReviews: review;
+  @Input() chosenReviews: review;
+  @Input() pages: any;
 
-  constructor(private http: HttpClient) { }
+  constructor() { }
 
   ngOnInit() {
-    this.http.get('http://52.78.112.247/products/product/1/')
-      .subscribe((detail) => {
-        this.reviews = detail['review'];
-        this.chosenReviews = this.reviews.filter((review, index) => index >= 0 && index < 3);
-        const i = Math.ceil(this.reviews.length / 3);
-        this.pages = Array(i);
-      });
+    
   }
 
   range(i: number){
@@ -215,7 +208,7 @@ export class ProductReviewComponent implements OnInit {
     const start = i * 3;
     const end = start + 3;
     this.chosenReviews 
-      = this.reviews.filter((review, index) => index >= start && index < end);
+      = this.productReviews.filter((review, index) => index >= start && index < end);
   }
 
 }
