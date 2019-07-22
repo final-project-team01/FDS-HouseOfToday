@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivationEnd } from '@angular/router';
+import { thumbnail_image } from 'src/app/core/models/store.interface';
 
 @Component({
   selector: 'app-product-pic',
@@ -64,7 +65,7 @@ import { ActivationEnd } from '@angular/router';
 })
 export class ProductPicComponent implements OnInit {
   
-  @Input() productImages;
+  @Input() productImages: thumbnail_image;
   @Input() activeId: number;
 
   ngOnInit(){

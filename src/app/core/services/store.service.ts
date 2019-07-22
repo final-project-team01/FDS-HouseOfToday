@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 
 import { CoreModule } from '../core.module';
-import { store_list } from '../models/store.interface';
 import { StateService } from './state.service';
 
 @Injectable({
