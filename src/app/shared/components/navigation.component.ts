@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { StateService } from 'src/app/core/services/state.service';
 import { Router } from '@angular/router';
 import { StorageService } from 'src/app/core/services/storage.service';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-navigation',
@@ -45,11 +46,11 @@ export class NavigationComponent implements OnInit {
   constructor(private stateService: StateService
     , private router: Router
     , private storageService: StorageService
+    , private userService: UserService
   ) {
   }
 
   ngOnInit() {
-
   }
   logout(e: Event) {
     e.preventDefault();
@@ -60,4 +61,5 @@ export class NavigationComponent implements OnInit {
   changMenu(nav: number) {
     this.stateService.setNav(nav);
   }
+
 }

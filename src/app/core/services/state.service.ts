@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CoreModule } from '../core.module';
+import { HttpHeaders } from '@angular/common/http';
+import { user_detail } from '../models/user.interface';
 
 @Injectable({
   providedIn: CoreModule
@@ -10,6 +12,7 @@ export class StateService {
   private locate: number; //페이지 0커뮤니티, 1스토어
   private nav: number;//메뉴 변경여부
   private isNavFiexd = false;
+  private userDetail: user_detail;
 
   public readonly url: string = "http://52.78.112.247/";
   constructor() { }
@@ -30,7 +33,6 @@ export class StateService {
   }
 
   public isLogin() {
-    console.log("isLogin", this._token);
     return this._token ? true : false;
   }
 
@@ -61,5 +63,23 @@ export class StateService {
   }
   public getIsNavFixed() {
     return this.isNavFiexd;
+  }
+  public setHeader(headers: HttpHeaders, key: string, value: string) {
+    return headers.set(key, value);
+  }
+  public setAuthorization(token: string) {
+    if (!token.startsWith("token"))
+      token = "token " + token;
+
+    const headers = new HttpHeaders().set('Content-type', 'application/json')
+      .set('Authorization', token);
+
+    return headers;
+  }
+  public setUserDetail(userDetail: user_detail) {
+    this.userDetail = userDetail
+  }
+  public getUserDetail() {
+    return this.userDetail;
   }
 }
