@@ -93,7 +93,7 @@ import { product_option } from 'src/app/core/models/store.interface';
       background-color: white;
       z-index: 10;
       width: 100%;
-      height: 200px;
+      max-height: 200px;
       overflow-y: scroll;
       border: solid 1px #dbdbdb;
     }

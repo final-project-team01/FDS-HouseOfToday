@@ -1,13 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { review } from 'src/app/core/models/store.interface';
-import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
 
 @Component({
   selector: 'app-product-review',
   template: `
     <div class="product-review-container">
-      <h3>리뷰 <span class="review-amount" *ngIf="reviews">{{ reviews.length }}</span></h3>
+      <h3>리뷰 <span class="review-amount">{{ productReviews.length }}</span></h3>
       <a href="" class="write-review">리뷰쓰기</a>
       <div class="filter-container">
       <ul>
@@ -54,7 +52,7 @@ import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
   styles: [`
   .product-review-container{
     width: 690px;
-    padding: 60px 30px 30px 30px;
+    padding: 60px 30px 0 30px;
     position: relative;
   }
   h3{
@@ -196,7 +194,7 @@ export class ProductReviewComponent implements OnInit {
   @Input() chosenReviews: review;
   @Input() pages: any;
 
-  constructor(private http: HttpClient) { }
+  constructor() { }
 
   ngOnInit() {
     
