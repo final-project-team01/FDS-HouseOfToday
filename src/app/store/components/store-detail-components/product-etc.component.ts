@@ -4,7 +4,7 @@ import { product_info } from 'src/app/core/models/store.interface';
 @Component({
   selector: 'app-product-etc',
   template: `
-    <div class="product-etc-container">
+    <div class="product-etc-container" *ngIf="productInfo">
       <table class="etc-table">
       <tbody>
           <tr>

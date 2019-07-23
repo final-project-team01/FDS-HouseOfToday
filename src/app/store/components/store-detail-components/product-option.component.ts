@@ -235,7 +235,7 @@ export class ProductOptionComponent implements OnInit {
   visible = false;
 
   @Input() totalPrice: number;
-  @Input() productOption: product_option;
+  @Input() productOption: product_option[];
   @Input() chosenOptions: ChosenOption[];
   @Input() scroll: boolean;
   @Output() addOption = new EventEmitter();
