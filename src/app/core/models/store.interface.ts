@@ -74,7 +74,24 @@ export interface qna {
   product: number;
 }
 export interface store_list {
-  id: number,
-  name: string,
-  image: string
+  id: number;
+  name: string;
+  image: string;
+}
+
+export interface store_home {
+  todaydeal: today_deal;
+  category? : object;
+  poular_products? : object;
+}
+
+export interface today_deal {
+  id: number;
+  brand_name: string;
+  name: string;
+  discount_rate: string;
+  price: number;
+  review_count: number;
+  star_avg: string;
+  thumnail_images: detail_image[];
 }

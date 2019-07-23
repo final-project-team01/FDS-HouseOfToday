@@ -30,4 +30,10 @@ export class StoreService {
     const fullPath = this.commonService.getFullPath(path);
     return this.httpClient.get(fullPath);
   }
+
+  getTodaysDeal() {
+    const path = `products/storehome/`;
+    const fullPath = this.commonService.getFullPath(path);
+    return this.httpClient.get(fullPath);
+  }
 } 
