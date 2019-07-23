@@ -4,18 +4,45 @@ import { qna } from 'src/app/core/models/store.interface';
 @Component({
   selector: 'app-product-qna',
   template: `
-    <div class="product-qna-container">
-      <h3>문의 <span class="qna-amount">{{ productQnas.length }}</span></h3>
-      <button class="write-qna">리뷰쓰기</button>
-      <article class="user-qna">
+    <div class="product-qna-container" *ngIf="originalList">
+      <h3>문의 <span class="qna-amount">{{ originalList.length }}</span></h3>
+      <button class="write-qna">문의하기</button>
+      <article class="user-qna" *ngFor="let qna of chosenList; let i = index">
+        <div class="qna-type">
+          <span class="bar">구매</span>
+          <span class="bar">{{ qna.type }}</span>
+          <span *ngIf="qna.completed; else noAnswer">답변완료</span>
+          <ng-template #noAnswer><span>미답변</span></ng-template>
+        </div>
+        <div class="create-info">
+          <span class="bar">사용자</span>
+          <small>{{ qna.created }}</small>
+        </div>
+        <div class="user-question">
+        <p>
+          {{ qna.comment }}
+        </p>
+        </div>
+        <div class="company-answer">
+        <p>
+          <span *ngIf="qna.a_author" class="company">{{ qna.a_author }}</span>
+          <small>{{ qna.a_created }}</small><br>
+          {{ qna.a_comment }}
+        </p>
+        </div>
       </article>
+      <app-pagination 
+        [originalList]="originalList"
+        [chosenList]="chosenList"
+        [pages]="pages"
+        (change)="changePage($event)"
+      ></app-pagination>
     </div>
   `,
   styles: [`
   .product-qna-container{
     width: 690px;
-    padding: 30px 30px 30px 30px;
-    background-color: skyblue;
+    padding: 30px 30px 0 30px;
     position: relative;
   }
   h3{
@@ -42,21 +69,62 @@ import { qna } from 'src/app/core/models/store.interface';
     border-radius: 4px;
     cursor: pointer;
   }
+  .qna-type{
+    font-size: 12px;
+    color: #424242;
+  }
   .user-qna{
-    padding: 30px 0;
+    padding: 15px 0;
     margin: 30px 0;
     border-bottom: 1px solid lightgrey;
-    background-color: pink;
+  }
+  .user-question, .company-answer{
+    margin-top: 10px;
+    position: relative;
+  }
+  .user-question > p, .company-answer > p{
+    padding-left: 22px;
+  }
+  .user-question::before, .company-answer::before{
+    font-weight: bold;
+    color: #35C5F0;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  .user-question::before{
+    content: 'Q';
+  }
+  .company-answer::before{
+    content: 'A';
+  }
+  .company{
+    font-weight: bold;
+    margin-right: 3px;
+  }
+  small, .create-info{
+    font-size: 12px;
+    color: #bdbdbd;
+  }
+  .bar::after{
+    content: '|';
+    margin: 0 6px;
   }
   `]
 })
 export class ProductQnaComponent implements OnInit {
   
-  @Input() productQnas: qna;
+  @Input() originalList: qna[];
+  @Input() chosenList: qna[];
+  @Input() pages: any;
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  changePage(chosenList){
+    this.chosenList = chosenList;
   }
 
 }

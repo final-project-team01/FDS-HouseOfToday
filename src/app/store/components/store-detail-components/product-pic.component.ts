@@ -65,7 +65,7 @@ import { thumbnail_image } from 'src/app/core/models/store.interface';
 })
 export class ProductPicComponent implements OnInit {
   
-  @Input() productImages: thumbnail_image;
+  @Input() productImages: thumbnail_image[];
   @Input() activeId: number;
 
   ngOnInit(){

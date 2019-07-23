@@ -27,6 +27,9 @@ export interface product_info {
   deliver_no_go: string;
   deliver_fee_diff: string;
   created: string;
+  discount_rate: string;
+  star_avg: string;
+  review_count: number;
   category: number;
 }
 
