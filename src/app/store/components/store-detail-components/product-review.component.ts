@@ -1,11 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { review } from 'src/app/core/models/store.interface';
 
+
 @Component({
   selector: 'app-product-review',
   template: `
     <div class="product-review-container">
-      <h3>리뷰 <span class="review-amount" *ngIf="productReviews">{{ productReviews.length }}</span></h3>
+      <h3>리뷰 <span class="review-amount" *ngIf="originalList">{{ originalList.length }}</span></h3>
       <a href="" class="write-review">리뷰쓰기</a>
       <div class="star-rate-container">
         <span class="star-avg">{{ starAvg }}</span>
@@ -34,7 +35,7 @@ import { review } from 'src/app/core/models/store.interface';
         </li>
       </ul>
       </div>
-      <article class="user-review" *ngFor="let review of chosenReviews">
+      <article class="user-review" *ngFor="let review of chosenList">
         <span>사용자</span>
         <div class="review-star-score">
           <span class="star" *ngFor="let star of range(review['star_score'])">
@@ -47,14 +48,12 @@ import { review } from 'src/app/core/models/store.interface';
         <p class="review-comment">{{ review.comment }}</p>
         <button class="helpful">도움이 돼요</button>
       </article>
-      <ul class="pagination">
-        <li><button class="pagination-btn left"></button></li>
-        <li *ngFor="let page of pages; let i = index">
-          <button class="pagination-page"
-            (click)="changePage(i)">{{ i + 1 }}</button>
-        </li>
-        <li><button class="pagination-btn right"></button></li>
-      </ul>
+      <app-pagination 
+        [originalList]="originalList"
+        [chosenList]="chosenList"
+        [pages]="pages"
+        (change)="changePage($event)"
+      ></app-pagination>
     </div>
   `,
   styles: [`
@@ -195,38 +194,12 @@ import { review } from 'src/app/core/models/store.interface';
     margin-right: 10px;
     background-color: #fff;
   }
-  .pagination{
-    text-align: center;
-    margin: 40px 0;
-  }
-  .pagination > li{
-    display: inline-block;
-  }
-  .pagination-page, .pagination-btn{
-    vertical-align: middle;
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    margin: 5px;
-  }
-  .pagination-btn, .filter-icon{
-    background-image: url('../../../../assets/image/icon-pointer.png');
-  }
-  .left{
-    background-position: -75px -118px;
-  }
-  .right{
-    background-position: -130px -118px;
-  }
   `]
 })
 export class ProductReviewComponent implements OnInit {
 
-  @Input() productReviews: review[];
-  @Input() chosenReviews: review[];
+  @Input() originalList: review[];
+  @Input() chosenList: review[];
   @Input() pages: any;
   @Input() starAvg: number;
 
@@ -240,11 +213,8 @@ export class ProductReviewComponent implements OnInit {
     return Array(i);
   }
 
-  changePage(i: number){
-    const start = i * 3;
-    const end = start + 3;
-    this.chosenReviews 
-      = this.productReviews.filter((review, index) => index >= start && index < end);
+  changePage(chosenList: review[]){
+    this.chosenList = chosenList;
   }
 
 }

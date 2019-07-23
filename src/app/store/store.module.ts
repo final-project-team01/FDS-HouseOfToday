@@ -25,6 +25,7 @@ import { ClickOutsideDirective } from './components/store-detail-components/clic
 import { ProductReviewComponent } from './components/store-detail-components/product-review.component';
 import { ProductQnaComponent } from './components/store-detail-components/product-qna.component';
 import { ProductEtcComponent } from './components/store-detail-components/product-etc.component';
+import { PaginationComponent } from './components/store-detail-components/pagination.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { ProductEtcComponent } from './components/store-detail-components/produc
     , ProductOptionComponent
     , ProductDetailComponent
     , ClickOutsideDirective
-    , StoreDetailComponent, ProductReviewComponent, ProductQnaComponent, ProductEtcComponent
+    , StoreDetailComponent, ProductReviewComponent, ProductQnaComponent, ProductEtcComponent, PaginationComponent
   ],
   imports: [
     CommonModule

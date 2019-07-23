@@ -34,13 +34,15 @@ import { thumbnail_image, detail_image, product_option, review, qna }
         <app-product-detail [productDetailImages]="productDetailImages"></app-product-detail>
         <app-product-etc [productInfo]="productInfo"></app-product-etc>
         <app-product-review 
-          [productReviews]="productReviews"
-          [chosenReviews]="chosenReviews"
-          [pages]="pages"
+          [originalList]="productReviews"
+          [chosenList]="chosenReviews"
+          [pages]="reviewPages"
           [starAvg]="starAvg"
         ></app-product-review>
         <app-product-qna
-        [productQnas]="productQnas"></app-product-qna>
+        [originalList]="productQnas"
+        [chosenList]="chosenQnas"
+        [pages]="qnaPages"></app-product-qna>
       </div>
       <div class="nav-container"
         [class.sticky]="sticky">
@@ -119,9 +121,11 @@ export class StoreDetailComponent implements OnInit {
   productReviews: review[];
   reviewAmount: number;
   starAvg: number;
-  pages = [];
+  reviewPages = [];
+  qnaPages = [];
   productQnas: qna[];
   chosenReviews: review[];
+  chosenQnas: qna[];
   qnaAmount: number;
   chosenOptions: ChosenOption[] = [];
 
@@ -145,12 +149,14 @@ export class StoreDetailComponent implements OnInit {
         this.productReviews = data['review'];
         this.productQnas = data['pdqna'];
         this.chosenReviews = this.productReviews.filter((review, index) => index >= 0 && index < 3);
+        this.chosenQnas = this.productQnas.filter((review, index) => index >= 0 && index < 3);
         this.qnaAmount = this.productQnas.length;
         this.reviewAmount = this.productInfo['review_count'];
         this.starAvg = +this.productInfo['star_avg'];
-        const i = Math.ceil(this.reviewAmount / 3);
-        this.pages = Array(i);
-
+        const rp = Math.ceil(this.reviewAmount / 3);
+        const qp = Math.ceil(this.qnaAmount / 3);
+        this.reviewPages = Array(rp);
+        this.qnaPages = Array(qp);
         this.activeId = this.productImages[0].id;
       });
   }
