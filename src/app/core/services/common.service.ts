@@ -8,7 +8,7 @@ import { user_detail } from '../models/user.interface';
 })
 export class CommonService {
   private _token: string = null;
-  private _id: string = "";
+  private _id: number;
   private locate: number; //페이지 0커뮤니티, 1스토어
   private nav: number;//메뉴 변경여부
   private isNavFiexd = false;
@@ -28,7 +28,7 @@ export class CommonService {
   public get Id() {
     return this._id;
   }
-  public setId(userId: string) {
+  public setId(userId: number) {
     this._id = userId;
   }
 
