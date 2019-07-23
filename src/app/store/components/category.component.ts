@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { LyTheme2 } from '@alyle/ui';
 import { StoreService } from 'src/app/core/services/store.service';
 import { StateService } from 'src/app/core/services/state.service';
-import { store_list } from 'src/app/core/models/store.interface';
 
 @Component({
   selector: 'app-category',
