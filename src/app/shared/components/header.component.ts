@@ -1,7 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { UserService } from 'src/app/core/services/user.service';
-import { StorageService } from 'src/app/core/services/storage.service';
-import { CommonService } from 'src/app/core/services/common.service'
+import { Component } from '@angular/core';
+import { CommonService } from 'src/app/core/services/common.service';
 
 @Component({
   selector: 'app-header',
@@ -27,23 +25,8 @@ import { CommonService } from 'src/app/core/services/common.service'
   `
   ]
 })
-export class HeaderComponent implements OnInit {
-
-  private location: number;
-
-  @Input() thisNav: number;
-  constructor(private userService: UserService
-    , private storageService: StorageService
-    , private commonService: CommonService
-  ) {
-    if (!this.commonService.Token) {
-      const user = this.storageService.getLocal("user");
-      this.commonService.setToken(user);
-    }
-  }
-
-  ngOnInit() {
-  }
+export class HeaderComponent {
+  constructor(private commonService:CommonService) { }
 
 
 }
