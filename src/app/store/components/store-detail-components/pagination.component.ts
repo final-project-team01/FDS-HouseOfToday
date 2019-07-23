@@ -9,6 +9,7 @@ import { CommonService } from 'src/app/core/services/common.service';
     <li><button class="pagination-btn left"></button></li>
     <li *ngFor="let page of pages; let i = index">
       <button class="pagination-page"
+        [class.active]="activeId === i"
         (click)="changePage(i, chosenList, originalList)">
         {{ i + 1 }}</button>
     </li>
@@ -29,7 +30,7 @@ import { CommonService } from 'src/app/core/services/common.service';
     width: 30px;
     height: 30px;
     background: none;
-    border: none;
+    border-style: none;
     cursor: pointer;
     margin: 5px;
   }
@@ -42,21 +43,30 @@ import { CommonService } from 'src/app/core/services/common.service';
   .right{
     background-position: -130px -118px;
   }
+  .active{
+    background-color: #35C5F0;
+    color: white;
+    cursor: default;
+    border-radius: 4px;
+  }
   `]
 })
 export class PaginationComponent implements OnInit {
 
-  @Input() originalList: review[];
-  @Input() chosenList: review[];
+  @Input() originalList: any;
+  @Input() chosenList: any;
   @Input() pages: any;
   @Output() change = new EventEmitter;
+
+  activeId = 0;
 
   constructor(private commonService: CommonService) { }
 
   ngOnInit() {
   }
 
-  changePage(i, chosenList, originalList){
+  changePage(i: number, chosenList, originalList){
+    this.activeId = i;
     chosenList = this.commonService.changePage(i, chosenList, originalList);
     this.change.emit(chosenList);
   }

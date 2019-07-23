@@ -6,16 +6,16 @@ import { qna } from 'src/app/core/models/store.interface';
   template: `
     <div class="product-qna-container" *ngIf="originalList">
       <h3>문의 <span class="qna-amount">{{ originalList.length }}</span></h3>
-      <button class="write-qna">리뷰쓰기</button>
+      <button class="write-qna">문의하기</button>
       <article class="user-qna" *ngFor="let qna of chosenList; let i = index">
-        <div>
-          <span>구매</span> | 
-          <span>{{ qna.type }}</span> | 
+        <div class="qna-type">
+          <span class="bar">구매</span>
+          <span class="bar">{{ qna.type }}</span>
           <span *ngIf="qna.completed; else noAnswer">답변완료</span>
           <ng-template #noAnswer><span>미답변</span></ng-template>
         </div>
-        <div>
-          <span>사용자</span> | 
+        <div class="create-info">
+          <span class="bar">사용자</span>
           <small>{{ qna.created }}</small>
         </div>
         <div class="user-question">
@@ -43,7 +43,6 @@ import { qna } from 'src/app/core/models/store.interface';
   .product-qna-container{
     width: 690px;
     padding: 30px 30px 30px 30px;
-    background-color: skyblue;
     position: relative;
   }
   h3{
@@ -70,11 +69,14 @@ import { qna } from 'src/app/core/models/store.interface';
     border-radius: 4px;
     cursor: pointer;
   }
+  .qna-type{
+    font-size: 12px;
+    color: #424242;
+  }
   .user-qna{
     padding: 15px 0;
     margin: 30px 0;
     border-bottom: 1px solid lightgrey;
-    background-color: pink;
   }
   .user-question, .company-answer{
     margin-top: 10px;
@@ -100,9 +102,13 @@ import { qna } from 'src/app/core/models/store.interface';
     font-weight: bold;
     margin-right: 3px;
   }
-  .small{
+  small, .create-info{
     font-size: 12px;
     color: #bdbdbd;
+  }
+  .bar::after{
+    content: '|';
+    margin: 0 6px;
   }
   `]
 })

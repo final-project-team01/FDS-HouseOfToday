@@ -153,9 +153,10 @@ import { review } from 'src/app/core/models/store.interface';
   }
   .filter-icon{
     display: inline-block;
+    background-image: url('../../../../assets/image/icon-pointer.png');
     width: 12px;
     height: 12px;
-    background-position: -387px 3px;
+    background-position: -386px 3px;
   }
   .user-review{
     padding: 30px 0;
