@@ -51,6 +51,9 @@ export class NavigationComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.stateService.isLogin()) {
+      this.getUserDetail();
+    }
   }
   logout(e: Event) {
     e.preventDefault();
@@ -60,6 +63,12 @@ export class NavigationComponent implements OnInit {
   }
   changMenu(nav: number) {
     this.stateService.setNav(nav);
+  }
+  getUserDetail() {
+    this.userService.getUserDetail().subscribe(req => {
+      this.stateService.setUserDetail(req[0]);
+
+    });
   }
 
 }
