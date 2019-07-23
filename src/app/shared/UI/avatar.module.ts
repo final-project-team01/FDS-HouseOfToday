@@ -16,7 +16,7 @@ import { AvatarWithButtonComponent } from './avatar-with-button/avatar-with-butt
     LyGridModule,
     LyIconModule,
     LyButtonModule,
-    LyMenuModule
+    LyMenuModule,
   ],
   exports: [BasicUsesAvatarComponent
     , AvatarWithButtonComponent],

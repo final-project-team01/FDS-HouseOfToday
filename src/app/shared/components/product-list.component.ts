@@ -1,27 +1,28 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { StateService } from 'src/app/core/services/state.service';
 
 @Component({
   selector: 'app-product-list',
   template: `
+  <div class="row">
     <div *ngFor="let productItem of productItems" class="col-12 col-md-4 col-lg-3" [style.max-width]="menuWidth">
       <article class="store-index-today-deal-item">
-        <a class="store-index-today-deal-item__overlay" href="#"></a>
+        <a class="store-index-today-deal-item__overlay" routerLink="/store/{{productItem.id}}"></a>
         <div class="store-index-today-deal-item__image">
           <div class="production-item-image">
-            <img class="image" src="" alt>
-            <button class="production-item-scrap-badge production-item-image__scrap-badge" type="button"></button>
+            <img class="image" src="{{productItem.thumnail_images[0].image}}" alt>
           </div>
         </div>
         <div class="store-index-today-deal-item__content">
           <h1 class="store-index-today-deal-item__header">
-            <span class="store-index-today-deal-item__header__brand">{{productItem.businessname}}</span>
-            <span class="store-index-today-deal-item__header__name">{{productItem.productdetail}}</span>
+            <span class="store-index-today-deal-item__header__brand">{{productItem.brand_name}}</span>
+            <span class="store-index-today-deal-item__header__name">{{productItem.name}}</span>
           </h1>
           <span class="production-item-price">
             <span class="production-item-price__rate">{{productItem.discount}}<span 
             class="percentage">%</span>
             </span>
-            <span class="production-item-price__price">{{productItem.price}}</span>
+            <span class="production-item-price__price">{{stateService.addComma(productItem.price)}}</span>
           </span>
           <div class="store-index-today-deal-item__stats-pc">
             <p class="production-item-stats production-item-stats--review">
@@ -35,6 +36,7 @@ import { Component, OnInit, Input } from '@angular/core';
         </div>
       </article>
     </div>
+  </div>
   `,
   styles: [`
   .store-index-today-deal-list__title {
@@ -74,7 +76,7 @@ import { Component, OnInit, Input } from '@angular/core';
     padding-right: 5px;
     padding-left: 5px;
     display: inline-block;
-}
+  }
   .store-index-today-deal-item__image {
     width: auto;
     margin: 0 -10px;
@@ -198,13 +200,28 @@ import { Component, OnInit, Input } from '@angular/core';
     margin-bottom: 14px;
     position: relative;
   }
+
+  .production-item-image {
+    padding-bottom: 100%;
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    margin-right: -10px;
+    margin-left: -10px;
+  }  
   `]
 })
 export class ProductListComponent implements OnInit {
   @Input() productItems;
   @Input() menuWidth: string;
 
-  constructor() { }
+  constructor(private stateService: StateService) { }
 
   ngOnInit() {
   }

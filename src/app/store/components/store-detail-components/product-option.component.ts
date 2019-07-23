@@ -1,15 +1,17 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
+import { StateService } from 'src/app/core/services/state.service';
+import { product_option } from 'src/app/core/models/store.interface';
 
 @Component({
   selector: 'app-product-option',
   template: `
     <div class="product-option-container">
       <div class="selectbox" (clickOutside)="hide()">
-      <input type="text" placeholder="향선택1" readonly (focus)="show()" #input>
+      <input type="text" placeholder="옵션" readonly (focus)="show()" #input>
         <span class="product-option-icon icon"></span>
         <ul class="option-item-list" *ngIf="visible">
-          <li *ngFor="let option of product_options; let i = index" class="option-item"
+          <li *ngFor="let option of productOption; let i = index" class="option-item"
           (click)="add(option, input)">
           {{ option.name }}
           </li>
@@ -26,7 +28,8 @@ import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
             <button class="selected-item-btn decrease"
               (click)="decreaseAmount(option)"></button>
           </div>
-          <span class="selected-item-price">{{ addComma(option.price * option.amount) + '원' }}</span>
+          <span class="selected-item-price">
+          {{ stateService.addComma(option.price * option.amount) + '원' }}</span>
           <button class="selected-item-cancel icon" (click)="remove(option.id)"></button>
         </div>
       </div>
@@ -41,7 +44,8 @@ import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
           <button class="selected-item-btn decrease"
             (click)="decreaseAmount(option)"></button>
         </div>
-        <span class="selected-item-price">{{ addComma(option.price * option.amount) + '원' }}</span>
+        <span class="selected-item-price">
+          {{ stateService.addComma(option.price * option.amount) + '원' }}</span>
         <button class="selected-item-cancel icon" (click)="remove(option.id)"></button>
       </div>
       </ng-template>
@@ -69,7 +73,7 @@ import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
       border: solid 1px #dbdbdb;
       background-color: white;
       position: relative;
-      font-size: 12px;
+      font-size: 13px;
       margin-bottom: 10px;
       line-height: 40px;
     }
@@ -89,6 +93,8 @@ import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
       background-color: white;
       z-index: 10;
       width: 100%;
+      max-height: 200px;
+      overflow-y: scroll;
       border: solid 1px #dbdbdb;
     }
     .option-item{
@@ -227,9 +233,9 @@ import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
 export class ProductOptionComponent implements OnInit {
   
   visible = false;
-  product_options = [];
 
   @Input() totalPrice: number;
+  @Input() productOption: product_option;
   @Input() chosenOptions: ChosenOption[];
   @Input() scroll: boolean;
   @Output() addOption = new EventEmitter();
@@ -238,14 +244,10 @@ export class ProductOptionComponent implements OnInit {
   @Output() decrease = new EventEmitter();
   @Output() set = new EventEmitter<object>();
 
-  constructor() { }
+  constructor(private stateService: StateService) { }
 
   ngOnInit() {
-    this.product_options = [
-      { id: 1, name: '블랙체리 X2(16,900원)', price: 16900, type: '향선택1' },
-      { id: 2, name: '로즈부케 X2(16,900원)', price: 16900, type: '향선택1' },
-      { id: 3, name: '데일리런드리 X2(16,900원)', price: 16900, type: '향선택1' }
-    ];
+    
   }
 
   show() {
@@ -266,17 +268,12 @@ export class ProductOptionComponent implements OnInit {
     this.deleteOption.emit(id);
   }
 
-  addComma(num: number){
-    const regexp = /\B(?=(\d{3})+(?!\d))/g;
-    return num.toString().replace(regexp, ',');
-  }
-
   getTotalPrice() {
     if (this.chosenOptions.length === 0) return 0;
     const prices = this.chosenOptions.map(option => option.price * option.amount);
     const sum = prices.reduce(
       (previous, current) => { return previous + current });
-    return this.addComma(sum);
+    return this.stateService.addComma(sum);
   }
 
   increaseAmount(option){
