@@ -6,7 +6,7 @@ import { user_detail } from '../models/user.interface';
 @Injectable({
   providedIn: CoreModule
 })
-export class StateService {
+export class CommonService {
   private _token: string = null;
   private _id: string = "";
   private locate: number; //페이지 0커뮤니티, 1스토어
@@ -83,7 +83,7 @@ export class StateService {
     return this.userDetail;
   }
 
-  public addComma(num: number){
+  public addComma(num: number) {
     const regexp = /\B(?=(\d{3})+(?!\d))/g;
     return num.toString().replace(regexp, ',');
   }

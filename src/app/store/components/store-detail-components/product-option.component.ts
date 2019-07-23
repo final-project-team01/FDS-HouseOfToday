@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
-import { StateService } from 'src/app/core/services/state.service';
+import { CommonService } from 'src/app/core/services/common.service';
 import { product_option } from 'src/app/core/models/store.interface';
 
 @Component({
@@ -29,7 +29,7 @@ import { product_option } from 'src/app/core/models/store.interface';
               (click)="decreaseAmount(option)"></button>
           </div>
           <span class="selected-item-price">
-          {{ stateService.addComma(option.price * option.amount) + '원' }}</span>
+          {{ commonService.addComma(option.price * option.amount) + '원' }}</span>
           <button class="selected-item-cancel icon" (click)="remove(option.id)"></button>
         </div>
       </div>
@@ -45,7 +45,7 @@ import { product_option } from 'src/app/core/models/store.interface';
             (click)="decreaseAmount(option)"></button>
         </div>
         <span class="selected-item-price">
-          {{ stateService.addComma(option.price * option.amount) + '원' }}</span>
+          {{ commonService.addComma(option.price * option.amount) + '원' }}</span>
         <button class="selected-item-cancel icon" (click)="remove(option.id)"></button>
       </div>
       </ng-template>
@@ -231,7 +231,7 @@ import { product_option } from 'src/app/core/models/store.interface';
   `]
 })
 export class ProductOptionComponent implements OnInit {
-  
+
   visible = false;
 
   @Input() totalPrice: number;
@@ -244,10 +244,10 @@ export class ProductOptionComponent implements OnInit {
   @Output() decrease = new EventEmitter();
   @Output() set = new EventEmitter<object>();
 
-  constructor(private stateService: StateService) { }
+  constructor(private commonService: CommonService) { }
 
   ngOnInit() {
-    
+
   }
 
   show() {
@@ -273,19 +273,19 @@ export class ProductOptionComponent implements OnInit {
     const prices = this.chosenOptions.map(option => option.price * option.amount);
     const sum = prices.reduce(
       (previous, current) => { return previous + current });
-    return this.stateService.addComma(sum);
+    return this.commonService.addComma(sum);
   }
 
-  increaseAmount(option){
+  increaseAmount(option) {
     this.increase.emit(option);
   }
 
-  decreaseAmount(option){
+  decreaseAmount(option) {
     this.decrease.emit(option);
   }
 
-  setAmount(option, input){
+  setAmount(option, input) {
     this.set.emit({ option, input });
   }
-  
+
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StateService } from 'src/app/core/services/state.service';
+import { CommonService } from 'src/app/core/services/common.service';
 
 @Component({
   selector: 'app-store-navigation',
@@ -17,7 +17,7 @@ import { StateService } from 'src/app/core/services/state.service';
 })
 export class StoreNavigationComponent implements OnInit {
 
-  constructor(private stateService: StateService) { }
+  constructor(private commonService: CommonService) { }
 
   ngOnInit() {
   }
