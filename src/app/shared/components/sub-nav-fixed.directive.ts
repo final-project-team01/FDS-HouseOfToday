@@ -1,12 +1,12 @@
 import { Directive, ElementRef, Renderer2, HostListener } from '@angular/core';
-import { StateService } from 'src/app/core/services/state.service';
+import { CommonService } from 'src/app/core/services/common.service';
 
 @Directive({
   selector: '[SubNavFixed]'
 })
 export class SubNavFixedDirective {
 
-  constructor(public el: ElementRef, public renderer: Renderer2, private stateService: StateService) { }
+  constructor(public el: ElementRef, public renderer: Renderer2, private commonService: CommonService) { }
   @HostListener("window:scroll") scrollHandler() {
     if (window.pageYOffset > 0)
       this.toggleSubNavFixed(true);
@@ -15,11 +15,11 @@ export class SubNavFixedDirective {
 
 
   @HostListener("mouseout", ["$event"]) mouseout(event) {
-    if (!this.stateService.getIsNavFixed() && event.clientY > 130)
-      this.stateService.resetNav();
+    if (!this.commonService.getIsNavFixed() && event.clientY > 130)
+      this.commonService.resetNav();
 
-    else if (this.stateService.getIsNavFixed() && (event.clientY > 130 || event.clientY < 81))
-      this.stateService.setNav(-1);
+    else if (this.commonService.getIsNavFixed() && (event.clientY > 130 || event.clientY < 81))
+      this.commonService.setNav(-1);
   }
 
   toggleSubNavFixed(fixed: boolean) {
@@ -32,8 +32,8 @@ export class SubNavFixedDirective {
       "top", fixed ? "81px" : "0"
     );
 
-    this.stateService.setNav(
-      fixed ? -1 : this.stateService.getLocate()
+    this.commonService.setNav(
+      fixed ? -1 : this.commonService.getLocate()
     )
 
   }

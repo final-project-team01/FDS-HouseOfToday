@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommunityService } from 'src/app/core/services/community.service';
-import { StateService } from 'src/app/core/services/state.service';
+import { CommonService } from 'src/app/core/services/common.service';
 
 @Component({
   selector: 'app-photo',
   template: `
-    <app-header [thisNav]="stateService.getNav()"></app-header>  
+    <app-header [thisNav]="commonService.getNav()"></app-header>  
     <p>
       photo works!
     </p>
@@ -16,11 +16,11 @@ import { StateService } from 'src/app/core/services/state.service';
 export class PhotoComponent implements OnInit {
 
   constructor(private communityService: CommunityService
-    , private stateService: StateService) { }
+    , private commonService: CommonService) { }
 
   ngOnInit() {
-    this.stateService.setLocate(0);
-    this.stateService.setNav(0);
+    this.commonService.setLocate(0);
+    this.commonService.setNav(0);
   }
 
 }

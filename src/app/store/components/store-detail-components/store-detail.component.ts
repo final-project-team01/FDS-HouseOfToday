@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { StoreService } from 'src/app/core/services/store.service';
-import { StateService } from 'src/app/core/services/state.service';
+import { CommonService } from 'src/app/core/services/common.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
 import { HttpClient } from '@angular/common/http';
-import { product_info, thumbnail_image, detail_image, product_option, review, qna } 
+import { product_info, thumbnail_image, detail_image, product_option, review, qna }
   from 'src/app/core/models/store.interface';
 
 @Component({
   selector: 'app-store-detail',
   template: `
-    <app-header [thisNav]="stateService.getNav()"></app-header>
+    <app-header [thisNav]="commonService.getNav()"></app-header>
     <div class="top-wrapper">
       <div class="pic-container">
         <app-product-pic 
@@ -126,12 +126,12 @@ export class StoreDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute
     , private storeService: StoreService
     , private userService: UserService
-    , private stateService: StateService
+    , private commonService: CommonService
     , private http: HttpClient) { }
 
   ngOnInit() {
-    this.stateService.setLocate(1);
-    this.stateService.setNav(1);
+    this.commonService.setLocate(1);
+    this.commonService.setNav(1);
     console.log("detail");
     this.route.paramMap
       .subscribe(params => this.id = +params.get('id'));

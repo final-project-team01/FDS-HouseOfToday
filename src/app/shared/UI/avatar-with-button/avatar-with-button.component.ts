@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from 'src/app/core/services/storage.service';
-import { StateService } from 'src/app/core/services/state.service';
-import { user_detail } from 'src/app/core/models/user.interface';
-import { UserService } from 'src/app/core/services/user.service';
+import { CommonService } from 'src/app/core/services/common.service';
 import { Router } from '@angular/router';
 
 
@@ -20,8 +18,8 @@ import { Router } from '@angular/router';
         <ly-avatar
           [size]="32">
           <img
-            alt="{{this.stateService.getUserDetail() ? this.stateService.getUserDetail()['username'] : ''}}"
-            src="{{this.stateService.getUserDetail() ? this.stateService.getUserDetail()['profile'] : '' }}">
+            alt="{{this.commonService.getUserDetail() ? this.commonService.getUserDetail()['username'] : ''}}"
+            src="{{this.commonService.getUserDetail() ? this.commonService.getUserDetail()['profile'] : '' }}">
         </ly-avatar>
       </button>
     </ly-grid>
@@ -62,7 +60,7 @@ import { Router } from '@angular/router';
 })
 export class AvatarWithButtonComponent implements OnInit {
   constructor(private storageService: StorageService
-    , private stateService: StateService
+    , private commonService: CommonService
     , private router: Router
   ) { }
 
@@ -72,10 +70,10 @@ export class AvatarWithButtonComponent implements OnInit {
     e.preventDefault();
     this.storageService.removeLocal("user");
     this.storageService.removeSession("user");
-    this.stateService.setToken("");
+    this.commonService.setToken("");
   }
   myHome() {
-    this.router.navigate([`users/${this.stateService.getUserDetail()["id"]}`]);
+    this.router.navigate([`users/${this.commonService.getUserDetail()["id"]}`]);
   }
   myShop() {
 

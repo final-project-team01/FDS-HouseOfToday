@@ -5,7 +5,7 @@ import { KeyAttribute } from '@alyle/ui';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Router } from '@angular/router';
 import { StorageService } from 'src/app/core/services/storage.service';
-import { StateService } from 'src/app/core/services/state.service';
+import { CommonService } from 'src/app/core/services/common.service';
 
 
 @Component({
@@ -211,7 +211,7 @@ export class SigninComponent implements OnInit {
     , private authService: AuthService
     , private router: Router
     , private storageService: StorageService
-    , private stateService: StateService) { }
+    , private commonService: CommonService) { }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -238,10 +238,10 @@ export class SigninComponent implements OnInit {
     }
   }
   loginSuccess(token: string) {
-    this.stateService.setToken(token);
+    this.commonService.setToken(token);
     this.storageService.setLocal("user", token);
     this.storageService.setSession("user", token);
-    console.log("loginSuccess", this.stateService.Token);
+    console.log("loginSuccess", this.commonService.Token);
     this.router.navigate(['/']);
   }
   loginFail() {

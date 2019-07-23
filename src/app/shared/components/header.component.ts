@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from 'src/app/core/services/user.service';
 import { StorageService } from 'src/app/core/services/storage.service';
-import { StateService } from 'src/app/core/services/state.service';
+import { CommonService } from 'src/app/core/services/common.service'
 
 @Component({
   selector: 'app-header',
@@ -9,8 +9,8 @@ import { StateService } from 'src/app/core/services/state.service';
     <header>
       <app-navigation></app-navigation>
       <div class="sub-nav" SubNavFixed>
-        <app-community-navigation *ngIf="stateService.getNav()===0"></app-community-navigation>
-        <app-store-navigation *ngIf="stateService.getNav()===1"></app-store-navigation>
+        <app-community-navigation *ngIf="commonService.getNav()===0"></app-community-navigation>
+        <app-store-navigation *ngIf="commonService.getNav()===1"></app-store-navigation>
       </div>
     </header>    
   `,
@@ -34,11 +34,11 @@ export class HeaderComponent implements OnInit {
   @Input() thisNav: number;
   constructor(private userService: UserService
     , private storageService: StorageService
-    , private stateService: StateService
+    , private commonService: CommonService
   ) {
-    if (!this.stateService.Token) {
+    if (!this.commonService.Token) {
       const user = this.storageService.getLocal("user");
-      this.stateService.setToken(user);
+      this.commonService.setToken(user);
     }
   }
 
