@@ -42,7 +42,9 @@ import { thumbnail_image, detail_image, product_option, review, qna }
         <app-product-qna
         [originalList]="productQnas"
         [chosenList]="chosenQnas"
-        [pages]="qnaPages"></app-product-qna>
+        [pages]="qnaPages"
+        ></app-product-qna>
+        <app-product-delivery></app-product-delivery>
       </div>
       <div class="nav-container"
         [class.sticky]="sticky">
