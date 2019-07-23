@@ -16,7 +16,7 @@ import { qna } from 'src/app/core/models/store.interface';
         </div>
         <div>
           <span>사용자</span> | 
-          <span>{{ qna.created }}</span>
+          <small>{{ qna.created }}</small>
         </div>
         <div class="user-question">
         <p>
@@ -25,6 +25,8 @@ import { qna } from 'src/app/core/models/store.interface';
         </div>
         <div class="company-answer">
         <p>
+          <span *ngIf="qna.a_author" class="company">{{ qna.a_author }}</span>
+          <small>{{ qna.a_created }}</small><br>
           {{ qna.a_comment }}
         </p>
         </div>
@@ -63,24 +65,38 @@ import { qna } from 'src/app/core/models/store.interface';
     cursor: pointer;
   }
   .user-qna{
-    padding: 30px 0;
+    padding: 15px 0;
     margin: 30px 0;
     border-bottom: 1px solid lightgrey;
     background-color: pink;
   }
-  .user-question{
+  .user-question, .company-answer{
+    margin-top: 10px;
     position: relative;
   }
-  .user-question > p{
+  .user-question > p, .company-answer > p{
     padding-left: 22px;
   }
-  .user-question::before{
-    content: 'Q';
+  .user-question::before, .company-answer::before{
     font-weight: bold;
     color: #35C5F0;
     position: absolute;
     left: 0;
     top: 0;
+  }
+  .user-question::before{
+    content: 'Q';
+  }
+  .company-answer::before{
+    content: 'A';
+  }
+  .company{
+    font-weight: bold;
+    margin-right: 3px;
+  }
+  .small{
+    font-size: 12px;
+    color: #bdbdbd;
   }
   `]
 })
