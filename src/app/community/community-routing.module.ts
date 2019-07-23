@@ -4,11 +4,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { CommunityComponent } from './components/community.component';
 import { PhotoComponent } from './components/photo.component';
 
-import { AuthGuard } from '../auth.guard';
-
 
 const routes: Routes = [
-  { path: 'community', component: CommunityComponent/*, canActivate: [AuthGuard]*/ },
+  { path: 'community', component: CommunityComponent },
   { path: 'community/photo', component: PhotoComponent }
 ];
 

@@ -76,7 +76,7 @@ export class AvatarWithButtonComponent implements OnInit {
     this.router.navigate([`users/${this.commonService.getUserDetail()["id"]}`]);
   }
   myShop() {
-
+    this.router.navigate([`orderList/${this.commonService.getUserDetail()["id"]}`]);
   }
 
 }
