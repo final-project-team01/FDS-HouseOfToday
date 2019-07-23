@@ -11,7 +11,7 @@ import { product_info, thumbnail_image, detail_image, product_option, review, qn
 @Component({
   selector: 'app-store-detail',
   template: `
-    <app-header [thisNav]="commonService.getNav()"></app-header>
+    <app-header></app-header>
     <div class="top-wrapper">
       <div class="pic-container">
         <app-product-pic 

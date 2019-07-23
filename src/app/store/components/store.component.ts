@@ -18,7 +18,7 @@ const styles = {
 @Component({
   selector: 'app-store',
   template: `
-    <app-header [thisNav]="commonService.getNav()"></app-header>
+    <app-header></app-header>
     <div class="featured-banner">
       <ly-carousel class="store-carousel"
         [withClass]="classes.carousel">

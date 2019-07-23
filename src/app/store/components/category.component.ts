@@ -7,7 +7,7 @@ import { store_list } from 'src/app/core/models/store.interface';
 @Component({
   selector: 'app-category',
   template: `
-    <app-header [thisNav]="commonService.getNav()"></app-header>
+    <app-header></app-header>
     <div class="category-container">
       <div class="category-wrap container">
         <div class="category row">

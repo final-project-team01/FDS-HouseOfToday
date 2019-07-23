@@ -5,7 +5,7 @@ import { CommonService } from 'src/app/core/services/common.service';
 @Component({
   selector: 'app-rank',
   template: `
-    <app-header [thisNav]="commonService.getNav()"></app-header>
+    <app-header></app-header>
     <section class="ranking-feed">
       <div class="ranking-feed-group">
         <div class="ranking-feed-card">

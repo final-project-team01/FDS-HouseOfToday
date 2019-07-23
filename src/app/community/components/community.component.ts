@@ -5,7 +5,7 @@ import { CommonService } from 'src/app/core/services/common.service';
 @Component({
   selector: 'app-community',
   template: `
-    <app-header [thisNav]="commonService.getNav()"></app-header>
+    <app-header></app-header>
     <p>
       community works!
     </p>
