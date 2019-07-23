@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { LyTheme2 } from '@alyle/ui';
 import { StoreService } from 'src/app/core/services/store.service';
-import { StateService } from 'src/app/core/services/state.service';
+import { CommonService } from 'src/app/core/services/common.service';
 import { store_list } from 'src/app/core/models/store.interface';
 
 @Component({
   selector: 'app-category',
   template: `
-    <app-header [thisNav]="stateService.getNav()"></app-header>
+    <app-header [thisNav]="commonService.getNav()"></app-header>
     <div class="category-container">
       <div class="category-wrap container">
         <div class="category row">
@@ -204,12 +204,12 @@ export class CategoryComponent implements OnInit {
   productItems: store_list;
 
   constructor(private storeService: StoreService
-    , private stateService: StateService
+    , private commonService: CommonService
   ) { }
 
   ngOnInit() {
-    this.stateService.setLocate(1);
-    this.stateService.setNav(1);
+    this.commonService.setLocate(1);
+    this.commonService.setNav(1);
     this.storeService.getProductList()
       .subscribe(data => this.productItems = data as store_list);
     this.storeService.getCategoryList()

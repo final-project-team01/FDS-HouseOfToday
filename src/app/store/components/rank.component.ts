@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { StoreService } from 'src/app/core/services/store.service';
-import { StateService } from 'src/app/core/services/state.service';
+import { CommonService } from 'src/app/core/services/common.service';
 
 @Component({
   selector: 'app-rank',
   template: `
-    <app-header [thisNav]="stateService.getNav()"></app-header>
+    <app-header [thisNav]="commonService.getNav()"></app-header>
     <section class="ranking-feed">
       <div class="ranking-feed-group">
         <div class="ranking-feed-card">
@@ -37,12 +37,12 @@ export class RankComponent implements OnInit {
   ]
 
   constructor(private storeService: StoreService
-    , private stateService: StateService
+    , private commonService: CommonService
   ) { }
 
   ngOnInit() {
-    this.stateService.setLocate(1);
-    this.stateService.setNav(1);
+    this.commonService.setLocate(1);
+    this.commonService.setNav(1);
   }
 
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LyTheme2 } from '@alyle/ui';
 import { StoreService } from 'src/app/core/services/store.service';
-import { StateService } from 'src/app/core/services/state.service';
+import { CommonService } from 'src/app/core/services/common.service';
 import { store_list } from 'src/app/core/models/store.interface';
 
 const styles = {
@@ -18,7 +18,7 @@ const styles = {
 @Component({
   selector: 'app-store',
   template: `
-    <app-header [thisNav]="stateService.getNav()"></app-header>
+    <app-header [thisNav]="commonService.getNav()"></app-header>
     <div class="featured-banner">
       <ly-carousel class="store-carousel"
         [withClass]="classes.carousel">
@@ -411,11 +411,11 @@ export class StoreComponent implements OnInit {
     { words: '#데스크테리어 #필기도구' },
   ]
 
-  constructor(private storeService: StoreService, private theme: LyTheme2, private stateService: StateService) { }
+  constructor(private storeService: StoreService, private theme: LyTheme2, private commonService: CommonService) { }
 
   ngOnInit() {
-    this.stateService.setLocate(1);
-    this.stateService.setNav(1);
+    this.commonService.setLocate(1);
+    this.commonService.setNav(1);
     this.storeService.getProductList()
       .subscribe(data => this.productItems = data as store_list);
   }

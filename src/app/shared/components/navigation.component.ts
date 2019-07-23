@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StateService } from 'src/app/core/services/state.service';
+import { CommonService } from 'src/app/core/services/common.service';
 import { Router } from '@angular/router';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { UserService } from 'src/app/core/services/user.service';
@@ -17,7 +17,7 @@ import { UserService } from 'src/app/core/services/user.service';
           <a routerLink="/community" routerLinkActive="active" (mouseover)="changMenu(0)">커뮤니티</a>
           <a routerLink="/store" routerLinkActive="active" (mouseover)="changMenu(1)">스토어</a>
         </div>        
-        <div class="user-logged" *ngIf="stateService.isLogin(); else elseBlock">
+        <div class="user-logged" *ngIf="commonService.isLogin(); else elseBlock">
           <div class="action-logged">        
             <aui-avatar-with-button></aui-avatar-with-button>
           <!--<div class="navigation-primary__user__list">
@@ -43,7 +43,7 @@ import { UserService } from 'src/app/core/services/user.service';
 })
 export class NavigationComponent implements OnInit {
 
-  constructor(private stateService: StateService
+  constructor(private commonService: CommonService
     , private router: Router
     , private storageService: StorageService
     , private userService: UserService
@@ -51,7 +51,7 @@ export class NavigationComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.stateService.isLogin()) {
+    if (this.commonService.isLogin()) {
       this.getUserDetail();
     }
   }
@@ -59,14 +59,14 @@ export class NavigationComponent implements OnInit {
     e.preventDefault();
     this.storageService.removeLocal("user");
     this.storageService.removeSession("user");
-    this.stateService.setToken("");
+    this.commonService.setToken("");
   }
   changMenu(nav: number) {
-    this.stateService.setNav(nav);
+    this.commonService.setNav(nav);
   }
   getUserDetail() {
     this.userService.getUserDetail().subscribe(req => {
-      this.stateService.setUserDetail(req[0]);
+      this.commonService.setUserDetail(req[0]);
 
     });
   }

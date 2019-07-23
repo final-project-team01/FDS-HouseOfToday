@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { StateService } from 'src/app/core/services/state.service';
+import { CommonService } from 'src/app/core/services/common.service';
 
 @Component({
   selector: 'app-product-list',
@@ -22,7 +22,7 @@ import { StateService } from 'src/app/core/services/state.service';
             <span class="production-item-price__rate">{{productItem.discount}}<span 
             class="percentage">%</span>
             </span>
-            <span class="production-item-price__price">{{stateService.addComma(productItem.price)}}</span>
+            <span class="production-item-price__price">{{commonService.addComma(productItem.price)}}</span>
           </span>
           <div class="store-index-today-deal-item__stats-pc">
             <p class="production-item-stats production-item-stats--review">
@@ -221,7 +221,7 @@ export class ProductListComponent implements OnInit {
   @Input() productItems;
   @Input() menuWidth: string;
 
-  constructor(private stateService: StateService) { }
+  constructor(private commonService: CommonService) { }
 
   ngOnInit() {
   }

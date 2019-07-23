@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { StateService } from 'src/app/core/services/state.service';
+import { CommonService } from 'src/app/core/services/common.service';
 import { product_info } from 'src/app/core/models/store.interface';
 
 @Component({
@@ -16,7 +16,7 @@ import { product_info } from 'src/app/core/models/store.interface';
       <span class="star half"></span>
         {{ productInfo.review.length }}개 리뷰
     </div>
-    <mark class="product-price">{{ stateService.addComma(productInfo.price) }}<span>원</span></mark>
+    <mark class="product-price">{{ commonService.addComma(productInfo.price) }}<span>원</span></mark>
     <span class="sprite lowest"></span>
     <p class="text-grey"><mark class="point">{{ productInfo.price / 100 }}P</mark> 적립해드립니다.</p>
     <hr>
@@ -124,7 +124,7 @@ export class ProductInfoComponent implements OnInit {
 
   @Input() productInfo: product_info;
 
-  constructor(private stateService: StateService) { }
+  constructor(private commonService: CommonService) { }
 
   ngOnInit() {
 
