@@ -42,7 +42,7 @@ import { qna } from 'src/app/core/models/store.interface';
   styles: [`
   .product-qna-container{
     width: 690px;
-    padding: 30px 30px 30px 30px;
+    padding: 30px 30px 0 30px;
     position: relative;
   }
   h3{
