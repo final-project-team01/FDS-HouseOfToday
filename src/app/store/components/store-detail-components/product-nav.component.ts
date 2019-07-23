@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-product-nav',
@@ -9,7 +9,10 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
         <li class="tab" 
         *ngFor="let nav of navMenu; let i=index"
         (click)="setActive(i)" [class.active]="nav.active">
-        <h2>{{ nav.title }}</h2>
+        <h2>{{ nav.title }}
+          <span *ngIf="i === 2">({{ (reviewAmount) }})</span>
+          <span *ngIf="i === 3">({{ qnaAmount }})</span>
+        </h2>
         </li>
         <li class="tab last"></li>
       </ul>
@@ -77,6 +80,7 @@ export class ProductNavComponent implements OnInit {
   
   setActive(i: number){
     this.navMenu.map((nav, index) => nav.active = index === i ? true : false);
+    console.log(this.navMenu);
   }
 
 }

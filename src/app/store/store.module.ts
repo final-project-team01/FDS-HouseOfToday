@@ -24,6 +24,7 @@ import { LyTypographyModule } from '@alyle/ui/typography';
 import { ClickOutsideDirective } from './components/store-detail-components/click-outside.directive';
 import { ProductReviewComponent } from './components/store-detail-components/product-review.component';
 import { ProductQnaComponent } from './components/store-detail-components/product-qna.component';
+import { ProductEtcComponent } from './components/store-detail-components/product-etc.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import { ProductQnaComponent } from './components/store-detail-components/produc
     , ProductOptionComponent
     , ProductDetailComponent
     , ClickOutsideDirective
-    , StoreDetailComponent, ProductReviewComponent, ProductQnaComponent
+    , StoreDetailComponent, ProductReviewComponent, ProductQnaComponent, ProductEtcComponent
   ],
   imports: [
     CommonModule

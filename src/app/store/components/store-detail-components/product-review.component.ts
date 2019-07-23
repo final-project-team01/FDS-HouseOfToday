@@ -5,8 +5,16 @@ import { review } from 'src/app/core/models/store.interface';
   selector: 'app-product-review',
   template: `
     <div class="product-review-container">
-      <h3>리뷰 <span class="review-amount">{{ productReviews.length }}</span></h3>
+      <h3>리뷰 <span class="review-amount" *ngIf="productReviews">{{ productReviews.length }}</span></h3>
       <a href="" class="write-review">리뷰쓰기</a>
+      <div class="star-rate-container">
+        <span class="star-avg">{{ starAvg }}</span>
+        <div class="star-bg">
+          <div class="star-rate" [style.width.px]="starAvg * 60">
+            <img src="../../../../assets/image/star-rate.png">
+          </div>
+        </div>
+      </div>
       <div class="filter-container">
       <ul>
         <li class="review-filter-menu">베스트순</li>
@@ -73,6 +81,33 @@ import { review } from 'src/app/core/models/store.interface';
     right: 30px;
     border: none;
     font-weight: 700;
+  }
+  .star-rate-container{
+    text-align: center;
+    margin: 10px 0 30px 0;
+  }
+  .star-avg{
+    padding: 0 10px;
+    background-color: #35C5F0;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    vertical-align: middle;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+  .star-bg{
+    width:300px;
+    background-color: lightgrey;
+    display: inline-block;
+  }
+  .star-rate{
+    width: 1px;
+    background-color: #35C5F0;
+  }
+  .star-rate > img{
+    width: 300px;
+    vertical-align: middle;
   }
   .filter-container{
     margin: 15px 0;
@@ -193,6 +228,7 @@ export class ProductReviewComponent implements OnInit {
   @Input() productReviews: review[];
   @Input() chosenReviews: review[];
   @Input() pages: any;
+  @Input() starAvg: number;
 
   constructor() { }
 

@@ -5,7 +5,7 @@ import { qna } from 'src/app/core/models/store.interface';
   selector: 'app-product-qna',
   template: `
     <div class="product-qna-container">
-      <h3>문의 <span class="qna-amount">{{ productQnas.length }}</span></h3>
+      <h3>문의 <span class="qna-amount" *ngIf="productQnas">{{ productQnas.length }}</span></h3>
       <button class="write-qna">리뷰쓰기</button>
       <article class="user-qna">
       </article>

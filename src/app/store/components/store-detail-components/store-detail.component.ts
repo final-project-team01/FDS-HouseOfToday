@@ -4,8 +4,7 @@ import { StoreService } from 'src/app/core/services/store.service';
 import { CommonService } from 'src/app/core/services/common.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
-import { HttpClient } from '@angular/common/http';
-import { product_info, thumbnail_image, detail_image, product_option, review, qna }
+import { thumbnail_image, detail_image, product_option, review, qna }
   from 'src/app/core/models/store.interface';
 
 @Component({
@@ -33,10 +32,12 @@ import { product_info, thumbnail_image, detail_image, product_option, review, qn
     <div class="bottom-wrapper" #nav (window:scroll)="stickyNav(nav)">
       <div class="detail-container">
         <app-product-detail [productDetailImages]="productDetailImages"></app-product-detail>
+        <app-product-etc [productInfo]="productInfo"></app-product-etc>
         <app-product-review 
           [productReviews]="productReviews"
           [chosenReviews]="chosenReviews"
           [pages]="pages"
+          [starAvg]="starAvg"
         ></app-product-review>
         <app-product-qna
         [productQnas]="productQnas"></app-product-qna>
@@ -116,18 +117,18 @@ export class StoreDetailComponent implements OnInit {
   productDetailImages: detail_image[];
   productOption: product_option[];
   productReviews: review[];
+  reviewAmount: number;
+  starAvg: number;
+  pages = [];
   productQnas: qna[];
   chosenReviews: review[];
-  reviewAmount: number;
   qnaAmount: number;
-  pages = [];
   chosenOptions: ChosenOption[] = [];
 
   constructor(private route: ActivatedRoute
     , private storeService: StoreService
     , private userService: UserService
-    , private commonService: CommonService
-    , private http: HttpClient) { }
+    , private commonService: CommonService) { }
 
   ngOnInit() {
     this.commonService.setLocate(1);
@@ -144,15 +145,17 @@ export class StoreDetailComponent implements OnInit {
         this.productReviews = data['review'];
         this.productQnas = data['pdqna'];
         this.chosenReviews = this.productReviews.filter((review, index) => index >= 0 && index < 3);
-        this.reviewAmount = this.productReviews.length;
         this.qnaAmount = this.productQnas.length;
-        const i = Math.ceil(this.productReviews.length / 3);
+        this.reviewAmount = this.productInfo['review_count'];
+        this.starAvg = +this.productInfo['star_avg'];
+        const i = Math.ceil(this.reviewAmount / 3);
         this.pages = Array(i);
+
         this.activeId = this.productImages[0].id;
       });
   }
 
-  addOption(option) {
+  addOption(option: product_option) {
     const chosen = {
       id: this.generateId(), name: this.getName(option['name']), price: option['price'], amount: 1
     };
