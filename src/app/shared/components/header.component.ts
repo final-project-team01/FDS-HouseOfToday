@@ -39,17 +39,11 @@ export class HeaderComponent implements OnInit {
     if (!this.stateService.Token) {
       const user = this.storageService.getLocal("user");
       this.stateService.setToken(user);
-      this.getUserDetail()
     }
   }
 
   ngOnInit() {
   }
-  getUserDetail() {
-    this.userService.getUserDetail().subscribe(req => {
-      this.stateService.setUserDetail(req[0]);
 
-    });
-  }
 
 }
