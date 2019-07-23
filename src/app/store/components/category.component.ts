@@ -211,7 +211,7 @@ export class CategoryComponent implements OnInit {
     this.stateService.setLocate(1);
     this.stateService.setNav(1);
     this.storeService.getProductList()
-      .subscribe(data => this.productItems = data);
+      .subscribe(data => this.productItems = data as store_list);
     this.storeService.getCategoryList()
       .subscribe(data => this.categoryLists = data);
   }

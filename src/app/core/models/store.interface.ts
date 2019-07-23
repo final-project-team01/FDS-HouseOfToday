@@ -11,7 +11,7 @@ export interface product_info {
   brand_name: string;
   detail_name: string;
   detail_color: string;
-  detail_size:string;
+  detail_size: string;
   detail_component: string;
   detail_auth: string;
   detail_cost: string;
@@ -73,4 +73,8 @@ export interface qna {
   user: number;
   product: number;
 }
-
+export interface store_list {
+  id: number,
+  name: string,
+  image: string
+}
