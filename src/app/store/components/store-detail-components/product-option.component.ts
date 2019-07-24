@@ -64,7 +64,7 @@ import { product_option } from 'src/app/core/models/store.interface';
     box-sizing: border-box;
   }
     .product-option-container{
-      float:right;
+      display: inline-block;
       width: 100%;
     }
     .selectbox{
