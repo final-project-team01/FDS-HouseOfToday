@@ -100,7 +100,7 @@ import { Router } from '@angular/router';
             <input type="checkbox" id="all-check" class="check">전체 동의
           </label>
         </section>
-        <button type="submit" class="submit" (click)="onSubmit()">회원가입하기</button>
+        <button type="submit" class="submit" (click)="onSubmit()" Button>회원가입하기</button>
         <p class="has-account">이미 아이디가 있으신가요? 
           <a routerLink="/signin" class="bold login-link">로그인</a>
         </p>
@@ -267,10 +267,7 @@ import { Router } from '@angular/router';
     line-height: 1;
     height: 70px;
     padding: 26px 0;
-    font-size: 1.2rem;
-    border-radius: 4px;
-    font-weight: bold;
-    text-align: center;
+    font-size: 1.2rem;    
     cursor: pointer;
   }
   .has-account{
