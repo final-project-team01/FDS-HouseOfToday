@@ -14,7 +14,13 @@ import { CommonService } from 'src/app/core/services/common.service';
             <div class="profile_share"></div>
             <div class="profile_pic"></div>
             <div class="profile_info">
-              <div class="profile_name"><strong>{{this.commonService.getUserDetail() ? this.commonService.getUserDetail()['username'] : ''}}</strong></div>
+              <div class="profile_name">
+                <strong>{{
+                  this.commonService.getUserDetail()
+                    ? this.commonService.getUserDetail()['username']
+                    : ''
+                }}</strong>
+              </div>
               <div class="profile_follow_state">
                 <div><a href="#"></a>팔로워0</div>
                 <div><a href="#"></a>팔로잉0</div>
@@ -234,9 +240,9 @@ import { CommonService } from 'src/app/core/services/common.service';
 })
 export class UsersComponent implements OnInit {
   constructor(
-    private userService: UserService
-    , private commonService: CommonService
-  ) { }
+    private userService: UserService,
+    private commonService: CommonService
+  ) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 }
