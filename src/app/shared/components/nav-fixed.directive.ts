@@ -1,6 +1,5 @@
 import { Directive, ElementRef, Renderer2, HostListener } from '@angular/core';
 import { CommonService } from 'src/app/core/services/common.service';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 @Directive({
   selector: '[NavFixed]'
