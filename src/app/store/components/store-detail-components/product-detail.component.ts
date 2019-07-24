@@ -29,7 +29,7 @@ import { detail_image } from 'src/app/core/models/store.interface';
 })
 export class ProductDetailComponent implements OnInit {
   
-  @Input() productDetailImages: detail_image;
+  @Input() productDetailImages: detail_image[];
 
   constructor() { }
 

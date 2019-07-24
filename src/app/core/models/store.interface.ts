@@ -27,6 +27,9 @@ export interface product_info {
   deliver_no_go: string;
   deliver_fee_diff: string;
   created: string;
+  discount_rate: string;
+  star_avg: string;
+  review_count: number;
   category: number;
 }
 
@@ -74,7 +77,40 @@ export interface qna {
   product: number;
 }
 export interface store_list {
-  id: number,
-  name: string,
-  image: string
+  id: number;
+  name: string;
+  image: string;
+}
+
+export interface store_home {
+  todaydeal: today_deal;
+  category? : object;
+  poular_products? : object;
+}
+
+export interface today_deal {
+  id: number;
+  brand_name: string;
+  name: string;
+  discount_rate: string;
+  price: number;
+  review_count: number;
+  star_avg: string;
+  thumnail_images: detail_image[];
+}
+
+export interface rankingPage {
+  best100: today_deal;
+  light_homedeco: today_deal;
+  daily_supplies: today_deal;
+  fabric: today_deal;
+  kitchenware: today_deal;
+  home_appliances: today_deal;
+  companion_animal: today_deal;
+  furniture: today_deal;
+}
+
+export interface categoryfilter {
+  id: number;
+  products: today_deal;
 }

@@ -19,6 +19,12 @@ export class StoreService {
     return this.httpClient.get(fullPath);
   }
 
+  getCategoryDetailList(id: number) {
+    const path = `products/category/${id}/`;
+    const fullPath = this.commonService.getFullPath(path);
+    return this.httpClient.get(fullPath);
+  }
+
   getProductInfo(id: number) {
     const path = `products/product/${id}/`;
     const fullPath = this.commonService.getFullPath(path);
@@ -27,6 +33,18 @@ export class StoreService {
 
   getProductList() {
     const path = `products/product/list/`;
+    const fullPath = this.commonService.getFullPath(path);
+    return this.httpClient.get(fullPath);
+  }
+
+  getTodaysDeal() {
+    const path = `products/storehome/`;
+    const fullPath = this.commonService.getFullPath(path);
+    return this.httpClient.get(fullPath);
+  }
+
+  getRankingList() {
+    const path = `products/ranking/`;
     const fullPath = this.commonService.getFullPath(path);
     return this.httpClient.get(fullPath);
   }

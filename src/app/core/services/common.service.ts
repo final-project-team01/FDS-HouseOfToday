@@ -87,4 +87,12 @@ export class CommonService {
     const regexp = /\B(?=(\d{3})+(?!\d))/g;
     return num.toString().replace(regexp, ',');
   }
+
+  public changePage(i: number, chosenList, originalList){
+    const start = i * 3;
+    const end = start + 3;
+    chosenList 
+      = originalList.filter((review, index) => index >= start && index < end);
+    return chosenList;
+  }
 }
