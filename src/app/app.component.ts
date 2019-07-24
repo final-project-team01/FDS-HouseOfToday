@@ -28,13 +28,14 @@ export class AppComponent {
 
   title = 'ohouse';
 
-  constructor(private theme: LyTheme2
-    , private storageService: StorageService
-    , private commonService: CommonService
-    , private userService: UserService
+  constructor(
+    private theme: LyTheme2,
+    private storageService: StorageService,
+    private commonService: CommonService,
+    private userService: UserService
   ) {
     if (!this.commonService.Token) {
-      const user = this.storageService.getLocal("user");
+      const user = this.storageService.getLocal('user');
       this.commonService.setToken(user);
     }
     if (this.commonService.isLogin()) {
@@ -42,11 +43,9 @@ export class AppComponent {
     }
   }
   getUserDetail() {
-    this.userService.getUserDetail().subscribe(req => {
+    this.userService.getUserDetail().subscribe((req) => {
       this.commonService.setUserDetail(req[0]);
-      this.commonService.setId(this.commonService.getUserDetail()["id"]);
+      this.commonService.setId(this.commonService.getUserDetail()['id']);
     });
   }
-
-
 }
