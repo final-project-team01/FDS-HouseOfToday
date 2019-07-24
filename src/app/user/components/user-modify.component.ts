@@ -32,12 +32,7 @@ import { Component, OnInit } from '@angular/core';
         </div>
         <div class="field">
           <div class="user_modi_subtitle">셩별</div>
-          <div class="gender_input">
-            <input type="radio" value="gender" name="male" />남자
-          </div>
-          <div class="gender_input">
-            <input type="radio" value="gender" name="Female" />여자
-          </div>
+          <aui-basic-radio></aui-basic-radio>
         </div>
         <div class="field">
           <div class="user_modi_subtitle">생년월일</div>
@@ -46,6 +41,9 @@ import { Component, OnInit } from '@angular/core';
           </select>
           <select class="birth_info">
             <option *ngFor="let month of birthMonth">{{ month.month }}</option>
+          </select>
+          <select class="birth_info">
+            <option *ngFor="let day of birthDay">{{ day.day }}</option>
           </select>
 
           <input type="text" placeholder="DD" />
@@ -140,6 +138,7 @@ import { Component, OnInit } from '@angular/core';
 export class UserModifyComponent implements OnInit {
   birthYear = [];
   birthMonth = [];
+  birthDay = [];
 
   constructor() {
     for (let Y = 1919; Y < 2020; Y++) {
@@ -151,6 +150,11 @@ export class UserModifyComponent implements OnInit {
       const month = { month: M };
       this.birthMonth =
         this.birthMonth.length > 0 ? [...this.birthMonth, month] : [month];
+    }
+    for (let D = 1; D < 31; D++) {
+      const day = { day: D };
+      this.birthDay =
+        this.birthDay.length > 0 ? [...this.birthDay, day] : [day];
     }
   }
 
