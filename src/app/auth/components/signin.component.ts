@@ -29,7 +29,7 @@ import { CommonService } from 'src/app/core/services/common.service';
           [style.opacity]="capsOpacity">
             Caps Lock 이 켜져있네요!
           </div>
-          <button type="submit" class="submit">로그인</button>
+          <button type="submit" class="submit" Button>로그인</button>
         </form>
         </div>
         <div class="login-menu">
@@ -146,12 +146,6 @@ import { CommonService } from 'src/app/core/services/common.service';
       background-color: #35C5F0;
       border-color: #35C5F0;
       color: white;
-      box-sizing: border-box;
-      border-width: 1px;
-      border-style: solid;
-      text-align: center;
-      border-radius: 4px;
-      font-weight: bold;
       transition: .2s ease;
       display: block;
       width: 100%;
