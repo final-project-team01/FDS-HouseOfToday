@@ -10,44 +10,41 @@ import { StoreNavigationComponent } from './components/store-navigation.componen
 import { HeaderComponent } from './components/header.component';
 import { FooterComponent } from './components/footer.component';
 import { CoreModule } from '../core/core.module';
-import { AvatarModule } from './UI/avatar.module';
+import { AlyleModule } from './UI/alyle.module';
 import { BasicUsesAvatarComponent } from './UI/basic-uses-avatar/basic-uses-avatar-component';
 import { ProductListComponent } from './components/product-list.component';
 import { NavFixedDirective } from './components/nav-fixed.directive';
 import { SubNavFixedDirective } from './components/sub-nav-fixed.directive';
 import { AvatarWithButtonComponent } from './UI/avatar-with-button/avatar-with-button.component';
+import { BasicRadioComponent } from './UI/basic-radio/basic-radio.component';
 import { ButtonDirective } from './directive/button.directive';
 
 @NgModule({
   declarations: [
-    NavigationComponent
-    , NotFoundComponent
-    , CommunityNavigationComponent
-    , StoreNavigationComponent
-    , HeaderComponent
-    , FooterComponent
-    , ProductListComponent
-    , NavFixedDirective
-    , SubNavFixedDirective
-    , ButtonDirective
+    NavigationComponent,
+    NotFoundComponent,
+    CommunityNavigationComponent,
+    StoreNavigationComponent,
+    HeaderComponent,
+    FooterComponent,
+    ProductListComponent,
+    NavFixedDirective,
+    SubNavFixedDirective,
+    ButtonDirective
   ],
-  imports: [
-    CommonModule
-    , CoreModule
-    , AvatarModule
-    , SharedRoutingModule
-  ],
+  imports: [CommonModule, CoreModule, AlyleModule, SharedRoutingModule],
   exports: [
-    NavigationComponent
-    , CommunityNavigationComponent
-    , StoreNavigationComponent
-    , NotFoundComponent
-    , HeaderComponent
-    , FooterComponent
-    , BasicUsesAvatarComponent
-    , ProductListComponent
-    , AvatarWithButtonComponent
-    , ButtonDirective
+    NavigationComponent,
+    CommunityNavigationComponent,
+    StoreNavigationComponent,
+    NotFoundComponent,
+    HeaderComponent,
+    FooterComponent,
+    BasicUsesAvatarComponent,
+    ProductListComponent,
+    AvatarWithButtonComponent,
+    ButtonDirective,
+    BasicRadioComponent
   ]
 })
-export class SharedModule { }
+export class SharedModule {}

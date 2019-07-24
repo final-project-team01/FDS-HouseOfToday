@@ -11,12 +11,13 @@ import { UserModifyComponent } from './components/user-modify.component';
 import { CartComponent } from './components/cart.component';
 
 @NgModule({
-  declarations: [UsersComponent, OrderListComponent, UserNavComponent, UserModifyComponent, CartComponent],
-  imports: [
-    CommonModule
-    , CoreModule
-    , SharedModule
-    , UserRoutingModule
-  ]
+  declarations: [
+    UsersComponent,
+    OrderListComponent,
+    UserNavComponent,
+    UserModifyComponent,
+    CartComponent
+  ],
+  imports: [CommonModule, CoreModule, SharedModule, UserRoutingModule]
 })
-export class UserModule { }
+export class UserModule {}
