@@ -33,8 +33,12 @@ import { Component, OnInit } from '@angular/core';
         </div>
         <div class="field">
           <div class="user_modi_subtitle">셩별</div>
-          <input type="radio" value="gender" name="male" />남자
-          <input type="radio" value="gender" name="Female" />여자
+          <div class="gender_input">
+            <input type="radio" value="gender" name="male" />남자
+          </div>
+          <div class="gender_input">
+            <input type="radio" value="gender" name="Female" />여자
+          </div>
         </div>
         <div class="field">
           <div class="user_modi_subtitle">생년월일</div>
@@ -44,8 +48,17 @@ import { Component, OnInit } from '@angular/core';
         </div>
         <div class="field">
           <div class="user_modi_subtitle">프로필 이미지</div>
+          <div class="profile_image">image</div>
+        </div>
+        <div class="field">
+          <div class="user_modi_subtitle">커버 이미지</div>
           <input />
         </div>
+        <div class="field">
+          <div class="user_modi_subtitle">한줄 소개</div>
+          <input />
+        </div>
+        <button>회원 정보 수정</button>
       </form>
     </div>
     <app-footer></app-footer>
@@ -65,6 +78,7 @@ import { Component, OnInit } from '@angular/core';
         font-weight: 700;
         padding-bottom: 30px;
         display: inline-block;
+        color: #424242;
       }
       .withdraw {
         color: #bdbdbd;
@@ -74,15 +88,39 @@ import { Component, OnInit } from '@angular/core';
         text-decoration: underline;
         float: right;
       }
+      form {
+        font-size: 15px;
+      }
       .field {
-        background-color: yellow;
-        margin-top: 30px;
+        margin-top: 20px;
       }
       .user_modi_subtitle {
+        background-color: pink;
         display: inline-block;
+        width: 144px;
+        line-height: 40px;
+        color: #424242;
       }
       .email_alert {
         margin-top: 12px;
+        padding-left: 156px;
+        font-size: 13px;
+        color: #dcdcdc;
+      }
+      .field > input {
+        height: 40px;
+        padding: 0 15px;
+        box-sizing: border-box;
+      }
+
+      .gender_input {
+        display: inline-block;
+      }
+      .profile_image {
+        background-color: red;
+        display: inline-block;
+        width: 220px;
+        height: 220px;
       }
     `
   ]
