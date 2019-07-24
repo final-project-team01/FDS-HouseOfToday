@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LyTheme2 } from '@alyle/ui';
 import { StoreService } from 'src/app/core/services/store.service';
 import { CommonService } from 'src/app/core/services/common.service';
-import { store_list } from 'src/app/core/models/store.interface';
+import { store_list, store_home } from 'src/app/core/models/store.interface';
 
 const styles = {
   carousel: {
@@ -34,41 +34,13 @@ const styles = {
     <div class="store-index">
       <section class="container store-index-section store-index-today-deal-list">
         <header class="store-index-today-deal-list__header">  
-          <h1 class="store-index-today-deal-list__title">오늘의 딜</h1>
+          <h1 class="store-index-today-deal-list__title" (click)="getdeals()">오늘의 딜</h1>
           <a class="store-index-today-deal-list__detail-link" href="#">최대 85% 타임특가</a>
         </header>
-        <div class="store-index-today-deal-list__content row">
-          <div *ngFor="let productItem of productItems" class="col-12 col-md-4 col-lg-3">
-            <article class="store-index-today-deal-item">
-              <a class="store-index-today-deal-item__overlay" href="#"></a>
-              <div class="store-index-today-deal-item__image">
-                <div class="production-item-image">
-                  <img class="image" src="{{productItem.thumnail_images[0].image}}">
-                  <button class="production-item-scrap-badge production-item-image__scrap-badge" type="button"></button>
-                </div>
-              </div>
-              <div class="store-index-today-deal-item__content">
-                <h1 class="store-index-today-deal-item__header">
-                  <span class="store-index-today-deal-item__header__brand">{{productItem.brand_name}}</span>
-                  <span class="store-index-today-deal-item__header__name">{{productItem.name}}</span>
-                </h1>
-                <span class="production-item-price">
-                  <span class="production-item-price__rate">{{productItem.discount}}<span 
-                  class="percentage">%</span>
-                  </span>
-                  <span class="production-item-price__price">{{productItem.price}}</span>
-                </span>
-                <div class="store-index-today-deal-item__stats-pc">
-                  <p class="production-item-stats production-item-stats--review">
-                    <strong class="avg">{{productItem.stars}}</strong>
-                    리뷰{{productItem.reviews}}
-                  </p>
-                </div>
-                <span class="production-item-badge-list">
-                무료배송
-                </span>
-              </div>
-            </article>
+        <div class="today-deal-timer-container">
+          <p class="today-deal-timer">{{hours}}{{minutes}}{{seconds}}</p>
+          <div class="store-index-today-deal-list__content">
+            <app-product-list [productItems]="todaysDeals" [menuWidth]="menuWidth"></app-product-list>
           </div>
         </div>
       </section>
@@ -319,6 +291,7 @@ const styles = {
   .keyword-wrap {
     padding-top: 5px;
     padding-bottom: 5px;
+    margin-left: 10px;
   }
 
   .col-md-3 {
@@ -401,8 +374,16 @@ export class StoreComponent implements OnInit {
   ];
 
   menuWidth: string = '25%'
-
   productItems: store_list;
+  todaysDeals;
+
+  todayDate
+  tomorrowDate
+  timeLeft
+  days
+  hours
+  minutes
+  seconds
 
   keywords = [
     { words: '#장마철 #건조기 #제습기' },
@@ -418,6 +399,29 @@ export class StoreComponent implements OnInit {
     this.commonService.setNav(1);
     this.storeService.getProductList()
       .subscribe(data => this.productItems = data as store_list);
+    
+    this.storeService.getTodaysDeal()
+      .subscribe(data => { 
+        this.todaysDeals = data as store_home;
+        this.todaysDeals = this.todaysDeals.todaydeal;
+      });
   }
 
+  dealTimer() {
+    setInterval(() => {
+      this.todayDate = new Date();
+      this.tomorrowDate = new Date(this.todayDate.getTime() + (24 * 60 * 60 * 1000));
+
+      this.timeLeft = this.tomorrowDate - this.todayDate;
+
+      console.log(this.todayDate);
+      console.log(this.tomorrowDate);
+      console.log(this.timeLeft);
+
+      this.days = Math.floor(this.timeLeft / (1000 * 60 * 60 * 24));
+      this.hours = Math.floor((this.timeLeft % (1000 * 60 * 60 * 24)));
+      this.minutes = Math.floor((this.timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+      this.seconds = Math.floor((this.timeLeft % (1000 * 60)) / 1000);
+    }, 1000)
+  }
 }
