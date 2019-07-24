@@ -15,7 +15,9 @@ import { MinimaLight } from '@alyle/ui/themes/minima';
 import { UserModule } from './user/user.module';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+  ],
   imports: [
     BrowserModule,
     SharedModule,

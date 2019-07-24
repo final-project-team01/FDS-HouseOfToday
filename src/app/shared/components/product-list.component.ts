@@ -5,8 +5,9 @@ import { CommonService } from 'src/app/core/services/common.service';
   selector: 'app-product-list',
   template: `
   <div class="row">
-    <div *ngFor="let productItem of productItems" class="col-12 col-md-4 col-lg-3" [style.max-width]="menuWidth">
-      <article class="store-index-today-deal-item">
+    <div *ngFor="let productItem of productItems; let i=index" class="col-12 col-md-4 col-lg-3" [style.max-width]="menuWidth">
+      <div *ngIf="i < setNumber">
+      <article class="store-index-today-deal-item" >
         <a class="store-index-today-deal-item__overlay" routerLink="/store/{{productItem.id}}"></a>
         <div class="store-index-today-deal-item__image">
           <div class="production-item-image">
@@ -35,6 +36,7 @@ import { CommonService } from 'src/app/core/services/common.service';
           </span>
         </div>
       </article>
+      </div>
     </div>
   </div>
   `,
@@ -139,7 +141,7 @@ import { CommonService } from 'src/app/core/services/common.service';
   .production-item-price__rate {
     margin-right: 10px;
   }
-  
+
   .production-item-price__price {
     color: #000;
   }
@@ -225,6 +227,9 @@ import { CommonService } from 'src/app/core/services/common.service';
 export class ProductListComponent implements OnInit {
   @Input() productItems;
   @Input() menuWidth: string;
+  @Input() setNumber: number;
+
+  showAll: boolean = true;
 
   constructor(private commonService: CommonService) { }
 

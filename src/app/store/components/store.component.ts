@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LyTheme2 } from '@alyle/ui';
 import { StoreService } from 'src/app/core/services/store.service';
 import { CommonService } from 'src/app/core/services/common.service';
-import { store_list, store_home } from 'src/app/core/models/store.interface';
+import { store_list, store_home, today_deal } from 'src/app/core/models/store.interface';
 
 const styles = {
   carousel: {
@@ -34,13 +34,13 @@ const styles = {
     <div class="store-index">
       <section class="container store-index-section store-index-today-deal-list">
         <header class="store-index-today-deal-list__header">  
-          <h1 class="store-index-today-deal-list__title" (click)="getdeals()">오늘의 딜</h1>
+          <h1 class="store-index-today-deal-list__title">오늘의 딜</h1>
           <a class="store-index-today-deal-list__detail-link" href="#">최대 85% 타임특가</a>
         </header>
         <div class="today-deal-timer-container">
           <p class="today-deal-timer">{{hours}}{{minutes}}{{seconds}}</p>
           <div class="store-index-today-deal-list__content">
-            <app-product-list [productItems]="todaysDeals" [menuWidth]="menuWidth"></app-product-list>
+            <app-product-list [productItems]="todaysDeals" [menuWidth]="menuWidth" [setNumber]="setNumber"></app-product-list>
           </div>
         </div>
       </section>
@@ -79,7 +79,7 @@ const styles = {
           </div>
         </div>
         <div class="store-index-today-deal-list__content">
-          <app-product-list [productItems]="productItems" [menuWidth]="menuWidth"></app-product-list>
+          <app-product-list [productItems]="productItems" [menuWidth]="menuWidth" [setNumber]="setNumberFamous"></app-product-list>
         </div>
       </section>
     </div>
@@ -374,8 +374,11 @@ export class StoreComponent implements OnInit {
   ];
 
   menuWidth: string = '25%'
-  productItems: store_list;
-  todaysDeals;
+  productItems: today_deal[];
+  fulltodaysDeals: any;
+  todaysDeals: store_home[];
+  setNumber: number;
+  setNumberFamous: number;
 
   todayDate
   tomorrowDate
@@ -398,12 +401,16 @@ export class StoreComponent implements OnInit {
     this.commonService.setLocate(1);
     this.commonService.setNav(1);
     this.storeService.getProductList()
-      .subscribe(data => this.productItems = data as store_list);
+      .subscribe(data => {
+        this.productItems = data as today_deal[];
+        this.setNumberFamous = this.productItems.length;
+      });
     
     this.storeService.getTodaysDeal()
       .subscribe(data => { 
-        this.todaysDeals = data as store_home;
-        this.todaysDeals = this.todaysDeals.todaydeal;
+        this.fulltodaysDeals = data as store_home[];
+        this.todaysDeals = this.fulltodaysDeals.todaydeal;
+        this.setNumber = this.todaysDeals.length;
       });
   }
 
