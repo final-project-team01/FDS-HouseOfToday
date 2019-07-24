@@ -44,16 +44,13 @@ import { UserService } from 'src/app/core/services/user.service';
 export class NavigationComponent implements OnInit {
 
   constructor(private commonService: CommonService
-    , private router: Router
     , private storageService: StorageService
-    , private userService: UserService
+
   ) {
   }
 
   ngOnInit() {
-    if (this.commonService.isLogin()) {
-      this.getUserDetail();
-    }
+
   }
   logout(e: Event) {
     e.preventDefault();
@@ -64,11 +61,6 @@ export class NavigationComponent implements OnInit {
   changMenu(nav: number) {
     this.commonService.setNav(nav);
   }
-  getUserDetail() {
-    this.userService.getUserDetail().subscribe(req => {
-      this.commonService.setUserDetail(req[0]);
 
-    });
-  }
 
 }

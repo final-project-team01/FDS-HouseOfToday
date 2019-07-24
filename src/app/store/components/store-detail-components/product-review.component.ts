@@ -1,12 +1,21 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { review } from 'src/app/core/models/store.interface';
 
+
 @Component({
   selector: 'app-product-review',
   template: `
     <div class="product-review-container">
-      <h3>리뷰 <span class="review-amount">{{ productReviews.length }}</span></h3>
+      <h3>리뷰 <span class="review-amount" *ngIf="originalList">{{ originalList.length }}</span></h3>
       <a href="" class="write-review">리뷰쓰기</a>
+      <div class="star-rate-container">
+        <span class="star-avg">{{ starAvg }}</span>
+        <div class="star-bg">
+          <div class="star-rate" [style.width.px]="starAvg * 60">
+            <img src="../../../../assets/image/star-rate.png">
+          </div>
+        </div>
+      </div>
       <div class="filter-container">
       <ul>
         <li class="review-filter-menu">베스트순</li>
@@ -26,7 +35,7 @@ import { review } from 'src/app/core/models/store.interface';
         </li>
       </ul>
       </div>
-      <article class="user-review" *ngFor="let review of chosenReviews">
+      <article class="user-review" *ngFor="let review of chosenList">
         <span>사용자</span>
         <div class="review-star-score">
           <span class="star" *ngFor="let star of range(review['star_score'])">
@@ -39,14 +48,12 @@ import { review } from 'src/app/core/models/store.interface';
         <p class="review-comment">{{ review.comment }}</p>
         <button class="helpful">도움이 돼요</button>
       </article>
-      <ul class="pagination">
-        <li><button class="pagination-btn left"></button></li>
-        <li *ngFor="let page of pages; let i = index">
-          <button class="pagination-page"
-            (click)="changePage(i)">{{ i + 1 }}</button>
-        </li>
-        <li><button class="pagination-btn right"></button></li>
-      </ul>
+      <app-pagination 
+        [originalList]="originalList"
+        [chosenList]="chosenList"
+        [pages]="pages"
+        (change)="changePage($event)"
+      ></app-pagination>
     </div>
   `,
   styles: [`
@@ -73,6 +80,33 @@ import { review } from 'src/app/core/models/store.interface';
     right: 30px;
     border: none;
     font-weight: 700;
+  }
+  .star-rate-container{
+    text-align: center;
+    margin: 10px 0 30px 0;
+  }
+  .star-avg{
+    padding: 0 10px;
+    background-color: #35C5F0;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    vertical-align: middle;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+  .star-bg{
+    width:300px;
+    background-color: lightgrey;
+    display: inline-block;
+  }
+  .star-rate{
+    width: 1px;
+    background-color: #35C5F0;
+  }
+  .star-rate > img{
+    width: 300px;
+    vertical-align: middle;
   }
   .filter-container{
     margin: 15px 0;
@@ -119,9 +153,10 @@ import { review } from 'src/app/core/models/store.interface';
   }
   .filter-icon{
     display: inline-block;
+    background-image: url('../../../../assets/image/icon-pointer.png');
     width: 12px;
     height: 12px;
-    background-position: -387px 3px;
+    background-position: -386px 3px;
   }
   .user-review{
     padding: 30px 0;
@@ -160,39 +195,14 @@ import { review } from 'src/app/core/models/store.interface';
     margin-right: 10px;
     background-color: #fff;
   }
-  .pagination{
-    text-align: center;
-    margin: 40px 0;
-  }
-  .pagination > li{
-    display: inline-block;
-  }
-  .pagination-page, .pagination-btn{
-    vertical-align: middle;
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    margin: 5px;
-  }
-  .pagination-btn, .filter-icon{
-    background-image: url('../../../../assets/image/icon-pointer.png');
-  }
-  .left{
-    background-position: -75px -118px;
-  }
-  .right{
-    background-position: -130px -118px;
-  }
   `]
 })
 export class ProductReviewComponent implements OnInit {
 
-  @Input() productReviews: review[];
-  @Input() chosenReviews: review[];
+  @Input() originalList: review[];
+  @Input() chosenList: review[];
   @Input() pages: any;
+  @Input() starAvg: number;
 
   constructor() { }
 
@@ -204,11 +214,8 @@ export class ProductReviewComponent implements OnInit {
     return Array(i);
   }
 
-  changePage(i: number){
-    const start = i * 3;
-    const end = start + 3;
-    this.chosenReviews 
-      = this.productReviews.filter((review, index) => index >= start && index < end);
+  changePage(chosenList: review[]){
+    this.chosenList = chosenList;
   }
 
 }

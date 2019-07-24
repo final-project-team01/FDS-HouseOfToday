@@ -6,7 +6,7 @@ import { store_list } from 'src/app/core/models/store.interface';
 @Component({
   selector: 'app-rank',
   template: `
-    <app-header [thisNav]="commonService.getNav()"></app-header>
+    <app-header></app-header>
     <section class="ranking-feed">
       <div class="ranking-feed-group">
         <div class="ranking-feed-card">

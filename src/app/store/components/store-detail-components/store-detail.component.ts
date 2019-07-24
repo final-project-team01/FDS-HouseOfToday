@@ -4,14 +4,13 @@ import { StoreService } from 'src/app/core/services/store.service';
 import { CommonService } from 'src/app/core/services/common.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
-import { HttpClient } from '@angular/common/http';
-import { product_info, thumbnail_image, detail_image, product_option, review, qna }
+import { thumbnail_image, detail_image, product_option, review, qna }
   from 'src/app/core/models/store.interface';
 
 @Component({
   selector: 'app-store-detail',
   template: `
-    <app-header [thisNav]="commonService.getNav()"></app-header>
+    <app-header></app-header>
     <div class="top-wrapper">
       <div class="pic-container">
         <app-product-pic 
@@ -33,13 +32,20 @@ import { product_info, thumbnail_image, detail_image, product_option, review, qn
     <div class="bottom-wrapper" #nav (window:scroll)="stickyNav(nav)">
       <div class="detail-container">
         <app-product-detail [productDetailImages]="productDetailImages"></app-product-detail>
+        <app-product-etc [productInfo]="productInfo"></app-product-etc>
         <app-product-review 
-          [productReviews]="productReviews"
-          [chosenReviews]="chosenReviews"
-          [pages]="pages"
+          [originalList]="productReviews"
+          [chosenList]="chosenReviews"
+          [pages]="reviewPages"
+          [starAvg]="starAvg"
         ></app-product-review>
         <app-product-qna
-        [productQnas]="productQnas"></app-product-qna>
+        [originalList]="productQnas"
+        [chosenList]="chosenQnas"
+        [pages]="qnaPages"
+        ></app-product-qna>
+        <app-product-delivery
+        [productInfo]="productInfo"></app-product-delivery>
       </div>
       <div class="nav-container"
         [class.sticky]="sticky">
@@ -116,18 +122,20 @@ export class StoreDetailComponent implements OnInit {
   productDetailImages: detail_image[];
   productOption: product_option[];
   productReviews: review[];
+  reviewAmount: number;
+  starAvg: number;
+  reviewPages = [];
+  qnaPages = [];
   productQnas: qna[];
   chosenReviews: review[];
-  reviewAmount: number;
+  chosenQnas: qna[];
   qnaAmount: number;
-  pages = [];
   chosenOptions: ChosenOption[] = [];
 
   constructor(private route: ActivatedRoute
     , private storeService: StoreService
     , private userService: UserService
-    , private commonService: CommonService
-    , private http: HttpClient) { }
+    , private commonService: CommonService) { }
 
   ngOnInit() {
     this.commonService.setLocate(1);
@@ -144,15 +152,19 @@ export class StoreDetailComponent implements OnInit {
         this.productReviews = data['review'];
         this.productQnas = data['pdqna'];
         this.chosenReviews = this.productReviews.filter((review, index) => index >= 0 && index < 3);
-        this.reviewAmount = this.productReviews.length;
+        this.chosenQnas = this.productQnas.filter((review, index) => index >= 0 && index < 3);
         this.qnaAmount = this.productQnas.length;
-        const i = Math.ceil(this.productReviews.length / 3);
-        this.pages = Array(i);
+        this.reviewAmount = this.productInfo['review_count'];
+        this.starAvg = +this.productInfo['star_avg'];
+        const rp = Math.ceil(this.reviewAmount / 3);
+        const qp = Math.ceil(this.qnaAmount / 3);
+        this.reviewPages = Array(rp);
+        this.qnaPages = Array(qp);
         this.activeId = this.productImages[0].id;
       });
   }
 
-  addOption(option) {
+  addOption(option: product_option) {
     const chosen = {
       id: this.generateId(), name: this.getName(option['name']), price: option['price'], amount: 1
     };
