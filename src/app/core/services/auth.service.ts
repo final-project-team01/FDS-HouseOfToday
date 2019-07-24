@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CoreModule } from '../core.module';
 import { HttpClient } from '@angular/common/http';
 import { token, non_field_errors, account } from '../models/auth.interface';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { CommonService } from './common.service';
 
 
