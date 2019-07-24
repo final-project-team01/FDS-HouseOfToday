@@ -16,6 +16,7 @@ import { ProductListComponent } from './components/product-list.component';
 import { NavFixedDirective } from './components/nav-fixed.directive';
 import { SubNavFixedDirective } from './components/sub-nav-fixed.directive';
 import { AvatarWithButtonComponent } from './UI/avatar-with-button/avatar-with-button.component';
+import { ButtonDirective } from './directive/button.directive';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { AvatarWithButtonComponent } from './UI/avatar-with-button/avatar-with-b
     , ProductListComponent
     , NavFixedDirective
     , SubNavFixedDirective
+    , ButtonDirective
   ],
   imports: [
     CommonModule
@@ -45,6 +47,7 @@ import { AvatarWithButtonComponent } from './UI/avatar-with-button/avatar-with-b
     , BasicUsesAvatarComponent
     , ProductListComponent
     , AvatarWithButtonComponent
+    , ButtonDirective
   ]
 })
 export class SharedModule { }
