@@ -143,9 +143,6 @@ import { CommonService } from 'src/app/core/services/common.service';
       transform: translate(-100%, -50%);
     }
     .submit{
-      background-color: #35C5F0;
-      border-color: #35C5F0;
-      color: white;
       transition: .2s ease;
       display: block;
       width: 100%;
@@ -154,9 +151,6 @@ import { CommonService } from 'src/app/core/services/common.service';
       padding: 13px 15px;
       font-size: 17px;
       line-height: 1.41;
-    }
-    .submit:active, .submit:hover {
-      background-color: #11b9eb;
     }
     .login-menu{
       margin: 20px 0;
