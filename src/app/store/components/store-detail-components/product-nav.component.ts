@@ -1,23 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-product-nav',
   template: `
-  <div class="product-nav-container" #nav (window:load)="getNavOffset(nav)"
-    (window:scroll)="test()" [class.sticky]="sticky">
+  <div class="product-nav-container">
     <div class="nav-list">
       <ul class="navigation">
         <li class="tab" 
         *ngFor="let nav of navMenu; let i=index"
         (click)="setActive(i)" [class.active]="nav.active">
-        <h2>{{ nav.title }}</h2>
+        <h2>{{ nav.title }}
+          <span *ngIf="i === 2">({{ (reviewAmount) }})</span>
+          <span *ngIf="i === 3">({{ qnaAmount }})</span>
+        </h2>
         </li>
         <li class="tab last"></li>
       </ul>
-    </div>
-    <div class="product-option">
-      <h2>옵션 선택</h2>
-      <app-product-option></app-product-option>
     </div>
   </div>
   `,
@@ -25,10 +23,7 @@ import { Component, OnInit } from '@angular/core';
   *{
     box-sizing: border-box;
   }
-  .product-nav-container{
-    padding-top: 80px;
-    bottom: auto;
-  }
+
   .nav-list{
     width: 1136px;
   }
@@ -63,27 +58,12 @@ import { Component, OnInit } from '@angular/core';
     border-right: solid 1px #ededed;
     cursor: default;
   }
-  .product-option{
-    float: right;
-    margin: 50px 30px 0 0;
-    width: 31%;
-    background-color: #f7f7f7;
-  }
-  .product-option > h2{
-    margin-bottom: 20px;
-    font-size: 20px;
-    font-weight: bold;
-  }
-  .sticky{
-    position: fixed;
-    top: 0;
-  }
   `]
 })
 export class ProductNavComponent implements OnInit {
-  
-  navOffset: number;
-  sticky = false;
+
+  @Input() reviewAmount: number;
+  @Input() qnaAmount: number;
 
   navMenu = [ 
     { title: '상품정보', active: true },
@@ -97,19 +77,10 @@ export class ProductNavComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  getNavOffset(nav){
-    this.navOffset = nav.offsetTop;
-    console.log(this.navOffset);
-  }
   
   setActive(i: number){
     this.navMenu.map((nav, index) => nav.active = index === i ? true : false);
-  }
-
-  test(){
-    if(this.navOffset < window.pageYOffset) this.sticky = true;
-    else this.sticky = false;
+    console.log(this.navMenu);
   }
 
 }

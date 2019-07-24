@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { CommonService } from 'src/app/core/services/common.service';
+import { product_info } from 'src/app/core/models/store.interface';
 
 @Component({
   selector: 'app-product-info',
   template: `
-  <div class="product-info-container">
+  <div class="product-info-container" *ngIf="productInfo">
     <a href="#"><small class="text-grey">{{ productInfo.brand_name }}</small></a>
     <h1 class="product-name">{{ productInfo.name }}</h1>
     <div class="star-grade">
@@ -12,9 +14,9 @@ import { Component, OnInit } from '@angular/core';
       <span class="star"></span>
       <span class="star"></span>
       <span class="star half"></span>
-        85개 리뷰
+        {{ productInfo.review.length }}개 리뷰
     </div>
-    <mark class="product-price">{{ addComma(productInfo.price) }}<span>원</span></mark>
+    <mark class="product-price">{{ commonService.addComma(productInfo.price) }}<span>원</span></mark>
     <span class="sprite lowest"></span>
     <p class="text-grey"><mark class="point">{{ productInfo.price / 100 }}P</mark> 적립해드립니다.</p>
     <hr>
@@ -22,13 +24,12 @@ import { Component, OnInit } from '@angular/core';
     <span class="sprite delivery"></span>
     <hr>
     <a href="#" class="goToShop"><span class="sprite shop"></span>{{ productInfo.brand_name }} 상품보기</a>
-    <app-product-option></app-product-option>
     </div>
   `,
   styles: [`
   .product-info-container{
-    float: right;
-    width: 40%;
+
+    width: 100%;
   }
   .product-name{
     color: black;
@@ -121,16 +122,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductInfoComponent implements OnInit {
 
-  productInfo = {};
-  constructor() { }
+  @Input() productInfo: product_info;
+
+  constructor(private commonService: CommonService) { }
 
   ngOnInit() {
-    this.productInfo = { id: 1, name: '1+1+1+1 시그니처퍼퓸디퓨저 200ml', price: 16900, brand_name: '데일리콤마' }
-  }
-  
-  addComma(num: number){
-    const regexp = /\B(?=(\d{3})+(?!\d))/g;
-    return num.toString().replace(regexp, ',');
+
   }
 
 }

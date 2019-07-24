@@ -1,18 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { ActivationEnd } from '@angular/router';
+import { thumbnail_image } from 'src/app/core/models/store.interface';
 
 @Component({
   selector: 'app-product-pic',
   template: `
   <div class="product-pic-container">
     <div class="pic-list">
-      <button class="pic-item" *ngFor="let pic of productDetailImages; let i=index"
-      [style.backgroundImage]="'url('+ pic.pd_detail_image +')'"
+      <button class="pic-item" *ngFor="let pic of productImages; let i=index"
+      [style.backgroundImage]="'url('+ pic.image +')'"
       (click)="activeId = pic.id"
       [class.active]="pic.id === activeId"></button>
     </div>
     <div class="main-picture-container">
-      <img *ngFor="let pic of productDetailImages; let i=index" 
-      src="{{ pic.pd_detail_image }}" class="main-picture"
+      <img *ngFor="let pic of productImages; let i=index" 
+      src="{{ pic.image }}" class="main-picture"
       [class.active]="pic.id === activeId">
     </div>
   </div>
@@ -62,16 +64,12 @@ import { Component, OnInit } from '@angular/core';
   `]
 })
 export class ProductPicComponent implements OnInit {
+  
+  @Input() productImages: thumbnail_image[];
+  @Input() activeId: number;
 
-  productDetailImages = [];
-  activeId = 1;
   ngOnInit(){
-    this.productDetailImages = [
-      { id: 1, pd_detail_image: '../../../../assets/image/1.jpg' },
-      { id: 2, pd_detail_image: '../../../../assets/image/2.jpg' },
-      { id: 3, pd_detail_image: '../../../../assets/image/3.jpg' },
-      { id: 4, pd_detail_image: '../../../../assets/image/4.jpg' },
-    ]
-}
+    
+  }
 
 }

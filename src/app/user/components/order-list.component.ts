@@ -237,6 +237,11 @@ import { UserService } from 'src/app/core/services/user.service';
         color: #35c5f0;
       }
       .arrow {
+        background-image: url(assets/image/icon-pointer.png);
+        background-size: 400px;
+        background-position-x: -159px;
+        background-position-y: -70px;
+        background-repeat: no-repeat;
         display: block;
         float: left;
         margin: 62.5px 43.5px;
@@ -254,6 +259,10 @@ import { UserService } from 'src/app/core/services/user.service';
       }
       .delivery_before,
       .delivery_status {
+        background-image: url(assets/image/select_arrow.png);
+        background-repeat: no-repeat;
+        background-position: calc(100% - 15px);
+        background-size: 18px;
         width: 170px;
         height: 40px;
         font-size: 16px;

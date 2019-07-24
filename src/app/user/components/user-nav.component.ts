@@ -1,24 +1,26 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonService } from 'src/app/core/services/common.service';
 
 @Component({
   selector: 'app-user-nav',
   template: `
     <nav class="page-navigation">
-      <a routerLink="/users/123"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-        class="page_nav_item"
-      >프로필</a>
       <a
-        routerLink="/orderList/123"
+        routerLink="/users/{{commonService.Id}}"
+        routerLinkActive="active"        
+        class="page_nav_item"
+        >프로필</a
+      >
+      <a
+        routerLink="/orderList/{{commonService.Id}}"
         routerLinkActive="active"
         class="page_nav_item"
         >주문</a
       >
       <a
-        routerLink="/users/123/edit"
+        routerLink="/users/{{commonService.Id}}/edit"
         routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
+        
         class="page_nav_item"
         >설정</a
       >
@@ -45,7 +47,7 @@ import { Component, OnInit } from '@angular/core';
   ]
 })
 export class UserNavComponent implements OnInit {
-  constructor() { }
+  constructor(private commonService: CommonService) { }
 
   ngOnInit() { }
 }

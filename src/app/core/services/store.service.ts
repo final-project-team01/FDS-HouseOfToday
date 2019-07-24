@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
-
 import { CoreModule } from '../core.module';
-import { store_list } from '../models/store.interface';
-import { StateService } from './state.service';
+import { CommonService } from './common.service'
 
 @Injectable({
   providedIn: CoreModule
@@ -12,13 +10,42 @@ export class StoreService {
 
   constructor(
     private httpClient: HttpClient
-    , private stateService: StateService
+    , private commonService: CommonService
   ) { }
 
   getCategoryList() {
-    const path = "products/category/list/"
-    const fullPath = this.stateService.getFullPath(path);
+    const path = `products/category/list/`;
+    const fullPath = this.commonService.getFullPath(path);
+    return this.httpClient.get(fullPath);
+  }
 
-    return this.httpClient.get<store_list[]>(fullPath);
+  getCategoryDetailList(id: number) {
+    const path = `products/category/${id}/`;
+    const fullPath = this.commonService.getFullPath(path);
+    return this.httpClient.get(fullPath);
+  }
+
+  getProductInfo(id: number) {
+    const path = `products/product/${id}/`;
+    const fullPath = this.commonService.getFullPath(path);
+    return this.httpClient.get(fullPath);
+  }
+
+  getProductList() {
+    const path = `products/product/list/`;
+    const fullPath = this.commonService.getFullPath(path);
+    return this.httpClient.get(fullPath);
+  }
+
+  getTodaysDeal() {
+    const path = `products/storehome/`;
+    const fullPath = this.commonService.getFullPath(path);
+    return this.httpClient.get(fullPath);
+  }
+
+  getRankingList() {
+    const path = `products/ranking/`;
+    const fullPath = this.commonService.getFullPath(path);
+    return this.httpClient.get(fullPath);
   }
 } 

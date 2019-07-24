@@ -22,6 +22,11 @@ import { LyFieldModule } from '@alyle/ui/field';
 import { LySelectModule } from '@alyle/ui/select';
 import { LyTypographyModule } from '@alyle/ui/typography';
 import { ClickOutsideDirective } from './components/store-detail-components/click-outside.directive';
+import { ProductReviewComponent } from './components/store-detail-components/product-review.component';
+import { ProductQnaComponent } from './components/store-detail-components/product-qna.component';
+import { ProductEtcComponent } from './components/store-detail-components/product-etc.component';
+import { PaginationComponent } from './components/store-detail-components/pagination.component';
+import { ProductDeliveryComponent } from './components/store-detail-components/product-delivery.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +40,7 @@ import { ClickOutsideDirective } from './components/store-detail-components/clic
     , ProductOptionComponent
     , ProductDetailComponent
     , ClickOutsideDirective
-    , StoreDetailComponent
+    , StoreDetailComponent, ProductReviewComponent, ProductQnaComponent, ProductEtcComponent, PaginationComponent, ProductDeliveryComponent
   ],
   imports: [
     CommonModule

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonService } from 'src/app/core/services/common.service';
 
 @Component({
   selector: 'app-store-navigation',
@@ -16,9 +17,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StoreNavigationComponent implements OnInit {
 
-  constructor() { }
+  constructor(private commonService: CommonService) { }
 
   ngOnInit() {
   }
-
 }
