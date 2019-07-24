@@ -51,7 +51,7 @@ import { store_list, categoryfilter, today_deal } from 'src/app/core/models/stor
               </div>
             </div>
             <div class="product-list">
-              <app-product-list [productItems]="productItems" [menuWidth]="menuWidth"></app-product-list>
+              <app-product-list [productItems]="productItems" [menuWidth]="menuWidth" [setNumber]="setNumber"></app-product-list>
             </div>
           </div>
         </div>
@@ -204,9 +204,10 @@ export class CategoryComponent implements OnInit {
   menuWidth: string = '33%';
 
   categoryLists: object;
-  categoryFilter: categoryfilter;
-  productItems: today_deal;
+  categoryFilter: any;
+  productItems: today_deal[];
   categoryName: string = '가구';
+  setNumber: number;
 
   constructor(private storeService: StoreService
     , private commonService: CommonService
@@ -216,7 +217,10 @@ export class CategoryComponent implements OnInit {
     this.commonService.setLocate(1);
     this.commonService.setNav(1);
     this.storeService.getProductList()
-      .subscribe(data => this.productItems = data as today_deal);
+      .subscribe(data => {
+        this.productItems = data as today_deal[];
+        this.setNumber = this.productItems.length;
+      });
     this.storeService.getCategoryList()
       .subscribe(data => this.categoryLists = data);
   }
@@ -224,7 +228,7 @@ export class CategoryComponent implements OnInit {
   changeCategory(id: number) {
     this.storeService.getCategoryDetailList(id)
       .subscribe(data => {
-        this.categoryFilter = data as categoryfilter;
+        this.categoryFilter = data as categoryfilter[];
         this.productItems = this.categoryFilter.products;
         this.categoryName = this.categoryLists[id - 1].name;
       });
