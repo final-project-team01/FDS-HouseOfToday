@@ -83,8 +83,8 @@ export interface store_list {
 }
 
 export interface store_home {
-  todaydeal: today_deal;
-  category? : object;
+  todaydeal: today_deal[];
+  categories? : object;
   poular_products? : object;
 }
 

@@ -27,6 +27,8 @@ import { ProductQnaComponent } from './components/store-detail-components/produc
 import { ProductEtcComponent } from './components/store-detail-components/product-etc.component';
 import { PaginationComponent } from './components/store-detail-components/pagination.component';
 import { ProductDeliveryComponent } from './components/store-detail-components/product-delivery.component';
+import { RankContainerComponent } from './components/rank-container.component';
+import { RankBestComponent } from './components/rank-best.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,7 @@ import { ProductDeliveryComponent } from './components/store-detail-components/p
     , ProductDetailComponent
     , ClickOutsideDirective
     , StoreDetailComponent, ProductReviewComponent, ProductQnaComponent, ProductEtcComponent, PaginationComponent, ProductDeliveryComponent
+    , RankContainerComponent, RankBestComponent
   ],
   imports: [
     CommonModule
