@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LyTheme2 } from '@alyle/ui';
 import { StoreService } from 'src/app/core/services/store.service';
 import { CommonService } from 'src/app/core/services/common.service';
-import { store_list } from 'src/app/core/models/store.interface';
+import { store_list, categoryfilter, today_deal } from 'src/app/core/models/store.interface';
 
 @Component({
   selector: 'app-category',
@@ -15,7 +15,7 @@ import { store_list } from 'src/app/core/models/store.interface';
             <section class="commerce-category">
               <ul *ngFor="let categoryList of categoryLists" class="commerce-category-list">
                 <li class="commerce-category-list_item">
-                  <a href="#">{{ categoryList.name }}</a>
+                  <a class="categorylist" (click)="changeCategory(categoryList.id)">{{ categoryList.name }}</a>
                 </li>
               </ul>
             </section>
@@ -25,8 +25,8 @@ import { store_list } from 'src/app/core/models/store.interface';
               <div class="commerce-category-wrap">
                 <nav clss="commerce-category-nav">
                   <ul class="commerce-category-innernav">
-                    <li class="commerce-category-innernav-list"><a class="link" routerLink="/store">오늘의집 스토어</a><span> > </span></li>
-                    <li class="commerce-category-innernav-list"><a class="link" routerLink="/store">가구</a></li>
+                    <li class="commerce-category-innernav-list"><a class="link" routerLink="/store">오늘의집 스토어</a><span>  >  </span></li>
+                    <li class="commerce-category-innernav-list"><a class="link">{{categoryName}}</a></li>
                   </ul>
                 </nav>
               </div>
@@ -194,14 +194,19 @@ import { store_list } from 'src/app/core/models/store.interface';
     .product-list {
       width: 900px;
     }
+
+    .categorylist {
+      cursor: pointer;
+    }
   `]
 })
 export class CategoryComponent implements OnInit {
   menuWidth: string = '33%';
 
   categoryLists: object;
-
-  productItems: store_list;
+  categoryFilter: categoryfilter;
+  productItems: today_deal;
+  categoryName: string = '가구';
 
   constructor(private storeService: StoreService
     , private commonService: CommonService
@@ -211,9 +216,17 @@ export class CategoryComponent implements OnInit {
     this.commonService.setLocate(1);
     this.commonService.setNav(1);
     this.storeService.getProductList()
-      .subscribe(data => this.productItems = data as store_list);
+      .subscribe(data => this.productItems = data as today_deal);
     this.storeService.getCategoryList()
       .subscribe(data => this.categoryLists = data);
   }
 
+  changeCategory(id: number) {
+    this.storeService.getCategoryDetailList(id)
+      .subscribe(data => {
+        this.categoryFilter = data as categoryfilter;
+        this.productItems = this.categoryFilter.products;
+        this.categoryName = this.categoryLists[id - 1].name;
+      });
+  }
 }

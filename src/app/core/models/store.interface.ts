@@ -98,3 +98,19 @@ export interface today_deal {
   star_avg: string;
   thumnail_images: detail_image[];
 }
+
+export interface rankingPage {
+  best100: today_deal;
+  light_homedeco: today_deal;
+  daily_supplies: today_deal;
+  fabric: today_deal;
+  kitchenware: today_deal;
+  home_appliances: today_deal;
+  companion_animal: today_deal;
+  furniture: today_deal;
+}
+
+export interface categoryfilter {
+  id: number;
+  products: today_deal;
+}

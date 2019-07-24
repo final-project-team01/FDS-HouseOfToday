@@ -20,14 +20,14 @@ import { CommonService } from 'src/app/core/services/common.service';
           </h1>
           <span class="production-item-price">
             <span class="production-item-price__rate">{{productItem.discount}}<span 
-            class="percentage">%</span>
+            class="percentage">{{productItem.discount_rate}}%</span>
             </span>
             <span class="production-item-price__price">{{commonService.addComma(productItem.price)}}</span>
           </span>
           <div class="store-index-today-deal-item__stats-pc">
             <p class="production-item-stats production-item-stats--review">
-              <strong class="avg">{{productItem.stars}}</strong>
-              리뷰{{productItem.reviews}}
+              <strong class="avg">{{productItem.star_avg}}</strong>
+              리뷰{{productItem.review_count}}
             </p>
           </div>
           <span class="production-item-badge-list">
@@ -93,6 +93,7 @@ import { CommonService } from 'src/app/core/services/common.service';
 
   .store-index-today-deal-item__content {
     margin: 0;
+    line-height: 1;
   }
 
   .store-index-today-deal-item__header {
@@ -135,6 +136,10 @@ import { CommonService } from 'src/app/core/services/common.service';
     color: #f77;
   }
 
+  .production-item-price__rate {
+    margin-right: 10px;
+  }
+  
   .production-item-price__price {
     color: #000;
   }

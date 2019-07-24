@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StoreService } from 'src/app/core/services/store.service';
 import { CommonService } from 'src/app/core/services/common.service';
-import { store_list } from 'src/app/core/models/store.interface';
+import { store_list, rankingPage, today_deal } from 'src/app/core/models/store.interface';
 
 @Component({
   selector: 'app-rank',
@@ -75,7 +75,8 @@ import { store_list } from 'src/app/core/models/store.interface';
 export class RankComponent implements OnInit {
   menuWidth: string = '20%';
 
-  productItems: store_list;
+  rankingList: rankingPage;
+  productItems: today_deal;
 
   constructor(private storeService: StoreService
     , private commonService: CommonService
@@ -84,8 +85,11 @@ export class RankComponent implements OnInit {
   ngOnInit() {
     this.commonService.setLocate(1);
     this.commonService.setNav(1);
-    this.storeService.getProductList()
-    .subscribe(data => this.productItems = data as store_list);
+    this.storeService.getRankingList()
+      .subscribe(data => {
+        this.rankingList = data as rankingPage;
+        this.productItems = this.rankingList.best100;
+      });
   }
 
 }

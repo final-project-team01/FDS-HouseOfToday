@@ -291,6 +291,7 @@ const styles = {
   .keyword-wrap {
     padding-top: 5px;
     padding-bottom: 5px;
+    margin-left: 10px;
   }
 
   .col-md-3 {
