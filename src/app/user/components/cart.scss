@@ -1,0 +1,41 @@
+$navigation_height: 80px;
+$footer_height: 377px;
+.cart {
+  background-color: #f5f5f5;
+  .cart-empty {
+    min-height: 360px;
+    height: calc(100vh - #{$navigation_height} - #{$footer_height});
+    display: flex;
+    .cart-empty-content {
+      width: 100%;
+      max-width: 220px;
+      box-sizing: border-box;
+      text-align: center;
+      align-self: center;
+      left: 50%;
+      transform: translateX(-50%);
+      display: block;
+      position: absolute;
+
+      > img {
+        display: block;
+        max-width: 160px;
+        margin: 0 auto;
+      }
+      > a {
+        padding: 11px 10px;
+        display: block;
+        margin-top: 30px;
+        display: block;
+        margin-top: 30px;
+        padding: 11px 10px;
+        font-size: 17px;
+        line-height: 26px;
+        background-color: #35c5f0;
+        border-color: #35c5f0;
+        color: #fff;
+        width: 100%;
+      }
+    }
+  }
+}
