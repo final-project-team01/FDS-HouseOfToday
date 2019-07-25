@@ -180,8 +180,14 @@ export class StoreDetailComponent implements OnInit {
   }
 
   addOption(option: product_option) {
+    const name = this.getName(option['name']);
+    const check = this.chosenOptions.filter(option => option.name === name).length ? true : false;
+    if (this.chosenOptions.length !== 0 && check){
+      alert('이미 선택한 옵션입니다');
+      return;
+    }
     const chosen = {
-      id: this.generateId(), name: this.getName(option['name']), price: option['price'], amount: 1
+      id: this.generateId(), name, price: option['price'], amount: 1
     };
     this.chosenOptions = [...this.chosenOptions, chosen];
     this.getTotalPrice();
