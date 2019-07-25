@@ -26,7 +26,8 @@ import { thumbnail_image, detail_image, product_option, review, qna }
           (decrease)="decrease($event)"
           (set)="setAmount($event)"
           [productOption]="productOption"
-          [chosenOptions]="chosenOptions" [scroll]="false"></app-product-option>
+          [chosenOptions]="chosenOptions" [scroll]="false"
+          [totalPrice]="totalPrice"></app-product-option>
       </div>
     </div>
     <div class="bottom-wrapper" #nav (window:scroll)="stickyNav(nav)">
@@ -61,7 +62,8 @@ import { thumbnail_image, detail_image, product_option, review, qna }
             (decrease)="decrease($event)"
             (set)="setAmount($event)"
             [productOption]="productOption"
-            [chosenOptions]="chosenOptions" [scroll]="true"></app-product-option>
+            [chosenOptions]="chosenOptions" [scroll]="true"
+            [totalPrice]="totalPrice"></app-product-option>
         </div>
       </div>
     </div>
@@ -131,6 +133,7 @@ export class StoreDetailComponent implements OnInit {
   chosenQnas: qna[];
   qnaAmount: number;
   chosenOptions: ChosenOption[] = [];
+  totalPrice = '0';
 
   constructor(private route: ActivatedRoute
     , private storeService: StoreService
@@ -169,10 +172,12 @@ export class StoreDetailComponent implements OnInit {
       id: this.generateId(), name: this.getName(option['name']), price: option['price'], amount: 1
     };
     this.chosenOptions = [...this.chosenOptions, chosen];
+    this.getTotalPrice();
   }
 
   deleteOption(id: number) {
     this.chosenOptions = this.chosenOptions.filter(option => option.id !== id);
+    this.getTotalPrice();
   }
 
   generateId() {
@@ -185,11 +190,6 @@ export class StoreDetailComponent implements OnInit {
     return name.slice(0, i);
   }
 
-  addComma(num: number) {
-    const regexp = /\B(?=(\d{3})+(?!\d))/g;
-    return num.toString().replace(regexp, ',');
-  }
-
   stickyNav(nav: HTMLDivElement) {
     if (nav.offsetTop - 80 <= window.pageYOffset) this.sticky = true;
     else this.sticky = false;
@@ -200,16 +200,27 @@ export class StoreDetailComponent implements OnInit {
     this.chosenOptions = this.chosenOptions.map(
       option => option.id === id ?
         { ...option, amount: option.amount += 1 } : { ...option, amount: option.amount });
+    this.getTotalPrice();
   }
+
   decrease(option: ChosenOption) {
     const id = option.id;
     if (option.amount <= 1) return;
     this.chosenOptions = this.chosenOptions.map(
       option => option.id === id ?
         { ...option, amount: option.amount -= 1 } : { ...option, amount: option.amount });
+    this.getTotalPrice();
   }
 
   setAmount(data: any) {
     data.option.amount = +data.input.value;
+  }
+
+  getTotalPrice() {
+    if (this.chosenOptions.length === 0) return 0;
+    const prices = this.chosenOptions.map(option => option.price * option.amount);
+    const sum = prices.reduce(
+      (previous, current) => { return previous + current });
+    this.totalPrice = this.commonService.addComma(sum); 
   }
 }

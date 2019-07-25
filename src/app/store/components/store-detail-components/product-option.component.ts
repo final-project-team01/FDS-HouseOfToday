@@ -51,7 +51,7 @@ import { product_option } from 'src/app/core/models/store.interface';
       </ng-template>
       <div class="price">
         <span>주문금액</span>
-        <mark class="order-price">{{ getTotalPrice() }}<span>원</span></mark>
+        <mark class="order-price">{{ totalPrice }}<span>원</span></mark>
       </div>
       <div class="btn-container">
       <button type="submit" class="basket">장바구니담기</button>
@@ -266,14 +266,6 @@ export class ProductOptionComponent implements OnInit {
 
   remove(id: number) {
     this.deleteOption.emit(id);
-  }
-
-  getTotalPrice() {
-    if (this.chosenOptions.length === 0) return 0;
-    const prices = this.chosenOptions.map(option => option.price * option.amount);
-    const sum = prices.reduce(
-      (previous, current) => { return previous + current });
-    return this.commonService.addComma(sum);
   }
 
   increaseAmount(option) {
