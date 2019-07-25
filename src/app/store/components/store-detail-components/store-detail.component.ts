@@ -13,7 +13,7 @@ import { thumbnail_image, detail_image, product_option, review, qna }
     <app-header></app-header>
     <div class="top-wrapper">
       <div class="pic-container">
-        <app-product-pic 
+        <app-product-pic
           [productImages]="productImages"
           [activeId]="activeId"></app-product-pic>
       </div>
@@ -27,6 +27,7 @@ import { thumbnail_image, detail_image, product_option, review, qna }
           (increase)="increase($event)"
           (decrease)="decrease($event)"
           (set)="setAmount($event)"
+          (intoBasket)="intoBasket()"
           [productOption]="productOption"
           [chosenOptions]="chosenOptions" [scroll]="false"
           [totalPrice]="totalPrice"></app-product-option>
@@ -39,7 +40,8 @@ import { thumbnail_image, detail_image, product_option, review, qna }
         <app-product-nav 
           [reviewAmount]="reviewAmount"
           [qnaAmount]="qnaAmount"
-          (move)="moveScroll($event, nav, review, qna, delivery)"></app-product-nav>
+          (move)="moveScroll($event, nav, review, qna, delivery)">
+        </app-product-nav>
         <div class="product-option">
           <h2>옵션 선택</h2>
           <app-product-option 
@@ -48,6 +50,7 @@ import { thumbnail_image, detail_image, product_option, review, qna }
             (increase)="increase($event)"
             (decrease)="decrease($event)"
             (set)="setAmount($event)"
+            (intoBasket)="intoBasket()"
             [productOption]="productOption"
             [chosenOptions]="chosenOptions" [scroll]="true"
             [totalPrice]="totalPrice"></app-product-option>
@@ -66,19 +69,22 @@ import { thumbnail_image, detail_image, product_option, review, qna }
           [originalList]="productReviews"
           [chosenList]="chosenReviews"
           [pages]="reviewPages"
-          [starAvg]="starAvg"
-        ></app-product-review>
+          [starAvg]="starAvg">
+        </app-product-review>
         <h3 #qna>문의 <span class="qna-amount">{{ qnaAmount }}</span></h3>
         <app-product-qna
           [originalList]="productQnas"
           [chosenList]="chosenQnas"
-          [pages]="qnaPages"
-        ></app-product-qna>
+          [pages]="qnaPages">
+        </app-product-qna>
         <h3 class="delivery" #delivery>배송 관련 안내</h3>
         <app-product-delivery
         [productInfo]="productInfo"></app-product-delivery>
       </div>
     </div>
+    <app-basket-modal
+      (closeModal)="closeModal()"
+      [showModal]="showModal"></app-basket-modal>
     <app-footer></app-footer>
   `,
   styles: [`
@@ -172,6 +178,7 @@ export class StoreDetailComponent implements OnInit {
   chosenOptions: ChosenOption[] = [];
   totalPrice = '0';
   originalPrice: string;
+  showModal = false;
 
   constructor(private route: ActivatedRoute
     , private storeService: StoreService
@@ -284,6 +291,14 @@ export class StoreDetailComponent implements OnInit {
     else if(i === 2) window.scrollTo({top: review.offsetTop + 700, behavior: 'smooth'});
     else if(i === 3) window.scrollTo({top: qna.offsetTop + 700, behavior: 'smooth'});
     else if(i === 4) window.scroll({top: delivery.offsetTop + 700, behavior: 'smooth'});
+  }
+    
+  intoBasket(){
+    this.showModal = true;    
+  }
+
+  closeModal(){
+    this.showModal = false;
   }
 
 }
