@@ -6,8 +6,7 @@ import { review } from 'src/app/core/models/store.interface';
   selector: 'app-product-review',
   template: `
     <div class="product-review-container">
-      <h3>리뷰 <span class="review-amount" *ngIf="originalList">{{ originalList.length }}</span></h3>
-      <a href="" class="write-review">리뷰쓰기</a>
+      <a class="write-review">리뷰쓰기</a>
       <div class="star-rate-container">
         <span class="star-avg">{{ starAvg }}</span>
         <div class="star-bg">
@@ -62,17 +61,6 @@ import { review } from 'src/app/core/models/store.interface';
     padding: 60px 30px 0 30px;
     position: relative;
   }
-  h3{
-    font-size: 18px;
-    font-weight: 700;
-    color: #000;
-  }
-  h3 > span{
-    margin-left: 6px;
-    font-size: 18px;
-    font-weight: 700;
-    color: #35c5f0;
-  }
   .write-review{
     position: absolute;
     color: #35c5f0;
@@ -83,7 +71,7 @@ import { review } from 'src/app/core/models/store.interface';
   }
   .star-rate-container{
     text-align: center;
-    margin: 10px 0 30px 0;
+    margin: 60px 0 30px 0;
   }
   .star-avg{
     padding: 0 10px;

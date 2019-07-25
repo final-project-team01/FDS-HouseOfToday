@@ -17,7 +17,7 @@ import { product_info } from 'src/app/core/models/store.interface';
         {{ productInfo.review.length }}개 리뷰
     </div>
     <div class="product-price">
-      <del class="original-price">{{ getOriginalPrice() }}원</del>
+      <del class="original-price">{{ originalPrice }}원</del>
       <mark class="discount-rate">{{ productInfo.discount_rate }}<span>%</span></mark>
       <mark class="price">{{ commonService.addComma(productInfo.price) }}<span>원</span></mark>
       <span class="sprite lowest"></span>
@@ -150,16 +150,12 @@ import { product_info } from 'src/app/core/models/store.interface';
 export class ProductInfoComponent implements OnInit {
 
   @Input() productInfo: product_info;
+  @Input() originalPrice: string;
 
   constructor(private commonService: CommonService) { }
 
   ngOnInit() {
 
-  }
-
-  getOriginalPrice(){
-    const originalPrice = this.productInfo.price / (100 - +this.productInfo.discount_rate) * 100;
-    return Math.floor(originalPrice / 10) * 10;
   }
 
 }

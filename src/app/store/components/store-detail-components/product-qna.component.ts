@@ -5,7 +5,6 @@ import { qna } from 'src/app/core/models/store.interface';
   selector: 'app-product-qna',
   template: `
     <div class="product-qna-container" *ngIf="originalList">
-      <h3>문의 <span class="qna-amount">{{ originalList.length }}</span></h3>
       <button class="write-qna">문의하기</button>
       <article class="user-qna" *ngFor="let qna of chosenList; let i = index">
         <div class="qna-type">
@@ -42,26 +41,15 @@ import { qna } from 'src/app/core/models/store.interface';
   styles: [`
   .product-qna-container{
     width: 690px;
-    padding: 30px 30px 0 30px;
+    padding: 75px 30px 0 30px;
     position: relative;
-  }
-  h3{
-    font-size: 18px;
-    font-weight: 700;
-    color: #000;
-  }
-  h3 > span{
-    margin-left: 6px;
-    font-size: 18px;
-    font-weight: 700;
-    color: #35c5f0;
   }
   .write-qna{
     width: 100px;
     height: 40px;
     position: absolute;
     right: 30px;
-    top: 23px;
+    top: 50px;
     font-weight: bold;
     background-color: #fafafa;
     border: 1px solid #dbdbdb;
