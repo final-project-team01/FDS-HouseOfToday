@@ -67,11 +67,11 @@ const styles = {
                 </ly-select>
               </ly-field>
               <ly-field class="filteredList">
-                <ly-label>인기순</ly-label>
+                <ly-label>필터</ly-label>
                 <ly-select  class="filteredListDetail" placeholder="Placeholder">
-                  <ly-option value="1">Item 1</ly-option>
-                  <ly-option value="2">Item 2</ly-option>
-                  <ly-option value="3">Item 3</ly-option>
+                  <ly-option class="detail" value="1" (click)="highPricefilter()">가격높은 순</ly-option>
+                  <ly-option class="detail" value="2" (click)="lowPricefilter()">가격낮은 순</ly-option>
+                  <ly-option class="detail" value="3" (click)="highReviewfilter()">리뷰많은 순</ly-option>
                 </ly-select>
               </ly-field>
             </div>
@@ -359,6 +359,10 @@ const styles = {
     float: right;
     margin-top: -5px;
   }
+
+  .detail {
+    font-size: 10px;
+  }
   `]
 })
 export class StoreComponent implements OnInit {
@@ -426,6 +430,24 @@ export class StoreComponent implements OnInit {
     this.dealTimer();
   }
 
+  highPricefilter() {
+    this.productItems = this.productItems.sort(function(a, b) {
+      return b.price - a.price;
+    });
+  }
+
+  lowPricefilter() {
+    this.productItems = this.productItems.sort(function(a, b) {
+      return a.price - b.price;
+    })
+  }
+
+  highReviewfilter() {
+    this.productItems = this.productItems.sort(function(a, b) {
+      return b.review_count - a.review_count;
+    })
+  }
+  
   dealTimer() {
     setInterval(() => {
       this.today = new Date();

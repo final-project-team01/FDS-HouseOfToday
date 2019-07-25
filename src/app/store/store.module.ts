@@ -29,6 +29,7 @@ import { PaginationComponent } from './components/store-detail-components/pagina
 import { ProductDeliveryComponent } from './components/store-detail-components/product-delivery.component';
 import { RankContainerComponent } from './components/rank-container.component';
 import { RankBestComponent } from './components/rank-best.component';
+import { SortFilterComponent } from './components/sort-filter.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { RankBestComponent } from './components/rank-best.component';
     , ClickOutsideDirective
     , StoreDetailComponent, ProductReviewComponent, ProductQnaComponent, ProductEtcComponent, PaginationComponent, ProductDeliveryComponent
     , RankContainerComponent, RankBestComponent
+    , SortFilterComponent
   ],
   imports: [
     CommonModule
