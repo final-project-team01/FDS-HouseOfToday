@@ -18,7 +18,9 @@ import { thumbnail_image, detail_image, product_option, review, qna }
           [activeId]="activeId"></app-product-pic>
       </div>
       <div class="info-container">
-        <app-product-info [productInfo]="productInfo"></app-product-info>
+        <app-product-info 
+          [productInfo]="productInfo"
+          [originalPrice]="originalPrice"></app-product-info>
         <app-product-option 
           (addOption)="addOption($event)"
           (deleteOption)="deleteOption($event)"
@@ -134,6 +136,7 @@ export class StoreDetailComponent implements OnInit {
   qnaAmount: number;
   chosenOptions: ChosenOption[] = [];
   totalPrice = '0';
+  originalPrice: string;
 
   constructor(private route: ActivatedRoute
     , private storeService: StoreService
@@ -164,6 +167,8 @@ export class StoreDetailComponent implements OnInit {
         this.reviewPages = Array(rp);
         this.qnaPages = Array(qp);
         this.activeId = this.productImages[0].id;
+        const originalPrice = this.productInfo.price / (100 - +this.productInfo.discount_rate) * 100;
+        this.originalPrice = this.commonService.addComma(Math.floor(originalPrice / 10) * 10);
       });
   }
 
