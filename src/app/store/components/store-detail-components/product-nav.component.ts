@@ -23,7 +23,6 @@ import { Component, OnInit, Input } from '@angular/core';
   *{
     box-sizing: border-box;
   }
-
   .nav-list{
     width: 1136px;
   }

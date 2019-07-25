@@ -51,7 +51,8 @@ import { thumbnail_image, detail_image, product_option, review, qna }
         [productInfo]="productInfo"></app-product-delivery>
       </div>
       <div class="nav-container"
-        [class.sticky]="sticky">
+        [class.sticky]="sticky"
+        [class.no-sticky]="noSticky">
         <app-product-nav 
           [reviewAmount]="reviewAmount"
           [qnaAmount]="qnaAmount"></app-product-nav>
@@ -114,6 +115,11 @@ import { thumbnail_image, detail_image, product_option, review, qna }
     top: 80px;
     bottom: auto;
   }
+  .no-sticky{
+    position: absolute;
+    bottom: 485px;
+    top: auto;
+  }
   `]
 })
 export class StoreDetailComponent implements OnInit {
@@ -121,6 +127,7 @@ export class StoreDetailComponent implements OnInit {
   id: number;
   activeId: number;
   sticky = false;
+  noSticky = false;
   productInfo: any;
   productImages: thumbnail_image[];
   productDetailImages: detail_image[];
@@ -196,7 +203,16 @@ export class StoreDetailComponent implements OnInit {
   }
 
   stickyNav(nav: HTMLDivElement) {
-    if (nav.offsetTop - 80 <= window.pageYOffset) this.sticky = true;
+    const navBottom = nav.offsetHeight + nav.offsetTop - 380;
+    if (nav.offsetTop - 80 <= window.pageYOffset) {
+      if (navBottom < window.pageYOffset + 250) {
+        this.sticky = false;
+        this.noSticky = true;
+      } else {
+        this.noSticky = false;
+        this.sticky = true;
+      }
+    }
     else this.sticky = false;
   }
 
