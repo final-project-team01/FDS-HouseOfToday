@@ -31,25 +31,7 @@ import { store_list, categoryfilter, today_deal } from 'src/app/core/models/stor
                 </nav>
               </div>
             </div>
-            <div class="sticky-container">
-              <div class="sticky-content-wrap">
-                <div class="category-filter">
-                  <p class="category-filter-summary">전체</p>
-                  <div class="category-filter-summary-right">
-                    <div class="categry-filter-summary-right-item">
-                      <ly-field class="filteredList">
-                        <ly-label>인기순</ly-label>
-                        <ly-select  class="filteredListDetail" placeholder="Placeholder">
-                          <ly-option value="1">Item 1</ly-option>
-                          <ly-option value="2">Item 2</ly-option>
-                          <ly-option value="3">Item 3</ly-option>
-                        </ly-select>
-                      </ly-field>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <app-sort-filter (highPricefilterEvent)="highPricefilter()" (lowPricefilterEvent)="lowPricefilter()" (highReviewfilterEvent)="highReviewfilter()"></app-sort-filter>
             <div class="product-list">
               <app-product-list [productItems]="productItems" [menuWidth]="menuWidth" [setNumber]="setNumber"></app-product-list>
             </div>
@@ -187,7 +169,7 @@ import { store_list, categoryfilter, today_deal } from 'src/app/core/models/stor
 
     .filteredList {
       margin-bottom: 10px;
-      width: 50px;
+      width: 60px;
       font-size: 10px;
     }
 
@@ -197,6 +179,10 @@ import { store_list, categoryfilter, today_deal } from 'src/app/core/models/stor
 
     .categorylist {
       cursor: pointer;
+    }
+
+    .detail {
+      font-size: 10px;
     }
   `]
 })
@@ -232,5 +218,23 @@ export class CategoryComponent implements OnInit {
         this.productItems = this.categoryFilter.products;
         this.categoryName = this.categoryLists[id - 1].name;
       });
+  }
+
+  highPricefilter() {
+    this.productItems = this.productItems.sort(function(a, b) {
+      return b.price - a.price;
+    });
+  }
+
+  lowPricefilter() {
+    this.productItems = this.productItems.sort(function(a, b) {
+      return a.price - b.price;
+    })
+  }
+
+  highReviewfilter() {
+    this.productItems = this.productItems.sort(function(a, b) {
+      return b.review_count - a.review_count;
+    })
   }
 }
