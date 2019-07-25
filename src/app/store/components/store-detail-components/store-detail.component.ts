@@ -33,29 +33,13 @@ import { thumbnail_image, detail_image, product_option, review, qna }
       </div>
     </div>
     <div class="bottom-wrapper" #nav (window:scroll)="stickyNav(nav)">
-      <div class="detail-container">
-        <app-product-detail [productDetailImages]="productDetailImages"></app-product-detail>
-        <app-product-etc [productInfo]="productInfo"></app-product-etc>
-        <app-product-review 
-          [originalList]="productReviews"
-          [chosenList]="chosenReviews"
-          [pages]="reviewPages"
-          [starAvg]="starAvg"
-        ></app-product-review>
-        <app-product-qna
-        [originalList]="productQnas"
-        [chosenList]="chosenQnas"
-        [pages]="qnaPages"
-        ></app-product-qna>
-        <app-product-delivery
-        [productInfo]="productInfo"></app-product-delivery>
-      </div>
       <div class="nav-container"
         [class.sticky]="sticky"
         [class.no-sticky]="noSticky">
         <app-product-nav 
           [reviewAmount]="reviewAmount"
-          [qnaAmount]="qnaAmount"></app-product-nav>
+          [qnaAmount]="qnaAmount"
+          (move)="moveScroll($event, nav, review, qna, delivery)"></app-product-nav>
         <div class="product-option">
           <h2>옵션 선택</h2>
           <app-product-option 
@@ -68,6 +52,31 @@ import { thumbnail_image, detail_image, product_option, review, qna }
             [chosenOptions]="chosenOptions" [scroll]="true"
             [totalPrice]="totalPrice"></app-product-option>
         </div>
+      </div>
+      <div class="detail-container">
+        <app-product-detail [productDetailImages]="productDetailImages"
+        ></app-product-detail>
+        <app-product-etc [productInfo]="productInfo"></app-product-etc>
+        <h3 #review>리뷰 
+          <span>
+          {{ reviewAmount }}
+          </span>
+        </h3>
+        <app-product-review
+          [originalList]="productReviews"
+          [chosenList]="chosenReviews"
+          [pages]="reviewPages"
+          [starAvg]="starAvg"
+        ></app-product-review>
+        <h3 #qna>문의 <span class="qna-amount">{{ qnaAmount }}</span></h3>
+        <app-product-qna
+          [originalList]="productQnas"
+          [chosenList]="chosenQnas"
+          [pages]="qnaPages"
+        ></app-product-qna>
+        <h3 class="delivery" #delivery>배송 관련 안내</h3>
+        <app-product-delivery
+        [productInfo]="productInfo"></app-product-delivery>
       </div>
     </div>
     <app-footer></app-footer>
@@ -83,6 +92,7 @@ import { thumbnail_image, detail_image, product_option, review, qna }
     position: relative;
   }
   .detail-container{
+    margin-right: 385px;
     border-right: 1px solid #ededed;
   }
   .pic-container{
@@ -97,6 +107,7 @@ import { thumbnail_image, detail_image, product_option, review, qna }
     clear: both;
     position: absolute;
     top: -50px;
+    z-index: 99;
   }
   .product-option{
     position: absolute;
@@ -109,6 +120,23 @@ import { thumbnail_image, detail_image, product_option, review, qna }
     margin-bottom: 20px;
     font-size: 20px;
     font-weight: bold;
+  }
+  h3{
+    font-size: 18px;
+    font-weight: 700;
+    color: #000;
+    margin: 30px 0 -85px 30px;
+  }
+  h3 > span{
+    margin-left: 6px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #35c5f0;
+  }
+  .delivery{
+    margin-bottom: 30px;
+    font-weight: bold;
+    font-size: 20px;
   }
   .sticky{
     position: fixed;
@@ -250,4 +278,12 @@ export class StoreDetailComponent implements OnInit {
       (previous, current) => { return previous + current });
     this.totalPrice = this.commonService.addComma(sum); 
   }
+
+  moveScroll(i: number, nav, review, qna, delivery){
+    if(i === 0) window.scroll({top: nav.offsetTop, behavior: 'smooth'});
+    else if(i === 2) window.scrollTo({top: review.offsetTop + 700, behavior: 'smooth'});
+    else if(i === 3) window.scrollTo({top: qna.offsetTop + 700, behavior: 'smooth'});
+    else if(i === 4) window.scroll({top: delivery.offsetTop + 700, behavior: 'smooth'});
+  }
+
 }

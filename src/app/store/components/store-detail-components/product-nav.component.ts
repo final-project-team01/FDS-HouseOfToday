@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-product-nav',
@@ -63,6 +63,7 @@ export class ProductNavComponent implements OnInit {
 
   @Input() reviewAmount: number;
   @Input() qnaAmount: number;
+  @Output() move = new EventEmitter();
 
   navMenu = [ 
     { title: '상품정보', active: true },
@@ -79,7 +80,7 @@ export class ProductNavComponent implements OnInit {
   
   setActive(i: number){
     this.navMenu.map((nav, index) => nav.active = index === i ? true : false);
-    console.log(this.navMenu);
+    this.move.emit(i);
   }
 
 }
