@@ -13,45 +13,35 @@ import { thumbnail_image, detail_image, product_option, review, qna }
     <app-header></app-header>
     <div class="top-wrapper">
       <div class="pic-container">
-        <app-product-pic 
+        <app-product-pic
           [productImages]="productImages"
           [activeId]="activeId"></app-product-pic>
       </div>
       <div class="info-container">
-        <app-product-info [productInfo]="productInfo"></app-product-info>
+        <app-product-info 
+          [productInfo]="productInfo"
+          [originalPrice]="originalPrice"></app-product-info>
         <app-product-option 
           (addOption)="addOption($event)"
           (deleteOption)="deleteOption($event)"
           (increase)="increase($event)"
           (decrease)="decrease($event)"
           (set)="setAmount($event)"
+          (intoBasket)="intoBasket()"
           [productOption]="productOption"
-          [chosenOptions]="chosenOptions" [scroll]="false"></app-product-option>
+          [chosenOptions]="chosenOptions" [scroll]="false"
+          [totalPrice]="totalPrice"></app-product-option>
       </div>
     </div>
     <div class="bottom-wrapper" #nav (window:scroll)="stickyNav(nav)">
-      <div class="detail-container">
-        <app-product-detail [productDetailImages]="productDetailImages"></app-product-detail>
-        <app-product-etc [productInfo]="productInfo"></app-product-etc>
-        <app-product-review 
-          [originalList]="productReviews"
-          [chosenList]="chosenReviews"
-          [pages]="reviewPages"
-          [starAvg]="starAvg"
-        ></app-product-review>
-        <app-product-qna
-        [originalList]="productQnas"
-        [chosenList]="chosenQnas"
-        [pages]="qnaPages"
-        ></app-product-qna>
-        <app-product-delivery
-        [productInfo]="productInfo"></app-product-delivery>
-      </div>
       <div class="nav-container"
-        [class.sticky]="sticky">
+        [class.sticky]="sticky"
+        [class.no-sticky]="noSticky">
         <app-product-nav 
           [reviewAmount]="reviewAmount"
-          [qnaAmount]="qnaAmount"></app-product-nav>
+          [qnaAmount]="qnaAmount"
+          (move)="moveScroll($event, nav, review, qna, delivery)">
+        </app-product-nav>
         <div class="product-option">
           <h2>옵션 선택</h2>
           <app-product-option 
@@ -60,11 +50,41 @@ import { thumbnail_image, detail_image, product_option, review, qna }
             (increase)="increase($event)"
             (decrease)="decrease($event)"
             (set)="setAmount($event)"
+            (intoBasket)="intoBasket()"
             [productOption]="productOption"
-            [chosenOptions]="chosenOptions" [scroll]="true"></app-product-option>
+            [chosenOptions]="chosenOptions" [scroll]="true"
+            [totalPrice]="totalPrice"></app-product-option>
         </div>
       </div>
+      <div class="detail-container">
+        <app-product-detail [productDetailImages]="productDetailImages"
+        ></app-product-detail>
+        <app-product-etc [productInfo]="productInfo"></app-product-etc>
+        <h3 #review>리뷰 
+          <span>
+          {{ reviewAmount }}
+          </span>
+        </h3>
+        <app-product-review
+          [originalList]="productReviews"
+          [chosenList]="chosenReviews"
+          [pages]="reviewPages"
+          [starAvg]="starAvg">
+        </app-product-review>
+        <h3 #qna>문의 <span class="qna-amount">{{ qnaAmount }}</span></h3>
+        <app-product-qna
+          [originalList]="productQnas"
+          [chosenList]="chosenQnas"
+          [pages]="qnaPages">
+        </app-product-qna>
+        <h3 class="delivery" #delivery>배송 관련 안내</h3>
+        <app-product-delivery
+        [productInfo]="productInfo"></app-product-delivery>
+      </div>
     </div>
+    <app-basket-modal
+      (closeModal)="closeModal()"
+      [showModal]="showModal"></app-basket-modal>
     <app-footer></app-footer>
   `,
   styles: [`
@@ -78,6 +98,7 @@ import { thumbnail_image, detail_image, product_option, review, qna }
     position: relative;
   }
   .detail-container{
+    margin-right: 385px;
     border-right: 1px solid #ededed;
   }
   .pic-container{
@@ -92,6 +113,7 @@ import { thumbnail_image, detail_image, product_option, review, qna }
     clear: both;
     position: absolute;
     top: -50px;
+    z-index: 99;
   }
   .product-option{
     position: absolute;
@@ -105,10 +127,32 @@ import { thumbnail_image, detail_image, product_option, review, qna }
     font-size: 20px;
     font-weight: bold;
   }
+  h3{
+    font-size: 18px;
+    font-weight: 700;
+    color: #000;
+    margin: 30px 0 -85px 30px;
+  }
+  h3 > span{
+    margin-left: 6px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #35c5f0;
+  }
+  .delivery{
+    margin-bottom: 30px;
+    font-weight: bold;
+    font-size: 20px;
+  }
   .sticky{
     position: fixed;
     top: 80px;
     bottom: auto;
+  }
+  .no-sticky{
+    position: absolute;
+    bottom: 485px;
+    top: auto;
   }
   `]
 })
@@ -117,6 +161,7 @@ export class StoreDetailComponent implements OnInit {
   id: number;
   activeId: number;
   sticky = false;
+  noSticky = false;
   productInfo: any;
   productImages: thumbnail_image[];
   productDetailImages: detail_image[];
@@ -131,6 +176,9 @@ export class StoreDetailComponent implements OnInit {
   chosenQnas: qna[];
   qnaAmount: number;
   chosenOptions: ChosenOption[] = [];
+  totalPrice = '0';
+  originalPrice: string;
+  showModal = false;
 
   constructor(private route: ActivatedRoute
     , private storeService: StoreService
@@ -161,18 +209,28 @@ export class StoreDetailComponent implements OnInit {
         this.reviewPages = Array(rp);
         this.qnaPages = Array(qp);
         this.activeId = this.productImages[0].id;
+        const originalPrice = this.productInfo.price / (100 - +this.productInfo.discount_rate) * 100;
+        this.originalPrice = this.commonService.addComma(Math.floor(originalPrice / 10) * 10);
       });
   }
 
   addOption(option: product_option) {
+    const name = this.getName(option['name']);
+    const check = this.chosenOptions.filter(option => option.name === name).length ? true : false;
+    if (this.chosenOptions.length !== 0 && check){
+      alert('이미 선택한 옵션입니다');
+      return;
+    }
     const chosen = {
-      id: this.generateId(), name: this.getName(option['name']), price: option['price'], amount: 1
+      id: this.generateId(), name, price: option['price'], amount: 1
     };
     this.chosenOptions = [...this.chosenOptions, chosen];
+    this.getTotalPrice();
   }
 
   deleteOption(id: number) {
     this.chosenOptions = this.chosenOptions.filter(option => option.id !== id);
+    this.getTotalPrice();
   }
 
   generateId() {
@@ -185,13 +243,17 @@ export class StoreDetailComponent implements OnInit {
     return name.slice(0, i);
   }
 
-  addComma(num: number) {
-    const regexp = /\B(?=(\d{3})+(?!\d))/g;
-    return num.toString().replace(regexp, ',');
-  }
-
   stickyNav(nav: HTMLDivElement) {
-    if (nav.offsetTop - 80 <= window.pageYOffset) this.sticky = true;
+    const navBottom = nav.offsetHeight + nav.offsetTop - 380;
+    if (nav.offsetTop - 80 <= window.pageYOffset) {
+      if (navBottom < window.pageYOffset + 250) {
+        this.sticky = false;
+        this.noSticky = true;
+      } else {
+        this.noSticky = false;
+        this.sticky = true;
+      }
+    }
     else this.sticky = false;
   }
 
@@ -200,16 +262,43 @@ export class StoreDetailComponent implements OnInit {
     this.chosenOptions = this.chosenOptions.map(
       option => option.id === id ?
         { ...option, amount: option.amount += 1 } : { ...option, amount: option.amount });
+    this.getTotalPrice();
   }
+
   decrease(option: ChosenOption) {
     const id = option.id;
     if (option.amount <= 1) return;
     this.chosenOptions = this.chosenOptions.map(
       option => option.id === id ?
         { ...option, amount: option.amount -= 1 } : { ...option, amount: option.amount });
+    this.getTotalPrice();
   }
 
   setAmount(data: any) {
     data.option.amount = +data.input.value;
   }
+
+  getTotalPrice() {
+    if (this.chosenOptions.length === 0) return 0;
+    const prices = this.chosenOptions.map(option => option.price * option.amount);
+    const sum = prices.reduce(
+      (previous, current) => { return previous + current });
+    this.totalPrice = this.commonService.addComma(sum); 
+  }
+
+  moveScroll(i: number, nav, review, qna, delivery){
+    if(i === 0) window.scroll({top: nav.offsetTop, behavior: 'smooth'});
+    else if(i === 2) window.scrollTo({top: review.offsetTop + 700, behavior: 'smooth'});
+    else if(i === 3) window.scrollTo({top: qna.offsetTop + 700, behavior: 'smooth'});
+    else if(i === 4) window.scroll({top: delivery.offsetTop + 700, behavior: 'smooth'});
+  }
+    
+  intoBasket(){
+    this.showModal = true;    
+  }
+
+  closeModal(){
+    this.showModal = false;
+  }
+
 }
