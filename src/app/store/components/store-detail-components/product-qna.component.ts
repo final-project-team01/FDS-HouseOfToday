@@ -11,7 +11,7 @@ import { qna } from 'src/app/core/models/store.interface';
         <div class="qna-type">
           <span class="bar">구매</span>
           <span class="bar">{{ qna.type }}</span>
-          <span *ngIf="qna.completed; else noAnswer">답변완료</span>
+          <span *ngIf="qna.completed; else noAnswer" class="a-complete">답변완료</span>
           <ng-template #noAnswer><span>미답변</span></ng-template>
         </div>
         <div class="create-info">
@@ -97,6 +97,10 @@ import { qna } from 'src/app/core/models/store.interface';
   }
   .company-answer::before{
     content: 'A';
+  }
+  .a-complete{
+    font-size: 12px;
+    color: #35c0f5;
   }
   .company{
     font-weight: bold;

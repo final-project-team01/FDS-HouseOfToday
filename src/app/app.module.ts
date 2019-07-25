@@ -19,18 +19,18 @@ import { UserModule } from './user/user.module';
     AppComponent,
   ],
   imports: [
-    BrowserModule
-    , SharedModule
-    , CommunityModule
-    , StoreModule
-    , AuthModule
-    , CoreModule
-    , UserModule
-    , BrowserAnimationsModule
-    , LyThemeModule.setTheme('minima-light')
-    , AppRoutingModule
+    BrowserModule,
+    SharedModule,
+    CommunityModule,
+    StoreModule,
+    AuthModule,
+    CoreModule,
+    UserModule,
+    BrowserAnimationsModule,
+    LyThemeModule.setTheme('minima-light'),
+    AppRoutingModule
   ],
   providers: [{ provide: LY_THEME, useClass: MinimaLight, multi: true }],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
