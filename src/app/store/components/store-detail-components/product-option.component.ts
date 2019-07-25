@@ -51,10 +51,10 @@ import { product_option } from 'src/app/core/models/store.interface';
       </ng-template>
       <div class="price">
         <span>주문금액</span>
-        <mark class="order-price">{{ getTotalPrice() }}<span>원</span></mark>
+        <mark class="order-price">{{ totalPrice }}<span>원</span></mark>
       </div>
       <div class="btn-container">
-      <button type="submit" class="basket">장바구니담기</button>
+      <button type="submit" class="basket" (click)="basket()">장바구니담기</button>
       <button class="purchase">구매하기</button>
       </div>
     </div>
@@ -243,6 +243,7 @@ export class ProductOptionComponent implements OnInit {
   @Output() increase = new EventEmitter();
   @Output() decrease = new EventEmitter();
   @Output() set = new EventEmitter<object>();
+  @Output() intoBasket = new EventEmitter();
 
   constructor(private commonService: CommonService) { }
 
@@ -268,14 +269,6 @@ export class ProductOptionComponent implements OnInit {
     this.deleteOption.emit(id);
   }
 
-  getTotalPrice() {
-    if (this.chosenOptions.length === 0) return 0;
-    const prices = this.chosenOptions.map(option => option.price * option.amount);
-    const sum = prices.reduce(
-      (previous, current) => { return previous + current });
-    return this.commonService.addComma(sum);
-  }
-
   increaseAmount(option) {
     this.increase.emit(option);
   }
@@ -288,4 +281,7 @@ export class ProductOptionComponent implements OnInit {
     this.set.emit({ option, input });
   }
 
+  basket(){
+    this.intoBasket.emit();
+  }
 }
