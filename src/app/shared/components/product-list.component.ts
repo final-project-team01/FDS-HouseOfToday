@@ -7,6 +7,7 @@ import { CommonService } from 'src/app/core/services/common.service';
   <div class="row">
     <div *ngFor="let productItem of productItems; let i=index" class="col-12 col-md-4 col-lg-3" [style.max-width]="menuWidth">
       <div *ngIf="i < setNumber">
+      <p class="today-deal-timer" [class.active]="activeTimer">{{hours < 10 ? "0" + hours : hours}}:{{minutes < 10 ? "0" + minutes : minutes}}:{{seconds < 10 ? "0" + seconds : seconds}}남음</p>
       <article class="store-index-today-deal-item" >
         <a class="store-index-today-deal-item__overlay" routerLink="/store/{{productItem.id}}"></a>
         <div class="store-index-today-deal-item__image">
@@ -221,13 +222,36 @@ import { CommonService } from 'src/app/core/services/common.service';
     box-sizing: border-box;
     margin-right: -10px;
     margin-left: -10px;
-  }  
+  }
+
+  .today-deal-timer {
+    background-color: #f77;
+    line-height: 15px;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 3px 6px 4px;
+    position: absolute;
+    z-index: 3;
+    top: 12px;
+    left: 12px;
+    display: none;
+  }
+
+  .today-deal-timer.active {
+    display: inline-block;
+  }
   `]
 })
 export class ProductListComponent implements OnInit {
   @Input() productItems;
   @Input() menuWidth: string;
   @Input() setNumber: number;
+  @Input() hours: number;
+  @Input() minutes: number;
+  @Input() seconds: number;
+  @Input() activeTimer: number;
 
   showAll: boolean = true;
 
