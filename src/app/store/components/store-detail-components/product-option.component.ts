@@ -19,7 +19,7 @@ import { product_option } from 'src/app/core/models/store.interface';
       </div>
       <div class="selected-items-container scroll" *ngIf="scroll; else noscroll">
         <div class="selected-items" *ngFor="let option of chosenOptions">
-          <p class="selected-item-name">{{ option.name }}</p>
+          <p class="selected-item-name">{{ getName(option.name) }}</p>
           <div class="ea-container">
             <input type="number" [value]="option.amount" class="selected-item-ea"
               #input (keyup.enter)="setAmount(option, input)">
@@ -35,7 +35,7 @@ import { product_option } from 'src/app/core/models/store.interface';
       </div>
       <ng-template #noscroll>
       <div class="selected-items" *ngFor="let option of chosenOptions">
-        <p class="selected-item-name">{{ option.name }}</p>
+        <p class="selected-item-name">{{ getName(option.name) }}</p>
         <div class="ea-container">
           <input type="number" [value]="option.amount" class="selected-item-ea"
             #input (keyup.enter)="setAmount(option, input)">
@@ -92,7 +92,6 @@ import { product_option } from 'src/app/core/models/store.interface';
       left: 0;
       background-color: white;
       z-index: 10;
-      width: 100%;
       max-height: 200px;
       overflow-y: scroll;
       border: solid 1px #dbdbdb;
@@ -120,7 +119,7 @@ import { product_option } from 'src/app/core/models/store.interface';
     }
     .selected-items-container{
       overflow-y: scroll;
-      height: 150px;
+      height: 250px;
       border: 1px solid #F1F1F1;
     }
     .selected-items{
@@ -275,6 +274,11 @@ export class ProductOptionComponent implements OnInit {
 
   decreaseAmount(option) {
     this.decrease.emit(option);
+  }
+
+  getName(name: string) {
+    const i = name.lastIndexOf('(');
+    return name.slice(0, i);
   }
 
   setAmount(option, input) {

@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { CommonService } from 'src/app/core/services/common.service';
 
 @Component({
   selector: 'app-cart-modal',
@@ -108,7 +109,8 @@ export class CartModalComponent implements OnInit {
   @Input() showModal: boolean;
   @Output() closeModal = new EventEmitter();
 
-  constructor(private router: Router) { }
+  constructor(private router: Router
+            , private commonService: CommonService) { }
 
   ngOnInit() {
   }
@@ -118,6 +120,9 @@ export class CartModalComponent implements OnInit {
   }
 
   goToCart() {
+    const user = this.commonService.getUserDetail();
+    console.log(user);
+    
     this.router.navigate(['/cart']);
   }
 

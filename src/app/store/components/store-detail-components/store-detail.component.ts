@@ -151,7 +151,7 @@ import { thumbnail_image, detail_image, product_option, review, qna }
   }
   .no-sticky{
     position: absolute;
-    bottom: 485px;
+    bottom: 570px;
     top: auto;
   }
   `]
@@ -215,16 +215,18 @@ export class StoreDetailComponent implements OnInit {
   }
 
   addOption(option: product_option) {
-    const name = this.getName(option['name']);
-    const check = this.chosenOptions.filter(option => option.name === name).length ? true : false;
+    const id = option.id;
+    const check = this.chosenOptions.filter(option => option.id === id).length ? true : false;
     if (this.chosenOptions.length !== 0 && check){
       alert('이미 선택한 옵션입니다');
       return;
     }
     const chosen = {
-      id: this.generateId(), name, price: option['price'], amount: 1
+      id, name: option.name, price: option.price, amount: 1
     };
     this.chosenOptions = [...this.chosenOptions, chosen];
+    console.log(this.chosenOptions);
+    
     this.getTotalPrice();
   }
 
@@ -238,15 +240,10 @@ export class StoreDetailComponent implements OnInit {
       ? Math.max(...this.chosenOptions.map(option => option.id)) + 1 : 1;
   }
 
-  getName(name: string) {
-    const i = name.indexOf('(');
-    return name.slice(0, i);
-  }
-
   stickyNav(nav: HTMLDivElement) {
     const navBottom = nav.offsetHeight + nav.offsetTop - 380;
     if (nav.offsetTop - 80 <= window.pageYOffset) {
-      if (navBottom < window.pageYOffset + 250) {
+      if (navBottom < window.pageYOffset + 350) {
         this.sticky = false;
         this.noSticky = true;
       } else {
@@ -297,7 +294,11 @@ export class StoreDetailComponent implements OnInit {
     if (!this.chosenOptions.length) {
       alert('옵션 선택 후에 장바구니 버튼을 클릭해주세요.');
       return;
-    } this.showModal = true;    
+    } 
+    const user = this.commonService.getUserDetail()
+      ? this.commonService.getUserDetail()['username'] : '';
+    
+    this.showModal = true;    
   }
 
   closeModal(){
