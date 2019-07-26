@@ -8,7 +8,7 @@ import { rankingPage, today_deal } from 'src/app/core/models/store.interface';
       <div class="ranking-feed-card__title-wrap">
         <p class="ranking-feed-card__title">카테고리별 BEST 100</p>
         <div class="ranking-feed-card__product-wrap">
-          <app-product-list [productItems]="productItems" [menuWidth]="menuWidth" [setNumber]="setNumber"></app-product-list>
+          <app-product-list [productItems]="productItems" [menuWidth]="menuWidth" [setNumber]="setNumber" [activeRank]="activeRank"></app-product-list>
           <button class="ranking-feed-card__more-btn" type="button" (click)="showMoreBtn.emit()" [class.deactive]="activeClass"> 더보기 > </button>
         </div>
       </div>
@@ -17,7 +17,7 @@ import { rankingPage, today_deal } from 'src/app/core/models/store.interface';
     <div class="ranking-feed-card__title-wrap">
       <p class="ranking-feed-card__title">카테고리별 BEST 100</p>
       <div class="ranking-feed-card__product-wrap">
-        <app-product-list [productItems]="productItems" [menuWidth]="menuWidth" [setNumber]="setNumber"></app-product-list>
+        <app-product-list [productItems]="productItems" [menuWidth]="menuWidth" [setNumber]="setNumber" [activeRank]="activeRank"></app-product-list>
       </div>
     </div>
   </div>
@@ -98,6 +98,7 @@ export class RankBestComponent implements OnInit {
   @Input() setNumber: number;
   @Input() activeClass: boolean;
   @Input() showTen: boolean;
+  @Input() activeRank: boolean;
   @Output() showMoreBtn = new EventEmitter;
 
   constructor() { }

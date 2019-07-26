@@ -7,6 +7,7 @@ import { CommonService } from 'src/app/core/services/common.service';
   <div class="row">
     <div *ngFor="let productItem of productItems; let i=index" class="col-12 col-md-4 col-lg-3" [style.max-width]="menuWidth">
       <div *ngIf="i < setNumber">
+      <div *ngIf="activeRank" class="itemRanking">{{i + 1}}</div>
       <p class="today-deal-timer" [class.active]="activeTimer">{{hours < 10 ? "0" + hours : hours}}:{{minutes < 10 ? "0" + minutes : minutes}}:{{seconds < 10 ? "0" + seconds : seconds}}남음</p>
       <article class="store-index-today-deal-item">
         <a class="store-index-today-deal-item__overlay" routerLink="/store/{{productItem.id}}" (mouseover)="zoomImg(i)" (mouseleave)="zoomOut(i)"></a>
@@ -255,6 +256,19 @@ import { CommonService } from 'src/app/core/services/common.service';
     display: inline-block;
   }
 
+  .itemRanking {
+    width: 40px;
+    padding: 10px 0;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 0 0 12px 0;
+    background-color: #fff;
+    text-align: center;
+    position: absolute;
+    left: -1px;
+    top: -1px;
+    z-index: 1;
+  }
   `]
 })
 export class ProductListComponent implements OnInit {
@@ -266,6 +280,7 @@ export class ProductListComponent implements OnInit {
   @Input() seconds: number;
   @Input() activeTimer: number;
   @Input() activeSort: boolean;
+  @Input() activeRank: boolean;
 
   showAll: boolean = true;
 
