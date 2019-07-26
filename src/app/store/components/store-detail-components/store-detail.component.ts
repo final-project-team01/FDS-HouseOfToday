@@ -288,9 +288,9 @@ export class StoreDetailComponent implements OnInit {
 
   moveScroll(i: number, nav, review, qna, delivery){
     if(i === 0) window.scroll({top: nav.offsetTop, behavior: 'smooth'});
-    else if(i === 2) window.scrollTo({top: review.offsetTop + 700, behavior: 'smooth'});
-    else if(i === 3) window.scrollTo({top: qna.offsetTop + 700, behavior: 'smooth'});
-    else if(i === 4) window.scroll({top: delivery.offsetTop + 700, behavior: 'smooth'});
+    else if(i === 2) window.scrollTo({top: review.offsetTop + 700, left: 0, behavior: 'smooth'});
+    else if(i === 3) window.scrollTo({top: qna.offsetTop + 700, left: 0, behavior: 'smooth'});
+    else if(i === 4) window.scroll({top: delivery.offsetTop + 700, left: 0, behavior: 'smooth'});
   }
     
   intoBasket(){
