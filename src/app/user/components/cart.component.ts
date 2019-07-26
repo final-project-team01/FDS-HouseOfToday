@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
         <div class="cart-not-empty">
           <div class="cart-header">
             <span class="cart-header-left">
-              모두선택
+              <app-check-box [caption]="true">모두 선택</app-check-box>
             </span>
             <span class="cart-header-right">
               <button class="cart-header-delete">선택삭제</button>
