@@ -30,6 +30,7 @@ import { ProductDeliveryComponent } from './components/store-detail-components/p
 import { RankContainerComponent } from './components/rank-container.component';
 import { RankBestComponent } from './components/rank-best.component';
 import { BasketModalComponent } from './components/store-detail-components/basket-modal.component';
+import { SortFilterComponent } from './components/sort-filter.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { BasketModalComponent } from './components/store-detail-components/baske
     , RankContainerComponent
     , RankBestComponent
     , BasketModalComponent
+    , SortFilterComponent
   ],
   imports: [
     CommonModule
