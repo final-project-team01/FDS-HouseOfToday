@@ -16,12 +16,12 @@ export class AuthService {
     , private commonService: CommonService
   ) { }
 
-  getToken(username: string, password: string): Observable<token | non_field_errors> {
+  getToken(email: string, password: string): Observable<token | non_field_errors> {
     // this.httpClient.post(BaseService.url)
     const path = "get_token/";
     const fullPath = this.commonService.getFullPath(path);
 
-    return this.httpClient.post<token | non_field_errors>(fullPath, { username, password });
+    return this.httpClient.post<token | non_field_errors>(fullPath, { email, password });
   }
 
   createAccounts(email: string, password: string, username: string) {
