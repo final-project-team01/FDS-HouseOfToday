@@ -22,7 +22,7 @@ import { qna } from 'src/app/core/models/store.interface';
           {{ qna.comment }}
         </p>
         </div>
-        <div class="company-answer">
+        <div class="company-answer" *ngIf="qna.a_comment">
         <p>
           <span *ngIf="qna.a_author" class="company">{{ qna.a_author }}</span>
           <small>{{ qna.a_created }}</small><br>
