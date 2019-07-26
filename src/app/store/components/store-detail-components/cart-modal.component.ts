@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart-modal',
@@ -107,13 +108,17 @@ export class CartModalComponent implements OnInit {
   @Input() showModal: boolean;
   @Output() closeModal = new EventEmitter();
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
   
   close(){
     this.closeModal.emit();
+  }
+
+  goToCart() {
+    this.router.navigate(['/cart']);
   }
 
 }
