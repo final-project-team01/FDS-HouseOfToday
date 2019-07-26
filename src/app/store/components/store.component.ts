@@ -38,9 +38,8 @@ const styles = {
           <a class="store-index-today-deal-list__detail-link" href="#">최대 85% 타임특가</a>
         </header>
         <div class="today-deal-timer-container">
-          <p class="today-deal-timer">{{hours}}{{minutes}}{{seconds}}</p>
           <div class="store-index-today-deal-list__content">
-            <app-product-list [productItems]="todaysDeals" [menuWidth]="menuWidth" [setNumber]="setNumber"></app-product-list>
+            <app-product-list [productItems]="todaysDeals" [menuWidth]="menuWidth" [setNumber]="setNumber" [hours]="hours" [minutes]="minutes" [seconds]="seconds" [activeTimer]="activeTimer"></app-product-list>
           </div>
         </div>
       </section>
@@ -49,7 +48,7 @@ const styles = {
         <div class="row keyword-list">
           <div *ngFor="let keyword of keywords" class="col-6 col-md-3 keyword-wrap">
             <a href="#">
-              <div class="keyword">
+              <div class="keyword" [ngStyle]="{'background-image': 'url(' + keyword.url + ')'}">
                 <span style="position:relative">{{keyword.words}}</span>
               </div>
             </a>
@@ -68,11 +67,11 @@ const styles = {
                 </ly-select>
               </ly-field>
               <ly-field class="filteredList">
-                <ly-label>인기순</ly-label>
+                <ly-label>필터</ly-label>
                 <ly-select  class="filteredListDetail" placeholder="Placeholder">
-                  <ly-option value="1">Item 1</ly-option>
-                  <ly-option value="2">Item 2</ly-option>
-                  <ly-option value="3">Item 3</ly-option>
+                  <ly-option class="detail" value="1" (click)="highPricefilter()">가격높은 순</ly-option>
+                  <ly-option class="detail" value="2" (click)="lowPricefilter()">가격낮은 순</ly-option>
+                  <ly-option class="detail" value="3" (click)="highReviewfilter()">리뷰많은 순</ly-option>
                 </ly-select>
               </ly-field>
             </div>
@@ -304,7 +303,6 @@ const styles = {
   }
 
   .keyword {
-    background-color: green;
     background-size: cover!important;
     background-position: 50%;
     border-radius: 4px;
@@ -317,6 +315,17 @@ const styles = {
     overflow: hidden;
     position: relative;
     width: 250px;
+    background-repeat: no-repeat;
+  }
+
+  .keyword:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: rgba(0,0,0,.5);
   }
 
   .keyword:hover {
@@ -350,6 +359,10 @@ const styles = {
     float: right;
     margin-top: -5px;
   }
+
+  .detail {
+    font-size: 10px;
+  }
   `]
 })
 export class StoreComponent implements OnInit {
@@ -380,20 +393,22 @@ export class StoreComponent implements OnInit {
   setNumber: number;
   setNumberFamous: number;
 
-  todayDate
-  tomorrowDate
-  timeLeft
-  days
-  hours
-  minutes
-  seconds
+  today: Date;
+  tomorrow: Date;
+  gap: number;
+  hours: number = 0;
+  minutes: number = 0;
+  seconds: number = 0;
+  activeTimer: boolean = false;
+  
 
   keywords = [
-    { words: '#장마철 #건조기 #제습기' },
-    { words: '#한샘브랜드위크 #7%쿠폰' },
-    { words: '#취향에 맞는 화장대' },
-    { words: '#데스크테리어 #필기도구' },
+    { words: '#장마철 #건조기 #제습기', url: "https://image.ohou.se/image/resize/bucketplace-v2-development/uploads-store-theme_category_covers-156402360657456416.jpg/850/none" },
+    { words: '#한샘브랜드위크 #7%쿠폰', url: "https://image.ohou.se/image/resize/bucketplace-v2-development/uploads-store-theme_category_covers-156402366536096412.png/850/none" },
+    { words: '#취향에 맞는 화장대', url: "https://image.ohou.se/image/resize/bucketplace-v2-development/uploads-store-theme_category_covers-156396935738716959.jpg/850/none" },
+    { words: '#데스크테리어 #필기도구', url: "https://image.ohou.se/image/resize/bucketplace-v2-development/uploads-store-theme_category_covers-156396931903882649.png/850/none" },
   ]
+
 
   constructor(private storeService: StoreService, private theme: LyTheme2, private commonService: CommonService) { }
 
@@ -412,23 +427,41 @@ export class StoreComponent implements OnInit {
         this.todaysDeals = this.fulltodaysDeals.todaydeal;
         this.setNumber = this.todaysDeals.length;
       });
+    this.dealTimer();
   }
 
+  highPricefilter() {
+    this.productItems = this.productItems.sort(function(a, b) {
+      return b.price - a.price;
+    });
+  }
+
+  lowPricefilter() {
+    this.productItems = this.productItems.sort(function(a, b) {
+      return a.price - b.price;
+    })
+  }
+
+  highReviewfilter() {
+    this.productItems = this.productItems.sort(function(a, b) {
+      return b.review_count - a.review_count;
+    })
+  }
+  
   dealTimer() {
     setInterval(() => {
-      this.todayDate = new Date();
-      this.tomorrowDate = new Date(this.todayDate.getTime() + (24 * 60 * 60 * 1000));
+      this.today = new Date();
+      this.tomorrow = new Date();
 
-      this.timeLeft = this.tomorrowDate - this.todayDate;
+      this.tomorrow.setDate(this.today.getDate() + 1);
+      this.tomorrow.setHours(0, 0, 0, 0);
+      
+      this.gap = this.tomorrow.getTime() - this.today.getTime();
 
-      console.log(this.todayDate);
-      console.log(this.tomorrowDate);
-      console.log(this.timeLeft);
-
-      this.days = Math.floor(this.timeLeft / (1000 * 60 * 60 * 24));
-      this.hours = Math.floor((this.timeLeft % (1000 * 60 * 60 * 24)));
-      this.minutes = Math.floor((this.timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-      this.seconds = Math.floor((this.timeLeft % (1000 * 60)) / 1000);
+      this.hours = Math.floor((this.gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      this.minutes = Math.floor((this.gap % (1000 * 60 * 60)) / (1000 * 60));
+      this.seconds = Math.floor((this.gap % (1000 * 60)) / 1000);
     }, 1000)
+    this.activeTimer = true;
   }
 }

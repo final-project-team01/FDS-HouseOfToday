@@ -13,7 +13,15 @@ import { Router } from '@angular/router';
         </div> 
       </div>
       <ng-template #elseBlock>      
-        <div class="cart-not-empty">        
+        <div class="cart-not-empty">
+          <div class="cart-header">
+            <span class="cart-header-left">
+              모두선택
+            </span>
+            <span class="cart-header-right">
+              <button class="cart-header-delete">선택삭제</button>
+            </span>
+          </div>
           <div class="cart-content">
           </div>
           <div class="cart-sidebar-wrap">

@@ -30,7 +30,7 @@ import { ButtonDirective } from './directive/button.directive';
     ProductListComponent,
     NavFixedDirective,
     SubNavFixedDirective,
-    ButtonDirective
+    ButtonDirective,
   ],
   imports: [CommonModule, CoreModule, AlyleModule, SharedRoutingModule],
   exports: [
@@ -44,7 +44,7 @@ import { ButtonDirective } from './directive/button.directive';
     ProductListComponent,
     AvatarWithButtonComponent,
     ButtonDirective,
-    BasicRadioComponent
+    BasicRadioComponent,
   ]
 })
 export class SharedModule {}

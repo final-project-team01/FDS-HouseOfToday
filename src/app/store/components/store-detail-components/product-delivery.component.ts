@@ -5,7 +5,6 @@ import { Component, OnInit, Input } from '@angular/core';
   template: `
     <div class="product-delivery-container" *ngIf="productInfo">
       <table>
-        <caption>배송 관련 안내</caption>
         <tbody>
           <tr>
             <td class="table-key">배송</td>
@@ -55,11 +54,6 @@ import { Component, OnInit, Input } from '@angular/core';
   .product-delivery-container{
     width: 690px;
     padding: 30px;
-  }
-  caption{
-    margin-bottom: 30px;
-    font-weight: bold;
-    font-size: 20px;
   }
   table{
     border-collapse: collapse;

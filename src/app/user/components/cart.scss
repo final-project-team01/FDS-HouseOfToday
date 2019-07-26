@@ -41,6 +41,33 @@ $min_height: 550px;
   .cart-not-empty {
     display: flex;
     justify-content: center;
+    .cart-header {
+      position: relative;
+      padding: 0 21px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-sizing: border-box;
+      margin: 0 0 11px;
+      .cart-header-left {
+        flex: 0 0 auto;
+      }
+      .cart-header-right {
+        flex: 0 0 auto;
+        .cart-header-delete {
+          display: inline-block;
+          margin: 2px -3px 0 0;
+          padding: 3px;
+          background: none;
+          border: none;
+          color: #424242;
+          font-family: inherit;
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 1;
+        }
+      }
+    }
     .cart-content {
       width: 750px;
       height: 100%;
@@ -49,8 +76,6 @@ $min_height: 550px;
     .cart-sidebar-wrap {
       width: 365px;
       height: 100%;
-
-      height: calc(100vh - #{$navigation_height} - #{$footer_height});
       min-height: $min_height;
     }
   }
