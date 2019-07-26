@@ -9,7 +9,8 @@ import { SharedModule } from '../shared/shared.module';
 import { UserNavComponent } from './components/user-nav.component';
 import { UserModifyComponent } from './components/user-modify.component';
 import { CartComponent } from './components/cart.component';
-import { CheckBoxComponent } from './components/check-box.component';
+import { CheckBoxComponent } from './components/cart/check-box.component';
+import { ItemCardComponent } from './components/cart/item-cards.component';
 
 @NgModule({
   declarations: [
@@ -18,8 +19,9 @@ import { CheckBoxComponent } from './components/check-box.component';
     UserNavComponent,
     UserModifyComponent,
     CartComponent,
-    CheckBoxComponent
+    CheckBoxComponent,
+    ItemCardComponent
   ],
   imports: [CommonModule, CoreModule, SharedModule, UserRoutingModule]
 })
-export class UserModule {}
+export class UserModule { }
