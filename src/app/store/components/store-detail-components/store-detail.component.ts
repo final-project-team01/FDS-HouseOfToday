@@ -27,7 +27,7 @@ import { thumbnail_image, detail_image, product_option, review, qna }
           (increase)="increase($event)"
           (decrease)="decrease($event)"
           (set)="setAmount($event)"
-          (intoBasket)="intoBasket()"
+          (intoCart)="intoCart()"
           [productOption]="productOption"
           [chosenOptions]="chosenOptions" [scroll]="false"
           [totalPrice]="totalPrice"></app-product-option>
@@ -50,7 +50,7 @@ import { thumbnail_image, detail_image, product_option, review, qna }
             (increase)="increase($event)"
             (decrease)="decrease($event)"
             (set)="setAmount($event)"
-            (intoBasket)="intoBasket()"
+            (intoCart)="intoCart()"
             [productOption]="productOption"
             [chosenOptions]="chosenOptions" [scroll]="true"
             [totalPrice]="totalPrice"></app-product-option>
@@ -82,9 +82,9 @@ import { thumbnail_image, detail_image, product_option, review, qna }
         [productInfo]="productInfo"></app-product-delivery>
       </div>
     </div>
-    <app-basket-modal
+    <app-cart-modal
       (closeModal)="closeModal()"
-      [showModal]="showModal"></app-basket-modal>
+      [showModal]="showModal"></app-cart-modal>
     <app-footer></app-footer>
   `,
   styles: [`
@@ -287,14 +287,17 @@ export class StoreDetailComponent implements OnInit {
   }
 
   moveScroll(i: number, nav, review, qna, delivery){
-    if(i === 0) window.scroll({top: nav.offsetTop, behavior: 'smooth'});
-    else if(i === 2) window.scrollTo({top: review.offsetTop + 700, left: 0, behavior: 'smooth'});
-    else if(i === 3) window.scrollTo({top: qna.offsetTop + 700, left: 0, behavior: 'smooth'});
-    else if(i === 4) window.scroll({top: delivery.offsetTop + 700, left: 0, behavior: 'smooth'});
+    if (i === 0) window.scroll({top: nav.offsetTop, behavior: 'smooth'});
+    else if (i === 2) window.scrollTo({top: review.offsetTop + 700, left: 0, behavior: 'smooth'});
+    else if (i === 3) window.scrollTo({top: qna.offsetTop + 700, left: 0, behavior: 'smooth'});
+    else if (i === 4) window.scroll({top: delivery.offsetTop + 700, left: 0, behavior: 'smooth'});
   }
     
-  intoBasket(){
-    this.showModal = true;    
+  intoCart(){
+    if (!this.chosenOptions.length) {
+      alert('옵션 선택 후에 장바구니 버튼을 클릭해주세요.');
+      return;
+    } this.showModal = true;    
   }
 
   closeModal(){

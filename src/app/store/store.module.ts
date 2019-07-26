@@ -29,7 +29,7 @@ import { PaginationComponent } from './components/store-detail-components/pagina
 import { ProductDeliveryComponent } from './components/store-detail-components/product-delivery.component';
 import { RankContainerComponent } from './components/rank-container.component';
 import { RankBestComponent } from './components/rank-best.component';
-import { BasketModalComponent } from './components/store-detail-components/basket-modal.component';
+import { CartModalComponent } from './components/store-detail-components/cart-modal.component';
 import { SortFilterComponent } from './components/sort-filter.component';
 
 @NgModule({
@@ -52,7 +52,7 @@ import { SortFilterComponent } from './components/sort-filter.component';
     , ProductDeliveryComponent
     , RankContainerComponent
     , RankBestComponent
-    , BasketModalComponent
+    , CartModalComponent
     , SortFilterComponent
   ],
   imports: [

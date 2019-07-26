@@ -54,7 +54,7 @@ import { product_option } from 'src/app/core/models/store.interface';
         <mark class="order-price">{{ totalPrice }}<span>원</span></mark>
       </div>
       <div class="btn-container">
-      <button type="submit" class="basket" (click)="basket()">장바구니담기</button>
+      <button type="submit" class="cart" (click)="cart()">장바구니담기</button>
       <button class="purchase">구매하기</button>
       </div>
     </div>
@@ -203,7 +203,7 @@ import { product_option } from 'src/app/core/models/store.interface';
     .btn-container{
       display: flex;
     }
-    .basket, .purchase{
+    .cart, .purchase{
       flex-grow: 1;
       height: 60px;
       line-height: 60px;
@@ -213,7 +213,7 @@ import { product_option } from 'src/app/core/models/store.interface';
       border: none;
       cursor: pointer;
     }
-    .basket{
+    .cart{
       margin-right: 9px;
       background-color: white;
       border: 1px solid #35C5F0;
@@ -243,7 +243,7 @@ export class ProductOptionComponent implements OnInit {
   @Output() increase = new EventEmitter();
   @Output() decrease = new EventEmitter();
   @Output() set = new EventEmitter<object>();
-  @Output() intoBasket = new EventEmitter();
+  @Output() intoCart = new EventEmitter();
 
   constructor(private commonService: CommonService) { }
 
@@ -281,7 +281,7 @@ export class ProductOptionComponent implements OnInit {
     this.set.emit({ option, input });
   }
 
-  basket(){
-    this.intoBasket.emit();
+  cart(){
+    this.intoCart.emit();
   }
 }
