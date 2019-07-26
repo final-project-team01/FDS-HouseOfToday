@@ -6,6 +6,7 @@ import { UserService } from 'src/app/core/services/user.service';
 import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
 import { thumbnail_image, detail_image, product_option, review, qna }
   from 'src/app/core/models/store.interface';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-store-detail',
@@ -183,7 +184,8 @@ export class StoreDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute
     , private storeService: StoreService
     , private userService: UserService
-    , private commonService: CommonService) { }
+    , private commonService: CommonService
+    , private http: HttpClient) { }
 
   ngOnInit() {
     this.commonService.setLocate(1);
@@ -295,9 +297,13 @@ export class StoreDetailComponent implements OnInit {
       alert('옵션 선택 후에 장바구니 버튼을 클릭해주세요.');
       return;
     } 
+    // 일단 짜둔 코드
     const user = this.commonService.getUserDetail()
-      ? this.commonService.getUserDetail()['username'] : '';
-    
+      ? this.commonService.getUserDetail()['id'] : '';
+    const product_option = this.chosenOptions[0].id;
+    const payload = { user, product_option };
+    // 서비스에 넣어줘야 할 부분
+    // this.http.post(url, payload).subscribe();
     this.showModal = true;    
   }
 
