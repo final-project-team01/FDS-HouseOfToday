@@ -36,21 +36,38 @@ import { Component, OnInit } from '@angular/core';
         </div>
         <div class="field">
           <div class="user_modi_subtitle">생년월일</div>
-          <select class="birth_info">
-            <option *ngFor="let year of birthYear">{{ year.year }}</option>
-          </select>
-          <select class="birth_info">
-            <option *ngFor="let month of birthMonth">{{ month.month }}</option>
-          </select>
-          <select class="birth_info">
-            <option *ngFor="let day of birthDay">{{ day.day }}</option>
-          </select>
 
-          <input type="text" placeholder="DD" />
+          <div class="birth_info_border">
+            <select class="birth_info">
+              <option>YYYY</option>
+              <option class="no1" *ngFor="let year of birthYear">{{
+                year.year
+              }}</option>
+            </select>
+          </div>
+
+          <div class="birth_info_border">
+            <select class="birth_info">
+              <option>MM</option>
+              <option *ngFor="let month of birthMonth">{{
+                month.month
+              }}</option>
+            </select>
+          </div>
+
+          <div class="birth_info_border">
+            <select class="birth_info">
+              <option>DD</option>
+              <option *ngFor="let day of birthDay">{{ day.day }}</option>
+            </select>
+          </div>
         </div>
         <div class="field">
           <div class="user_modi_subtitle">프로필 이미지</div>
-          <div class="profile_image">image</div>
+          <div class="profile_image">
+            image
+            <div class="add_photo_icon">icon</div>
+          </div>
         </div>
         <div class="field">
           <div class="user_modi_subtitle">커버 이미지</div>
@@ -102,10 +119,16 @@ import { Component, OnInit } from '@angular/core';
         line-height: 40px;
         color: #424242;
       }
-      .field > input {
+      .field > input,
+      .birth_info {
         height: 40px;
         padding: 0 15px;
         box-sizing: border-box;
+      }
+      .birth_info_border {
+        display: inline-block;
+        border: 1px solid #dcdcdc;
+        margin-right: 5px;
       }
       .email {
         width: 136px;
@@ -128,9 +151,6 @@ import { Component, OnInit } from '@angular/core';
         display: inline-block;
         width: 220px;
         height: 220px;
-      }
-      .birth_info {
-        height: 40px;
       }
     `
   ]
