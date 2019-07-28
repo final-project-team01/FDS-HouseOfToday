@@ -298,8 +298,10 @@ export class StoreDetailComponent implements OnInit {
     
   intoCart(){
     const user = localStorage.getItem('user');
+    // 옵션을 선택했는지, 로그인 되었는지 체크
     if (this.checkCondition('장바구니', user) === false) return;
     const product_option = this.chosenOptions[0].id;
+    // 하나씩만 담는다
     this.sendCartToServer(user, product_option);
     this.chosenOptions = this.chosenOptions.filter(option => option.id !== product_option);
     this.showModal = true;
@@ -310,19 +312,22 @@ export class StoreDetailComponent implements OnInit {
     const user = localStorage.getItem('user');
     if (this.checkCondition('구매하기', user) === false) return;
     const product_option = this.chosenOptions[0].id;
+    // 일단 장바구니에 담은 후에
     this.sendCartToServer(user, product_option);
+    // 장바구니에 담긴 물건을 바로 구매
+    this.cartService.buyProducts(user);
     console.log('결제완료');
   }
 
   sendCartToServer(user: string, product_option: number){
     const payload: cart_option = { product_option };
-    // this.cartService.addCart(payload, user)
-    //   .subscribe(res =>{
-    //     console.log('success');
-    //   },
-    //   err => {
-    //       console.log(err.message);
-    //   });
+    this.cartService.addCart(payload, user)
+      .subscribe(res =>{
+        console.log('success');
+      },
+      err => {
+          console.log(err.message);
+      });
     console.log('장바구니에 담았다');
     
   }
