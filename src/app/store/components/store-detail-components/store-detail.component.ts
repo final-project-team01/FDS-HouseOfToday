@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { StoreService } from 'src/app/core/services/store.service';
 import { CommonService } from 'src/app/core/services/common.service';
 import { UserService } from 'src/app/core/services/user.service';
@@ -7,6 +7,7 @@ import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
 import { thumbnail_image, detail_image, product_option, review, qna }
   from 'src/app/core/models/store.interface';
 import { HttpClient } from '@angular/common/http';
+import { CartService } from 'src/app/core/services/cart.service';
 
 @Component({
   selector: 'app-store-detail',
@@ -185,7 +186,8 @@ export class StoreDetailComponent implements OnInit {
     , private storeService: StoreService
     , private userService: UserService
     , private commonService: CommonService
-    , private http: HttpClient) { }
+    , private cartService: CartService
+    , private router: Router) { }
 
   ngOnInit() {
     this.commonService.setLocate(1);
@@ -223,12 +225,8 @@ export class StoreDetailComponent implements OnInit {
       alert('이미 선택한 옵션입니다');
       return;
     }
-    const chosen = {
-      id, name: option.name, price: option.price, amount: 1
-    };
+    const chosen = { id, name: option.name, price: option.price, amount: 1 };
     this.chosenOptions = [...this.chosenOptions, chosen];
-    console.log(this.chosenOptions);
-    
     this.getTotalPrice();
   }
 
@@ -278,7 +276,10 @@ export class StoreDetailComponent implements OnInit {
   }
 
   getTotalPrice() {
-    if (this.chosenOptions.length === 0) return '0';
+    if (this.chosenOptions.length === 0) {
+      this.totalPrice = '0';
+      return;
+    }
     const prices = this.chosenOptions.map(option => option.price * option.amount);
     const sum = prices.reduce(
       (previous, current) => { return previous + current });
@@ -286,10 +287,10 @@ export class StoreDetailComponent implements OnInit {
   }
 
   moveScroll(i: number, nav, review, qna, delivery){
-    if (i === 0) window.scroll({top: nav.offsetTop, behavior: 'smooth'});
-    else if (i === 2) window.scrollTo({top: review.offsetTop + 700, left: 0, behavior: 'smooth'});
-    else if (i === 3) window.scrollTo({top: qna.offsetTop + 700, left: 0, behavior: 'smooth'});
-    else if (i === 4) window.scroll({top: delivery.offsetTop + 700, left: 0, behavior: 'smooth'});
+    if (i === 0) window.scroll({ top: nav.offsetTop, behavior: 'smooth' });
+    else if (i === 2) window.scrollTo({ top: review.offsetTop + 700, left: 0, behavior: 'smooth' });
+    else if (i === 3) window.scrollTo({ top: qna.offsetTop + 700, left: 0, behavior: 'smooth' });
+    else if (i === 4) window.scroll({ top: delivery.offsetTop + 700, left: 0, behavior: 'smooth' });
   }
     
   intoCart(){
@@ -297,15 +298,23 @@ export class StoreDetailComponent implements OnInit {
       alert('옵션 선택 후에 장바구니 버튼을 클릭해주세요.');
       return;
     } 
-    // 일단 짜둔 코드
-    const user = this.commonService.getUserDetail()
-      ? this.commonService.getUserDetail()['id'] : '';
+    const user = localStorage.getItem('user');
+    if (!user) {
+      alert('로그인이 필요한 서비스입니다.');
+      this.router.navigate(['/signin']);
+    }  
     const product_option = this.chosenOptions[0].id;
-    const payload = { user, product_option };
-    // 서비스에 넣어줘야 할 부분
-    // this.http.post(url, payload).subscribe();
-    this.showModal = true;
+    const payload = { product_option };
+    // console.log(this.cartService.addCart(payload, user));
+    this.cartService.addCart(payload, user)
+      .subscribe(res =>{
+        console.log('success');
+      },
+      err => {
+          console.log(err.message);
+      });
     this.chosenOptions = this.chosenOptions.filter(option => option.id !== product_option);
+    this.showModal = true;
     this.getTotalPrice();
   }
 
