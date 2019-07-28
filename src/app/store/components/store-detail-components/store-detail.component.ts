@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { StoreService } from 'src/app/core/services/store.service';
 import { CommonService } from 'src/app/core/services/common.service';
 import { UserService } from 'src/app/core/services/user.service';
+import { CartService } from 'src/app/core/services/cart.service';
+
 import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
 import { thumbnail_image, detail_image, product_option, review, qna }
   from 'src/app/core/models/store.interface';
-import { CartService } from 'src/app/core/services/cart.service';
-
+import { cart_option } from 'src/app/core/models/cart.interface';
+  
 @Component({
   selector: 'app-store-detail',
   template: `
@@ -303,7 +306,7 @@ export class StoreDetailComponent implements OnInit {
       this.router.navigate(['/signin']);
     }  
     const product_option = this.chosenOptions[0].id;
-    const payload = { product_option };
+    const payload: cart_option = { product_option };
     // console.log(this.cartService.addCart(payload, user));
     this.cartService.addCart(payload, user)
       .subscribe(res =>{

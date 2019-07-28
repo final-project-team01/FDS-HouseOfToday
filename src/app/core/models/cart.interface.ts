@@ -1,3 +1,3 @@
-export interface product_option {
+export interface cart_option {
   product_option: number;
 }
