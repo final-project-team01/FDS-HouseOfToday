@@ -278,7 +278,7 @@ export class StoreDetailComponent implements OnInit {
   }
 
   getTotalPrice() {
-    if (this.chosenOptions.length === 0) return 0;
+    if (this.chosenOptions.length === 0) return '0';
     const prices = this.chosenOptions.map(option => option.price * option.amount);
     const sum = prices.reduce(
       (previous, current) => { return previous + current });
@@ -304,7 +304,9 @@ export class StoreDetailComponent implements OnInit {
     const payload = { user, product_option };
     // 서비스에 넣어줘야 할 부분
     // this.http.post(url, payload).subscribe();
-    this.showModal = true;    
+    this.showModal = true;
+    this.chosenOptions = this.chosenOptions.filter(option => option.id !== product_option);
+    this.getTotalPrice();
   }
 
   closeModal(){
