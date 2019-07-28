@@ -6,7 +6,6 @@ import { UserService } from 'src/app/core/services/user.service';
 import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
 import { thumbnail_image, detail_image, product_option, review, qna }
   from 'src/app/core/models/store.interface';
-import { HttpClient } from '@angular/common/http';
 import { CartService } from 'src/app/core/services/cart.service';
 
 @Component({

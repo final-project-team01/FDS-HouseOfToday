@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CoreModule } from '../core.module';
 import { CommonService } from './common.service';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { product_option } from '../models/cart.interface';
 
 @Injectable({
   providedIn: CoreModule
@@ -13,7 +14,7 @@ export class CartService {
   constructor(private commonService: CommonService
             , private httpClient: HttpClient) { }
 
-  addCart(payload: any, userToken: string) {
+  addCart(payload: product_option, userToken: string) {
     const path = 'products/cart/';
     const fullPath = this.commonService.getFullPath(path);
     let headers = new HttpHeaders({
