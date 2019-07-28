@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { StoreService } from 'src/app/core/services/store.service';
 import { CommonService } from 'src/app/core/services/common.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
 import { thumbnail_image, detail_image, product_option, review, qna }
   from 'src/app/core/models/store.interface';
+import { HttpClient } from '@angular/common/http';
+import { CartService } from 'src/app/core/services/cart.service';
 
 @Component({
   selector: 'app-store-detail',
@@ -27,7 +29,7 @@ import { thumbnail_image, detail_image, product_option, review, qna }
           (increase)="increase($event)"
           (decrease)="decrease($event)"
           (set)="setAmount($event)"
-          (intoBasket)="intoBasket()"
+          (intoCart)="intoCart()"
           [productOption]="productOption"
           [chosenOptions]="chosenOptions" [scroll]="false"
           [totalPrice]="totalPrice"></app-product-option>
@@ -50,7 +52,7 @@ import { thumbnail_image, detail_image, product_option, review, qna }
             (increase)="increase($event)"
             (decrease)="decrease($event)"
             (set)="setAmount($event)"
-            (intoBasket)="intoBasket()"
+            (intoCart)="intoCart()"
             [productOption]="productOption"
             [chosenOptions]="chosenOptions" [scroll]="true"
             [totalPrice]="totalPrice"></app-product-option>
@@ -82,9 +84,9 @@ import { thumbnail_image, detail_image, product_option, review, qna }
         [productInfo]="productInfo"></app-product-delivery>
       </div>
     </div>
-    <app-basket-modal
+    <app-cart-modal
       (closeModal)="closeModal()"
-      [showModal]="showModal"></app-basket-modal>
+      [showModal]="showModal"></app-cart-modal>
     <app-footer></app-footer>
   `,
   styles: [`
@@ -151,7 +153,7 @@ import { thumbnail_image, detail_image, product_option, review, qna }
   }
   .no-sticky{
     position: absolute;
-    bottom: 485px;
+    bottom: 570px;
     top: auto;
   }
   `]
@@ -183,7 +185,9 @@ export class StoreDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute
     , private storeService: StoreService
     , private userService: UserService
-    , private commonService: CommonService) { }
+    , private commonService: CommonService
+    , private cartService: CartService
+    , private router: Router) { }
 
   ngOnInit() {
     this.commonService.setLocate(1);
@@ -215,15 +219,13 @@ export class StoreDetailComponent implements OnInit {
   }
 
   addOption(option: product_option) {
-    const name = this.getName(option['name']);
-    const check = this.chosenOptions.filter(option => option.name === name).length ? true : false;
+    const id = option.id;
+    const check = this.chosenOptions.filter(option => option.id === id).length ? true : false;
     if (this.chosenOptions.length !== 0 && check){
       alert('이미 선택한 옵션입니다');
       return;
     }
-    const chosen = {
-      id: this.generateId(), name, price: option['price'], amount: 1
-    };
+    const chosen = { id, name: option.name, price: option.price, amount: 1 };
     this.chosenOptions = [...this.chosenOptions, chosen];
     this.getTotalPrice();
   }
@@ -238,15 +240,10 @@ export class StoreDetailComponent implements OnInit {
       ? Math.max(...this.chosenOptions.map(option => option.id)) + 1 : 1;
   }
 
-  getName(name: string) {
-    const i = name.indexOf('(');
-    return name.slice(0, i);
-  }
-
   stickyNav(nav: HTMLDivElement) {
     const navBottom = nav.offsetHeight + nav.offsetTop - 380;
     if (nav.offsetTop - 80 <= window.pageYOffset) {
-      if (navBottom < window.pageYOffset + 250) {
+      if (navBottom < window.pageYOffset + 350) {
         this.sticky = false;
         this.noSticky = true;
       } else {
@@ -279,7 +276,10 @@ export class StoreDetailComponent implements OnInit {
   }
 
   getTotalPrice() {
-    if (this.chosenOptions.length === 0) return 0;
+    if (this.chosenOptions.length === 0) {
+      this.totalPrice = '0';
+      return;
+    }
     const prices = this.chosenOptions.map(option => option.price * option.amount);
     const sum = prices.reduce(
       (previous, current) => { return previous + current });
@@ -287,14 +287,35 @@ export class StoreDetailComponent implements OnInit {
   }
 
   moveScroll(i: number, nav, review, qna, delivery){
-    if(i === 0) window.scroll({top: nav.offsetTop, behavior: 'smooth'});
-    else if(i === 2) window.scrollTo({top: review.offsetTop + 700, behavior: 'smooth'});
-    else if(i === 3) window.scrollTo({top: qna.offsetTop + 700, behavior: 'smooth'});
-    else if(i === 4) window.scroll({top: delivery.offsetTop + 700, behavior: 'smooth'});
+    if (i === 0) window.scroll({ top: nav.offsetTop, behavior: 'smooth' });
+    else if (i === 2) window.scrollTo({ top: review.offsetTop + 700, left: 0, behavior: 'smooth' });
+    else if (i === 3) window.scrollTo({ top: qna.offsetTop + 700, left: 0, behavior: 'smooth' });
+    else if (i === 4) window.scroll({ top: delivery.offsetTop + 700, left: 0, behavior: 'smooth' });
   }
     
-  intoBasket(){
-    this.showModal = true;    
+  intoCart(){
+    if (!this.chosenOptions.length) {
+      alert('옵션 선택 후에 장바구니 버튼을 클릭해주세요.');
+      return;
+    } 
+    const user = localStorage.getItem('user');
+    if (!user) {
+      alert('로그인이 필요한 서비스입니다.');
+      this.router.navigate(['/signin']);
+    }  
+    const product_option = this.chosenOptions[0].id;
+    const payload = { product_option };
+    // console.log(this.cartService.addCart(payload, user));
+    this.cartService.addCart(payload, user)
+      .subscribe(res =>{
+        console.log('success');
+      },
+      err => {
+          console.log(err.message);
+      });
+    this.chosenOptions = this.chosenOptions.filter(option => option.id !== product_option);
+    this.showModal = true;
+    this.getTotalPrice();
   }
 
   closeModal(){
