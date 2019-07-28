@@ -8,16 +8,14 @@ import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { UserNavComponent } from './components/user-nav.component';
 import { UserModifyComponent } from './components/user-modify.component';
-import { CartComponent } from './components/cart.component';
 
 @NgModule({
   declarations: [
     UsersComponent,
     OrderListComponent,
     UserNavComponent,
-    UserModifyComponent,
-    CartComponent
+    UserModifyComponent
   ],
   imports: [CommonModule, CoreModule, SharedModule, UserRoutingModule]
 })
-export class UserModule {}
+export class UserModule { }
