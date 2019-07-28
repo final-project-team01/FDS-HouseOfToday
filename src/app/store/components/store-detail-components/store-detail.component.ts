@@ -32,6 +32,7 @@ import { cart_option } from 'src/app/core/models/cart.interface';
           (decrease)="decrease($event)"
           (set)="setAmount($event)"
           (intoCart)="intoCart()"
+          (buyProducts)="buyProducts()"
           [productOption]="productOption"
           [chosenOptions]="chosenOptions" [scroll]="false"
           [totalPrice]="totalPrice"></app-product-option>
@@ -296,32 +297,50 @@ export class StoreDetailComponent implements OnInit {
   }
     
   intoCart(){
-    if (!this.chosenOptions.length) {
-      alert('옵션 선택 후에 장바구니 버튼을 클릭해주세요.');
-      return;
-    } 
     const user = localStorage.getItem('user');
-    if (!user) {
-      alert('로그인이 필요한 서비스입니다.');
-      this.router.navigate(['/signin']);
-    }  
+    if (this.checkCondition('장바구니', user) === false) return;
     const product_option = this.chosenOptions[0].id;
-    const payload: cart_option = { product_option };
-    // console.log(this.cartService.addCart(payload, user));
-    this.cartService.addCart(payload, user)
-      .subscribe(res =>{
-        console.log('success');
-      },
-      err => {
-          console.log(err.message);
-      });
+    this.sendCartToServer(user, product_option);
     this.chosenOptions = this.chosenOptions.filter(option => option.id !== product_option);
     this.showModal = true;
     this.getTotalPrice();
   }
 
+  buyProducts(){
+    const user = localStorage.getItem('user');
+    if (this.checkCondition('구매하기', user) === false) return;
+    const product_option = this.chosenOptions[0].id;
+    this.sendCartToServer(user, product_option);
+    console.log('결제완료');
+  }
+
+  sendCartToServer(user: string, product_option: number){
+    const payload: cart_option = { product_option };
+    // this.cartService.addCart(payload, user)
+    //   .subscribe(res =>{
+    //     console.log('success');
+    //   },
+    //   err => {
+    //       console.log(err.message);
+    //   });
+    console.log('장바구니에 담았다');
+    
+  }
+
   closeModal(){
     this.showModal = false;
+  }
+
+  checkCondition(target: string, user: string){
+    if (this.chosenOptions.length === 0) {
+      alert(`옵션 선택 후에 ${target} 버튼을 클릭해주세요.`);
+      return false;
+    } 
+    if (user === null) {
+      alert('로그인이 필요한 서비스입니다.');
+      this.router.navigate(['/signin']);
+      return false;
+    }  
   }
 
 }
