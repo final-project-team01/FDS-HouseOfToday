@@ -22,7 +22,7 @@ import { CommonService } from 'src/app/core/services/common.service';
   styles: [`
   .pagination{
     text-align: center;
-    margin: 40px 0;
+    margin-top: 40px;
   }
   .numbers-container{
     display: inline-block;
@@ -39,6 +39,7 @@ import { CommonService } from 'src/app/core/services/common.service';
     left: 0;
   }
   .pagination-page, .pagination-btn{
+    box-sizing: border-box;
     vertical-align: middle;
     display: inline-block;
     width: 30px;
@@ -47,6 +48,12 @@ import { CommonService } from 'src/app/core/services/common.service';
     border-style: none;
     cursor: pointer;
     margin: 5px;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .pagination-page:hover{
+    color: #35C5F0;
   }
   .pagination-btn, .filter-icon{
     background-image: url('../../../../assets/image/icon-pointer.png');
@@ -57,7 +64,7 @@ import { CommonService } from 'src/app/core/services/common.service';
   .right{
     background-position: -130px -118px;
   }
-  .active{
+  .pagination-page.active{
     background-color: #35C5F0;
     color: white;
     cursor: default;

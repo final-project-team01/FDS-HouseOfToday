@@ -134,14 +134,14 @@ import { cart_option } from 'src/app/core/models/cart.interface';
   }
   h3{
     font-size: 18px;
-    font-weight: 700;
+    font-weight: 725;
     color: #000;
-    margin: 30px 0 -85px 30px;
+    margin: 25px 0px -85px 30px;
   }
   h3 > span{
     margin-left: 6px;
     font-size: 18px;
-    font-weight: 700;
+    font-weight: 725;
     color: #35c5f0;
   }
   .delivery{
@@ -291,9 +291,9 @@ export class StoreDetailComponent implements OnInit {
 
   moveScroll(i: number, nav, review, qna, delivery){
     if (i === 0) window.scroll({ top: nav.offsetTop, behavior: 'smooth' });
-    else if (i === 2) window.scrollTo({ top: review.offsetTop + 700, left: 0, behavior: 'smooth' });
-    else if (i === 3) window.scrollTo({ top: qna.offsetTop + 700, left: 0, behavior: 'smooth' });
-    else if (i === 4) window.scroll({ top: delivery.offsetTop + 700, left: 0, behavior: 'smooth' });
+    else if (i === 2) window.scrollTo({ top: review.offsetTop + 725, left: 0, behavior: 'smooth' });
+    else if (i === 3) window.scrollTo({ top: qna.offsetTop + 725, left: 0, behavior: 'smooth' });
+    else if (i === 4) window.scroll({ top: delivery.offsetTop + 725, left: 0, behavior: 'smooth' });
   }
     
   intoCart(){
