@@ -22,7 +22,7 @@ import { CommonService } from 'src/app/core/services/common.service';
   styles: [`
   .pagination{
     text-align: center;
-    margin-top: 40px;
+    margin: 35px 0;
   }
   .numbers-container{
     display: inline-block;
