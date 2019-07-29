@@ -11,21 +11,7 @@ import { detail_image } from 'src/app/core/models/store.interface';
     </div>
   <div>
   `,
-  styles: [`
-  *{
-    box-sizing: border-box;
-  }
-  .product-detail-container{
-    padding: 60px 30px 30px 30px;
-  }
-  .product-img > img{
-    width: 690px;
-    vertical-align: middle;
-  }
-  .product-review{
-    width: 690px;
-  }
-  `]
+  styleUrls: ['./product-detail.scss']
 })
 export class ProductDetailComponent implements OnInit {
   
