@@ -79,12 +79,14 @@ export class CartComponent implements OnInit {
     this.router.navigate(['store']);
   }
   itemFilter(itemList: cart_list[]) {
+    this.isEmpty = itemList.length ? true : true;
+    console.log(this.isEmpty);
+    if (this.isEmpty) return;
+
     this.items["brands"] = itemList.map(item => item.brand_name);
     this.items["brands"].forEach(
       brand => {
         this.items[brand] = itemList.filter(item => item.brand_name === brand);
-        this.items[brand][0]["isChecked"] = false;
-
       }
     );
   }
