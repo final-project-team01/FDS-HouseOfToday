@@ -8,12 +8,12 @@ import { CommonService } from 'src/app/core/services/common.service';
     <nav>
       <a routerLink="/community" routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }">홈</a>
-      <a routerLink="/community/photo" routerLinkActive="active"
+      <a routerLink="/photo" routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }">사진</a>
-      <a routerLink="/community/#" routerLinkActive="active"
+      <a routerLink="/project" routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }">집들이</a>
-      <a routerLink="/community/#" routerLinkActive="active"
-      [routerLinkActiveOptions]="{ exact: true }">질문과 답변</a>
+      <!--<a routerLink="/community/#" routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }">질문과 답변</a>-->
     </nav>
   </div>
   `,

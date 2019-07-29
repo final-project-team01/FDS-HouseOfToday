@@ -6,19 +6,19 @@ import { CommonService } from 'src/app/core/services/common.service';
   template: `
     <nav class="page-navigation">
       <a
-        routerLink="/users/{{commonService.Id}}"
+        routerLink="/users/{{commonService.getUserDetail['Id']}}"
         routerLinkActive="active"        
         class="page_nav_item"
         >프로필</a
       >
       <a
-        routerLink="/orderList/{{commonService.Id}}"
+        routerLink="/orderList/{{commonService.getUserDetail['Id']}}"
         routerLinkActive="active"
         class="page_nav_item"
         >주문</a
       >
       <a
-        routerLink="/users/{{commonService.Id}}/edit"
+        routerLink="/users/{{commonService.getUserDetail['Id']}}/edit"
         routerLinkActive="active"
         
         class="page_nav_item"

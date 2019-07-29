@@ -5,65 +5,21 @@ import { CommonService } from 'src/app/core/services/common.service';
   selector: 'app-pagination',
   template: `
   <div class="pagination">
-    <button class="pagination-btn left" (click)="goLeft()"></button>
-    <div class="numbers-container" [style.width.px]="getWidth(pages)">
-      <div class="btn-container" [style.left.px]="left">
+    <button class="btn arrow left" (click)="goLeft()"></button>
+    <div class="page-container" [style.width.px]="getWidth(pages)">
+      <div class="num-container" [style.left.px]="left">
         <button *ngFor="let page of pages; let i = index"
-          class="pagination-page"
+          class="btn num"
           [class.active]="activeId === i"
           (click)="changePage(i)">
           {{ i + 1 }}
         </button>
       </div>
     </div>
-    <button class="pagination-btn right" (click)="goRight()"></button>
+    <button class="btn arrow right" (click)="goRight()"></button>
   </div>
   `,
-  styles: [`
-  .pagination{
-    text-align: center;
-    margin: 40px 0;
-  }
-  .numbers-container{
-    display: inline-block;
-    white-space: nowrap;
-    overflow-x: hidden;
-    width: 0;
-    vertical-align: middle;
-    position: relative;
-    height: 40px;
-  }
-  .btn-container{
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-  .pagination-page, .pagination-btn{
-    vertical-align: middle;
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    background: none;
-    border-style: none;
-    cursor: pointer;
-    margin: 5px;
-  }
-  .pagination-btn, .filter-icon{
-    background-image: url('../../../../assets/image/icon-pointer.png');
-  }
-  .left{
-    background-position: -75px -118px;
-  }
-  .right{
-    background-position: -130px -118px;
-  }
-  .active{
-    background-color: #35C5F0;
-    color: white;
-    cursor: default;
-    border-radius: 4px;
-  }
-  `]
+  styleUrls: ['./pagination.scss']
 })
 export class PaginationComponent implements OnInit {
 

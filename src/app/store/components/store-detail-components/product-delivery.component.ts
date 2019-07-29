@@ -7,20 +7,20 @@ import { Component, OnInit, Input } from '@angular/core';
       <table>
         <tbody>
           <tr>
-            <td class="table-key">배송</td>
-            <td class="table-value">{{ productInfo.deliver }}</td>
+            <td class="table key">배송</td>
+            <td class="table">{{ productInfo.deliver }}</td>
           </tr>
           <tr>
-            <td class="table-key">배송비</td>
-            <td class="table-value">{{ productInfo.deliver_fee }}</td>
+            <td class="table key">배송비</td>
+            <td class="table">{{ productInfo.deliver_fee }}</td>
           </tr>
           <tr>
-            <td class="table-key">배송불가 지역</td>
-            <td class="table-value">{{ productInfo.deliver_no_go }}</td>
+            <td class="table key">배송불가 지역</td>
+            <td class="table">{{ productInfo.deliver_no_go }}</td>
           </tr>
           <tr>
-            <td class="table-key">지역별 차등 배송비</td>
-            <td class="table-value">{{ productInfo.deliver_fee_diff }}</td>
+            <td class="table key">지역별 차등 배송비</td>
+            <td class="table">{{ productInfo.deliver_fee_diff }}</td>
           </tr>
         </tbody>
       </table>
@@ -50,48 +50,7 @@ import { Component, OnInit, Input } from '@angular/core';
       </ol>
     </div>
   `,
-  styles: [`
-  .product-delivery-container{
-    width: 690px;
-    padding: 30px 0 100px 0;
-  }
-  table{
-    border-collapse: collapse;
-    width: 100%;
-    table-layout: fixed;
-    height: auto;
-    font-size: 15px;
-    color: #424242;
-    margin-bottom: 30px;
-  }
-  .table-key, .table-value{
-    border-bottom: 1px solid lightgrey;
-    padding: 10px;
-  }
-  .table-key{
-    width: 30%;
-  }
-  h4{
-    font-size: 14px;
-    font-weight: bold;
-    padding-top: 30px;
-  }
-  p{
-    font-size: 12px;
-    color: #bdbdbd;
-  }
-  ol{
-    font-size: 12px;
-    margin-top: 5px;
-  }
-  li{
-    margin-left: 13px;
-  }
-  li > span{
-    font-size: 10px;
-    color: #757575;
-  }
-  `]
+  styleUrls: ['./product-delivery.scss']
 })
 export class ProductDeliveryComponent implements OnInit {
     

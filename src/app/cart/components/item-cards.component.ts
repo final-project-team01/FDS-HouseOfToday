@@ -1,22 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { cart_list } from 'src/app/core/models/cart.interface';
 
 @Component({
   selector: 'app-item-cards',
   template: `
     <article class="item-cards">
-      <h1 class="card-header">배송</h1>
+      <h1 class="card-header">{{brand}} 배송</h1>
       <div class="item">
-        <ul *ngFor="let item of testItem">
+        <ul *ngFor="let item of itemList">
           <li>
             <article class="item-card">
-              <app-check-box class="checkbox"></app-check-box>
+              <app-check-box class="checkbox" [isChecked]="item['isChecked']"></app-check-box>
               <a class="product">
                 <div class="item-image">
                   <img>
                 </div>
                 <div class="item-content">
-                  <h1 class="content-header">제품명</h1>
-                  <p class="item-caption"> 무료배송 | 일반택배</p>
+                  <h1 class="content-header">{{item['product']}}</h1>
+                  <p class="item-caption"> {{item['deliver_fee']}} | {{item['deliver']}}</p>
                 </div>
               </a>
               <button class="product-delete">
@@ -26,7 +27,7 @@ import { Component, OnInit } from '@angular/core';
                 </svg>
               </button>
               <div class="product-option">
-                <h2 class="option-name">옵션</h2>
+                <h2 class="option-name">{{item['product_option']}}</h2>
               </div>
             </article>
             <div class="carted-product-footer">
@@ -45,10 +46,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./item-cards.scss']
 })
 export class ItemCardComponent implements OnInit {
-  testItem = [1, 2];
+  @Input() itemList: cart_list[];
+  @Input() brand: string;
   constructor() { }
 
   ngOnInit() {
+    console.log("itemList", this.itemList);
   }
 
 }

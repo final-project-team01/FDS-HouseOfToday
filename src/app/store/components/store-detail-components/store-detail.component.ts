@@ -56,6 +56,7 @@ import { cart_option } from 'src/app/core/models/cart.interface';
             (decrease)="decrease($event)"
             (set)="setAmount($event)"
             (intoCart)="intoCart()"
+            (buyProducts)="buyProducts()"
             [productOption]="productOption"
             [chosenOptions]="chosenOptions" [scroll]="true"
             [totalPrice]="totalPrice"></app-product-option>
@@ -136,7 +137,7 @@ import { cart_option } from 'src/app/core/models/cart.interface';
     font-size: 18px;
     font-weight: 700;
     color: #000;
-    margin: 30px 0 -85px 30px;
+    margin: 25px 0px -85px 30px;
   }
   h3 > span{
     margin-left: 6px;
@@ -193,6 +194,7 @@ export class StoreDetailComponent implements OnInit {
     , private router: Router) { }
 
   ngOnInit() {
+    window.scroll({ top: 0 });
     this.commonService.setLocate(1);
     this.commonService.setNav(1);
     console.log("detail");
@@ -315,8 +317,13 @@ export class StoreDetailComponent implements OnInit {
     // 일단 장바구니에 담은 후에
     this.sendCartToServer(user, product_option);
     // 장바구니에 담긴 물건을 바로 구매
-    this.cartService.buyProducts(user);
-    console.log('결제완료');
+    this.cartService.buyProducts(user)
+      .subscribe(res =>{
+        console.log('success');
+      },
+      err => {
+          console.log(err.message);
+      });
   }
 
   sendCartToServer(user: string, product_option: number){
@@ -328,8 +335,6 @@ export class StoreDetailComponent implements OnInit {
       err => {
           console.log(err.message);
       });
-    console.log('장바구니에 담았다');
-    
   }
 
   closeModal(){

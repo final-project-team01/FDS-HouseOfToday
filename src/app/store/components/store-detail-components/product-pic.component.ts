@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ActivationEnd } from '@angular/router';
 import { thumbnail_image } from 'src/app/core/models/store.interface';
 
 @Component({
@@ -19,49 +18,7 @@ import { thumbnail_image } from 'src/app/core/models/store.interface';
     </div>
   </div>
   `,
-  styles: [`
-  .product-pic-container{
-    width: 570px;
-    display: inline-block;
-    position: relative;
-    margin-left: 65px;
-  }
-  .pic-list{
-    margin-right: 10px;
-    position: absolute;
-    top: 0;
-    left: -65px;
-  }
-  .pic-item{
-    display: block;
-    width: 55px;
-    height: 55px;
-    margin-bottom: 10px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  .pic-item:focus{
-    outline: none;
-  }
-  .pic-item.active{
-    border: 1px solid #35C5F0;
-  }
-  .main-picture-container{
-    display: inline-block;
-  }
-  .main-picture{
-    display: none;
-    border-radius: 10px;
-    width: 570px;
-    height: 570px;
-  }
-  .main-picture.active{
-    display: block;
-  }
-  `]
+  styleUrls: ['./product-pic.scss']
 })
 export class ProductPicComponent implements OnInit {
   

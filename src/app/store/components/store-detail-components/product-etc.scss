@@ -1,0 +1,26 @@
+.product-etc-container{
+  width: 690px;
+  padding: 30px 30px 60px 30px;
+  table{
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+    height: auto;
+    font-size: 15px;
+    color: #424242;
+    .table{
+      border-bottom: 1px solid lightgrey;
+      padding: 10px;
+    }
+    .table.key{
+      width: 30%;
+    }
+  }
+  caption{
+    width: 1px;
+    height: 1px;
+    padding: 1px;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+}

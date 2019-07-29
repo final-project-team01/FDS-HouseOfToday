@@ -1,0 +1,50 @@
+.pagination{
+  text-align: center;
+  margin: 35px 0;
+  .btn{
+    box-sizing: border-box;
+    vertical-align: middle;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background: none;
+    border-style: none;
+    cursor: pointer;
+    margin: 5px;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .arrow{
+    background-image: url('../../../../assets/image/icon-pointer.png');
+  }
+  .left{
+    background-position: -75px -118px;
+  }
+  .right{
+    background-position: -130px -118px;
+  }
+  .page-container{
+    display: inline-block;
+    white-space: nowrap;
+    overflow-x: hidden;
+    width: 0;
+    vertical-align: middle;
+    position: relative;
+    height: 40px;
+    .num-container{
+      position: absolute;
+      top: 0;
+      left: 0;
+      .num:hover{
+        color: #35C5F0;
+      }
+      .num.active{
+        background-color: #35C5F0;
+        color: white;
+        cursor: default;
+        border-radius: 4px;
+      }
+    }
+  }  
+}
