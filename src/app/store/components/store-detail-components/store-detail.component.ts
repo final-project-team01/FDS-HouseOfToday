@@ -324,7 +324,6 @@ export class StoreDetailComponent implements OnInit {
       err => {
           console.log(err.message);
       });
-    console.log('결제완료');
   }
 
   sendCartToServer(user: string, product_option: number){
@@ -336,8 +335,6 @@ export class StoreDetailComponent implements OnInit {
       err => {
           console.log(err.message);
       });
-    console.log('장바구니에 담았다');
-    
   }
 
   closeModal(){
