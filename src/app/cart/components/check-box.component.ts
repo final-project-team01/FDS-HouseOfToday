@@ -18,7 +18,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: [`./check-box.scss`]
 })
 export class CheckBoxComponent implements OnInit {
-  @Input() isChecked: boolean = false;
+  @Input() isChecked: boolean = true;
   @Input() caption: boolean = false;
   @Output() checkedEvent = new EventEmitter();
   constructor() { }
