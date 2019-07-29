@@ -76,9 +76,9 @@ import { Component, OnInit } from '@angular/core';
         </div>
         <div class="field">
           <div class="user_modi_subtitle">한줄 소개</div>
-          <input />
+          <input type="text" class="oneLine_intro" />
         </div>
-        <button>회원 정보 수정</button>
+        <button class="edit_submit">회원 정보 수정</button>
       </form>
     </div>
     <app-footer></app-footer>
@@ -119,6 +119,7 @@ import { Component, OnInit } from '@angular/core';
         width: 144px;
         line-height: 40px;
         color: #424242;
+        float: left;
       }
       .field > input,
       .birth_info {
@@ -147,16 +148,22 @@ import { Component, OnInit } from '@angular/core';
       .gender_input {
         display: inline-block;
       }
+      .profile_image,
+      .cover_image {
+        background-color: lightgray;
+        border: 1px solid #dcdcdc;
+        display: flex;
+      }
       .profile_image {
-        background-color: red;
-        display: inline-block;
         width: 220px;
         height: 220px;
-        display: flex;
+      }
+      .cover_image {
+        width: 350px;
+        height: 220px;
       }
       .add_photo_icon {
         background-image: url(assets/image/icon-etc-2.png);
-        background-color: blue;
         background-position-x: 0px;
         background-position-y: -991px;
         background-size: 400px;
@@ -164,12 +171,12 @@ import { Component, OnInit } from '@angular/core';
         height: 60px;
         margin: auto;
       }
-      .cover_image {
-        background-color: red;
-        display: inline-block;
-        width: 350px;
-        height: 220px;
-        display: flex;
+      .oneLine_intro {
+        width: calc(100% - 144px);
+      }
+      .edit_submit {
+        margin-left: 144px;
+        margin-top: 25px;
       }
     `
   ]
