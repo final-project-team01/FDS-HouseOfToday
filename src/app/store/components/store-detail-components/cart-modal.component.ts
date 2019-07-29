@@ -1,21 +1,23 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { CommonService } from 'src/app/core/services/common.service';
 
 @Component({
-  selector: 'app-basket-modal',
+  selector: 'app-cart-modal',
   template: `
-    <div class="basket-modal-container" 
+    <div class="cart-modal-container" 
       [class.show]="showModal">
-      <div class="basket-modal"
+      <div class="cart-modal"
         [class.showModal]="showModal">
-        <p class="basket-modal-message">장바구니에 상품을 담았습니다.</p>
-        <button class="go-to-basket btn">장바구니 보러가기 <span class="pointer icon"></span></button>
+        <p class="cart-modal-message">장바구니에 상품을 담았습니다.</p>
+        <button class="go-to-cart btn" (click)="goToCart()">장바구니 보러가기 <span class="pointer icon"></span></button>
         <button class="ok btn" (click)="close()">확인</button>
         <button aria-label="close" class="close icon btn" (click)="close()"></button>
       </div>
     </div>
   `,
   styles: [`
-  .basket-modal-container{
+  .cart-modal-container{
     width: 100%;
     height: 100vh;
     background-color: rgba(0,0,0,0.5);
@@ -32,7 +34,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
     visibility: visible;
     transition: visibility 0s 0s, opacity .15s linear;
   }
-  .basket-modal{
+  .cart-modal{
     width: calc(100% - 40px);
     max-width: 425px;
     top: 50%;
@@ -51,12 +53,12 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
     transform: translate(-50%, -50%);
     transition: transform .15s linear;
   }
-  .basket-modal-message{
+  .cart-modal-message{
     font-weight: bold;
     font-size: 20px;
     padding-bottom: 30px;
   }
-  .go-to-basket, .ok{
+  .go-to-cart, .ok{
     box-sizing: border-box;
     padding: 22px;
     margin: 7px 0;
@@ -67,7 +69,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
     border-style: solid;
     border-radius: 4px;
   }
-  .go-to-basket{
+  .go-to-cart{
     background-color: #35C5F0;
     border-color: #35C5F0;
     color: white;
@@ -102,18 +104,26 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
   }
   `]
 })
-export class BasketModalComponent implements OnInit {
+export class CartModalComponent implements OnInit {
 
   @Input() showModal: boolean;
   @Output() closeModal = new EventEmitter();
 
-  constructor() { }
+  constructor(private router: Router
+            , private commonService: CommonService) { }
 
   ngOnInit() {
   }
   
   close(){
     this.closeModal.emit();
+  }
+
+  goToCart() {
+    const user = this.commonService.getUserDetail();
+    console.log(user);
+    
+    this.router.navigate(['/cart']);
   }
 
 }
