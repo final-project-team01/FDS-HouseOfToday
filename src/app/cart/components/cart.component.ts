@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from 'src/app/core/services/cart.service';
+import { cart_list } from 'src/app/core/models/cart.interface';
 
 @Component({
   selector: 'app-cart',
@@ -26,7 +27,7 @@ import { CartService } from 'src/app/core/services/cart.service';
                 </span>
               </div>
               <div class="cart-content">
-                <app-item-cards *ngFor="let item of testItem"></app-item-cards>
+                <app-item-cards *ngFor="let brand of items['brands']" [brand]="brand" [itemList]="items[brand]"></app-item-cards>
               </div>
             </div>
             <div class="cart-sidebar-wrap">
@@ -51,11 +52,10 @@ import { CartService } from 'src/app/core/services/cart.service';
                 </div>
               </div>
             </div>
-          
-            
           </div>
         </div>
       </ng-template>
+      <pre>{{items | json}}</pre>
     </div>
     <app-footer></app-footer>
   `,
@@ -64,8 +64,13 @@ import { CartService } from 'src/app/core/services/cart.service';
 export class CartComponent implements OnInit {
   isEmpty = false;
   orderCount = 1;
-  testItem = [1, 2];
-  constructor(private router: Router, private cartService: CartService) { }
+  items = {};
+
+  constructor(private router: Router, private cartService: CartService) {
+    this.cartService.getCartList().subscribe(
+      list => this.itemFilter(list)
+    );
+  }
 
   ngOnInit() {
   }
@@ -73,5 +78,14 @@ export class CartComponent implements OnInit {
   goStore() {
     this.router.navigate(['store']);
   }
+  itemFilter(itemList: cart_list[]) {
+    this.items["brands"] = itemList.map(item => item.brand_name);
+    this.items["brands"].forEach(
+      brand => {
+        this.items[brand] = itemList.filter(item => item.brand_name === brand);
+        this.items[brand][0]["isChecked"] = false;
 
+      }
+    );
+  }
 }
