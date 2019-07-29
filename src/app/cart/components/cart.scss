@@ -6,7 +6,7 @@ $min_height: 550px;
   .cart-empty {
     min-height: 360px;
     height: calc(100vh - #{$navigation_height} - #{$footer_height});
-
+    display: flex;
     .cart-empty-content {
       width: 100%;
       max-width: 220px;
@@ -17,7 +17,7 @@ $min_height: 550px;
       transform: translateX(-50%);
       display: block;
       position: absolute;
-
+      margin: 80px auto;
       > img {
         display: block;
         max-width: 160px;
