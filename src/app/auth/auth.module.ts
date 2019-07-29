@@ -9,18 +9,20 @@ import { SharedModule } from '../shared/shared.module';
 
 import { SigninComponent } from './components/signin.component';
 import { SignupComponent } from './components/signup.component';
+import { SocialComponent } from './components/social.component';
 
 @NgModule({
   declarations: [
     SigninComponent
     , SignupComponent
+    , SocialComponent
   ],
   imports: [
     CommonModule
     , CoreModule
     , SharedModule
-    , AuthRoutingModule
     , ReactiveFormsModule
+    , AuthRoutingModule
   ],
   exports: [
     SigninComponent
