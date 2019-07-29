@@ -8,7 +8,6 @@ import { user_detail } from '../models/user.interface';
 })
 export class CommonService {
   private _token: string = null;
-  private _id: number;
   private locate: number; //페이지 0커뮤니티, 1스토어
   private nav: number;//메뉴 변경여부
   private isNavFiexd = false;
@@ -23,13 +22,6 @@ export class CommonService {
 
   public get Token() {
     return this._token;
-  }
-
-  public get Id() {
-    return this._id;
-  }
-  public setId(userId: number) {
-    this._id = userId;
   }
 
   public isLogin() {
@@ -88,10 +80,10 @@ export class CommonService {
     return num.toString().replace(regexp, ',');
   }
 
-  public changePage(i: number, chosenList, originalList){
+  public changePage(i: number, chosenList, originalList) {
     const start = i * 3;
     const end = start + 3;
-    chosenList 
+    chosenList
       = originalList.filter((review, index) => index >= start && index < end);
     return chosenList;
   }
