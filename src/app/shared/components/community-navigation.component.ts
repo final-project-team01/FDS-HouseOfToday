@@ -10,10 +10,10 @@ import { CommonService } from 'src/app/core/services/common.service';
       [routerLinkActiveOptions]="{ exact: true }">홈</a>
       <a routerLink="/community/photo" routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }">사진</a>
-      <a routerLink="/community/#" routerLinkActive="active"
+      <a routerLink="/community/project" routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }">집들이</a>
-      <a routerLink="/community/#" routerLinkActive="active"
-      [routerLinkActiveOptions]="{ exact: true }">질문과 답변</a>
+      <!--<a routerLink="/community/#" routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }">질문과 답변</a>-->
     </nav>
   </div>
   `,
