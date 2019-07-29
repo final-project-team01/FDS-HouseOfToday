@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { cart_list } from 'src/app/core/models/cart.interface';
 
 @Component({
   selector: 'app-item-cards',
@@ -45,11 +46,12 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./item-cards.scss']
 })
 export class ItemCardComponent implements OnInit {
-  @Input() itemList = [];
+  @Input() itemList: cart_list[];
   @Input() brand: string;
   constructor() { }
 
   ngOnInit() {
+    console.log("itemList", this.itemList);
   }
 
 }
