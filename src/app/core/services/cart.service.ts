@@ -17,10 +17,7 @@ export class CartService {
   addCart(payload: cart_option, userToken: string) {
     const path = 'products/cart/';
     const fullPath = this.commonService.getFullPath(path);
-    let headers = new HttpHeaders({
-      'Content-Type':'application/json',
-      'Authorization': `Token ${userToken}`
-    });
+    let headers = this.commonService.setAuthorization(userToken);
     let options = { headers: headers };
     return this.httpClient.post(fullPath, payload, options);
   }
@@ -28,10 +25,7 @@ export class CartService {
   buyProducts(userToken: string) {
     const path = 'products/payment/';
     const fullPath = this.commonService.getFullPath(path);
-    let headers = new HttpHeaders({
-      'Content-Type':'application/json',
-      'Authorization': `Token ${userToken}`
-    });
+    let headers = this.commonService.setAuthorization(userToken);
     let options = { headers: headers };
     return this.httpClient.post(fullPath, null, options);
   }
