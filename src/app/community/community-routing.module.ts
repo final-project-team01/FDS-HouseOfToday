@@ -10,10 +10,10 @@ import { ProjectsDetailComponent } from './components/projects-detail.component'
 
 const routes: Routes = [
   { path: 'community', component: CommunityComponent },
-  { path: 'community/photo', component: PhotoComponent },
-  { path: 'community/photo/:id', component: PhotoDetailComponent },
-  { path: 'community/project', component: ProjectsComponent },
-  { path: 'community/project/:id', component: ProjectsDetailComponent }
+  { path: 'photo', component: PhotoComponent },
+  { path: 'photo/:id', component: PhotoDetailComponent },
+  { path: 'project', component: ProjectsComponent },
+  { path: 'project/:id', component: ProjectsDetailComponent }
 ];
 
 @NgModule({
