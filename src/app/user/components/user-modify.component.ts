@@ -65,13 +65,14 @@ import { Component, OnInit } from '@angular/core';
         <div class="field">
           <div class="user_modi_subtitle">프로필 이미지</div>
           <div class="profile_image">
-            image
-            <div class="add_photo_icon">icon</div>
+            <div class="add_photo_icon"></div>
           </div>
         </div>
         <div class="field">
           <div class="user_modi_subtitle">커버 이미지</div>
-          <input />
+          <div class="cover_image">
+            <div class="add_photo_icon"></div>
+          </div>
         </div>
         <div class="field">
           <div class="user_modi_subtitle">한줄 소개</div>
@@ -151,6 +152,24 @@ import { Component, OnInit } from '@angular/core';
         display: inline-block;
         width: 220px;
         height: 220px;
+        display: flex;
+      }
+      .add_photo_icon {
+        background-image: url(assets/image/icon-etc-2.png);
+        background-color: blue;
+        background-position-x: 0px;
+        background-position-y: -991px;
+        background-size: 400px;
+        width: 62px;
+        height: 60px;
+        margin: auto;
+      }
+      .cover_image {
+        background-color: red;
+        display: inline-block;
+        width: 350px;
+        height: 220px;
+        display: flex;
       }
     `
   ]
