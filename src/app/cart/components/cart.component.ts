@@ -27,7 +27,7 @@ import { cart_list } from 'src/app/core/models/cart.interface';
                 </span>
               </div>
               <div class="cart-content">
-                <app-item-cards *ngFor="let brand of items['brands']" [brand]="brand" [itemList]="items[brand]"></app-item-cards>
+                <app-item-cards *ngFor="let brand of items['brands']" [itemList]="items[brand]" [brand]="brand"></app-item-cards>
               </div>
             </div>
             <div class="cart-sidebar-wrap">
@@ -55,7 +55,7 @@ import { cart_list } from 'src/app/core/models/cart.interface';
           </div>
         </div>
       </ng-template>
-      <pre>{{items | json}}</pre>
+      
     </div>
     <app-footer></app-footer>
   `,
