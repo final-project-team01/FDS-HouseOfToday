@@ -53,7 +53,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styles: [`
   .product-delivery-container{
     width: 690px;
-    padding: 30px 0 100px 0;
+    padding: 0px 30px 100px 30px;
   }
   table{
     border-collapse: collapse;
@@ -66,7 +66,7 @@ import { Component, OnInit, Input } from '@angular/core';
   }
   .table-key, .table-value{
     border-bottom: 1px solid lightgrey;
-    padding: 10px;
+    padding: 10px 0;
   }
   .table-key{
     width: 30%;
