@@ -79,7 +79,7 @@ export class CartComponent implements OnInit {
     this.router.navigate(['store']);
   }
   itemFilter(itemList: cart_list[]) {
-    this.isEmpty = itemList.length ? true : true;
+    this.isEmpty = itemList.length ? false : true;
     console.log(this.isEmpty);
     if (this.isEmpty) return;
 
