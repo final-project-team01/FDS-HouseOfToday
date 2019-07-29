@@ -55,7 +55,7 @@ import { product_info } from 'src/app/core/models/store.interface';
   styles: [`
   .product-etc-container{
     width: 690px;
-    padding: 30px;
+    padding: 30px 30px 60px 30px;
   }
   table{
     border-collapse: collapse;

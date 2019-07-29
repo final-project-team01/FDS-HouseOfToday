@@ -136,7 +136,7 @@ import { cart_option } from 'src/app/core/models/cart.interface';
     font-size: 18px;
     font-weight: 700;
     color: #000;
-    margin: 30px 0 -85px 30px;
+    margin: 25px 0px -85px 30px;
   }
   h3 > span{
     margin-left: 6px;
@@ -193,6 +193,7 @@ export class StoreDetailComponent implements OnInit {
     , private router: Router) { }
 
   ngOnInit() {
+    window.scroll({ top: 0 });
     this.commonService.setLocate(1);
     this.commonService.setNav(1);
     console.log("detail");

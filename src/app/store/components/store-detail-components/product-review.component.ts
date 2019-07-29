@@ -51,14 +51,14 @@ import { review } from 'src/app/core/models/store.interface';
         [originalList]="originalList"
         [chosenList]="chosenList"
         [pages]="pages"
-        (change)="changePage($event)"
-      ></app-pagination>
+        (change)="changePage($event)">
+      </app-pagination>
     </div>
   `,
   styles: [`
   .product-review-container{
     width: 690px;
-    padding: 60px 30px 0 30px;
+    padding: 40px 30px 15px 30px;
     position: relative;
   }
   .write-review{

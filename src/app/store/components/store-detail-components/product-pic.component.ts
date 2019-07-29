@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ActivationEnd } from '@angular/router';
 import { thumbnail_image } from 'src/app/core/models/store.interface';
 
 @Component({
