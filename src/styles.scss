@@ -135,6 +135,10 @@ button:focus {
 }
 select {
   -moz-appearance: none;
+  border: none;
+  border-radius: 0px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
