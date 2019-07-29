@@ -94,7 +94,7 @@ import { product_option } from 'src/app/core/models/store.interface';
       z-index: 10;
       max-height: 200px;
       width: 100%;
-      overflow-y: scroll;
+      overflow-x: auto;
       border: solid 1px #dbdbdb;
     }
     .option-item{
