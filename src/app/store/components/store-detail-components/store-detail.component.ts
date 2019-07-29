@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { StoreService } from 'src/app/core/services/store.service';
 import { CommonService } from 'src/app/core/services/common.service';
 import { UserService } from 'src/app/core/services/user.service';
+import { CartService } from 'src/app/core/services/cart.service';
+
 import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
 import { thumbnail_image, detail_image, product_option, review, qna }
   from 'src/app/core/models/store.interface';
-import { HttpClient } from '@angular/common/http';
-import { CartService } from 'src/app/core/services/cart.service';
-
+import { cart_option } from 'src/app/core/models/cart.interface';
+  
 @Component({
   selector: 'app-store-detail',
   template: `
@@ -30,6 +32,7 @@ import { CartService } from 'src/app/core/services/cart.service';
           (decrease)="decrease($event)"
           (set)="setAmount($event)"
           (intoCart)="intoCart()"
+          (buyProducts)="buyProducts()"
           [productOption]="productOption"
           [chosenOptions]="chosenOptions" [scroll]="false"
           [totalPrice]="totalPrice"></app-product-option>
@@ -294,18 +297,30 @@ export class StoreDetailComponent implements OnInit {
   }
     
   intoCart(){
-    if (!this.chosenOptions.length) {
-      alert('옵션 선택 후에 장바구니 버튼을 클릭해주세요.');
-      return;
-    } 
     const user = localStorage.getItem('user');
-    if (!user) {
-      alert('로그인이 필요한 서비스입니다.');
-      this.router.navigate(['/signin']);
-    }  
+    // 옵션을 선택했는지, 로그인 되었는지 체크
+    if (this.checkCondition('장바구니', user) === false) return;
     const product_option = this.chosenOptions[0].id;
-    const payload = { product_option };
-    // console.log(this.cartService.addCart(payload, user));
+    // 하나씩만 담는다
+    this.sendCartToServer(user, product_option);
+    this.chosenOptions = this.chosenOptions.filter(option => option.id !== product_option);
+    this.showModal = true;
+    this.getTotalPrice();
+  }
+
+  buyProducts(){
+    const user = localStorage.getItem('user');
+    if (this.checkCondition('구매하기', user) === false) return;
+    const product_option = this.chosenOptions[0].id;
+    // 일단 장바구니에 담은 후에
+    this.sendCartToServer(user, product_option);
+    // 장바구니에 담긴 물건을 바로 구매
+    this.cartService.buyProducts(user);
+    console.log('결제완료');
+  }
+
+  sendCartToServer(user: string, product_option: number){
+    const payload: cart_option = { product_option };
     this.cartService.addCart(payload, user)
       .subscribe(res =>{
         console.log('success');
@@ -313,13 +328,24 @@ export class StoreDetailComponent implements OnInit {
       err => {
           console.log(err.message);
       });
-    this.chosenOptions = this.chosenOptions.filter(option => option.id !== product_option);
-    this.showModal = true;
-    this.getTotalPrice();
+    console.log('장바구니에 담았다');
+    
   }
 
   closeModal(){
     this.showModal = false;
+  }
+
+  checkCondition(target: string, user: string){
+    if (this.chosenOptions.length === 0) {
+      alert(`옵션 선택 후에 ${target} 버튼을 클릭해주세요.`);
+      return false;
+    } 
+    if (user === null) {
+      alert('로그인이 필요한 서비스입니다.');
+      this.router.navigate(['/signin']);
+      return false;
+    }  
   }
 
 }

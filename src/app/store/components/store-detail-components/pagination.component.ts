@@ -127,8 +127,11 @@ export class PaginationComponent implements OnInit {
       if (this.previousIndex <= 1 && diff >= 2) this.left -= 40 * (i - 2);
       // 그 외에는 페이지 이동간격만큼 움직이도록
       else if (diff > 0 || diff < 0) this.left -= 40 * diff;
-    // 5 또는 4 에서 1,2로 바로 이동할 때
-    } else if(i <= 2 && diff <= -2) this.left += 40 * i;
+    // 5 또는 4 에서 2,3로 바로 이동할 때
+    } else if (i <= 2 && i > 0) {
+      if (diff <= -2) this.left += 40 * i;
+      else if (diff <= -1) this.left += 40 * (i - 1);
+    }
     this.previousIndex = i;
   }
 

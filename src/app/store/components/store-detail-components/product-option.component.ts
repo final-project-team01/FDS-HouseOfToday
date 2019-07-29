@@ -55,7 +55,7 @@ import { product_option } from 'src/app/core/models/store.interface';
       </div>
       <div class="btn-container">
       <button type="submit" class="cart" (click)="cart()">장바구니담기</button>
-      <button class="purchase">구매하기</button>
+      <button class="buy" (click)="buy()">구매하기</button>
       </div>
     </div>
   `,
@@ -202,7 +202,7 @@ import { product_option } from 'src/app/core/models/store.interface';
     .btn-container{
       display: flex;
     }
-    .cart, .purchase{
+    .cart, .buy{
       flex-grow: 1;
       height: 60px;
       line-height: 60px;
@@ -218,12 +218,12 @@ import { product_option } from 'src/app/core/models/store.interface';
       border: 1px solid #35C5F0;
       color: #35C5F0;
     }
-    .purchase{
+    .buy{
       background-color: #35C5F0;
       border-color: #35C5F0;
       color: white;
     }
-    .purchase:hover{
+    .buy:hover{
       transition: .2s ease;
       background-color: #1bb8e6
     }
@@ -243,6 +243,7 @@ export class ProductOptionComponent implements OnInit {
   @Output() decrease = new EventEmitter();
   @Output() set = new EventEmitter<object>();
   @Output() intoCart = new EventEmitter();
+  @Output() buyProducts = new EventEmitter();
 
   constructor(private commonService: CommonService) { }
 
@@ -287,5 +288,9 @@ export class ProductOptionComponent implements OnInit {
 
   cart(){
     this.intoCart.emit();
+  }
+
+  buy(){
+    this.buyProducts.emit();
   }
 }
