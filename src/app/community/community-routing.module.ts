@@ -3,11 +3,17 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { CommunityComponent } from './components/community.component';
 import { PhotoComponent } from './components/photo.component';
+import { PhotoDetailComponent } from './components/photo-detail.component';
+import { ProjectsComponent } from './components/projects.component';
+import { ProjectsDetailComponent } from './components/projects-detail.component';
 
 
 const routes: Routes = [
   { path: 'community', component: CommunityComponent },
-  { path: 'community/photo', component: PhotoComponent }
+  { path: 'photo', component: PhotoComponent },
+  { path: 'photo/:id', component: PhotoDetailComponent },
+  { path: 'project', component: ProjectsComponent },
+  { path: 'project/:id', component: ProjectsDetailComponent }
 ];
 
 @NgModule({

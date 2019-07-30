@@ -15,7 +15,7 @@ import { cart_option } from 'src/app/core/models/cart.interface';
   selector: 'app-store-detail',
   template: `
     <app-header></app-header>
-    <div class="top-wrapper">
+    <div class="wrapper">
       <div class="pic-container">
         <app-product-pic
           [productImages]="productImages"
@@ -38,7 +38,7 @@ import { cart_option } from 'src/app/core/models/cart.interface';
           [totalPrice]="totalPrice"></app-product-option>
       </div>
     </div>
-    <div class="bottom-wrapper" #nav (window:scroll)="stickyNav(nav)">
+    <div class="wrapper" #nav (window:scroll)="stickyNav(nav)">
       <div class="nav-container"
         [class.sticky]="sticky"
         [class.no-sticky]="noSticky">
@@ -56,6 +56,7 @@ import { cart_option } from 'src/app/core/models/cart.interface';
             (decrease)="decrease($event)"
             (set)="setAmount($event)"
             (intoCart)="intoCart()"
+            (buyProducts)="buyProducts()"
             [productOption]="productOption"
             [chosenOptions]="chosenOptions" [scroll]="true"
             [totalPrice]="totalPrice"></app-product-option>
@@ -92,74 +93,7 @@ import { cart_option } from 'src/app/core/models/cart.interface';
       [showModal]="showModal"></app-cart-modal>
     <app-footer></app-footer>
   `,
-  styles: [`
-  .top-wrapper, .bottom-wrapper{
-    display: flex;
-    margin: 120px auto 0 auto;
-    box-sizing: border-box;
-    width: 1136px;
-    height: auto;
-    min-height: 1px;
-    position: relative;
-  }
-  .detail-container{
-    margin-right: 385px;
-    border-right: 1px solid #ededed;
-  }
-  .pic-container{
-    display: inline-block;
-    margin-right: auto;
-  }
-  .info-container{
-    width: 450px;
-    display: inline-block;
-  }
-  .nav-container{
-    clear: both;
-    position: absolute;
-    top: -50px;
-    z-index: 99;
-  }
-  .product-option{
-    position: absolute;
-    background-color: #FAFAFA;
-    right: 0;
-    width: 30%;
-    padding: 35px 22px;
-  }
-  .product-option > h2{
-    margin-bottom: 20px;
-    font-size: 20px;
-    font-weight: bold;
-  }
-  h3{
-    font-size: 18px;
-    font-weight: 700;
-    color: #000;
-    margin: 25px 0px -85px 30px;
-  }
-  h3 > span{
-    margin-left: 6px;
-    font-size: 18px;
-    font-weight: 700;
-    color: #35c5f0;
-  }
-  .delivery{
-    margin-bottom: 30px;
-    font-weight: bold;
-    font-size: 20px;
-  }
-  .sticky{
-    position: fixed;
-    top: 80px;
-    bottom: auto;
-  }
-  .no-sticky{
-    position: absolute;
-    bottom: 570px;
-    top: auto;
-  }
-  `]
+  styleUrls: ['./store-detail.scss']
 })
 export class StoreDetailComponent implements OnInit {
 
@@ -303,7 +237,7 @@ export class StoreDetailComponent implements OnInit {
     if (this.checkCondition('장바구니', user) === false) return;
     const product_option = this.chosenOptions[0].id;
     // 하나씩만 담는다
-    this.sendCartToServer(user, product_option);
+    // this.sendCartToServer(user, product_option);
     this.chosenOptions = this.chosenOptions.filter(option => option.id !== product_option);
     this.showModal = true;
     this.getTotalPrice();
@@ -316,8 +250,13 @@ export class StoreDetailComponent implements OnInit {
     // 일단 장바구니에 담은 후에
     this.sendCartToServer(user, product_option);
     // 장바구니에 담긴 물건을 바로 구매
-    this.cartService.buyProducts(user);
-    console.log('결제완료');
+    this.cartService.buyProducts(user)
+      .subscribe(res =>{
+        console.log('success');
+      },
+      err => {
+          console.log(err.message);
+      });
   }
 
   sendCartToServer(user: string, product_option: number){
@@ -329,8 +268,6 @@ export class StoreDetailComponent implements OnInit {
       err => {
           console.log(err.message);
       });
-    console.log('장바구니에 담았다');
-    
   }
 
   closeModal(){

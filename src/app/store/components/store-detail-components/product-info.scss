@@ -1,0 +1,116 @@
+.product-info-container{
+  width: 100%;
+  .product-name{
+    color: black;
+    font-weight: normal;
+    font-size: 25px;
+    line-height: 40px;
+  }
+  .sprite{
+    display: inline-block;
+    background-image: url('../../../../assets/image/common-etc.png');
+  }
+  .text-grey{
+    font-size: 13px;
+    color: #757575;
+    mark{
+      display: inline-block;
+      font-weight: bold;
+      background-color: transparent;
+      color: #35C5F0;
+      margin-top: 10px;
+    }
+  }
+  .star-grade{
+    margin: 5px 6px 0 -2px;
+    color: #35C5F0;
+    font-weight: bold;
+    font-size: 13px;
+    .star{
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      background-image: url('../../../../assets/image/icon-etc.png');
+      background-position: 110px 0;
+      vertical-align: middle;
+    }
+    .half{
+      background-position: 74px 0;
+    }
+  }
+  .product-price{
+    position: relative;
+    margin: 20px 0;
+    .original-price{
+      position: absolute;
+      left: 83px;
+      top: 4px;
+      font-size: 15px;
+      color: #757575;
+    }
+    .discount-rate{
+      font-size: 44px;
+      background-color: transparent;
+      word-spacing: -6px;
+      color: #35C5F0;
+      font-weight: bold;
+      span{
+        font-size: 20px;
+        margin-left: 4px;
+      }
+    }
+    .price{
+      display: inline-block;
+      font-weight: bold;
+      background-color: transparent;
+      font-size: 32px;
+      margin-left: 10px;
+      margin-right: -8px;
+      font-family: Tahoma, sans-serif;
+      margin-top: 20px;
+      span{
+        font-weight: normal;
+        font-size: 28px;
+      }
+    }
+    .lowest{
+      width: 37px;
+      height: 20px;
+      margin-left: 15px;
+      background-position: -240px -240px;
+    }
+  }
+  hr{
+    border: none;
+    border-bottom: solid 1px #ededed;
+    margin: 15px 0;
+  }
+  .normal-delivery{
+    font-size: 15px;
+    line-height: 28px;
+  }
+  .delivery{
+    width: 57px;
+    height: 22px;
+    background-position: left -80px top -280px;
+    margin-right: 4px;
+    margin-top: 5px;
+  }
+  .goToShop{
+    float: right;
+    font-weight: bold;
+    color: #35C5F0;
+    font-size: 15px;
+    line-height: 15px;
+    margin-bottom: 65px;
+    span{
+      width: 24px;
+      height: 24px;
+      background-position: left -160px top -200px;
+      vertical-align: middle;
+    }
+  }
+  
+}
+
+

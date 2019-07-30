@@ -5,7 +5,7 @@ import { qna } from 'src/app/core/models/store.interface';
   selector: 'app-product-qna',
   template: `
     <div class="product-qna-container" *ngIf="originalList">
-      <button class="write-qna">문의하기</button>
+      <button class="write-qna cursor">문의하기</button>
       <article class="user-qna" *ngFor="let qna of chosenList; let i = index">
         <div class="qna-type">
           <span class="bar">구매</span>
@@ -13,16 +13,16 @@ import { qna } from 'src/app/core/models/store.interface';
           <span *ngIf="qna.completed; else noAnswer" class="a-complete">답변완료</span>
           <ng-template #noAnswer><span>미답변</span></ng-template>
         </div>
-        <div class="create-info">
-          <span class="bar">사용자</span>
+        <div>
+          <small class="bar">사용자</small>
           <small>{{ qna.created }}</small>
         </div>
-        <div class="user-question">
+        <div class="user-question qna">
         <p>
           {{ qna.comment }}
         </p>
         </div>
-        <div class="company-answer" *ngIf="qna.a_comment">
+        <div class="company-answer qna" *ngIf="qna.a_comment">
         <p>
           <span *ngIf="qna.a_author" class="company">{{ qna.a_author }}</span>
           <small>{{ qna.a_created }}</small><br>
@@ -38,71 +38,7 @@ import { qna } from 'src/app/core/models/store.interface';
       ></app-pagination>
     </div>
   `,
-  styles: [`
-  .product-qna-container{
-    width: 690px;
-    padding: 75px 30px 30px 30px;
-    position: relative;
-  }
-  .write-qna{
-    width: 100px;
-    height: 40px;
-    position: absolute;
-    right: 30px;
-    top: 50px;
-    font-weight: bold;
-    background-color: #fafafa;
-    border: 1px solid #dbdbdb;
-    color: #424242;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  .qna-type{
-    font-size: 12px;
-    color: #424242;
-  }
-  .user-qna{
-    padding: 15px 0;
-    margin: 30px 0;
-    border-bottom: 1px solid lightgrey;
-  }
-  .user-question, .company-answer{
-    margin-top: 10px;
-    position: relative;
-  }
-  .user-question > p, .company-answer > p{
-    padding-left: 22px;
-  }
-  .user-question::before, .company-answer::before{
-    font-weight: bold;
-    color: #35C5F0;
-    position: absolute;
-    left: 0;
-    top: 0;
-  }
-  .user-question::before{
-    content: 'Q';
-  }
-  .company-answer::before{
-    content: 'A';
-  }
-  .a-complete{
-    font-size: 12px;
-    color: #35c0f5;
-  }
-  .company{
-    font-weight: bold;
-    margin-right: 3px;
-  }
-  small, .create-info{
-    font-size: 12px;
-    color: #bdbdbd;
-  }
-  .bar::after{
-    content: '|';
-    margin: 0 6px;
-  }
-  `]
+  styleUrls: ['./product-qna.scss']
 })
 export class ProductQnaComponent implements OnInit {
   
