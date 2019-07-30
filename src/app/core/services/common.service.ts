@@ -29,6 +29,9 @@ export class CommonService {
   }
 
   public getFullPath(path: string) {
+    if (path.startsWith('/'))
+      path = path.substr(1);
+
     return this.url[this.url.length - 1] === '/' ? this.url + path : this.url + "/" + path;
   }
 

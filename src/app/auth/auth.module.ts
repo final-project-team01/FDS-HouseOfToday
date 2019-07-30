@@ -9,13 +9,13 @@ import { SharedModule } from '../shared/shared.module';
 
 import { SigninComponent } from './components/signin.component';
 import { SignupComponent } from './components/signup.component';
-import { SocialComponent } from './components/social.component';
+import { KakaoComponent } from './components/kakao.component';
 
 @NgModule({
   declarations: [
     SigninComponent
     , SignupComponent
-    , SocialComponent
+    , KakaoComponent
   ],
   imports: [
     CommonModule
