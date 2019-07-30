@@ -177,6 +177,14 @@ import { Component, OnInit } from '@angular/core';
       .edit_submit {
         margin-left: 144px;
         margin-top: 25px;
+        width: 290px;
+        height: 50px;
+        color: #ffffff;
+        font-size: 18px;
+        font-weight: 700;
+        background-color: #35c5f0;
+        border-radius: 4px;
+        border-style: none;
       }
     `
   ]
