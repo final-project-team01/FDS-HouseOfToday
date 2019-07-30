@@ -6,7 +6,7 @@ import { thumbnail_image } from 'src/app/core/models/store.interface';
   template: `
   <div class="product-pic-container">
     <div class="pic-list">
-      <button class="pic-item" *ngFor="let pic of productImages; let i=index"
+      <button class="pic-item cursor" *ngFor="let pic of productImages; let i=index"
       [style.backgroundImage]="'url('+ pic.image +')'"
       (click)="activeId = pic.id"
       [class.active]="pic.id === activeId"></button>

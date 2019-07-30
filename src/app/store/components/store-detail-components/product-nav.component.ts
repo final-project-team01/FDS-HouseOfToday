@@ -6,7 +6,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   <div class="product-nav-container">
     <div class="nav-list">
       <ul>
-        <li class="tab" 
+        <li class="tab cursor" 
         *ngFor="let nav of navMenu; let i=index"
         (click)="setActive(i)" [class.active]="nav.active">
         <h2>{{ nav.title }}
