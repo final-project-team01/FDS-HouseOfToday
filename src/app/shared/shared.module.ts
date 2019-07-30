@@ -18,6 +18,7 @@ import { SubNavFixedDirective } from './components/sub-nav-fixed.directive';
 import { AvatarWithButtonComponent } from './UI/avatar-with-button/avatar-with-button.component';
 import { BasicRadioComponent } from './UI/basic-radio/basic-radio.component';
 import { ButtonDirective } from './directive/button.directive';
+import { CartHoverDirective } from './components/cart-hover.directive';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { ButtonDirective } from './directive/button.directive';
     NavFixedDirective,
     SubNavFixedDirective,
     ButtonDirective,
+    CartHoverDirective,
   ],
   imports: [CommonModule, CoreModule, AlyleModule, SharedRoutingModule],
   exports: [
