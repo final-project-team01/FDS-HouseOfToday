@@ -237,7 +237,7 @@ export class StoreDetailComponent implements OnInit {
     if (this.checkCondition('장바구니', user) === false) return;
     const product_option = this.chosenOptions[0].id;
     // 하나씩만 담는다
-    // this.sendCartToServer(user, product_option);
+    this.sendCartToServer(user, product_option);
     this.chosenOptions = this.chosenOptions.filter(option => option.id !== product_option);
     this.showModal = true;
     this.getTotalPrice();
