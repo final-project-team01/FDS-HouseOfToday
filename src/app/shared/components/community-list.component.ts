@@ -1,42 +1,55 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { CommonService } from 'src/app/core/services/common.service';
 
 @Component({
-  selector: 'app-product-list',
+  selector: 'app-community-list',
   template: `
   <div class="row">
     <div *ngFor="let productItem of productItems; let i=index" class="col-12 col-md-4 col-lg-3" [style.max-width]="menuWidth">
       <div *ngIf="i < setNumber">
-      <div *ngIf="activeRank" class="itemRanking">{{i + 1}}</div>
-      <article class="store-index-today-deal-item">
-        <a class="store-index-today-deal-item__overlay" routerLink="/store/{{productItem.id}}" (mouseover)="zoomImg(i)" (mouseleave)="zoomOut(i)"></a>
-        <div class="store-index-today-deal-item__image">
-          <div class="production-item-image">
-            <img class="image" [ngStyle]="hovered === i ? style : ''" src="{{productItem.thumnail_images[0].image}}" alt>
+        <div *ngIf="activeRank" class="itemRanking">{{i + 1}}</div>
+        <article class="store-index-today-deal-item">
+          <a class="store-index-today-deal-item__overlay" routerLink="/store/{{productItem.id}}" (mouseover)="zoomImg(i)" (mouseleave)="zoomOut(i)"></a>
+          <div class="store-index-today-deal-item__image">
+            <div class="production-item-image">
+              <img class="image" [ngStyle]="hovered === i ? style : ''" src="{{productItem.thumnail_images[0].image}}" alt>
+            </div>
           </div>
-        </div>
-        <div class="store-index-today-deal-item__content">
-          <h1 class="store-index-today-deal-item__header">
-            <span class="store-index-today-deal-item__header__brand">{{productItem.brand_name}}</span>
-            <span class="store-index-today-deal-item__header__name">{{productItem.name}}</span>
-          </h1>
-          <span class="production-item-price">
-            <span class="production-item-price__rate">{{productItem.discount}}<span 
-            class="percentage">{{productItem.discount_rate}}%</span>
+          <div class="store-index-today-deal-item__content">
+            <h1 class="store-index-today-deal-item__header">
+              <span class="store-index-today-deal-item__header__brand">{{productItem.brand_name}}</span>
+              <span class="store-index-today-deal-item__header__name">{{productItem.name}}</span>
+            </h1>
+            <span class="production-item-price">
+              <span class="production-item-price__rate">{{productItem.discount}}<span 
+              class="percentage">{{productItem.discount_rate}}%</span>
+              </span>
+              <span class="production-item-price__price">{{commonService.addComma(productItem.price)}}</span>
             </span>
-            <span class="production-item-price__price">{{commonService.addComma(productItem.price)}}</span>
-          </span>
-          <div class="store-index-today-deal-item__stats-pc">
-            <p class="production-item-stats production-item-stats--review">
-              <strong class="avg">{{productItem.star_avg}}</strong>
-              리뷰{{productItem.review_count}}
-            </p>
+            <div class="store-index-today-deal-item__stats-pc">
+              <p class="production-item-stats production-item-stats--review">
+                <strong class="avg">{{productItem.star_avg}}</strong>
+                리뷰{{productItem.review_count}}
+              </p>
+            </div>
+            <span class="production-item-badge-list">
+            무료배송
+            </span>
           </div>
-          <span class="production-item-badge-list">
-          무료배송
-          </span>
+        </article>
+      </div>
+      <div class="menu-wrap" *ngIf="i < setMenuNum">
+        <div class="col6 col-md-3 home-stories__content__menu-wrap">
+          <div class="home-stories__content__menu">
+            <a *ngFor="let storyMenu of storiesMenu"class="home-stories__content__menu__entry">
+              <div class="description">{{storyMenu.description}}</div>
+              <div class="title">
+                <span class="text">{{storyMenu.title}}</span>
+                <span class="caret icon-page-home__g-1"> > </span>
+              </div>
+            </a>
+          </div>
         </div>
-      </article>
       </div>
     </div>
   </div>
@@ -268,9 +281,59 @@ import { CommonService } from 'src/app/core/services/common.service';
     top: -1px;
     z-index: 1;
   }
+
+  .home-stories__content__menu-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .home-stories__content__menu {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin: -0.5px 0;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .home-stories__content__menu__entry {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0.5px 0;
+    padding: 12.5px 10%;
+    background-color: whitesmoke;
+    transition: .1s background-color;
+  }
+
+  .home-stories__content__menu__entry>.description {
+    font-size: 12px;
+    margin-bottom: 10px;
+    color: #757575;
+  }
+
+  .home-stories__content__menu__entry>.title {
+    font-size: 15px;
+    display: flex;
+    font-weight: bold;
+    color: #424242;
+  }
+
+  .home-stories__content__menu__entry>.title>.text {
+    flex: 1 1 0px;
+    min-width: 0;
+  }
+
+  .home-stories__content__menu__entry>.title>.caret {
+    margin-left: 5px;
+    vertical-align: 2px;
+  }
   `]
 })
-export class ProductListComponent implements OnInit {
+export class CommunityListComponent implements OnInit {
   @Input() productItems;
   @Input() menuWidth: string;
   @Input() setNumber: number;
@@ -280,12 +343,14 @@ export class ProductListComponent implements OnInit {
   @Input() activeTimer: number;
   @Input() activeSort: boolean;
   @Input() activeRank: boolean;
+  @Input() storiesMenu: object;
+  @Input() setMenuNum: number;
 
   showAll: boolean = true;
 
   style: object;
   hovered: number;
-
+  
   constructor(private commonService: CommonService) { }
 
   ngOnInit() {

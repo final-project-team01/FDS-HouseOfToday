@@ -2,6 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { CommunityService } from 'src/app/core/services/community.service';
 import { CommonService } from 'src/app/core/services/common.service';
 
+import { LyTheme2 } from '@alyle/ui';
+import { today_deal, store_home } from 'src/app/core/models/store.interface';
+import { StoreService } from 'src/app/core/services/store.service';
+
+const styles = {
+  carousel: {
+    width: '255px',
+    height: '510px',
+    margin: 'auto',
+  },
+  carouselItem: {
+    textAlign: 'center',
+  }
+};
 @Component({
   selector: 'app-community',
   template: `
@@ -29,7 +43,37 @@ import { CommonService } from 'src/app/core/services/common.service';
               </a>
             </article>
           </div>
+          <div class="col-12 col-md-3 home-header__banner-col">
+            <div class="home-header__banner-wrap">
+              <ly-carousel [withClass]="classes.carousel" class="home-header__banner-container">
+                <ly-carousel-item
+                  *ngFor="let item of items"
+                  [withClass]="classes.carouselItem"
+                  [srcImg]="item.img"
+                  class="home-header__items">
+                </ly-carousel-item>
+              </ly-carousel>
+            </div>
+          </div>
         </div>
+      </section>
+      <nav class="container shortcut">
+        <ul class="shortcut__list">
+          <li class="shortcut__list__item" *ngFor="let navItem of navItems">
+            <a class="shortcut__list__item__link">
+              <div class="shortcut__list__item__link__image">
+                <img class="shortcut__list__item__link__image__img" src="{{navItem.icon}}">
+              </div>
+              <div class="shortcut__list__item__link__title">{{navItem.title}}</div>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <section class="container home-section home-stories">
+        <header class="row home-section__header">
+          <h2 class="col-12 home-secition__header__content">오늘의 스토리</h2>
+        </header>
+        <app-community-list [productItems]="productItems" [menuWidth]="menuWidth" [setNumber]="setNumber" [storiesMenu]="storiesMenu" [setMenuNum]="setMenuNum"></app-community-list>
       </section>
     </main>
     <app-footer></app-footer>
@@ -173,17 +217,172 @@ import { CommonService } from 'src/app/core/services/common.service';
     text-align: center;
     transition: .1s background-color, .1s border;
   }
+
+  .home-header__banner-wrap {
+    position: relative;
+    border-radius: 6px;
+    flex: 1 0 0px;
+  }
+
+  .home-header__banner-container {
+    display: flex;
+    align-items: stretch;
+    display: block;
+  }
+
+  .home-header__banner {
+    flex: 0 0 auto;
+    width: 100%;
+    font-size: 0;
+  }
+
+  .home-header__items {
+    border-radius: 6px;
+  }
+
+  .shortcut__list {
+    flex-wrap: nowrap;
+    margin: 30px 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    box-sizing: border-box;
+  }
+
+  .shortcut__list__item {
+    flex: 0 0 12.5%;
+    display: inline-block;
+  }
+
+  .shortcut__list__item__link__image {
+    width: 100%;
+  }
+
+  .shortcut__list__item__link__image__img {
+    width: 100%;
+  }
+
+  nav {
+    display: block;
+  }
+
+  a, button {
+    cursor: pointer;
+  }
+
+  .shortcut__list__item__link__title {
+    margin: 6px 0 7px;
+    font-size: 15px;
+    display: block;
+    text-align: center;
+    color: black;
+    font-weight: 500;
+  }
+
+  .home-section {
+    margin: 30px auto;
+  }
+
+  .home-section__header {
+    margin-bottom: 20px;
+  }
+
+  .home-section__header__content {
+    font-size: 20px;
+    color: black;
+    font-weight: bold;
+  }
+
+  .col-12 {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
   `]
 })
 export class CommunityComponent implements OnInit {
+  menuWidth: string = '25%';
+  productItems: today_deal[];
+  fulltodaysDeals: any;
+  todaysDeals: store_home[];
+  setNumber: number;
+  setNumberFamous: number;
+  setMenuNum: number = 1;
+  
+  navItems = [
+    {
+      icon: 'https://bucketplace-v2-development.s3.amazonaws.com/uploads/shortcut/items/1556598477191_Q8SKO.jpg',
+      title: '신혼가구'
+    },
+    {
+      icon: 'https://bucketplace-v2-development.s3.amazonaws.com/uploads/shortcut/items/1555907816013_OQ8jl.jpg',
+      title: '쇼핑하기'
+    },
+    {
+      icon: 'https://bucketplace-v2-development.s3.amazonaws.com/uploads/shortcut/items/1555907852466_mP.jpg',
+      title: '평수별집구경'
+    },
+    {
+      icon: 'https://bucketplace-v2-development.s3.amazonaws.com/uploads/shortcut/items/1555908014594_C3dF5xe4KO.jpg',
+      title: '공간별사진'
+    },
+    {
+      icon: 'https://bucketplace-v2-development.s3.amazonaws.com/uploads/shortcut/items/1555908037356_fNQgpR.jpg',
+      title: '시공업체찾기'
+    },
+    {
+      icon: 'https://bucketplace-v2-development.s3.amazonaws.com/uploads/shortcut/items/1555907949104_BXSaOEYAR.jpg',
+      title: '시공견적계산'
+    },
+    {
+      icon: 'https://bucketplace-v2-development.s3.amazonaws.com/uploads/shortcut/items/1555986831526_XE4r8.jpg',
+      title: '셀프가이드'
+    },
+    {
+      icon: 'https://bucketplace-v2-development.s3.amazonaws.com/uploads/shortcut/items/1555986804524_SXB.jpg',
+      title: '질문과답변'
+    }
+  ]
+
+  storiesMenu = [
+    {
+      description: '예쁜 집 구경하기',
+      title: '집들이'
+    },
+    {
+      description: '전문가 시공사례',
+      title: '전문가 집들이'
+    },
+    {
+      description: '인테리어 꿀팁 총 집합',
+      title: '노하우'
+    },
+  ]
+
+  readonly classes = this.theme.addStyleSheet(styles);
+  items = [
+    {
+      img: 'https://image.ohou.se/image/resize/bucketplace-v2-development/uploads-contests-pc_banner-1559270614884_s1xhFP3cDl.jpg/850/none'
+    },
+    {
+      img: 'https://image.ohou.se/image/resize/bucketplace-v2-development/uploads-contests-pc_banner-156411918513506052.png/850/none'
+    },
+    {
+      img: 'https://image.ohou.se/image/resize/bucketplace-v2-development/uploads-contests-pc_banner-156223397761149170.png/850/none'
+    }
+  ];
 
   constructor(private communityService: CommunityService
-    , private commonService: CommonService
-  ) { }
+    , private commonService: CommonService, private theme: LyTheme2, private storeService: StoreService
+  ) {  }
 
   ngOnInit() {
     this.commonService.setLocate(0);
     this.commonService.setNav(0);
+    this.storeService.getProductList()
+    .subscribe((data) => {
+      this.productItems = data as today_deal[];
+      this.setNumber = 3;
+    });
   }
 
 }
