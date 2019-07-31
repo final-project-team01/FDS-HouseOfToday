@@ -13,7 +13,7 @@ import { cart_list } from 'src/app/core/models/cart.interface';
               <app-check-box class="checkbox" [isChecked]="item['isChecked']"></app-check-box>
               <a class="product">
                 <div class="item-image">
-                  <img>
+                  <img src="{{item['image']}}">
                 </div>
                 <div class="item-content">
                   <h1 class="content-header">{{item['product']}}</h1>
