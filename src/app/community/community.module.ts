@@ -11,6 +11,7 @@ import { ProjectsComponent } from './components/projects.component';
 import { ProjectsDetailComponent } from './components/projects-detail.component';
 import { PhotoDetailComponent } from './components/photo-detail-components/photo-detail.component';
 import { PhotoArticleComponent } from './components/photo-detail-components/photo-article.component';
+import { PhotoUserComponent } from './components/photo-detail-components/photo-user.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { PhotoArticleComponent } from './components/photo-detail-components/phot
     , PhotoComponent
     , ProjectsComponent
     , ProjectsDetailComponent
-    , PhotoDetailComponent, PhotoArticleComponent
+    , PhotoDetailComponent, PhotoArticleComponent, PhotoUserComponent
   ],
   imports: [
     CommonModule
