@@ -19,7 +19,9 @@ import { Router } from '@angular/router';
           [size]="32">
           <img
             alt="{{this.commonService.getUserDetail() ? this.commonService.getUserDetail()['username'] : ''}}"
-            src="{{this.commonService.getUserDetail() ? this.commonService.getUserDetail()['profile'] : '' }}">
+            src="{{this.commonService.getUserDetail() 
+              ? this.commonService.getUserDetail()['type']==='django' ? this.commonService.getUserDetail()['profile'] : this.commonService.getUserDetail()['social_profile']
+              : '' }}">
         </ly-avatar>
       </button>
     </ly-grid>
@@ -77,6 +79,8 @@ export class AvatarWithButtonComponent implements OnInit {
   }
   myShop() {
     this.router.navigate([`orderList/${this.commonService.getUserDetail()["id"]}`]);
+
+
   }
 
 }

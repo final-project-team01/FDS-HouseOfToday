@@ -34,8 +34,6 @@ export class AuthService {
   getToken4social(socialInfo: token_social) {
     const path = "/get_token/social/";
     const fullPath = this.commonService.getFullPath(path);
-    console.log(fullPath);
-
 
     const type = socialInfo.type;
     const unique_user_id = socialInfo.unique_user_id;

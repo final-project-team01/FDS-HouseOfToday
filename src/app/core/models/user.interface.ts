@@ -1,3 +1,5 @@
+import { sign_type } from './auth.interface';
+
 export type gender = 1 | 2;
 export interface user_detail {
   id: number;
@@ -7,4 +9,6 @@ export interface user_detail {
   birthday?: Date;
   message?: string;
   profile?: string;
+  type?: sign_type;
+  social_profile: string;
 }
