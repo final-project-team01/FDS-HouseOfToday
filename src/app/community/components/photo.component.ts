@@ -21,8 +21,29 @@ import { CommonService } from 'src/app/core/services/common.service';
       </div>
 
       <div class="card_list">
-        card_list
-        <div class="card_items">card1</div>
+        <div class="contents">
+          <article class="card_item">
+            <div class="card_item_top_bar">
+              <div class="user_icon_image">
+                <app-basic-uses-avatar></app-basic-uses-avatar>
+              </div>
+              <address class="card_item_user_info">
+                <div class="user_name">Name</div>
+                <span> . </span>
+                <button>팔로우</button>
+                <p>추가 설명 공간</p>
+              </address>
+            </div>
+            <div class="">photo</div>
+            <div>action</div>
+            <div>
+              reply
+              <div class="reply user_icon_image">
+                <app-basic-uses-avatar></app-basic-uses-avatar>
+              </div>
+            </div>
+          </article>
+        </div>
       </div>
     </div>
     <app-footer></app-footer>
@@ -54,10 +75,26 @@ import { CommonService } from 'src/app/core/services/common.service';
       .card_list {
         background-color: gray;
       }
-      .card_items {
+      .contents {
+        margin-right: -10px;
+        margin-left: -10px;
+        margin-top: 30px;
+      }
+      .card_item {
         background-color: pink;
         padding: 0 10px;
         max-width: 25%;
+      }
+      .user_icon_image,
+      .card_item_user_info {
+        display: inline-block;
+      }
+      .user_icon_image {
+        float: left;
+        position: absolute;
+      }
+      .card_item_user_info {
+        padding-left: 48px;
       }
     `
   ]

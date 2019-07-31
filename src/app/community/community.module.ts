@@ -13,17 +13,12 @@ import { PhotoDetailComponent } from './components/photo-detail.component';
 
 @NgModule({
   declarations: [
-    CommunityComponent
-    , PhotoComponent
-    , ProjectsComponent
-    , ProjectsDetailComponent
-    , PhotoDetailComponent
+    CommunityComponent,
+    PhotoComponent,
+    ProjectsComponent,
+    ProjectsDetailComponent,
+    PhotoDetailComponent
   ],
-  imports: [
-    CommonModule
-    , SharedModule
-    , CoreModule
-    , CommunityRoutingModule
-  ]
+  imports: [CommonModule, SharedModule, CoreModule, CommunityRoutingModule]
 })
-export class CommunityModule { }
+export class CommunityModule {}
