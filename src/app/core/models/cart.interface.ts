@@ -13,3 +13,10 @@ export interface cart_list {
   user: number,
   image: string
 }
+
+export interface cart_price {
+  total: number;
+  real: number;
+  deliver_fee: number;
+  discount: number;
+}
