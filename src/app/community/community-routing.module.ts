@@ -7,7 +7,6 @@ import { PhotoDetailComponent } from './components/photo-detail-components/photo
 import { ProjectsComponent } from './components/projects.component';
 import { ProjectsDetailComponent } from './components/projects-detail.component';
 
-
 const routes: Routes = [
   { path: 'community', component: CommunityComponent },
   { path: 'photo', component: PhotoComponent },
@@ -20,4 +19,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class CommunityRoutingModule { }
+export class CommunityRoutingModule {}

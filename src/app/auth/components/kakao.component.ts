@@ -5,22 +5,23 @@ import { KakaoService } from 'src/app/core/services/kakao.service';
 
 @Component({
   selector: 'app-social',
-  template: `    
-    <img src="assets/image/kakaolink_btn/kakaolink_btn_small_ov.png" (click)="kakaoService.login(kakaoLogin)"/>
-    
+  template: `
+    <img
+      src="assets/image/kakaolink_btn/kakaolink_btn_small_ov.png"
+      (click)="kakaoService.login(kakaoLogin)"
+    />
   `,
   styles: []
 })
 export class KakaoComponent implements OnInit {
-
   @Output() kakaoLogin = new EventEmitter();
 
   userObj: kakao_info;
 
+  constructor(
+    private authService: AuthService,
+    private kakaoService: KakaoService
+  ) {}
 
-  constructor(private authService: AuthService, private kakaoService: KakaoService) { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

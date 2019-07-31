@@ -15,17 +15,14 @@ import { PhotoUserComponent } from './components/photo-detail-components/photo-u
 
 @NgModule({
   declarations: [
-    CommunityComponent
-    , PhotoComponent
-    , ProjectsComponent
-    , ProjectsDetailComponent
-    , PhotoDetailComponent, PhotoArticleComponent, PhotoUserComponent
+    CommunityComponent,
+    PhotoComponent,
+    ProjectsComponent,
+    ProjectsDetailComponent,
+    PhotoDetailComponent,
+    PhotoArticleComponent,
+    PhotoUserComponent
   ],
-  imports: [
-    CommonModule
-    , SharedModule
-    , CoreModule
-    , CommunityRoutingModule
-  ]
+  imports: [CommonModule, SharedModule, CoreModule, CommunityRoutingModule]
 })
-export class CommunityModule { }
+export class CommunityModule {}
