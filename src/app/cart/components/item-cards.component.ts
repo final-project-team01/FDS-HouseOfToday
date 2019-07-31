@@ -32,7 +32,7 @@ import { cart_list } from 'src/app/core/models/cart.interface';
             </article>
             <div class="carted-product-footer">
               <span class="product-subtotal">
-              39,900
+              {{item['price']}}
               </span>
             </div>
           </li>
@@ -50,8 +50,6 @@ export class ItemCardComponent implements OnInit {
   @Input() brand: string;
   constructor() { }
 
-  ngOnInit() {
-    console.log("itemList", this.itemList);
-  }
+  ngOnInit() { }
 
 }
