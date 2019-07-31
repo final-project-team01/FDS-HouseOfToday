@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { CommonService } from 'src/app/core/services/common.service';
 import { Router } from '@angular/router';
+import { KakaoService } from 'src/app/core/services/kakao.service';
 
 
 
@@ -64,23 +65,32 @@ export class AvatarWithButtonComponent implements OnInit {
   constructor(private storageService: StorageService
     , private commonService: CommonService
     , private router: Router
+    , private kakaoService: KakaoService
   ) { }
 
   ngOnInit() {
   }
   logout(e: Event) {
     e.preventDefault();
-    this.storageService.removeLocal("user");
-    this.storageService.removeSession("user");
-    this.commonService.setToken("");
+
+
+    if (this.commonService.getUserDetail()['type'] !== 'django') {
+      this.kakaoService.logout(this.removeInfo);
+    }
+    else this.removeInfo();
   }
   myHome() {
     this.router.navigate([`users/${this.commonService.getUserDetail()["id"]}`]);
   }
+
   myShop() {
     this.router.navigate([`orderList/${this.commonService.getUserDetail()["id"]}`]);
+  }
 
-
+  removeInfo = () => {
+    this.storageService.removeLocal("user");
+    this.storageService.removeSession("user");
+    this.commonService.setToken("");
   }
 
 }
