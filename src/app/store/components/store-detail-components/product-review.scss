@@ -50,10 +50,10 @@
       font-weight: 700;
       line-height: 13px;
       color: #757575;
-      .pic-icon{
+      span{
         width: 23px;
         height: 18px;
-        background-position: -180px -663px;
+        background-position: -167px -666px;
         vertical-align: middle;
       }
     }
@@ -128,10 +128,10 @@
       background-color: #fff;
     }
   }
-  .pic-icon{
-    display: inline-block;
-    background-image: url('../../../../assets/image/icon-etc.png');
-  }
+}
+.pic-icon{
+  display: inline-block;
+  background-image: url('../../../../assets/image/icon-etc.png');
 }
 
 

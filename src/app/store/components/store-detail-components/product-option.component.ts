@@ -39,9 +39,9 @@ import { product_option } from 'src/app/core/models/store.interface';
         <div class="ea-container">
           <input type="number" [value]="option.amount" class="selected-item-ea"
             #input (keyup.enter)="setAmount(option, input)">
-          <button class="increase"
+          <button class="increase cursor"
             (click)="increaseAmount(option)"></button>
-          <button class="decrease"
+          <button class="decrease cursor"
             (click)="decreaseAmount(option)"></button>
         </div>
         <span class="selected-item-price">
@@ -75,7 +75,7 @@ export class ProductOptionComponent implements OnInit {
   @Output() decrease = new EventEmitter();
   @Output() set = new EventEmitter<object>();
   @Output() intoCart = new EventEmitter();
-  @Output() buyProducts = new EventEmitter();
+  @Output() buyDirect = new EventEmitter();
 
   constructor(private commonService: CommonService) { }
 
@@ -101,11 +101,11 @@ export class ProductOptionComponent implements OnInit {
     this.deleteOption.emit(id);
   }
 
-  increaseAmount(option) {
+  increaseAmount(option: ChosenOption) {
     this.increase.emit(option);
   }
 
-  decreaseAmount(option) {
+  decreaseAmount(option: ChosenOption) {
     this.decrease.emit(option);
   }
 
@@ -123,6 +123,6 @@ export class ProductOptionComponent implements OnInit {
   }
 
   buy(){
-    this.buyProducts.emit();
+    this.buyDirect.emit();
   }
 }
