@@ -11,5 +11,5 @@ export interface cart_list {
   product_option: string,
   price: number,
   user: number,
-  isChecked?: boolean
+  image: string
 }
