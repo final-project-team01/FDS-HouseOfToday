@@ -18,8 +18,15 @@ export class CartService {
     const path = 'products/cart/';
     const fullPath = this.commonService.getFullPath(path);
     let headers = this.commonService.setAuthorization(userToken);
+    let options = { headers };
+    return this.httpClient.post(fullPath, payload, options);
+  }
 
-    let options = { headers: headers };
+  buyDirect(payload: cart_option, userToken: string) {
+    const path = 'products/payment/direct/';
+    const fullPath = this.commonService.getFullPath(path);
+    let headers = this.commonService.setAuthorization(userToken);
+    let options = { headers };
     return this.httpClient.post(fullPath, payload, options);
   }
 
@@ -27,7 +34,7 @@ export class CartService {
     const path = 'products/payment/';
     const fullPath = this.commonService.getFullPath(path);
     let headers = this.commonService.setAuthorization(userToken);
-    let options = { headers: headers };
+    let options = { headers };
     return this.httpClient.post(fullPath, null, options);
   }
 

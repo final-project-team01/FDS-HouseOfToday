@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-photo-detail',
+  selector: 'app-photo-article',
   template: `
     <p>
-      photo-detail works!
+      photo-article works!
     </p>
   `,
   styles: []
 })
-export class PhotoDetailComponent implements OnInit {
+export class PhotoArticleComponent implements OnInit {
 
   constructor() { }
 
