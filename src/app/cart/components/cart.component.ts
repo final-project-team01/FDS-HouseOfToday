@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from 'src/app/core/services/cart.service';
-import { cart_list } from 'src/app/core/models/cart.interface';
+import { cart_list, cart_price } from 'src/app/core/models/cart.interface';
 
 @Component({
   selector: 'app-cart',
@@ -19,12 +19,12 @@ import { cart_list } from 'src/app/core/models/cart.interface';
           <div class="container">
             <div class="commerce-cart">
               <div class="cart-header">
-                <span class="cart-header-left">
+                <!--<span class="cart-header-left">
                   <app-check-box [caption]="true">모두 선택</app-check-box>
-                </span>
+                </!--<span>
                 <span class="cart-header-right">
                   <button class="cart-header-delete">선택삭제</button>
-                </span>
+                </span>-->
               </div>
               <div class="cart-content">
                 <app-item-cards *ngFor="let brand of items['brands']" [itemList]="items[brand]" [brand]="brand"></app-item-cards>
@@ -35,17 +35,17 @@ import { cart_list } from 'src/app/core/models/cart.interface';
                 <dl class="cart-sidebar-summary">
                   <div class="summary-row">
                     <dt>총 상품금액</dt>
-                    <dd>원</dd>
+                    <dd>{{cartPrice['real']}} 원</dd>
                   </div>
                   <div class="summary-row">
                     <dt>총 배송비</dt>
-                    <dd>원</dd></div>
+                    <dd>{{cartPrice['deliver_fee']}} 원</dd></div>
                   <div class="summary-row">
                     <dt>총 할인금액</dt>
-                    <dd>원</dd></div>
+                    <dd>{{cartPrice['discount']}} 원</dd></div>
                   <div class="summary-row summary-row-total">
                     <dt>결제금액</dt>
-                    <dd>원</dd></div>
+                    <dd>{{cartPrice['total']}} 원</dd></div>
                 </dl>
                 <div class="cart-sidebar-order">
                   <button Button class="btn-order">{{orderCount}} 개 상품 구매하기</button>
@@ -65,6 +65,7 @@ export class CartComponent implements OnInit {
   isEmpty = false;
   orderCount = 1;
   items = {};
+  cartPrice: cart_price = { deliver_fee: 0, total: 0, real: 0, discount: 0 };
 
   constructor(private router: Router, private cartService: CartService) {
     this.cartService.getCartList().subscribe(
@@ -80,8 +81,14 @@ export class CartComponent implements OnInit {
   }
   itemFilter(itemList: cart_list[]) {
     this.isEmpty = itemList.length ? false : true;
-    console.log(this.isEmpty);
     if (this.isEmpty) return;
+
+    this.cartPrice.deliver_fee = 0;
+    this.cartPrice.total = itemList.map(item => item.price).reduce((prev, next) => prev + next);
+    this.cartPrice.real = itemList.map(item => item.price).reduce((prev, next) => prev + next);
+    this.cartPrice.discount = this.cartPrice.real - this.cartPrice.total;
+
+    this.orderCount = itemList.length;
 
     this.items["brands"] = itemList.map(item => item.brand_name);
     this.items["brands"].forEach(
