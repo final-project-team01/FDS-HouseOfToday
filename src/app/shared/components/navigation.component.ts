@@ -40,19 +40,12 @@ export class NavigationComponent implements OnInit {
 
   constructor(private commonService: CommonService
     , private storageService: StorageService
-
-  ) {
-  }
+  ) { }
 
   ngOnInit() {
 
   }
-  logout(e: Event) {
-    e.preventDefault();
-    this.storageService.removeLocal("user");
-    this.storageService.removeSession("user");
-    this.commonService.setToken("");
-  }
+
   changMenu(nav: number) {
     this.commonService.setNav(nav);
   }
