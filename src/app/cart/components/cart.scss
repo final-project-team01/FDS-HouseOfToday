@@ -1,8 +1,10 @@
 $navigation_height: 80px;
 $footer_height: 377px;
 $min_height: 550px;
+$width: calc(100vw - 18px);
 .cart {
   background-color: #f5f5f5;
+  width: $width;
   .cart-empty {
     min-height: 360px;
     height: calc(100vh - #{$navigation_height} - #{$footer_height});
