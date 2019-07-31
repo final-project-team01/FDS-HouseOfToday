@@ -19,12 +19,12 @@ import { cart_list } from 'src/app/core/models/cart.interface';
           <div class="container">
             <div class="commerce-cart">
               <div class="cart-header">
-                <span class="cart-header-left">
+                <!--<span class="cart-header-left">
                   <app-check-box [caption]="true">모두 선택</app-check-box>
-                </span>
+                </!--<span>
                 <span class="cart-header-right">
                   <button class="cart-header-delete">선택삭제</button>
-                </span>
+                </span>-->
               </div>
               <div class="cart-content">
                 <app-item-cards *ngFor="let brand of items['brands']" [itemList]="items[brand]" [brand]="brand"></app-item-cards>
@@ -80,8 +80,9 @@ export class CartComponent implements OnInit {
   }
   itemFilter(itemList: cart_list[]) {
     this.isEmpty = itemList.length ? false : true;
-    console.log(this.isEmpty);
     if (this.isEmpty) return;
+
+    this.orderCount = itemList.length;
 
     this.items["brands"] = itemList.map(item => item.brand_name);
     this.items["brands"].forEach(

@@ -10,7 +10,7 @@ import { cart_list } from 'src/app/core/models/cart.interface';
         <ul *ngFor="let item of itemList">
           <li>
             <article class="item-card">
-              <app-check-box class="checkbox" [isChecked]="item['isChecked']"></app-check-box>
+              <!--<app-check-box class="checkbox" [isChecked]="item['isChecked']"></app-check-box>-->
               <a class="product">
                 <div class="item-image">
                   <img src="{{item['image']}}">
