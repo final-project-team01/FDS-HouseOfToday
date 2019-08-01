@@ -420,7 +420,7 @@ const styles = {
       }
 
       .carousel-container {
-        height: 300px;
+        height: 350px;
         width: 1136px;
         position: relative;
         margin: 0 auto;
