@@ -40,7 +40,7 @@ export class CartService {
 
   getCartList() {
     const headers = this.commonService.setAuthorization(this.commonService.Token);
-    const path = "products/cart/list/";
+    const path = "products/cart/";
     const fullPath = this.commonService.getFullPath(path);
     return this.httpClient.get<[cart_list]>(fullPath, { headers });
 
