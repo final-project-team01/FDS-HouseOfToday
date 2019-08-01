@@ -22,7 +22,7 @@ import { KakaoService } from 'src/app/core/services/kakao.service';
             alt="{{commonService.getUserDetail() ? commonService.getUserDetail()['username'] : ''}}"
             src="{{commonService.getUserDetail() 
               ? this.commonService.getUserDetail()['type']==='django' ? commonService.getUserDetail()['profile'] : commonService.getUserDetail()['social_profile']
-              : '' }}">
+              : 'assets/image/36.png' }}">
         </ly-avatar>
       </button>
     </ly-grid>
