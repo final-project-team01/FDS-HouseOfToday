@@ -10,10 +10,10 @@ import { cart_list } from 'src/app/core/models/cart.interface';
         <ul *ngFor="let item of itemList">
           <li>
             <article class="item-card">
-              <app-check-box class="checkbox" [isChecked]="item['isChecked']"></app-check-box>
+              <!--<app-check-box class="checkbox" [isChecked]="item['isChecked']"></app-check-box>-->
               <a class="product">
                 <div class="item-image">
-                  <img>
+                  <img src="{{item['image']}}">
                 </div>
                 <div class="item-content">
                   <h1 class="content-header">{{item['product']}}</h1>
@@ -32,7 +32,7 @@ import { cart_list } from 'src/app/core/models/cart.interface';
             </article>
             <div class="carted-product-footer">
               <span class="product-subtotal">
-              39,900
+              {{item['price']}}
               </span>
             </div>
           </li>
@@ -50,8 +50,6 @@ export class ItemCardComponent implements OnInit {
   @Input() brand: string;
   constructor() { }
 
-  ngOnInit() {
-    console.log("itemList", this.itemList);
-  }
+  ngOnInit() { }
 
 }

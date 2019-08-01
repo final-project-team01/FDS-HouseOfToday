@@ -10,12 +10,12 @@ import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
 import { thumbnail_image, detail_image, product_option, review, qna }
   from 'src/app/core/models/store.interface';
 import { cart_option } from 'src/app/core/models/cart.interface';
-  
+
 @Component({
   selector: 'app-store-detail',
   template: `
     <app-header></app-header>
-    <div class="top-wrapper">
+    <div class="wrapper">
       <div class="pic-container">
         <app-product-pic
           [productImages]="productImages"
@@ -32,13 +32,13 @@ import { cart_option } from 'src/app/core/models/cart.interface';
           (decrease)="decrease($event)"
           (set)="setAmount($event)"
           (intoCart)="intoCart()"
-          (buyProducts)="buyProducts()"
+          (buyDirect)="buyDirect()"
           [productOption]="productOption"
           [chosenOptions]="chosenOptions" [scroll]="false"
           [totalPrice]="totalPrice"></app-product-option>
       </div>
     </div>
-    <div class="bottom-wrapper" #nav (window:scroll)="stickyNav(nav)">
+    <div class="wrapper" #nav (window:scroll)="stickyNav(nav)">
       <div class="nav-container"
         [class.sticky]="sticky"
         [class.no-sticky]="noSticky">
@@ -56,7 +56,7 @@ import { cart_option } from 'src/app/core/models/cart.interface';
             (decrease)="decrease($event)"
             (set)="setAmount($event)"
             (intoCart)="intoCart()"
-            (buyProducts)="buyProducts()"
+            (buyDirect)="buyDirect()"
             [productOption]="productOption"
             [chosenOptions]="chosenOptions" [scroll]="true"
             [totalPrice]="totalPrice"></app-product-option>
@@ -93,74 +93,7 @@ import { cart_option } from 'src/app/core/models/cart.interface';
       [showModal]="showModal"></app-cart-modal>
     <app-footer></app-footer>
   `,
-  styles: [`
-  .top-wrapper, .bottom-wrapper{
-    display: flex;
-    margin: 120px auto 0 auto;
-    box-sizing: border-box;
-    width: 1136px;
-    height: auto;
-    min-height: 1px;
-    position: relative;
-  }
-  .detail-container{
-    margin-right: 385px;
-    border-right: 1px solid #ededed;
-  }
-  .pic-container{
-    display: inline-block;
-    margin-right: auto;
-  }
-  .info-container{
-    width: 450px;
-    display: inline-block;
-  }
-  .nav-container{
-    clear: both;
-    position: absolute;
-    top: -50px;
-    z-index: 99;
-  }
-  .product-option{
-    position: absolute;
-    background-color: #FAFAFA;
-    right: 0;
-    width: 30%;
-    padding: 35px 22px;
-  }
-  .product-option > h2{
-    margin-bottom: 20px;
-    font-size: 20px;
-    font-weight: bold;
-  }
-  h3{
-    font-size: 18px;
-    font-weight: 700;
-    color: #000;
-    margin: 25px 0px -85px 30px;
-  }
-  h3 > span{
-    margin-left: 6px;
-    font-size: 18px;
-    font-weight: 700;
-    color: #35c5f0;
-  }
-  .delivery{
-    margin-bottom: 30px;
-    font-weight: bold;
-    font-size: 20px;
-  }
-  .sticky{
-    position: fixed;
-    top: 80px;
-    bottom: auto;
-  }
-  .no-sticky{
-    position: absolute;
-    bottom: 570px;
-    top: auto;
-  }
-  `]
+  styleUrls: ['./store-detail.scss']
 })
 export class StoreDetailComponent implements OnInit {
 
@@ -226,7 +159,7 @@ export class StoreDetailComponent implements OnInit {
   addOption(option: product_option) {
     const id = option.id;
     const check = this.chosenOptions.filter(option => option.id === id).length ? true : false;
-    if (this.chosenOptions.length !== 0 && check){
+    if (this.chosenOptions.length !== 0 && check) {
       alert('이미 선택한 옵션입니다');
       return;
     }
@@ -288,17 +221,17 @@ export class StoreDetailComponent implements OnInit {
     const prices = this.chosenOptions.map(option => option.price * option.amount);
     const sum = prices.reduce(
       (previous, current) => { return previous + current });
-    this.totalPrice = this.commonService.addComma(sum); 
+    this.totalPrice = this.commonService.addComma(sum);
   }
 
-  moveScroll(i: number, nav, review, qna, delivery){
+  moveScroll(i: number, nav, review, qna, delivery) {
     if (i === 0) window.scroll({ top: nav.offsetTop, behavior: 'smooth' });
     else if (i === 2) window.scrollTo({ top: review.offsetTop + 700, left: 0, behavior: 'smooth' });
     else if (i === 3) window.scrollTo({ top: qna.offsetTop + 700, left: 0, behavior: 'smooth' });
     else if (i === 4) window.scroll({ top: delivery.offsetTop + 700, left: 0, behavior: 'smooth' });
   }
-    
-  intoCart(){
+
+  intoCart() {
     const user = localStorage.getItem('user');
     // 옵션을 선택했는지, 로그인 되었는지 체크
     if (this.checkCondition('장바구니', user) === false) return;
@@ -310,47 +243,63 @@ export class StoreDetailComponent implements OnInit {
     this.getTotalPrice();
   }
 
-  buyProducts(){
+  // buyProducts(){
+  //   const user = localStorage.getItem('user');
+  //   if (this.checkCondition('구매하기', user) === false) return;
+  //   const product_option = this.chosenOptions[0].id;
+  //   일단 장바구니에 담은 후에
+  //   this.sendCartToServer(user, product_option);
+  //   장바구니에 담긴 물건을 바로 구매
+  //   this.cartService.buyProducts(user)
+  //     .subscribe(res =>{
+  //       console.log('success');
+  //     },
+  //     err => {
+  //         console.log(err.message);
+  //     });
+  //   console.log('바로구매 완료');
+  // }
+
+  buyDirect() {
     const user = localStorage.getItem('user');
     if (this.checkCondition('구매하기', user) === false) return;
     const product_option = this.chosenOptions[0].id;
-    // 일단 장바구니에 담은 후에
-    this.sendCartToServer(user, product_option);
-    // 장바구니에 담긴 물건을 바로 구매
-    this.cartService.buyProducts(user)
-      .subscribe(res =>{
+    const payload: cart_option = { product_option };
+    // 선택한 물건 하나를 바로 구매
+    this.cartService.buyDirect(payload, user)
+      .subscribe(res => {
         console.log('success');
       },
-      err => {
+        err => {
           console.log(err.message);
-      });
+        });
   }
 
-  sendCartToServer(user: string, product_option: number){
+  sendCartToServer(user: string, product_option: number) {
     const payload: cart_option = { product_option };
     this.cartService.addCart(payload, user)
-      .subscribe(res =>{
+      .subscribe(res => {
         console.log('success');
       },
-      err => {
+        err => {
           console.log(err.message);
-      });
+        });
   }
 
-  closeModal(){
+  closeModal() {
     this.showModal = false;
   }
 
-  checkCondition(target: string, user: string){
+  checkCondition(target: string, user: string) {
     if (this.chosenOptions.length === 0) {
       alert(`옵션 선택 후에 ${target} 버튼을 클릭해주세요.`);
       return false;
-    } 
+    }
     if (user === null) {
       alert('로그인이 필요한 서비스입니다.');
       this.router.navigate(['/signin']);
       return false;
-    }  
+    }
   }
 
 }

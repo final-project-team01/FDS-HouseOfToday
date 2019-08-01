@@ -15,17 +15,13 @@ import { StorageService } from 'src/app/core/services/storage.service';
         <div class="navigation-menu">
           <a routerLink="/community" routerLinkActive="active" (mouseover)="changMenu(0)">커뮤니티</a>
           <a routerLink="/store" routerLinkActive="active" (mouseover)="changMenu(1)">스토어</a>
-        </div>        
+        </div>
+        <a routerLink="/cart" class="cart-btn">
+          <span class="cart-btn-icon" CartHover></span>          
+        </a>
         <div class="user-logged" *ngIf="commonService.isLogin(); else elseBlock">
           <div class="action-logged">        
             <aui-avatar-with-button></aui-avatar-with-button>
-          <!--<div class="navigation-primary__user__list">
-            <ul class="navigation-user-menu">
-              <li><a routerLink="/">마이홈</a></li>
-              <li><a routerLink="/">나의 쇼핑</a></li>
-              <li><a routerLink="/"(click)="logout($event)">로그아웃</a></li>               
-            </ul>
-            </div>-->
           </div>
         </div>
         <ng-template class="user-unlogged" #elseBlock>
@@ -44,19 +40,12 @@ export class NavigationComponent implements OnInit {
 
   constructor(private commonService: CommonService
     , private storageService: StorageService
-
-  ) {
-  }
+  ) { }
 
   ngOnInit() {
 
   }
-  logout(e: Event) {
-    e.preventDefault();
-    this.storageService.removeLocal("user");
-    this.storageService.removeSession("user");
-    this.commonService.setToken("");
-  }
+
   changMenu(nav: number) {
     this.commonService.setNav(nav);
   }

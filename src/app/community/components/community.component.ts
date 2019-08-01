@@ -24,18 +24,18 @@ const styles = {
       <section class="container home-header">
         <div class="row">
           <div class="col-12 col-md-9 home-head__story">
-            <article class="story-entry">
-              <a class="story-entry-link">
-                <div class="story-entry__image-wrap">
-                  <div class="story-entry__image"></div>
+            <article class="story-header">
+              <a class="story-header-link">
+                <div class="story-header__image-wrap">
+                  <div class="story-header__image"></div>
                 </div>
-                <div class="story-entry__content-wrap">
-                  <div class="story-entry__content">
-                    <div class="story-entry__content__title">폴란드의 조용한 도시 글리비체에서 느리고 따스하게.<br>
+                <div class="story-header__content-wrap">
+                  <div class="story-header__content">
+                    <div class="story-header__content__title">폴란드의 조용한 도시 글리비체에서 느리고 따스하게.<br>
                     </div>
-                    <div class="story-entry__content__profile">
-                      <span class="story-entry__content__profile__image"></span>  
-                      <span class="story-entry__content__profile__name"></span>
+                    <div class="story-header__content__profile">
+                      <span class="story-header__content__profile__image"></span>  
+                      <span class="story-header__content__profile__name"></span>
                     </div>
                   </div>
                   <div class="home-header__story__more">보러가기</div>
@@ -71,9 +71,42 @@ const styles = {
       </nav>
       <section class="container home-section home-stories">
         <header class="row home-section__header">
-          <h2 class="col-12 home-secition__header__content">오늘의 스토리</h2>
+          <h2 class="col-12 home-section__header__content">오늘의 스토리</h2>
         </header>
-        <app-community-list [productItems]="productItems" [menuWidth]="menuWidth" [setNumber]="setNumber" [storiesMenu]="storiesMenu" [setMenuNum]="setMenuNum"></app-community-list>
+        <ul class="row home-stories__content">
+          <li class="col-6 col-md-3 home-stories__content__item" *ngFor="let storiesItem of storiesItems">
+            <article class="story-entry story-story-item">
+              <a class="story-entry-link">
+                <div class="story-entry__image-wrap">
+                  <img class="story-entry__image" src="{{storiesItem.img}}">
+                </div>
+                <div class="story-entry__content-wrap">
+                  <div class="story-entry__content">
+                    <div class="story-entry__content__category">{{storiesItem.category}}</div>
+                    <div class="story-entry__content__title">{{storiesItem.title}}<br></div>
+                    <div class="story-entry__content__profile">
+                      <span class="story-entry__content__profile__image" style="background-image: url({{storiesItem.profileImg}})"></span>
+                      <span class="story-entry__content__profile__name">{{storiesItem.profileName}}</span>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </article>
+          </li>
+          <div class="menu-wrap">
+            <div class="col-6 col-md-3 home-stories__content__menu-wrap">
+              <div class="home-stories__content__menu">
+                <a *ngFor="let storyMenu of storiesMenu"class="home-stories__content__menu__entry">
+                  <div class="description">{{storyMenu.description}}</div>
+                  <div class="title">
+                    <span class="text">{{storyMenu.title}}</span>
+                    <span class="caret icon-page-home__g-1"> > </span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </ul>
       </section>
     </main>
     <app-footer></app-footer>
@@ -126,23 +159,23 @@ const styles = {
   body {
     font-size: 15px;
   }
-  .home-header__story .story-entry {
+  .home-header__story .story-header {
     position: relative;
     overflow: hidden;
     border-radius: 6px;
   }
 
-  .story-entry-link {
+  .story-header-link {
     margin-bottom: 20px;
     cursor: pointer;
     touch-action: manipulation;
   }
 
-  .story-entry__image {
+  .story-header__image {
     background-image: url('https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-projects-cover_images-156324653991488335.jpg/1280/768');
   }
 
-  .home-header__story, .story-entry__image {
+  .home-header__story, .story-header__image {
     padding-bottom: 60%;
     background-color: whitesmoke;
     background-size: cover;
@@ -151,14 +184,14 @@ const styles = {
     border-radius: 5px;
   }
 
-  .home-header__story, .story-entry__content-wrap {
+  .home-header__story, .story-header__content-wrap {
     padding: 40px;
     flex-direction: row;
     justify-content: flex-end;
     align-items: flex-end;
   }
 
-  .story-entry__content-wrap {
+  .story-header__content-wrap {
     display: flex;
     position: absolute;
     left: 0;
@@ -168,13 +201,13 @@ const styles = {
     z-index: 2;
   }
 
-  .home-header__story, .story-entry__content {
+  .home-header__story, .story-header__content {
     flex: 1 1 0px;
     color: white;
     font-weight: bold;
   }
 
-  .home-header__story, .story-entry__content__title {
+  .home-header__story, .story-header__content__title {
     max-height: 88px;
     font-size: 28px;
     margin: 8px 0 10px;
@@ -184,7 +217,7 @@ const styles = {
     word-wrap: break-word;
   }
 
-  .home-header__story, .story-entry__content__profile {
+  .home-header__story, .story-header__content__profile {
     display: block;
     font-size: 13px;
     font-weight: normal;
@@ -193,7 +226,7 @@ const styles = {
     overflow: hidden;
   }
 
-  .home-header__story, .story-entry__content__profile__image {
+  .home-header__story, .story-header__content__profile__image {
     width: 22px;
     height: 22px;
     vertical-align: -8px;
@@ -297,6 +330,121 @@ const styles = {
     padding-right: 10px;
     padding-left: 10px;
   }
+
+  .col-md-3 {
+  position: relative;
+  width: 100%;
+  min-height: 1px;
+  box-sizing: border-box;
+  flex: 0 0 25%;
+  padding-right: 10px;
+  padding-left: 10px;
+  }
+
+  .home-stories__content__menu-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 280px;
+  }
+
+  .home-stories__content__menu {
+    margin: -0.5px 0;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .home-stories__content__menu__entry {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0.5px 0;
+    padding: 12.5px 10%;
+    background-color: whitesmoke;
+    transition: .1s background-color;
+    height: 80px;
+  }
+
+  .home-stories__content__menu__entry>.description {
+    font-size: 12px;
+    margin-bottom: 10px;
+    color: #757575;
+  }
+
+  .home-stories__content__menu__entry>.title {
+    font-size: 15px;
+    display: flex;
+    font-weight: bold;
+    color: #424242;
+  }
+
+  .home-stories__content__menu__entry>.title>.text {
+    flex: 1 1 0px;
+    min-width: 0;
+  }
+
+  .home-stories__content__menu__entry>.title>.caret {
+    margin-left: 5px;
+    vertical-align: 2px;
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    margin-right: -10px;
+    margin-left: -10px;
+  }
+
+  article {
+    display: block;
+  }
+
+  .home-stories__content {
+    align-items: stretch;
+  
+  }
+  .story-story-item .story-entry-link {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .story-story-item .story-entry__image-wrap {
+    position: relative;
+    overflow: hidden;
+    border-radius: 6px;
+  }
+
+  .story-story-item .story-entry__image-wrap:before {
+    content: '';
+    display: block;
+    padding-bottom: 66.666%;
+  }
+
+  .story-story-item .story-entry__image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
+    transition: .2s transform;
+  }
+
+  .story-story-item .story-entry__content__category {
+    margin-bottom: 5px;
+    font-size: 13px;
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .home-stories__content__menu-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
   `]
 })
 export class CommunityComponent implements OnInit {
@@ -307,6 +455,7 @@ export class CommunityComponent implements OnInit {
   setNumber: number;
   setNumberFamous: number;
   setMenuNum: number = 1;
+  storyMenuOn: boolean = false;
   
   navItems = [
     {
@@ -342,6 +491,30 @@ export class CommunityComponent implements OnInit {
       title: '질문과답변'
     }
   ]
+
+  storiesItems = [
+    {
+      img: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-advices-cover_images-156375537476564618.JPG/640/426',
+      category: '3화',
+      title: '삼성 비스포크, 우리 집 키친테리어를 부탁해',
+      profileImg: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-users-profile_images-1512439280629_knGlCsma.jpg/72/72',
+      profileName: '오늘의집'
+    },
+    {
+      img: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-advices-cover_images-156375537476564618.JPG/640/426',
+      category: '3화',
+      title: '삼성 비스포크, 우리 집 키친테리어를 부탁해',
+      profileImg: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-users-profile_images-1512439280629_knGlCsma.jpg/72/72',
+      profileName: '오늘의집'
+    },
+    {
+      img: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-advices-cover_images-156375537476564618.JPG/640/426',
+      category: '3화',
+      title: '삼성 비스포크, 우리 집 키친테리어를 부탁해',
+      profileImg: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-users-profile_images-1512439280629_knGlCsma.jpg/72/72',
+      profileName: '오늘의집'
+    },
+  ];
 
   storiesMenu = [
     {
@@ -382,6 +555,7 @@ export class CommunityComponent implements OnInit {
     .subscribe((data) => {
       this.productItems = data as today_deal[];
       this.setNumber = 3;
+      this.storyMenuOn = true;
     });
   }
 

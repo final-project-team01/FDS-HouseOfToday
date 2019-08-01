@@ -19,6 +19,7 @@ import { AvatarWithButtonComponent } from './UI/avatar-with-button/avatar-with-b
 import { BasicRadioComponent } from './UI/basic-radio/basic-radio.component';
 import { ButtonDirective } from './directive/button.directive';
 import { CommunityListComponent } from './components/community-list.component';
+import { CartHoverDirective } from './components/cart-hover.directive';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { CommunityListComponent } from './components/community-list.component';
     SubNavFixedDirective,
     ButtonDirective,
     CommunityListComponent,
+    CartHoverDirective,
   ],
   imports: [CommonModule, CoreModule, AlyleModule, SharedRoutingModule],
   exports: [

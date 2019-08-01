@@ -12,7 +12,12 @@ import { CommonService } from 'src/app/core/services/common.service';
         <div class="col-12 profile">
           <div class="profile_data">
             <div class="profile_share"></div>
-            <div class="profile_pic"></div>
+            <div class="profile_pic">
+              <app-basic-uses-avatar [size]="130" [pic]="commonService.getUserDetail() && commonService.getUserDetail()['type']==='django'
+              ? commonService.getUserDetail()['profile'] : commonService.getUserDetail() && commonService.getUserDetail()['type']!=='django'
+              ? commonService.getUserDetail()['social_profile'] : ''
+              "></app-basic-uses-avatar>
+            </div>
             <div class="profile_info">
               <div class="profile_name">
                 <strong>{{
@@ -239,10 +244,12 @@ import { CommonService } from 'src/app/core/services/common.service';
   ]
 })
 export class UsersComponent implements OnInit {
+  pic: string;
   constructor(
-    private userService: UserService,
     private commonService: CommonService
-  ) {}
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+
+  }
 }

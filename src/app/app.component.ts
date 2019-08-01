@@ -45,7 +45,6 @@ export class AppComponent {
   getUserDetail() {
     this.userService.getUserDetail().subscribe((req) => {
       this.commonService.setUserDetail(req[0]);
-
     });
   }
 }

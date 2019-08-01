@@ -38,21 +38,7 @@ import { CommonService } from 'src/app/core/services/common.service';
           </div>
         </article>
       </div>
-      <div class="menu-wrap" *ngIf="i < setMenuNum">
-        <div class="col6 col-md-3 home-stories__content__menu-wrap">
-          <div class="home-stories__content__menu">
-            <a *ngFor="let storyMenu of storiesMenu"class="home-stories__content__menu__entry">
-              <div class="description">{{storyMenu.description}}</div>
-              <div class="title">
-                <span class="text">{{storyMenu.title}}</span>
-                <span class="caret icon-page-home__g-1"> > </span>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
   `,
   styles: [`
   .store-index-today-deal-list__title {
@@ -281,70 +267,18 @@ import { CommonService } from 'src/app/core/services/common.service';
     top: -1px;
     z-index: 1;
   }
-
-  .home-stories__content__menu-wrap {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .home-stories__content__menu {
-    flex: 1 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    margin: -0.5px 0;
-    border-radius: 6px;
-    overflow: hidden;
-  }
-
-  .home-stories__content__menu__entry {
-    flex: 1 0 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 0.5px 0;
-    padding: 12.5px 10%;
-    background-color: whitesmoke;
-    transition: .1s background-color;
-  }
-
-  .home-stories__content__menu__entry>.description {
-    font-size: 12px;
-    margin-bottom: 10px;
-    color: #757575;
-  }
-
-  .home-stories__content__menu__entry>.title {
-    font-size: 15px;
-    display: flex;
-    font-weight: bold;
-    color: #424242;
-  }
-
-  .home-stories__content__menu__entry>.title>.text {
-    flex: 1 1 0px;
-    min-width: 0;
-  }
-
-  .home-stories__content__menu__entry>.title>.caret {
-    margin-left: 5px;
-    vertical-align: 2px;
-  }
   `]
 })
 export class CommunityListComponent implements OnInit {
   @Input() productItems;
   @Input() menuWidth: string;
   @Input() setNumber: number;
-  @Input() hours: number;
-  @Input() minutes: number;
-  @Input() seconds: number;
   @Input() activeTimer: number;
   @Input() activeSort: boolean;
   @Input() activeRank: boolean;
   @Input() storiesMenu: object;
   @Input() setMenuNum: number;
+  @Input() storyMenuOn: boolean;
 
   showAll: boolean = true;
 

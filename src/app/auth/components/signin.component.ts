@@ -6,6 +6,8 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { Router } from '@angular/router';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { CommonService } from 'src/app/core/services/common.service';
+import { kakao_info, token_social } from 'src/app/core/models/auth.interface';
+import { UserService } from 'src/app/core/services/user.service';
 
 
 @Component({
@@ -18,6 +20,7 @@ import { CommonService } from 'src/app/core/services/common.service';
             <span alt="오늘의 집" aria-label class="login-logo"></span>
           </a>
         </h1>
+        <app-social (kakaoLogin)="kakaoLogin($event)"></app-social>
         <div>
         <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <input type="text" placeholder="이메일" class="email form-control"
@@ -199,7 +202,9 @@ export class SigninComponent implements OnInit {
     , private authService: AuthService
     , private router: Router
     , private storageService: StorageService
-    , private commonService: CommonService) { }
+    , private commonService: CommonService
+    , private userService: UserService
+  ) { }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -225,15 +230,35 @@ export class SigninComponent implements OnInit {
       });
     }
   }
+
   loginSuccess(token: string) {
     this.commonService.setToken(token);
     this.storageService.setLocal("user", token);
     this.storageService.setSession("user", token);
-    console.log("loginSuccess", this.commonService.Token);
-    this.router.navigate(['/']);
+    this.userService.getUserDetail().subscribe((req) => {
+      this.commonService.setUserDetail(req[0]);
+      this.router.navigate(['/']);
+    });
+
   }
   loginFail() {
 
+  }
+  kakaoLogin(userInfo: kakao_info | undefined) {
+    if (userInfo) {
+      const socialInfo: token_social = {
+        type: "카카오",
+        unique_user_id: userInfo.id,
+        username: userInfo.properties.nickname,
+        email: userInfo.kakao_account.email,
+        social_profile: userInfo.properties.profile_image
+      }
+      this.authService.getToken4social(socialInfo).subscribe(
+        res => {
+          if (res["token"]) this.loginSuccess(res["token"]);
+          else console.log("onSubmit fail");
+        });
+    }
   }
 
 }
