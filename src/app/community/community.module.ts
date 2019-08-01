@@ -12,6 +12,7 @@ import { ProjectsDetailComponent } from './components/projects-detail.component'
 import { PhotoDetailComponent } from './components/photo-detail-components/photo-detail.component';
 import { PhotoArticleComponent } from './components/photo-detail-components/photo-article.component';
 import { PhotoUserComponent } from './components/photo-detail-components/photo-user.component';
+import { ProjectListComponent } from './components/project/project-list.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { PhotoUserComponent } from './components/photo-detail-components/photo-u
     ProjectsDetailComponent,
     PhotoDetailComponent,
     PhotoArticleComponent,
-    PhotoUserComponent
+    PhotoUserComponent,
+    ProjectListComponent
   ],
   imports: [CommonModule, SharedModule, CoreModule, CommunityRoutingModule]
 })
