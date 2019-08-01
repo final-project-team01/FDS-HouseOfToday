@@ -9,6 +9,7 @@ import { PhotoComponent } from './components/photo.component';
 import { CoreModule } from '../core/core.module';
 import { ProjectsComponent } from './components/projects.component';
 import { ProjectsDetailComponent } from './components/projects-detail.component';
+import { LyCarouselModule } from '@alyle/ui/carousel';
 import { PhotoDetailComponent } from './components/photo-detail-components/photo-detail.component';
 import { PhotoArticleComponent } from './components/photo-detail-components/photo-article.component';
 import { PhotoUserComponent } from './components/photo-detail-components/photo-user.component';
@@ -23,6 +24,13 @@ import { PhotoUserComponent } from './components/photo-detail-components/photo-u
     PhotoArticleComponent,
     PhotoUserComponent
   ],
-  imports: [CommonModule, SharedModule, CoreModule, CommunityRoutingModule]
+  imports: [
+    CommonModule
+    , SharedModule
+    , CoreModule
+    , CommunityRoutingModule
+    , LyCarouselModule
+    , 
+  ]
 })
 export class CommunityModule {}

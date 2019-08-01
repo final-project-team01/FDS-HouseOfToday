@@ -8,52 +8,52 @@ import { rankingPage, today_deal } from 'src/app/core/models/store.interface';
       <div class="ranking-feed-group">
         <div class="ranking-feed-card">
           <div class="container">
-            <app-rank-best [showTen]="showTen" [productItems]="productItems" (showMoreBtn)="showMoreBtn.emit()" [setNumber]="setNumber" [menuWidth]="menuWidth"></app-rank-best>
+            <app-rank-best [showTen]="showTen" [productItems]="productItems" (showMoreBtn)="showMoreBtn.emit()" [setNumber]="setNumber" [menuWidth]="menuWidth" [activeRank]="activeRank"></app-rank-best>
             <div *ngIf="showTen">
               <div class="ranking-feed-card__title-wrap">
                 <p class="ranking-feed-card__title">조명&홈데코 BEST</p>
                 <div class="ranking-feed-card__product-wrap">
-                  <app-product-list [productItems]="homeDeco" [menuWidth]="menuWidth" [setNumber]="setNumber"></app-product-list>
+                  <app-product-list [productItems]="homeDeco" [menuWidth]="menuWidth" [setNumber]="setNumber" [activeRank]="activeRank"></app-product-list>
                   <button class="ranking-feed-card__more-btn" type="button"> 더보기 > </button>
                 </div>
                 <div class="ranking-feed-card__title-wrap">
                 <p class="ranking-feed-card__title">생활용품 BEST</p>
                 <div class="ranking-feed-card__product-wrap">
-                  <app-product-list [productItems]="dailySupply" [menuWidth]="menuWidth" [setNumber]="setNumber"></app-product-list>
+                  <app-product-list [productItems]="dailySupply" [menuWidth]="menuWidth" [setNumber]="setNumber" [activeRank]="activeRank"></app-product-list>
                   <button class="ranking-feed-card__more-btn" type="button"> 더보기 > </button>
                 </div>
               </div>
               <div class="ranking-feed-card__title-wrap">
                 <p class="ranking-feed-card__title">패브릭 BEST</p>
                 <div class="ranking-feed-card__product-wrap">
-                  <app-product-list [productItems]="fabric" [menuWidth]="menuWidth" [setNumber]="setNumber"></app-product-list>
+                  <app-product-list [productItems]="fabric" [menuWidth]="menuWidth" [setNumber]="setNumber" [activeRank]="activeRank"></app-product-list>
                   <button class="ranking-feed-card__more-btn" type="button"> 더보기 > </button>
                 </div>
               </div>
               <div class="ranking-feed-card__title-wrap">
                 <p class="ranking-feed-card__title">주방용품 BEST</p>
                 <div class="ranking-feed-card__product-wrap">
-                  <app-product-list [productItems]="kitchenWare" [menuWidth]="menuWidth" [setNumber]="setNumber"></app-product-list>
+                  <app-product-list [productItems]="kitchenWare" [menuWidth]="menuWidth" [setNumber]="setNumber" [activeRank]="activeRank"></app-product-list>
                   <button class="ranking-feed-card__more-btn" type="button"> 더보기 > </button>
                 </div>
                 <div class="ranking-feed-card__title-wrap">
                 <p class="ranking-feed-card__title">가전제품 BEST</p>
                 <div class="ranking-feed-card__product-wrap">
-                  <app-product-list [productItems]="homeAppliance" [menuWidth]="menuWidth" [setNumber]="setNumber"></app-product-list>
+                  <app-product-list [productItems]="homeAppliance" [menuWidth]="menuWidth" [setNumber]="setNumber" [activeRank]="activeRank"></app-product-list>
                   <button class="ranking-feed-card__more-btn" type="button"> 더보기 > </button>
                 </div>
               </div>
               <div class="ranking-feed-card__title-wrap">
                 <p class="ranking-feed-card__title">반려동물 BEST</p>
                 <div class="ranking-feed-card__product-wrap">
-                  <app-product-list [productItems]="companionAnimals" [menuWidth]="menuWidth" [setNumber]="setNumber"></app-product-list>
+                  <app-product-list [productItems]="companionAnimals" [menuWidth]="menuWidth" [setNumber]="setNumber" [activeRank]="activeRank"></app-product-list>
                   <button class="ranking-feed-card__more-btn" type="button"> 더보기 > </button>
                 </div>
               </div>
               <div class="ranking-feed-card__title-wrap">
                 <p class="ranking-feed-card__title">가구 BEST</p>
                 <div class="ranking-feed-card__product-wrap">
-                  <app-product-list [productItems]="furniture" [menuWidth]="menuWidth" [setNumber]="setNumber"></app-product-list>
+                  <app-product-list [productItems]="furniture" [menuWidth]="menuWidth" [setNumber]="setNumber" [activeRank]="activeRank" ></app-product-list>
                   <button class="ranking-feed-card__more-btn" type="button"> 더보기 > </button>
                 </div>
               </div>
@@ -147,6 +147,7 @@ export class RankContainerComponent implements OnInit {
   @Input() companionAnimals: today_deal;
   @Input() furniture: today_deal;
   @Input() showTen: boolean;
+  @Input() activeRank: boolean;
   @Output() showMoreBtn = new EventEmitter;
   
   constructor() { }

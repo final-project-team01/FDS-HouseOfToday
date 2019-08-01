@@ -1,45 +1,44 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { CommonService } from 'src/app/core/services/common.service';
 
 @Component({
-  selector: 'app-product-list',
+  selector: 'app-community-list',
   template: `
   <div class="row">
     <div *ngFor="let productItem of productItems; let i=index" class="col-12 col-md-4 col-lg-3" [style.max-width]="menuWidth">
       <div *ngIf="i < setNumber">
-      <div *ngIf="activeRank" class="itemRanking">{{i + 1}}</div>
-      <article class="store-index-today-deal-item">
-        <a class="store-index-today-deal-item__overlay" routerLink="/store/{{productItem.id}}" (mouseover)="zoomImg(i)" (mouseleave)="zoomOut(i)"></a>
-        <div class="store-index-today-deal-item__image">
-          <div class="production-item-image">
-            <img class="image" [ngStyle]="hovered === i ? style : ''" src="{{productItem.thumnail_images[0].image}}" alt>
+        <div *ngIf="activeRank" class="itemRanking">{{i + 1}}</div>
+        <article class="store-index-today-deal-item">
+          <a class="store-index-today-deal-item__overlay" routerLink="/store/{{productItem.id}}" (mouseover)="zoomImg(i)" (mouseleave)="zoomOut(i)"></a>
+          <div class="store-index-today-deal-item__image">
+            <div class="production-item-image">
+              <img class="image" [ngStyle]="hovered === i ? style : ''" src="{{productItem.thumnail_images[0].image}}" alt>
+            </div>
           </div>
-        </div>
-        <div class="store-index-today-deal-item__content">
-          <h1 class="store-index-today-deal-item__header">
-            <span class="store-index-today-deal-item__header__brand">{{productItem.brand_name}}</span>
-            <span class="store-index-today-deal-item__header__name">{{productItem.name}}</span>
-          </h1>
-          <span class="production-item-price">
-            <span class="production-item-price__rate">{{productItem.discount}}<span 
-            class="percentage">{{productItem.discount_rate}}%</span>
+          <div class="store-index-today-deal-item__content">
+            <h1 class="store-index-today-deal-item__header">
+              <span class="store-index-today-deal-item__header__brand">{{productItem.brand_name}}</span>
+              <span class="store-index-today-deal-item__header__name">{{productItem.name}}</span>
+            </h1>
+            <span class="production-item-price">
+              <span class="production-item-price__rate">{{productItem.discount}}<span 
+              class="percentage">{{productItem.discount_rate}}%</span>
+              </span>
+              <span class="production-item-price__price">{{commonService.addComma(productItem.price)}}</span>
             </span>
-            <span class="production-item-price__price">{{commonService.addComma(productItem.price)}}</span>
-          </span>
-          <div class="store-index-today-deal-item__stats-pc">
-            <p class="production-item-stats production-item-stats--review">
-              <strong class="avg">{{productItem.star_avg}}</strong>
-              리뷰{{productItem.review_count}}
-            </p>
+            <div class="store-index-today-deal-item__stats-pc">
+              <p class="production-item-stats production-item-stats--review">
+                <strong class="avg">{{productItem.star_avg}}</strong>
+                리뷰{{productItem.review_count}}
+              </p>
+            </div>
+            <span class="production-item-badge-list">
+            무료배송
+            </span>
           </div>
-          <span class="production-item-badge-list">
-          무료배송
-          </span>
-        </div>
-      </article>
+        </article>
       </div>
     </div>
-  </div>
   `,
   styles: [`
   .store-index-today-deal-list__title {
@@ -270,22 +269,22 @@ import { CommonService } from 'src/app/core/services/common.service';
   }
   `]
 })
-export class ProductListComponent implements OnInit {
+export class CommunityListComponent implements OnInit {
   @Input() productItems;
   @Input() menuWidth: string;
   @Input() setNumber: number;
-  @Input() hours: number;
-  @Input() minutes: number;
-  @Input() seconds: number;
   @Input() activeTimer: number;
   @Input() activeSort: boolean;
   @Input() activeRank: boolean;
+  @Input() storiesMenu: object;
+  @Input() setMenuNum: number;
+  @Input() storyMenuOn: boolean;
 
   showAll: boolean = true;
 
   style: object;
   hovered: number;
-
+  
   constructor(private commonService: CommonService) { }
 
   ngOnInit() {
