@@ -7,6 +7,7 @@ import { CommonService } from 'src/app/core/services/common.service';
   <div class="row">
     <div *ngFor="let productItem of productItems; let i=index" class="col-12 col-md-4 col-lg-3" [style.max-width]="menuWidth">
       <div *ngIf="i < setNumber">
+      <p class="today-deal-timer" [class.active]="activeTimer">{{hours < 10 ? "0" + hours : hours}}:{{minutes < 10 ? "0" + minutes : minutes}}:{{seconds < 10 ? "0" + seconds : seconds}}남음</p>
       <div *ngIf="activeRank" class="itemRanking">{{i + 1}}</div>
       <article class="store-index-today-deal-item">
         <a class="store-index-today-deal-item__overlay" routerLink="/store/{{productItem.id}}" (mouseover)="zoomImg(i)" (mouseleave)="zoomOut(i)"></a>
