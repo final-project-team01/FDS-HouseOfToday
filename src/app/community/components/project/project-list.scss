@@ -1,12 +1,8 @@
 article {
-  position: relative;
-  width: 100%;
-  min-height: 1px;
-  box-sizing: border-box;
-  flex: 0 0 33.3333333333%;
   padding-right: 10px;
   padding-left: 10px;
   .project-item {
+    margin-bottom: 36px;
     > a {
     }
   }
