@@ -30,7 +30,12 @@ const styles = {
           [withClass]="classes.carouselItem"
           [srcImg]="item.img"
         >
-          <h1>{{ item.title }}</h1>
+        <div class="carousel-container">
+          <div class="carousel-container-set">
+            <h1 class="carousel-title">{{ item.title }}</h1>
+            <span class="carousel-description">{{ item.description}}</span>
+          </div>
+        </div>
         </ly-carousel-item>
       </ly-carousel>
     </div>
@@ -406,6 +411,30 @@ const styles = {
       .detail {
         font-size: 10px;
       }
+
+      .carousel-container {
+        height: 300px;
+        width: 500px;
+        position: relative;
+        left: 10%;
+        top: 10%;
+      }
+
+      .carousel-container-set {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      .carousel-title {
+        font-weight: bold;
+        font-size: 32px;
+      }
+
+      .carousel-description {
+        position: absolute;
+        left: 0;
+      }
     `
   ]
 })
@@ -413,22 +442,19 @@ export class StoreComponent implements OnInit {
   readonly classes = this.theme.addStyleSheet(styles);
   items = [
     {
-      title: 'Mountains',
-      img:
-        'https://firebasestorage.googleapis.com/v0/b/alyle-ui.appspot.com/o/img%2F' +
-        'Mountains-Blue.jpg?alt=media&token=d04f0279-79c6-4752-8b5a-cccd73720243'
+      title: '오덴세 브랜드 위크',
+      description: '단2주 7/29 ~ 8/11',
+      img: '../../../assets/image/c1.png'
     },
     {
-      title: 'Four Lakes, Queshuachaca',
-      img:
-        'https://firebasestorage.googleapis.com/v0/b/head-expeditions.appspot.com/o/img%2F' +
-        'files%2F61028703-1476458588-5a289afc-59e8-4a8d-1dea-369e-570b-cfb2.jpg?alt=media&token=ceaf31b5-2b87-438b-b0d1-e4cc4f8603a2'
+      title: '가구에도 유행이 있다. 7월의 신상품',
+      description: '우디크 최초 특별한 가격',
+      img: '../../../assets/image/c2.png'
     },
     {
-      title: 'Mountains',
-      img:
-        'https://firebasestorage.googleapis.com/v0/b/alyle-ui.appspot.com/o/img%2F' +
-        'mads-schmidt-rasmussen-567063-unsplash.jpg?alt=media&token=5acdfbb2-7eff-4879-b7d0-a441826d88ae'
+      title: '주방용품 브랜드 릴레이 세일',
+      description: '쿡웨어브랜드5 기간한정 최저가',
+      img: '../../../assets/image/c3.png'
     }
   ];
 

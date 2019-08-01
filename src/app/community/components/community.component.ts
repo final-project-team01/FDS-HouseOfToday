@@ -108,6 +108,11 @@ const styles = {
           </div>
         </ul>
       </section>
+      <section class="container home-section">
+        <header class="row home-section__header">
+          
+        </header>
+      </section>
     </main>
     <app-footer></app-footer>
   `,
