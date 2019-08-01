@@ -29,6 +29,8 @@ const styles = {
           *ngFor="let item of items"
           [withClass]="classes.carouselItem"
           [srcImg]="item.img"
+          class="carousel-background"
+          [style.background-color]="item.background"
         >
         <div class="carousel-container">
           <div class="carousel-container-set">
@@ -412,12 +414,16 @@ const styles = {
         font-size: 10px;
       }
 
-      .carousel-container {
-        height: 300px;
-        width: 500px;
+      .carousel-background {
+        background-size: 1136px;
         position: relative;
-        left: 10%;
-        top: 10%;
+      }
+
+      .carousel-container {
+        height: 350px;
+        width: 1136px;
+        position: relative;
+        margin: 0 auto;
       }
 
       .carousel-container-set {
@@ -444,17 +450,20 @@ export class StoreComponent implements OnInit {
     {
       title: '오덴세 브랜드 위크',
       description: '단2주 7/29 ~ 8/11',
-      img: '../../../assets/image/c1.png'
+      img: '../../../assets/image/c1.png',
+      background: '#E1E2DC'
     },
     {
       title: '가구에도 유행이 있다. 7월의 신상품',
       description: '우디크 최초 특별한 가격',
-      img: '../../../assets/image/c2.png'
+      img: '../../../assets/image/c2.png',
+      background: '#DED0C6'
     },
     {
       title: '주방용품 브랜드 릴레이 세일',
       description: '쿡웨어브랜드5 기간한정 최저가',
-      img: '../../../assets/image/c3.png'
+      img: '../../../assets/image/c3.png',
+      background: '#E4EEF7'
     }
   ];
 
