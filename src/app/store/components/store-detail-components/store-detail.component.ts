@@ -238,20 +238,22 @@ export class StoreDetailComponent implements OnInit {
     const user = localStorage.getItem('user');
     // 옵션을 선택했는지, 로그인 되었는지 체크
     if (this.checkCondition('장바구니', user) === false) return;
-    const option = this.chosenOptions[0];
-    const id = option.id;
-    const payload = { 
-      product: option.productId,
-      product_option: option.optionId,
-      quantity: option.quantity  };
-    this.cartService.addCart(payload, user)
+    this.chosenOptions.forEach(option => {
+      const id = option.id;
+      const payload = { 
+        product: option.productId,
+        product_option: option.optionId,
+        quantity: option.quantity  
+      };
+      this.cartService.addCart(payload, user)
       .subscribe(res => {
         console.log('success');
       },
         err => {
           console.log(err.message);
       });
-    this.chosenOptions = this.chosenOptions.filter(option => option.id !== id);
+    });
+    this.chosenOptions = [];
     this.showModal = true;
     this.getTotalPrice();
   }
