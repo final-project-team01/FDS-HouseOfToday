@@ -10,13 +10,13 @@ export class CartHoverDirective {
   @HostListener("mouseover") mouseover() {
     this.renderer.setStyle(
       this.el.nativeElement,
-      "background-position", "top -121px left -156px"
+      "background-position", "top -112px left -147px"
     );
   }
   @HostListener("mouseout") mouseout() {
     this.renderer.setStyle(
       this.el.nativeElement,
-      "background-position", "top -121px left -100px"
+      "background-position", "top -112px left -91px"
     );
   }
 

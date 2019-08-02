@@ -60,6 +60,4 @@ export class NavigationComponent implements OnInit {
   changMenu(nav: number) {
     this.commonService.setNav(nav);
   }
-
-
 }
