@@ -1,0 +1,25 @@
+$width: 1136px;
+.container {
+  margin-top: 15px;
+  width: calc(100vw - 18px);
+  height: 100%;
+  .items {
+    width: $width;
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    margin-right: -10px;
+    margin-left: -10px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    .item-count {
+      width: $width;
+      margin-bottom: 10px;
+    }
+    app-project-list {
+      top: 0;
+      width: 33.333%;
+    }
+  }
+}
