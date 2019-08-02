@@ -20,12 +20,12 @@ export interface cart_list {
   quantity: number;
   brand_name: string,
   total_price: number,
-  thumnail_image: string
+  thumnail_image: string,
+  isChecked?: boolean;
 }
 
 export interface cart_price {
   total: number;
-  real: number;
   deliver_fee: number;
-  discount: number;
+  orderCount: number;
 }

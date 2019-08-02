@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   <app-header></app-header>
   <div class="container">
     <div class="items">
+      <div class="item-count">전체</div>
       <app-project-list></app-project-list>
       <app-project-list></app-project-list>
       <app-project-list></app-project-list>
@@ -13,25 +14,7 @@ import { Component, OnInit } from '@angular/core';
     </div>
   </div>
   `,
-  styles: [`
-    .container{
-      width: calc(100vw - 18px);
-    }
-    .items{
-      width:1136px;
-      display: flex;
-      flex-wrap: wrap;
-      box-sizing: border-box;
-      margin-right: -10px;
-      margin-left: -10px;
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-    app-project-list{
-      width:33.333%;
-    }
-  `]
+  styleUrls: ['./projects.scss']
 })
 export class ProjectsComponent implements OnInit {
 

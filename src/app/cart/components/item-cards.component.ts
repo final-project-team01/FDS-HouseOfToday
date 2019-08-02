@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { cart_list } from 'src/app/core/models/cart.interface';
+import { CartService } from 'src/app/core/services/cart.service';
 
 @Component({
   selector: 'app-item-cards',
@@ -10,10 +11,10 @@ import { cart_list } from 'src/app/core/models/cart.interface';
         <ul *ngFor="let item of itemList">
           <li>
             <article class="item-card">
-              <!--<app-check-box class="checkbox" [isChecked]="item['isChecked']"></app-check-box>-->
+              <app-check-box class="checkbox" [isChecked]="item['isChecked'] " (click)="cartService.toggleChecked(item['id'])"></app-check-box>
               <a class="product">
                 <div class="item-image">
-                  <img src="{{item['image']}}">
+                  <img src="{{item['thumnail_image']}}">
                 </div>
                 <div class="item-content">
                   <h1 class="content-header">{{item['product']}}</h1>
@@ -28,6 +29,13 @@ import { cart_list } from 'src/app/core/models/cart.interface';
               </button>
               <div class="product-option">
                 <h2 class="option-name">{{item['product_option']}}</h2>
+                <div class="product-option-item">
+                  <div class="option-quantity">
+                    <input class="form-controls option-quantity-count"
+                    type="number" pattern="[0-9]" min="1" step="1" size="5" value="{{item['quantity']}}">
+                  </div>
+                  <div class="option-price">000</div>
+                </div>
               </div>
             </article>
             <div class="carted-product-footer">
@@ -48,8 +56,7 @@ import { cart_list } from 'src/app/core/models/cart.interface';
 export class ItemCardComponent implements OnInit {
   @Input() itemList: cart_list[];
   @Input() brand: string;
-  constructor() { }
+  constructor(private cartService: CartService) { }
 
   ngOnInit() { }
-
 }
