@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CoreModule } from '../core.module';
 import { CommonService } from './common.service';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { cart_option, cart_list } from '../models/cart.interface';
+import { cart_option, cart_list, buy_option } from '../models/cart.interface';
 
 @Injectable({
   providedIn: CoreModule
@@ -22,8 +22,8 @@ export class CartService {
     return this.httpClient.post(fullPath, payload, options);
   }
 
-  buyDirect(payload: cart_option, userToken: string) {
-    const path = 'products/payment/direct/';
+  buyDirect(payload: buy_option, userToken: string) {
+    const path = 'products/order_direct/create/';
     const fullPath = this.commonService.getFullPath(path);
     let headers = this.commonService.setAuthorization(userToken);
     let options = { headers };

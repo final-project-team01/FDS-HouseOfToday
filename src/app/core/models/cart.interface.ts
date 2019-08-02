@@ -1,5 +1,13 @@
 export interface cart_option {
+  product: number;
   product_option: number;
+  quantity: number;
+}
+
+export interface buy_option {
+  pd_id: string;
+  po_list: string;
+  qty_list: string;
 }
 
 export interface cart_list {
