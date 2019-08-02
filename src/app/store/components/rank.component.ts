@@ -7,7 +7,7 @@ import { rankingPage, today_deal } from 'src/app/core/models/store.interface';
   selector: 'app-rank',
   template: `
     <app-header></app-header>
-    <app-rank-container [menuWidth]="menuWidth" [rankingList]="rankingList" [productItems]="productItems" [setNumber]="setNumber" [activeClass]="activeClass" [homeDeco]="homeDeco" [dailySupply]="dailySupply" [fabric]="fabric" [kitchenWare]="kitchenWare" [homeAppliance]="homeAppliance" [companionAnimals]="companionAnimals" [furniture]="furniture" (showMoreBtn)="showMore()" [showTen]="showTen"></app-rank-container>
+    <app-rank-container [menuWidth]="menuWidth" [rankingList]="rankingList" [productItems]="productItems" [setNumber]="setNumber" [activeClass]="activeClass" [homeDeco]="homeDeco" [dailySupply]="dailySupply" [fabric]="fabric" [kitchenWare]="kitchenWare" [homeAppliance]="homeAppliance" [companionAnimals]="companionAnimals" [furniture]="furniture" (showMoreBtn)="showMore()" [showTen]="showTen" [activeRank]="activeRank"></app-rank-container>
     <app-footer></app-footer>
   `,
   styles: [`
@@ -29,6 +29,7 @@ export class RankComponent implements OnInit {
   companionAnimals: today_deal;
   furniture: today_deal;
   showTen: boolean = true;
+  activeRank: boolean = true;
 
   constructor(private storeService: StoreService
     , private commonService: CommonService

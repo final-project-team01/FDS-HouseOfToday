@@ -4,14 +4,15 @@ export interface cart_option {
 
 export interface cart_list {
   id: number,
-  brand_name: string,
-  product: string,
-  deliver: string,
-  deliver_fee: string,
-  product_option: string,
-  price: number,
   user: number,
-  image: string
+  product: string,
+  deliver_fee: string,
+  deliver: string,
+  product_option: string,
+  quantity: number;
+  brand_name: string,
+  total_price: number,
+  thumnail_image: string
 }
 
 export interface cart_price {

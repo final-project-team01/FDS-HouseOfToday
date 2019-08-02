@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from 'src/app/core/services/cart.service';
 import { cart_list, cart_price } from 'src/app/core/models/cart.interface';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-cart',
@@ -69,7 +70,8 @@ export class CartComponent implements OnInit {
 
   constructor(private router: Router, private cartService: CartService) {
     this.cartService.getCartList().subscribe(
-      list => this.itemFilter(list)
+      list => this.itemFilter(list),
+      (error: HttpErrorResponse) => this.isEmpty = true
     );
   }
 
@@ -84,8 +86,8 @@ export class CartComponent implements OnInit {
     if (this.isEmpty) return;
 
     this.cartPrice.deliver_fee = 0;
-    this.cartPrice.total = itemList.map(item => item.price).reduce((prev, next) => prev + next);
-    this.cartPrice.real = itemList.map(item => item.price).reduce((prev, next) => prev + next);
+    this.cartPrice.total = itemList.map(item => item.total_price).reduce((prev, next) => prev + next);
+    this.cartPrice.real = itemList.map(item => item.total_price).reduce((prev, next) => prev + next);
     this.cartPrice.discount = this.cartPrice.real - this.cartPrice.total;
 
     this.orderCount = itemList.length;

@@ -19,10 +19,10 @@ import { KakaoService } from 'src/app/core/services/kakao.service';
         <ly-avatar
           [size]="32">
           <img
-            alt="{{this.commonService.getUserDetail() ? this.commonService.getUserDetail()['username'] : ''}}"
-            src="{{this.commonService.getUserDetail() 
-              ? this.commonService.getUserDetail()['type']==='django' ? this.commonService.getUserDetail()['profile'] : this.commonService.getUserDetail()['social_profile']
-              : '' }}">
+            alt="{{commonService.getUserDetail() ? commonService.getUserDetail()['username'] : ''}}"
+            src="{{commonService.getUserDetail() 
+              ? this.commonService.getUserDetail()['type']==='django' ? commonService.getUserDetail()['profile'] : commonService.getUserDetail()['social_profile']
+              : 'assets/image/36.png' }}">
         </ly-avatar>
       </button>
     </ly-grid>
@@ -80,11 +80,11 @@ export class AvatarWithButtonComponent implements OnInit {
     else this.removeInfo();
   }
   myHome() {
-    this.router.navigate([`users/${this.commonService.getUserDetail()["id"]}`]);
+    this.router.navigate([`user`]);
   }
 
   myShop() {
-    this.router.navigate([`orderList/${this.commonService.getUserDetail()["id"]}`]);
+    this.router.navigate([`orderList`]);
   }
 
   removeInfo = () => {
