@@ -136,6 +136,7 @@ ul {
     text-align: center;
     font-family: Tahoma, sans;
     width: 80px;
+    display: inline-block;
   }
 }
 
@@ -162,4 +163,10 @@ ul {
   border: solid 1px #dbdbdb;
   background-color: white;
   color: #424242;
+}
+.error {
+  display: inline-block;
+  font-size: 0.8rem;
+  color: #f77;
+  margin-left: 5px;
 }
