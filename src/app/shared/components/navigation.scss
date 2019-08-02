@@ -66,6 +66,20 @@
       background-position: left -90px top -112px;
       background-image: url("/assets/image/icon-etc.png");
     }
+    .ticker {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 21px;
+      height: 21px;
+      font-size: 12px;
+      line-height: 19px;
+      text-align: center;
+      color: white;
+      box-sizing: border-box;
+      background-color: #f77;
+      border-radius: 100%;
+    }
   }
   .cart-btn:hover {
     background-color: #35c5f0;

@@ -18,8 +18,9 @@ import { HttpErrorResponse } from '@angular/common/http';
           <a routerLink="/community" routerLinkActive="active" (mouseover)="changMenu(0)">커뮤니티</a>
           <a routerLink="/store" routerLinkActive="active" (mouseover)="changMenu(1)">스토어</a>
         </div>
-        <a routerLink="/cart" class="cart-btn">
-          <span class="cart-btn-icon" CartHover></span>          
+        <a routerLink="/cart" class="cart-btn" CartHover>
+          <span class="cart-btn-icon" ></span>    
+          <span class="ticker" *ngIf="cartService.getCartItemsCount() > 0">{{cartService.getCartItemsCount()}}</span>      
         </a>
         <div class="user-logged" *ngIf="commonService.isLogin(); else elseBlock">
           <div class="action-logged">        
