@@ -263,7 +263,6 @@ export class StoreDetailComponent implements OnInit {
     if (this.checkCondition('구매하기', user) === false) return;
     const product_option = this.chosenOptions[0].id;
     const payload: cart_option = { product_option };
-    // 선택한 물건 하나를 바로 구매
     this.cartService.buyDirect(payload, user)
       .subscribe(res => {
         console.log('success');
