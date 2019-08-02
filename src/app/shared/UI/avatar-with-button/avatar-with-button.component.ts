@@ -3,6 +3,7 @@ import { StorageService } from 'src/app/core/services/storage.service';
 import { CommonService } from 'src/app/core/services/common.service';
 import { Router } from '@angular/router';
 import { KakaoService } from 'src/app/core/services/kakao.service';
+import { CartService } from 'src/app/core/services/cart.service';
 
 
 
@@ -66,14 +67,13 @@ export class AvatarWithButtonComponent implements OnInit {
     , private commonService: CommonService
     , private router: Router
     , private kakaoService: KakaoService
+    , private cartService: CartService
   ) { }
 
   ngOnInit() {
   }
   logout(e: Event) {
     e.preventDefault();
-
-
     if (this.commonService.getUserDetail()['type'] !== 'django') {
       this.kakaoService.logout(this.removeInfo);
     }
@@ -88,6 +88,7 @@ export class AvatarWithButtonComponent implements OnInit {
   }
 
   removeInfo = () => {
+    this.cartService.reset();
     this.storageService.removeLocal("user");
     this.storageService.removeSession("user");
     this.commonService.setToken("");

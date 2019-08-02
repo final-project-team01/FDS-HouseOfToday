@@ -34,7 +34,7 @@ import { CartService } from 'src/app/core/services/cart.service';
                     <input class="form-controls option-quantity-count"
                     type="number" pattern="[0-9]" min="1" step="1" size="5" value="{{item['quantity']}}">
                   </div>
-                  <div class="option-price">000</div>
+                  <div class="option-price">{{item['total_price']}}</div>
                 </div>
               </div>
             </article>

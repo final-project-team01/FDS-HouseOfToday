@@ -38,6 +38,10 @@ export class CartService {
     return this._isEmpty;
   }
 
+  getCartItemsCount() {
+    return this._cartItem ? this._cartItem.length : 0;
+  }
+
   constructor(private commonService: CommonService
     , private httpClient: HttpClient) { }
 
@@ -103,5 +107,12 @@ export class CartService {
       )
     );
     this.itemFilter();
+  }
+  reset() {
+    this._cartItem = [];
+    this._cartPrice = { total: 0, deliver_fee: 0, orderCount: 0 };
+    this._cartItemGroup = {};
+    this._isEmpty = true;
+    this._isTotalChecked = true;
   }
 }
