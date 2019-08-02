@@ -40,7 +40,11 @@ article {
     line-height: 20px;
   }
 }
-
+.project-cover-title,
+.project-item-writer,
+.project-item-stats {
+  text-align: center;
+}
 .project-item-writer {
   margin-bottom: 8px;
   position: relative;
