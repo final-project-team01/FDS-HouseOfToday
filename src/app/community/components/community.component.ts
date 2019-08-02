@@ -85,7 +85,7 @@ const styles = {
                     <div class="story-entry__content__category">{{storiesItem.category}}</div>
                     <div class="story-entry__content__title">{{storiesItem.title}}<br></div>
                     <div class="story-entry__content__profile">
-                      <span class="story-entry__content__profile__image" style="background-image: url({{storiesItem.profileImg}})"></span>
+                      <img class="story-entry__content__profile__image" src="{{storiesItem.profileImg}}">
                       <span class="story-entry__content__profile__name">{{storiesItem.profileName}}</span>
                     </div>
                   </div>
@@ -110,8 +110,45 @@ const styles = {
       </section>
       <section class="container home-section">
         <header class="row home-section__header">
-          
+          <h2 class="col home-section__header__content">오늘의딜</h2>
+          <a class="home-section__header__more home-hide-sm">더보기</a>
         </header>
+        <app-product-list
+        [productItems]="todaysDeals"
+        [menuWidth]="menuWidth"
+        [setNumber]="setNumber"
+        [hours]="hours"
+        [minutes]="minutes"
+        [seconds]="seconds"
+        [activeTimer]="activeTimer"></app-product-list>
+      </section>
+      <section class="container home-section home-cards">
+        <header class="row home-section__header">
+          <h2 class="col home-section__header__content">오늘의 인기 사진</h2>
+          <a class="home-section__header__more home-hide-sm">더보기</a>
+        </header>
+        <ul class="row home-cards__content">
+          <li *ngFor="let todayPhoto of todayPhotos; let i = index" class="col-6 col-md-3 home-cards__content__item">
+            <article class="story-entry story-card-item">
+              <a class="story-entry-link">
+                <div class="story-entry__image-wrap">
+                  <img class="story-entry__image" src="{{todayPhoto.img}}">
+                </div>
+                <div class="story-entry__content-wrap">
+                  <div class="story-entry__content">
+                    <div class="story-entry__content__profile">
+                      <img class="story-entry__content__profile__image" src="{{todayPhoto.profileImg}}">
+                      <span class="story-entry__content__profile__name">{{todayPhoto.name}}</span>
+                    </div>
+                  </div>
+                  <div *ngIf="i < 3" class="home-rank-icon">
+                    <span class="pc icon-page-home__a-2">{{i + 1}}</span>
+                  </div>
+                </div>
+              </a>
+            </article>
+          </li>
+        </ul>
       </section>
     </main>
     <app-footer></app-footer>
@@ -445,10 +482,136 @@ const styles = {
     text-overflow: ellipsis;
   }
 
+  .story-story-item .story-entry__content__title {
+    max-height: 38.5px;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 1.3;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    word-wrap: break-word;
+  }
+
+  .story-story-item .story-entry__content__profile {
+    display: block;
+    font-size: 13px;
+  }
+
+  .story-story-item .story-entry__content__profile__image {
+    width: 22px;
+    height: 22px;
+    vertical-align: -8px;
+    display: inline-block;
+    background-size: cover;
+    background-position: center;
+    border-radius: 100%;
+    margin-right: 2px;
+  }
+
   .home-stories__content__menu-wrap {
     display: flex;
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .home-section__header {
+    margin-bottom: 20px;
+    align-items: center;
+    position: relative;
+  }
+
+  .home-section__header__content {
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+    width: 1100px;
+  }
+
+  .home-section__header__more.home-hide-sm {
+    color: #35C5F0;
+    font-weight: bold;
+    display: block;
+    font-size: 15px;
+  }
+
+  .story-card-item .story-entry__image-wrap {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .story-card-item .story-entry__image-wrap:before {
+    content: '';
+    display: block;
+    padding-bottom: 100%;
+  }
+
+  .story-card-item .story-entry__image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
+    transition: .2s transform;
+    background-color: whitesmoke;
+  }
+
+  .story-card-item .story-entry__content {
+    padding: 15px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: white;
+    box-sizing: border-box;
+  }
+
+  .story-card-item .story-entry__content__profile {
+    font-size: 13px;
+    font-weight: bold;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  .story-card-item .story-entry__content__profile__image {
+    width: 22px;
+    height: 22px;
+    vertical-align: -7px;
+    display: inline-block;
+    border-radius: 100%;
+    margin-right: 2px;
+    background-size: cover;
+    background-position: center;
+    border: 1px solid rgba(255,255,255,0.5);
+    box-sizing: border-box;
+  }
+
+  .home-rank-icon {
+    position: absolute;
+    left: 20px;
+    top: 0;
+    font-weight: bold;
+    color: white;
+  }
+
+  .home-rank-icon>.pc {
+    display: block;
+    padding-top: 8px;
+    font-size: 15px;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .icon-page-home__a-2 {
+    width: 30px;
+    height: 36px;
+    background-image: url('../../../assets/image/icon-etc.png');
+    background-position: left 260px top 470px;
+    background-size: 600px auto;
+  }
+
+  .home-cards__content__item {
+    margin-bottom: 20px;
   }
   `]
 })
@@ -461,6 +624,14 @@ export class CommunityComponent implements OnInit {
   setNumberFamous: number;
   setMenuNum: number = 1;
   storyMenuOn: boolean = false;
+  
+  today: Date;
+  tomorrow: Date;
+  gap: number;
+  hours: number = 0;
+  minutes: number = 0;
+  seconds: number = 0;
+  activeTimer: boolean = false;
   
   navItems = [
     {
@@ -536,6 +707,49 @@ export class CommunityComponent implements OnInit {
     },
   ]
 
+  todayPhotos = [
+    {
+      img: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-cards-snapshots1564493973_.jpeg/640/640',
+      profileImg: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-users-profile_images1564494050_YoS.jpeg/72/72',
+      name: 'Wisk'
+    },
+    {
+      img: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-cards-snapshots1564493973_.jpeg/640/640',
+      profileImg: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-users-profile_images1564494050_YoS.jpeg/72/72',
+      name: 'Wisk'
+    },
+    {
+      img: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-cards-snapshots1564493973_.jpeg/640/640',
+      profileImg: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-users-profile_images1564494050_YoS.jpeg/72/72',
+      name: 'Wisk'
+    },
+    {
+      img: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-cards-snapshots1564493973_.jpeg/640/640',
+      profileImg: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-users-profile_images1564494050_YoS.jpeg/72/72',
+      name: 'Wisk'
+    },
+    {
+      img: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-cards-snapshots1564493973_.jpeg/640/640',
+      profileImg: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-users-profile_images1564494050_YoS.jpeg/72/72',
+      name: 'Wisk'
+    },
+    {
+      img: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-cards-snapshots1564493973_.jpeg/640/640',
+      profileImg: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-users-profile_images1564494050_YoS.jpeg/72/72',
+      name: 'Wisk'
+    },
+    {
+      img: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-cards-snapshots1564493973_.jpeg/640/640',
+      profileImg: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-users-profile_images1564494050_YoS.jpeg/72/72',
+      name: 'Wisk'
+    },
+    {
+      img: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-cards-snapshots1564493973_.jpeg/640/640',
+      profileImg: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-users-profile_images1564494050_YoS.jpeg/72/72',
+      name: 'Wisk'
+    },
+  ]
+
   readonly classes = this.theme.addStyleSheet(styles);
   items = [
     {
@@ -557,11 +771,36 @@ export class CommunityComponent implements OnInit {
     this.commonService.setLocate(0);
     this.commonService.setNav(0);
     this.storeService.getProductList()
-    .subscribe((data) => {
-      this.productItems = data as today_deal[];
-      this.setNumber = 3;
-      this.storyMenuOn = true;
+      .subscribe((data) => {
+        this.productItems = data as today_deal[];
+        this.setNumber = 4;
+        this.storyMenuOn = true;
     });
+
+    this.storeService.getTodaysDeal().subscribe((data) => {
+      this.fulltodaysDeals = data as store_home[];
+      this.todaysDeals = this.fulltodaysDeals.todaydeal;
+      this.setNumber = this.todaysDeals.length;
+    });
+    this.dealTimer();
   }
 
+  dealTimer() {
+    setInterval(() => {
+      this.today = new Date();
+      this.tomorrow = new Date();
+
+      this.tomorrow.setDate(this.today.getDate() + 1);
+      this.tomorrow.setHours(0, 0, 0, 0);
+
+      this.gap = this.tomorrow.getTime() - this.today.getTime();
+
+      this.hours = Math.floor(
+        (this.gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      this.minutes = Math.floor((this.gap % (1000 * 60 * 60)) / (1000 * 60));
+      this.seconds = Math.floor((this.gap % (1000 * 60)) / 1000);
+    }, 1000);
+    this.activeTimer = true;
+  }
 }
