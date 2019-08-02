@@ -9,7 +9,7 @@ import { CartService } from 'src/app/core/services/cart.service';
 import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
 import { thumbnail_image, detail_image, product_option, review, qna }
   from 'src/app/core/models/store.interface';
-import { cart_option } from 'src/app/core/models/cart.interface';
+import { cart_option, buy_option } from 'src/app/core/models/cart.interface';
 
 @Component({
   selector: 'app-store-detail',
@@ -239,8 +239,7 @@ export class StoreDetailComponent implements OnInit {
     // 옵션을 선택했는지, 로그인 되었는지 체크
     if (this.checkCondition('장바구니', user) === false) return;
     this.chosenOptions.forEach(option => {
-      const id = option.id;
-      const payload = { 
+      const payload: cart_option = { 
         product: option.productId,
         product_option: option.optionId,
         quantity: option.quantity  
@@ -261,8 +260,12 @@ export class StoreDetailComponent implements OnInit {
   buyDirect() {
     const user = localStorage.getItem('user');
     if (this.checkCondition('구매하기', user) === false) return;
-    const product_option = this.chosenOptions[0].id;
-    const payload: cart_option = { product_option };
+    const pd_id = this.chosenOptions[0].productId.toString();
+    const po_list = this.chosenOptions.map(option => option.optionId).join();
+    const qty_list = this.chosenOptions.map(option => option.quantity).join();
+    const payload: buy_option = { pd_id, po_list, qty_list }; 
+    console.log(payload);
+    
     this.cartService.buyDirect(payload, user)
       .subscribe(res => {
         console.log('success');
