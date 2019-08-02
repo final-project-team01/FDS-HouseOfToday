@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from 'src/app/core/services/common.service';
 import { StorageService } from 'src/app/core/services/storage.service';
+import { CartService } from 'src/app/core/services/cart.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -40,10 +42,19 @@ export class NavigationComponent implements OnInit {
 
   constructor(private commonService: CommonService
     , private storageService: StorageService
+    , private cartService: CartService
   ) { }
 
   ngOnInit() {
-
+    if (this.commonService.isLogin()) {
+      this.cartService.getCartList().subscribe(
+        list => {
+          list.forEach(item => { item.isChecked = true });
+          this.cartService.setCartItems(list);
+        },
+        (error: HttpErrorResponse) => { console.log(error) }
+      );
+    }
   }
 
   changMenu(nav: number) {

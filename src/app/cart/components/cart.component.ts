@@ -69,15 +69,15 @@ export class CartComponent implements OnInit {
   constructor(private router: Router, private cartService: CartService
     , private commonService: CommonService
   ) {
-    if (this.commonService.isLogin()) {
-      this.cartService.getCartList().subscribe(
-        list => {
-          list.forEach(item => { item.isChecked = true });
-          this.cartService.setCartItems(list);
-        },
-        (error: HttpErrorResponse) => { console.log(error) }
-      );
-    }
+    // if (this.commonService.isLogin()) {
+    //   this.cartService.getCartList().subscribe(
+    //     list => {
+    //       list.forEach(item => { item.isChecked = true });
+    //       this.cartService.setCartItems(list);
+    //     },
+    //     (error: HttpErrorResponse) => { console.log(error) }
+    //   );
+    // }
   }
 
   ngOnInit() {
@@ -90,26 +90,4 @@ export class CartComponent implements OnInit {
   goStore() {
     this.router.navigate(['store']);
   }
-  /*
-  itemFilter() {
-    let itemList = this.cartService.cartItem;
-    console.log(itemList);
-    this.isEmpty = itemList.length ? false : true;
-    if (this.isEmpty) return;
-
-    itemList.forEach(item => { item.isChecked = true });
-
-    this.cartPrice.deliver_fee = 0;
-    this.cartPrice.total = itemList.map(item => item.total_price).reduce((prev, next) => prev + next);
-
-    this.orderCount = itemList.length;
-
-    this.items["brands"] = itemList.map(item => item.brand_name);
-    this.items["brands"].forEach(
-      brand => {
-        this.items[brand] = itemList.filter(item => item.brand_name === brand);
-      }
-    );
-  }
-  */
 }
