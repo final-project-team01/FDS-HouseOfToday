@@ -30,17 +30,17 @@ import { CommonService } from 'src/app/core/services/common.service';
               <address class="card_item_user_info">
                 <div class="user_name">Name</div>
                 <span> . </span>
-                <button>팔로우</button>
+                <button class="user_follow">팔로우</button>
                 <p>추가 설명 공간</p>
               </address>
             </div>
-            <div class="">photo</div>
-            <div>action</div>
-            <div>
-              reply
-              <div class="reply user_icon_image">
-                <app-basic-uses-avatar></app-basic-uses-avatar>
-              </div>
+            <div class="card_item_content">
+              <div class="content_description">설명</div>
+              <div class="content_image">photo</div>
+              <div>action</div>
+            </div>
+            <div class="reply_user_icon_image">
+              <app-basic-uses-avatar></app-basic-uses-avatar>
             </div>
           </article>
         </div>
@@ -80,21 +80,56 @@ import { CommonService } from 'src/app/core/services/common.service';
         margin-left: -10px;
         margin-top: 30px;
       }
+
       .card_item {
         background-color: pink;
         padding: 0 10px;
         max-width: 25%;
       }
-      .user_icon_image,
-      .card_item_user_info {
-        display: inline-block;
+      .card_item_top_bar {
+        background-color: green;
+        font-size: 15px;
       }
+
       .user_icon_image {
+        background-color: black;
         float: left;
         position: absolute;
       }
       .card_item_user_info {
         padding-left: 48px;
+        margin-bottom: 16px;
+      }
+      .user_name {
+        background-color: yellow;
+        display: inline-block;
+      }
+      .user_follow {
+        background: none;
+        background-color: blue;
+        color: #35c5f0;
+        font-weight: 700;
+      }
+      .card_item_content {
+        background-color: red;
+        position: relative;
+      }
+      .content_description {
+        padding-top: 269px;
+      }
+      .content_image {
+        background-color: hotpink;
+        position: absolute;
+        height: 269px;
+        width: 269px;
+        top: 0;
+      }
+      address > p {
+        background-color: brown;
+      }
+      .reply_user_icon_image {
+        background-color: yellowgreen;
+        display: block;
       }
     `
   ]
