@@ -15,7 +15,7 @@ export class CartService {
     , private httpClient: HttpClient) { }
 
   addCart(payload: cart_option, userToken: string) {
-    const path = 'products/cart/';
+    const path = 'products/orderitem/';
     const fullPath = this.commonService.getFullPath(path);
     let headers = this.commonService.setAuthorization(userToken);
     let options = { headers };
@@ -30,13 +30,13 @@ export class CartService {
     return this.httpClient.post(fullPath, payload, options);
   }
 
-  buyProducts(userToken: string) {
-    const path = 'products/payment/';
-    const fullPath = this.commonService.getFullPath(path);
-    let headers = this.commonService.setAuthorization(userToken);
-    let options = { headers };
-    return this.httpClient.post(fullPath, null, options);
-  }
+  // buyProducts(userToken: string) {
+  //   const path = 'products/payment/';
+  //   const fullPath = this.commonService.getFullPath(path);
+  //   let headers = this.commonService.setAuthorization(userToken);
+  //   let options = { headers };
+  //   return this.httpClient.post(fullPath, null, options);
+  // }
 
   getCartList() {
     const headers = this.commonService.setAuthorization(this.commonService.Token);

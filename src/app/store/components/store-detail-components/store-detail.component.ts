@@ -157,15 +157,18 @@ export class StoreDetailComponent implements OnInit {
   }
 
   addOption(option: product_option) {
-    const id = option.id;
-    const check = this.chosenOptions.filter(option => option.id === id).length ? true : false;
+    const productId = option.product;
+    const optionId = option.id;
+    const check = this.chosenOptions.filter(option => option.optionId === optionId).length ? true : false;
     if (this.chosenOptions.length !== 0 && check) {
       alert('이미 선택한 옵션입니다');
       return;
     }
-    const chosen = { id, name: option.name, price: option.price, amount: 1 };
+    const chosen = { id: this.generateId(), productId, optionId, name: option.name, price: option.price, quantity: 1 };
     this.chosenOptions = [...this.chosenOptions, chosen];
     this.getTotalPrice();
+    console.log(this.chosenOptions);
+    
   }
 
   deleteOption(id: number) {
@@ -196,21 +199,21 @@ export class StoreDetailComponent implements OnInit {
     const id = option.id;
     this.chosenOptions = this.chosenOptions.map(
       option => option.id === id ?
-        { ...option, amount: option.amount += 1 } : { ...option, amount: option.amount });
+        { ...option, quantity: option.quantity += 1 } : { ...option, quantity: option.quantity });
     this.getTotalPrice();
   }
 
   decrease(option: ChosenOption) {
     const id = option.id;
-    if (option.amount <= 1) return;
+    if (option.quantity <= 1) return;
     this.chosenOptions = this.chosenOptions.map(
       option => option.id === id ?
-        { ...option, amount: option.amount -= 1 } : { ...option, amount: option.amount });
+        { ...option, quantity: option.quantity -= 1 } : { ...option, quantity: option.quantity });
     this.getTotalPrice();
   }
 
   setAmount(data: any) {
-    data.option.amount = +data.input.value;
+    data.option.quantity = +data.input.value;
   }
 
   getTotalPrice() {
@@ -218,7 +221,7 @@ export class StoreDetailComponent implements OnInit {
       this.totalPrice = '0';
       return;
     }
-    const prices = this.chosenOptions.map(option => option.price * option.amount);
+    const prices = this.chosenOptions.map(option => option.price * option.quantity);
     const sum = prices.reduce(
       (previous, current) => { return previous + current });
     this.totalPrice = this.commonService.addComma(sum);
@@ -235,49 +238,32 @@ export class StoreDetailComponent implements OnInit {
     const user = localStorage.getItem('user');
     // 옵션을 선택했는지, 로그인 되었는지 체크
     if (this.checkCondition('장바구니', user) === false) return;
-    const product_option = this.chosenOptions[0].id;
-    // 하나씩만 담는다
-    this.sendCartToServer(user, product_option);
-    this.chosenOptions = this.chosenOptions.filter(option => option.id !== product_option);
+    this.chosenOptions.forEach(option => {
+      const id = option.id;
+      const payload = { 
+        product: option.productId,
+        product_option: option.optionId,
+        quantity: option.quantity  
+      };
+      this.cartService.addCart(payload, user)
+      .subscribe(res => {
+        console.log('success');
+      },
+        err => {
+          console.log(err.message);
+      });
+    });
+    this.chosenOptions = [];
     this.showModal = true;
     this.getTotalPrice();
   }
-
-  // buyProducts(){
-  //   const user = localStorage.getItem('user');
-  //   if (this.checkCondition('구매하기', user) === false) return;
-  //   const product_option = this.chosenOptions[0].id;
-  //   일단 장바구니에 담은 후에
-  //   this.sendCartToServer(user, product_option);
-  //   장바구니에 담긴 물건을 바로 구매
-  //   this.cartService.buyProducts(user)
-  //     .subscribe(res =>{
-  //       console.log('success');
-  //     },
-  //     err => {
-  //         console.log(err.message);
-  //     });
-  //   console.log('바로구매 완료');
-  // }
 
   buyDirect() {
     const user = localStorage.getItem('user');
     if (this.checkCondition('구매하기', user) === false) return;
     const product_option = this.chosenOptions[0].id;
     const payload: cart_option = { product_option };
-    // 선택한 물건 하나를 바로 구매
     this.cartService.buyDirect(payload, user)
-      .subscribe(res => {
-        console.log('success');
-      },
-        err => {
-          console.log(err.message);
-        });
-  }
-
-  sendCartToServer(user: string, product_option: number) {
-    const payload: cart_option = { product_option };
-    this.cartService.addCart(payload, user)
       .subscribe(res => {
         console.log('success');
       },

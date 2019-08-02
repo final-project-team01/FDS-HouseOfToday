@@ -21,7 +21,7 @@ import { product_option } from 'src/app/core/models/store.interface';
         <div class="selected-items" *ngFor="let option of chosenOptions">
           <p class="selected-item-name">{{ getName(option.name) }}</p>
           <div class="ea-container">
-            <input type="number" [value]="option.amount" class="selected-item-ea"
+            <input type="number" [value]="option.quantity" class="selected-item-ea"
               #input (keyup.enter)="setAmount(option, input)">
             <button class="increase cursor"
               (click)="increaseAmount(option)"></button>
@@ -29,7 +29,7 @@ import { product_option } from 'src/app/core/models/store.interface';
               (click)="decreaseAmount(option)"></button>
           </div>
           <span class="selected-item-price">
-          {{ commonService.addComma(option.price * option.amount) + '원' }}</span>
+          {{ commonService.addComma(option.price * option.quantity) + '원' }}</span>
           <button class="selected-item-cancel icon cursor" (click)="remove(option.id)"></button>
         </div>
       </div>
@@ -37,7 +37,7 @@ import { product_option } from 'src/app/core/models/store.interface';
       <div class="selected-items" *ngFor="let option of chosenOptions">
         <p class="selected-item-name">{{ getName(option.name) }}</p>
         <div class="ea-container">
-          <input type="number" [value]="option.amount" class="selected-item-ea"
+          <input type="number" [value]="option.quantity" class="selected-item-ea"
             #input (keyup.enter)="setAmount(option, input)">
           <button class="increase cursor"
             (click)="increaseAmount(option)"></button>
@@ -45,7 +45,7 @@ import { product_option } from 'src/app/core/models/store.interface';
             (click)="decreaseAmount(option)"></button>
         </div>
         <span class="selected-item-price">
-          {{ commonService.addComma(option.price * option.amount) + '원' }}</span>
+          {{ commonService.addComma(option.price * option.quantity) + '원' }}</span>
         <button class="selected-item-cancel icon" (click)="remove(option.id)"></button>
       </div>
       </ng-template>
