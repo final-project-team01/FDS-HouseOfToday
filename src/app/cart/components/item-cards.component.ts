@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { cart_list } from 'src/app/core/models/cart.interface';
 import { CartService } from 'src/app/core/services/cart.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-item-cards',
@@ -30,10 +31,15 @@ import { CartService } from 'src/app/core/services/cart.service';
               <div class="product-option">
                 <h2 class="option-name">{{item['product_option']}}</h2>
                 <div class="product-option-item">
-                  <div class="option-quantity">
-                    <input class="form-controls option-quantity-count"
-                    type="number" pattern="[0-9]" min="1" step="1" size="5" value="{{item['quantity']}}">
-                  </div>
+                  <form [formGroup]="quantityForm" (ngSubmit)="onSubmin()">
+                    <div class="option-quantity">
+                      <input class="form-controls option-quantity-count"
+                      type="string"
+                      formControlName="quantity"
+                      value="{{item['quantity']}}">
+                      <p class="error" *ngIf="quantity.errors?.pattern">1이상의 정수를 입력하세요.</p>
+                    </div>
+                  </form>
                   <div class="option-price">{{item['total_price']}}</div>
                 </div>
               </div>
@@ -56,7 +62,21 @@ import { CartService } from 'src/app/core/services/cart.service';
 export class ItemCardComponent implements OnInit {
   @Input() itemList: cart_list[];
   @Input() brand: string;
-  constructor(private cartService: CartService) { }
+  quantityForm: FormGroup;
+  constructor(private cartService: CartService
+    , private fb: FormBuilder) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.quantityForm = this.fb.group(
+      {
+        quantity: ['', [Validators.required, Validators.pattern("^[1-9]{1}$|^[1-9]{1}[0-9]{1,}$")]]
+      }
+    );
+  }
+  get quantity() {
+    return this.quantityForm.get('quantity');
+  }
+  onSubmin() {
+
+  }
 }
