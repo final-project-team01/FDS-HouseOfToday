@@ -28,7 +28,7 @@ import { CommonService } from 'src/app/core/services/common.service';
                 <app-basic-uses-avatar></app-basic-uses-avatar>
               </div>
               <address class="card_item_user_info">
-                <div class="user_name">Name</div>
+                <div class="user_name">user_name</div>
                 <span> . </span>
                 <button class="user_follow">팔로우</button>
                 <p>추가 설명 공간</p>
@@ -36,8 +36,14 @@ import { CommonService } from 'src/app/core/services/common.service';
             </div>
             <div class="card_item_content">
               <div class="content_description">설명</div>
-              <div class="content_image">photo</div>
-              <div>action</div>
+              <div class="content_image">
+                <a class="image" href="#">photo</a>
+              </div>
+              <aside class="card_item_action">
+                <button>1</button>
+                <button>2</button>
+                <button>3</button>
+              </aside>
             </div>
             <div class="reply_user_icon_image">
               <app-basic-uses-avatar></app-basic-uses-avatar>
@@ -54,6 +60,9 @@ import { CommonService } from 'src/app/core/services/common.service';
         background-color: lightgray;
         width: 1136px;
         margin: 0 auto;
+        font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', '맑은 고딕',
+          'Malgun Gothic', sans-serif;
+        box-sizing: border-box;
       }
       button {
         border-style: none;
@@ -80,11 +89,14 @@ import { CommonService } from 'src/app/core/services/common.service';
         margin-left: -10px;
         margin-top: 30px;
       }
-
+      article {
+        margin-bottom: 40px;
+      }
       .card_item {
         background-color: pink;
         padding: 0 10px;
-        max-width: 25%;
+        width: 25%;
+        display: inline-block;
       }
       .card_item_top_bar {
         background-color: green;
@@ -103,29 +115,42 @@ import { CommonService } from 'src/app/core/services/common.service';
       .user_name {
         background-color: yellow;
         display: inline-block;
+        color: #424242;
+        font-weight: 500;
       }
       .user_follow {
         background: none;
         background-color: blue;
         color: #35c5f0;
         font-weight: 700;
+        line-height: 19px;
+        padding: 0;
       }
       .card_item_content {
         background-color: red;
         position: relative;
       }
       .content_description {
-        padding-top: 269px;
+        background-color: beige;
+        margin-top: 12px;
       }
-      .content_image {
+      .image {
         background-color: hotpink;
-        position: absolute;
-        height: 269px;
-        width: 269px;
+        width: 100%;
+        display: inline-block;
         top: 0;
+      }
+      .card_item_action {
+        display: flex;
+        justify-content: space-around;
+        padding: 13px 0 16px;
       }
       address > p {
         background-color: brown;
+        font-size: 12px;
+        line-height: 16px;
+        color: #757575;
+        margin-top: 2px;
       }
       .reply_user_icon_image {
         background-color: yellowgreen;
