@@ -157,15 +157,18 @@ export class StoreDetailComponent implements OnInit {
   }
 
   addOption(option: product_option) {
-    const id = option.id;
-    const check = this.chosenOptions.filter(option => option.id === id).length ? true : false;
+    const productId = option.product;
+    const optionId = option.id;
+    const check = this.chosenOptions.filter(option => option.optionId === optionId).length ? true : false;
     if (this.chosenOptions.length !== 0 && check) {
       alert('이미 선택한 옵션입니다');
       return;
     }
-    const chosen = { id, name: option.name, price: option.price, amount: 1 };
+    const chosen = { id: this.generateId(), productId, optionId, name: option.name, price: option.price, amount: 1 };
     this.chosenOptions = [...this.chosenOptions, chosen];
     this.getTotalPrice();
+    console.log(this.chosenOptions);
+    
   }
 
   deleteOption(id: number) {
@@ -242,23 +245,6 @@ export class StoreDetailComponent implements OnInit {
     this.showModal = true;
     this.getTotalPrice();
   }
-
-  // buyProducts(){
-  //   const user = localStorage.getItem('user');
-  //   if (this.checkCondition('구매하기', user) === false) return;
-  //   const product_option = this.chosenOptions[0].id;
-  //   일단 장바구니에 담은 후에
-  //   this.sendCartToServer(user, product_option);
-  //   장바구니에 담긴 물건을 바로 구매
-  //   this.cartService.buyProducts(user)
-  //     .subscribe(res =>{
-  //       console.log('success');
-  //     },
-  //     err => {
-  //         console.log(err.message);
-  //     });
-  //   console.log('바로구매 완료');
-  // }
 
   buyDirect() {
     const user = localStorage.getItem('user');
