@@ -263,8 +263,9 @@ export class StoreDetailComponent implements OnInit {
     const pd_id = this.chosenOptions[0].productId.toString();
     const po_list = this.chosenOptions.map(option => option.optionId).join();
     const qty_list = this.chosenOptions.map(option => option.quantity).join();
-    console.log(pd_id, typeof pd_id, po_list, typeof po_list, qty_list, typeof qty_list);
-    const payload: buy_option = { pd_id, po_list, qty_list };
+    const payload: buy_option = { pd_id, po_list, qty_list }; 
+    console.log(payload);
+    
     this.cartService.buyDirect(payload, user)
       .subscribe(res => {
         console.log('success');
