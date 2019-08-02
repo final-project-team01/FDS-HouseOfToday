@@ -1,9 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap");
 * {
-  font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', '맑은 고딕',
-    'Malgun Gothic', sans-serif;
+  font-family: "Noto Sans KR", "Apple SD Gothic Neo", "맑은 고딕",
+    "Malgun Gothic", sans-serif;
   box-sizing: border-box;
+  letter-spacing: -0.4px;
 }
 html {
   color: #424242;
@@ -74,7 +75,7 @@ th {
 }
 q:before,
 q:after {
-  content: '';
+  content: "";
 }
 abbr,
 acronym {
@@ -107,30 +108,30 @@ a {
 a * {
   border: none;
 }
-input[type='number'],
-input[type='text'],
-input[type='password'],
-input[type='file'],
-input[type='tel'],
-input[type='email'],
+input[type="number"],
+input[type="text"],
+input[type="password"],
+input[type="file"],
+input[type="tel"],
+input[type="email"],
 select,
 option,
 textarea,
-input[type='submit'],
+input[type="submit"],
 button {
   // -webkit-appearance: none;
   -moz-appearance: textfield;
 }
-input[type='number']:focus,
-input[type='text']:focus,
-input[type='password']:focus,
-input[type='file']:focus,
-input[type='tel']:focus,
-input[type='email']:focus,
+input[type="number"]:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="file"]:focus,
+input[type="tel"]:focus,
+input[type="email"]:focus,
 select:focus,
 option:focus,
 textarea:focus,
-input[type='submit']:focus,
+input[type="submit"]:focus,
 button:focus {
   outline: 0;
 }
@@ -141,8 +142,8 @@ select {
   -webkit-appearance: none;
   -moz-appearance: none;
 }
-input[type='number']::-webkit-inner-spin-button,
-input[type='number']::-webkit-outer-spin-button {
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
@@ -153,17 +154,17 @@ input:-webkit-autofill {
   background-color: transparent !important;
   color: inherit !important;
 }
-[contentEditable='true']:empty:not(:focus):before {
+[contentEditable="true"]:empty:not(:focus):before {
   content: attr(data-ph);
   color: #939598;
   display: block;
 }
-[contentEditable='true']:focus {
+[contentEditable="true"]:focus {
   outline: none;
 }
 figure {
   margin: 0;
 }
-.cursor{
+.cursor {
   cursor: pointer;
 }
