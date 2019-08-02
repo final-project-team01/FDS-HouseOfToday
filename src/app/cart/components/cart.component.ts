@@ -22,7 +22,7 @@ import { CommonService } from 'src/app/core/services/common.service';
             <div class="commerce-cart">
               <div class="cart-header">
                 <span class="cart-header-left">
-                  <app-check-box [caption]="true">모두 선택</app-check-box>
+                  <app-check-box [caption]="true" [isChecked]="cartService.isTotalChecked">모두 선택</app-check-box>
                 </span>
                 <span class="cart-header-right">
                   <button class="cart-header-delete">선택삭제</button>
@@ -75,7 +75,7 @@ export class CartComponent implements OnInit {
           list.forEach(item => { item.isChecked = true });
           this.cartService.setCartItems(list);
         },
-        (error: HttpErrorResponse) => this.cartService.isEmpty = true
+        (error: HttpErrorResponse) => { console.log(error) }
       );
     }
   }
@@ -84,7 +84,7 @@ export class CartComponent implements OnInit {
   }
 
   getCartState() {
-    return this.commonService.isLogin() && this.cartService.isEmpty;
+    return this.commonService.isLogin() && this.cartService.iSEmpty;
   }
 
   goStore() {

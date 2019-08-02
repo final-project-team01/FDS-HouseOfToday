@@ -14,9 +14,12 @@ export class CartService {
   private _cartItem: cart_list[];
   private _cartPrice: cart_price = { total: 0, deliver_fee: 0, orderCount: 0 };
   private _cartItemGroup = {};
+  private _isEmpty = true;
+  private _isTotalChecked = true;
 
-  public isEmpty = true;
-
+  get isTotalChecked() {
+    return this._isTotalChecked;
+  }
 
   get cartPrice() {
     return this._cartPrice;
@@ -28,6 +31,10 @@ export class CartService {
 
   get cartItem() {
     return this._cartItem ? this._cartItem : []
+  }
+
+  get iSEmpty() {
+    return this._isEmpty;
   }
 
   constructor(private commonService: CommonService
@@ -67,12 +74,12 @@ export class CartService {
   itemFilter() {
     if (this.cartItem.length ? false : true) return;
 
-    this.isEmpty = false;
+    this._isEmpty = false;
 
     this._cartPrice.deliver_fee = 0;
-    this._cartPrice.total = this._cartItem.map(item => item.total_price).reduce((prev, next) => prev + next);
+    this._cartPrice.total = this._cartItem.filter(item => item.isChecked).length ? this._cartItem.filter(item => item.isChecked).map(item => item.total_price).reduce((prev, next) => prev + next) : 0;
 
-    this._cartPrice.orderCount = this._cartItem.length;
+    this._cartPrice.orderCount = this._cartItem.filter(item => item.isChecked).length;
 
     this._cartItemGroup["brands"] = this._cartItem.map(item => item.brand_name);
     this._cartItemGroup["brands"].forEach(
@@ -80,8 +87,8 @@ export class CartService {
         this._cartItemGroup[brand] = this._cartItem.filter(item => item.brand_name === brand);
       }
     );
+    this._isTotalChecked = this._cartItem.length === this._cartItem.filter(item => item.isChecked).length ? true : false;
   }
-
 
   setCartItems(cartItem: cart_list[]) {
     this._cartItem = cartItem;
