@@ -15,7 +15,7 @@ import { store_list, categoryfilter, today_deal } from 'src/app/core/models/stor
             <section class="commerce-category">
               <ul *ngFor="let categoryList of categoryLists" class="commerce-category-list">
                 <li class="commerce-category-list_item">
-                  <a class="categorylist" (click)="changeCategory(categoryList.id)">{{ categoryList.name }}</a>
+                  <a class="categorylist" [class.active]="listActive === categoryList.id"(click)="changeCategory(categoryList.id)">{{ categoryList.name }}</a>
                 </li>
               </ul>
             </section>
@@ -184,6 +184,10 @@ import { store_list, categoryfilter, today_deal } from 'src/app/core/models/stor
     .detail {
       font-size: 10px;
     }
+
+    .categorylist.active {
+      color: skyblue;
+    }
   `]
 })
 export class CategoryComponent implements OnInit {
@@ -194,6 +198,7 @@ export class CategoryComponent implements OnInit {
   productItems: today_deal[];
   categoryName: string = '가구';
   setNumber: number;
+  listActive: number = 2;
 
   constructor(private storeService: StoreService
     , private commonService: CommonService
@@ -218,6 +223,7 @@ export class CategoryComponent implements OnInit {
         this.productItems = this.categoryFilter.products;
         this.categoryName = this.categoryLists[id - 1].name;
       });
+    this.listActive = id;
   }
 
   highPricefilter() {
