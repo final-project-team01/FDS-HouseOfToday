@@ -1,25 +1,118 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-photo-user',
   template: `
-  <div class="user-container">
-  Nam interdum, turpis sit amet commodo tristique, neque elit pretium velit, vel eleifend justo leo a tellus. Duis non consectetur ex. Praesent nec mauris accumsan, interdum sapien vel, posuere felis. Mauris dictum dapibus euismod. Fusce commodo eros nisi. Cras semper purus ac quam ultrices, sit amet dapibus orci lobortis. Praesent et felis tortor. Donec tincidunt ultricies elit ut rhoncus. Praesent tincidunt fringilla turpis vitae feugiat. Praesent a dolor maximus, scelerisque sem quis, vestibulum odio. Sed pretium euismod est et pulvinar. Vestibulum non quam eros. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce id dolor ut lacus viverra mattis.
+  <div class="user-container" *ngIf="photoInfo">
+    <div class="like-and-scrap">
+      <button>
+        <span class="heart"></span>
+        {{ photoInfo.like_count }}
+      </button>
+      <button>
+        <span class="scrap"></span>
+        {{ photoInfo.scrap_count }}
+      </button>
+    </div>
+    <div class="author">
+      <img src="{{ photoInfo.author_profile_image }}"
+        class="author_profile_image">
+        <div class="about-author">
+          <span class="author-name">{{ photoInfo.author }}</span><br>
+          <small *ngIf="photoInfo.author_profile_comment">
+          {{ photoInfo.author_profile_comment }}</small>
+        </div>
+      <button class="follow cursor">팔로우</button>
+    </div>
   </div>
   `,
   styles: [`
   .user-container{
-    width: 436px;
+    width: 330px;
     display: inline-block;
     height: calc(100vh - 81px);
     position: sticky;
     top: 81px;
-    padding: 50px 0 0 40px;
-    background-color: lightgreen;
+    padding: 40px 0 0 40px;
+  }
+  .like-and-scrap{
+    display: flex;
+    margin-bottom: 30px;
+  }
+  .like-and-scrap > button{
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    background-color: #f5f5f5;
+    height: 50px;
+    color: #424242;
+    font-weight: 400;
+    flex: 1;
+  }
+  .like-and-scrap > button:first-child{
+    margin-right: 10px;
+  }
+  .like-and-scrap span{
+    vertical-align: middle;
+    margin-right: 8px;
+    background-image: url('../../../../assets/image/common-action.png');
+  }
+  .heart{
+    display: inline-block;
+    background-position: -240px -280px;
+    width: 24px;
+    height: 24px;
+  }
+  .scrap{
+    display: inline-block;
+    background-position: -280px -280px;
+    width: 24px;
+    height: 24px;
+  }
+  .author{
+    display: flex;
+    align-items: center;
+  }
+  .author_profile_image{
+    width: 50px;
+    height: 50px;
+    margin-right: 5px;
+    border-radius: 50%;
+  }
+  .about-author{
+    display: inline-block;
+    width: 180px;
+    padding: 0 5px;
+  }
+  .about-author small{
+    display: inline-block;
+    color: #757575;
+    font-size: 11px;
+    line-height: 15px;
+    max-height: 30px;
+    overflow: hidden;
+  }
+  .author-name{
+    font-weight: 700;
+    font-size: 15px;
+  }
+  .follow{
+    height: 30px;
+    font-size: 11px;
+    font-weight: 700;
+    border: none;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    margin-left: 10px;
+    padding: 0 10px;
+    color: #424242;
+    margin-left: auto;
   }
   `]
 })
 export class PhotoUserComponent implements OnInit {
+
+  @Input() photoInfo: any; 
 
   constructor() { }
 
