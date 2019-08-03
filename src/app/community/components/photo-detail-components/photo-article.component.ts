@@ -50,19 +50,25 @@ import { CommonService } from 'src/app/core/services/common.service';
         </form>
       </div>
       <div class="comment-section">
-        <div class="each-comment" *ngFor="let comment of photoInfo.photo_comments">
+        <div class="each-comment" *ngFor="let comment of chosenList">
             <img src="{{ comment.author_profile_image }}"
               class="author_profile_image">
-              <div class="comment">
-                <span class="comment-author">{{ comment.author }}</span>
-                <span class="comment-text">{{ comment.text }}</span><br>
-                <span class="comment-created dot">{{ comment.created }}</span>
-                <span class="heart"></span>
-                <button class="like-comment dot cursor">좋아요</button>
-                <button class="report cursor">신고</button>
-              </div>
+            <div class="comment">
+              <span class="comment-author">{{ comment.author }}</span>
+              <span class="comment-text">{{ comment.text }}</span><br>
+              <span class="comment-created dot">{{ comment.created }}</span>
+              <span class="heart"></span>
+              <button class="like-comment dot cursor">좋아요</button>
+              <button class="report cursor">신고</button>
+            </div>
         </div>
       </div>
+      <app-pagination
+        [originalList]="originalList"
+        [chosenList]="chosenList"
+        [pages]="pages"
+        (change)="changePage($event)">
+      </app-pagination>
     </div>
   `,
   styles: [`
@@ -217,12 +223,19 @@ import { CommonService } from 'src/app/core/services/common.service';
 export class PhotoArticleComponent implements OnInit {
 
   @Input() photoInfo: any; 
+  @Input() originalList: any;
+  @Input() chosenList: any;
+  @Input() pages: any;
 
   showBtn = 'none';
 
   constructor(private commonService: CommonService) { }
 
   ngOnInit() {
+  }
+
+  changePage(chosenList){
+    this.chosenList = chosenList;
   }
 
 }
