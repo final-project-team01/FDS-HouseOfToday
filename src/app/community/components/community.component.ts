@@ -160,7 +160,7 @@ const styles = {
         </header>
         <div class="production-rank-feed">
           <ul class="production-rank-feed__category">
-            <li *ngFor="let rankFeed of rankFeeds; let i = index" class="production-rank-feed__category__item" role="button" (click)="activateButton(i)">{{rankFeed.categoryName}}</li>
+            <li *ngFor="let rankFeed of rankFeeds; let i = index" class="production-rank-feed__category__item" role="button" (click)="changeCategory(rankFeed.id)" [class.active]="clicked === rankFeed.id">{{rankFeed.categoryName}}</li>
           </ul>
           <div class="row production-rank-feed__group">
             <div class="col production-rank-feed__list-wrap">
@@ -188,11 +188,11 @@ const styles = {
             </div>
             <div class="col-12 col-md-3 home-rank__more-wrap">
               <div class="home-rank__more-container">
-                <a class="home-rank__more">
+                <a class="home-rank__more" (mouseover)="selectedActive()" (mouseleave)="unselectActive()" routerLink="/store/rank">
                   <div class="home-rank__more__text">베스트 100 보기
                     <div class="home-rank__more__text__icon">
                       <span class="unselected icon-page-home__b-1"></span>
-                      <span class="selected icon-page-home__b-1"></span>
+                      <span class="selected icon-page-home__b-1" [class.active]="activeSelect"></span>
                     </div>
                   </div>
                 </a>
@@ -903,12 +903,31 @@ const styles = {
     transition: .1s opacity;
   }
 
-  .icon-page-home__b-1 {
-    width: 200px;
-    height: 200px;
-    background-position: left 24px top 239px;
+  .home-rank__more__text__icon>.unselected {
+    width: 40px;
+    height: 40px;
+    background-position: right 601px top 362px;
     background-image: url('../../../assets/image/icon-pointer.png');
     background-size: 600px auto;
+    transform: scale(1.3);
+  }
+
+  .home-rank__more__text__icon>.selected {
+    opacity: 0;
+    width: 40px;
+    height: 40px;
+    background-position: right 532px top 264px;
+    background-image: url('../../../assets/image/icon-pointer.png');
+    background-size: 600px auto;
+    transform: scale(1.3);
+  }
+
+  .home-rank__more__text__icon>.selected.active {
+    opacity: 1;
+  }
+
+  .production-rank-feed__category__item.active {
+    color: #35C5F0;
   }
   `]
 })
@@ -922,7 +941,7 @@ export class CommunityComponent implements OnInit {
   fulltodaysDeals: any;
   todaysDeals: todayDeal[];
   bestContainer: best100;
-  best100;
+  best100: best100;
 
   setNumber: number;
   setNumberFamous: number;
@@ -937,7 +956,9 @@ export class CommunityComponent implements OnInit {
   minutes: number = 0;
   seconds: number = 0;
   activeTimer: boolean = false;
-  clicked: number;
+  activeSelect: boolean;
+  clicked: string = 'total';
+  index: number = 0;
   
   navItems = [
     {
@@ -1082,11 +1103,18 @@ export class CommunityComponent implements OnInit {
     }, 1000);
     this.activeTimer = true;
   }
+  
+  changeCategory(categoryid: string) {
+    this.best100 = this.community.best100_category_list[categoryid];
 
-  activateButton(index: number) {
-    this.clicked = index;
-    this.style = { 
-      'color': '#35C5F0'
-    };
+    this.clicked = categoryid;
+  }
+
+  selectedActive() {
+    this.activeSelect = true;
+  }
+
+  unselectActive() {
+    this.activeSelect = false;
   }
 }
