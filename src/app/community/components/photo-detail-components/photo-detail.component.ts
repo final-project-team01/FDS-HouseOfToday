@@ -19,7 +19,6 @@ import { CommunityService } from 'src/app/core/services/community.service';
     margin: 0 auto;
     box-sizing: border-box;
     width: 1200px;
-    height: 2000px;
     min-height: 1px;
     position: relative;
     background-color: skyblue;

@@ -14,7 +14,7 @@ import { Component, OnInit } from '@angular/core';
     height: calc(100vh - 81px);
     position: sticky;
     top: 81px;
-    padding: 50px 0 0 40px;
+    padding: 40px 0 0 40px;
     background-color: lightgreen;
   }
   `]

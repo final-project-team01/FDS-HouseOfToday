@@ -10,15 +10,20 @@ import { CommonService } from 'src/app/core/services/common.service';
         <span>{{ photoInfo.created }}</span>
       </div>
       <figure>
-        <div class="photo-container">
+        <div class="photo-container"
+          (mouseover)="showBtn = 'block'"
+          (mouseleave)="showBtn = 'none'">
           <img src="{{ photoInfo.image }}" class="photo" alt="실내 이미지">
           <a routerLink="/store/{{ photoInfo.product_id }}" class="product-plus"
             [style.top]="photoInfo.axis_top + '%'"
-            [style.left]="photoInfo.axis_left + '%'">해당 상품 보러가기</a>
+            [style.left]="photoInfo.axis_left + '%'"
+            [style.display]="showBtn">해당 상품 보러가기</a>
         </div>
         <aside class="products">
           <a routerLink="/store/{{ photoInfo.product_id }}">
-            <img src="{{ photoInfo.product_image }}" class="product-img" alt="실내에 사용된 제품 이미지">
+            <img src="{{ photoInfo.product_image }}" class="product-img" alt="실내에 사용된 제품 이미지"
+            (mouseover)="showBtn = 'block'"
+            (mouseleave)="showBtn = 'none'">
           </a>
         </aside>
         <figcaption>
@@ -52,6 +57,8 @@ import { CommonService } from 'src/app/core/services/common.service';
                 <span class="comment-author">{{ comment.author }}</span>
                 <span class="comment-text">{{ comment.text }}</span><br>
                 <span class="comment-created dot">{{ comment.created }}</span>
+                <span class="heart"></span>
+                <button class="like-comment dot cursor">좋아요</button>
                 <button class="report cursor">신고</button>
               </div>
         </div>
@@ -189,11 +196,30 @@ import { CommonService } from 'src/app/core/services/common.service';
     color: #757575;
     font-size: 13px;
   }
+  .like-comment{
+    background: none;
+    border: none;
+    color: #757575;
+    padding: 0;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .heart{
+    display: inline-block;
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+    background-image: url('../../../../assets/image/common-action@2x.png');
+    background-position: -49px -146px;
+    background-size: 490px;
+  }
   `]
 })
 export class PhotoArticleComponent implements OnInit {
 
   @Input() photoInfo: any; 
+
+  showBtn = 'none';
 
   constructor(private commonService: CommonService) { }
 
