@@ -8,16 +8,17 @@ import { CommunityService } from 'src/app/core/services/community.service';
   template: `
     <app-header></app-header>
     <div class="wrapper">
-      <app-photo-article [photoInfo]="photoInfo"></app-photo-article>
+      <app-photo-article 
+        [photoInfo]="photoInfo"></app-photo-article>
       <app-photo-user></app-photo-user>
     </div>
   `,
   styles: [`
   .wrapper{
-    display: flex;
+    display:flex;
     margin: 0 auto;
     box-sizing: border-box;
-    width: 1136px;
+    width: 1200px;
     height: 2000px;
     min-height: 1px;
     position: relative;

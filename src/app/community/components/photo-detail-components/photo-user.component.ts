@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
   `,
   styles: [`
   .user-container{
-    width: 436px;
+    width: 330px;
     display: inline-block;
     height: calc(100vh - 81px);
     position: sticky;
