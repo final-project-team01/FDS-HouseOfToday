@@ -9,8 +9,13 @@ import { CommonService } from './common.service';
 })
 export class CommunityService {
 
-  constructor(private httpClient: HttpClient
-             ,private commonService: CommonService) { }
+  constructor(private httpClient: HttpClient, private commonService: CommonService) { }
+
+  getCommunityHome() {
+    const path = 'community/home/';
+    const fullpath = this.commonService.getFullPath(path);
+    return this.httpClient.get(fullpath);
+  }
 
   getPhotoInfo(id: number) {
     const path = `community/photo/${id}/`;

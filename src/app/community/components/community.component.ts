@@ -5,6 +5,7 @@ import { CommonService } from 'src/app/core/services/common.service';
 import { LyTheme2 } from '@alyle/ui';
 import { today_deal, store_home } from 'src/app/core/models/store.interface';
 import { StoreService } from 'src/app/core/services/store.service';
+import { Community, todayStory, todayPicture, todayDeal, best100 } from 'src/app/core/models/community.interface';
 
 const styles = {
   carousel: {
@@ -24,18 +25,18 @@ const styles = {
       <section class="container home-header">
         <div class="row">
           <div class="col-12 col-md-9 home-head__story">
-            <article class="story-header">
+            <article class="story-header" *ngFor="let mainImage of mainEntry">
               <a class="story-header-link">
                 <div class="story-header__image-wrap">
-                  <div class="story-header__image"></div>
+                  <div class="story-header__image" [ngStyle]="{ 'background-image': 'url(' + mainImage.cover_image + ')' }"></div>
                 </div>
                 <div class="story-header__content-wrap">
                   <div class="story-header__content">
-                    <div class="story-header__content__title">폴란드의 조용한 도시 글리비체에서 느리고 따스하게.<br>
+                    <div class="story-header__content__title">{{mainImage.title}}<br>
                     </div>
                     <div class="story-header__content__profile">
-                      <span class="story-header__content__profile__image"></span>  
-                      <span class="story-header__content__profile__name"></span>
+                      <img class="story-header__content__profile__image" src="{{mainImage.author_profile}}"> 
+                      <span class="story-header__content__profile__name">{{mainImage.author}}</span>
                     </div>
                   </div>
                   <div class="home-header__story__more">보러가기</div>
@@ -74,19 +75,18 @@ const styles = {
           <h2 class="col-12 home-section__header__content">오늘의 스토리</h2>
         </header>
         <ul class="row home-stories__content">
-          <li class="col-6 col-md-3 home-stories__content__item" *ngFor="let storiesItem of storiesItems">
+          <li *ngFor="let storyToday of storiesToday" class="col-6 col-md-3 home-stories__content__item">
             <article class="story-entry story-story-item">
               <a class="story-entry-link">
                 <div class="story-entry__image-wrap">
-                  <img class="story-entry__image" src="{{storiesItem.img}}">
+                  <img class="story-entry__image" src="{{storyToday.cover_image}}">
                 </div>
                 <div class="story-entry__content-wrap">
                   <div class="story-entry__content">
-                    <div class="story-entry__content__category">{{storiesItem.category}}</div>
-                    <div class="story-entry__content__title">{{storiesItem.title}}<br></div>
+                    <div class="story-entry__content__title">{{storyToday.title}}<br></div>
                     <div class="story-entry__content__profile">
-                      <img class="story-entry__content__profile__image" src="{{storiesItem.profileImg}}">
-                      <span class="story-entry__content__profile__name">{{storiesItem.profileName}}</span>
+                      <img class="story-entry__content__profile__image" src="{{storyToday.author_profile}}">
+                      <span class="story-entry__content__profile__name">{{storyToday.author}}</span>
                     </div>
                   </div>
                 </div>
@@ -128,17 +128,17 @@ const styles = {
           <a class="home-section__header__more home-hide-sm">더보기</a>
         </header>
         <ul class="row home-cards__content">
-          <li *ngFor="let todayPhoto of todayPhotos; let i = index" class="col-6 col-md-3 home-cards__content__item">
+          <li *ngFor="let storyFame of storiesFame; let i = index" class="col-6 col-md-3 home-cards__content__item">
             <article class="story-entry story-card-item">
               <a class="story-entry-link">
                 <div class="story-entry__image-wrap">
-                  <img class="story-entry__image" src="{{todayPhoto.img}}">
+                  <img class="story-entry__image" src="{{storyFame.image}}">
                 </div>
                 <div class="story-entry__content-wrap">
                   <div class="story-entry__content">
                     <div class="story-entry__content__profile">
-                      <img class="story-entry__content__profile__image" src="{{todayPhoto.profileImg}}">
-                      <span class="story-entry__content__profile__name">{{todayPhoto.name}}</span>
+                      <img class="story-entry__content__profile__image" src="{{storyFame.author_profile_image}}">
+                      <span class="story-entry__content__profile__name">{{storyFame.author}}</span>
                     </div>
                   </div>
                   <div *ngIf="i < 3" class="home-rank-icon">
@@ -149,6 +149,57 @@ const styles = {
             </article>
           </li>
         </ul>
+      </section>
+      <a routerLink="/store/rank" class="container home-banner home-banner--pc">
+        <div class="pc-banner"></div>
+      </a>
+      <section class="container home-section home-exhibitions">
+        <header class="row home-section__header">
+          <h2 class="col home-section__header__content">베스트 100</h2>
+          <a class="home-section__header__more home-hide-sm">더보기</a>
+        </header>
+        <div class="production-rank-feed">
+          <ul class="production-rank-feed__category">
+            <li *ngFor="let rankFeed of rankFeeds; let i = index" class="production-rank-feed__category__item" role="button" (click)="changeCategory(rankFeed.id)" [class.active]="clicked === rankFeed.id">{{rankFeed.categoryName}}</li>
+          </ul>
+          <div class="row production-rank-feed__group">
+            <div class="col production-rank-feed__list-wrap">
+              <ul class="row production-rank-feed__list">
+                <div class="col-4 production-rank-feed__item" *ngFor="let best3 of best100; let i = index">
+                  <div class="product-simplified home-production-item">
+                    <a class="product-item">
+                      <div class="img-wrap square">
+                        <img class="lazyload" src="{{best3.thumnail_images[0].image}}">
+                      </div>
+                      <div class="info">
+                        <p class="product-name text-caption-1 line-height-normal">{{best3.name}}</p>
+                        <p class="price text-caption-3">
+                          <span class="discount-ratio text-blue text-body-1 bold">{{best3.discount_rate}}%</span>
+                          <strong class="selling-price text-body-1 text-black">{{commonService.addComma(best3.price)}}</strong>
+                        </p>
+                      </div>
+                      <div *ngIf="i < 3" class="home-rank-icon">
+                        <span class="pc icon-page-home__a-2">{{i + 1}}</span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </ul>
+            </div>
+            <div class="col-12 col-md-3 home-rank__more-wrap">
+              <div class="home-rank__more-container">
+                <a class="home-rank__more" (mouseover)="selectedActive()" (mouseleave)="unselectActive()" routerLink="/store/rank">
+                  <div class="home-rank__more__text">베스트 100 보기
+                    <div class="home-rank__more__text__icon">
+                      <span class="unselected icon-page-home__b-1"></span>
+                      <span class="selected icon-page-home__b-1" [class.active]="activeSelect"></span>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
     </main>
     <app-footer></app-footer>
@@ -187,6 +238,17 @@ const styles = {
     margin-left: -10px;
   }
 
+  .col-4 {
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    box-sizing: border-box;
+    flex: 0 0 33.3333333333%;
+    max-width: 33.3333333333%;
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+  
   .col-md-9 {
     padding-right: 10px;
     padding-left: 10px;
@@ -211,10 +273,6 @@ const styles = {
     margin-bottom: 20px;
     cursor: pointer;
     touch-action: manipulation;
-  }
-
-  .story-header__image {
-    background-image: url('https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-projects-cover_images-156324653991488335.jpg/1280/768');
   }
 
   .home-header__story, .story-header__image {
@@ -368,6 +426,18 @@ const styles = {
     font-weight: bold;
   }
 
+  .col {
+    padding-right: 10px;
+    padding-left: 10px;
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    box-sizing: border-box;
+  }
+
   .col-12 {
     padding-right: 10px;
     padding-left: 10px;
@@ -497,6 +567,14 @@ const styles = {
     font-size: 13px;
   }
 
+  .story-entry__content__profile {
+    margin-left: 10px;
+  }
+
+  .story-entry__content__profile__name {
+    margin-left: 5px;
+  }
+
   .story-story-item .story-entry__content__profile__image {
     width: 22px;
     height: 22px;
@@ -613,17 +691,263 @@ const styles = {
   .home-cards__content__item {
     margin-bottom: 20px;
   }
+
+  .production-rank-feed {
+    overflow: hidden;
+  }
+
+  .home-rank .production-rank-feed__category {
+    margin-top: 10px;
+  }
+
+  .home-banner--pc {
+    display: block;
+  }
+  .home-banner>.pc-banner {
+    display: block;
+    width: 100%;
+    height: 80px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .pc-banner {
+    background-image: url('https://image.ohou.se/image/resize/bucketplace-v2-development/uploads-banners-home-1555313538361_OT.jpg/2361/none');
+  }
+
+  .production-rank-feed__category {
+    margin: 10px -20px;
+    position: relative;
+    font-size: 0;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .production-rank-feed__category__item.active {
+    color: #35C5F0;
+  }
+
+  .production-rank-feed__category__item {
+    padding: 10px 15px;
+    font-size: 15px;
+    display: inline-block;
+    margin: 0 5px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .home-production-item.product-simplified {
+    position: relative;
+  }
+
+  .product-simplified {
+    display: block;
+  }
+
+  .img-wrap.square {
+    position: relative;
+    overflow: hidden;
+    border-radius: 6px;
+  }
+
+  .img-wrap.square>img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  .home-section img {
+    background-color: whitesmoke;
+  }
+
+  .product-simplified img {
+    top: 0;
+    left: 0;
+    transition: .2s transform;
+  }
+
+  .image-wrap.square:after, .img-wrap.square:after {
+    content: "";
+    padding-top: 100%;
+    display: block;
+  }
+
+  .home-production-item.product-simplified .info {
+    height: 93px;
+  }
+
+  .product-simplified .info {
+    box-sizing: border-box;
+    padding: 15px 0;
+    background-color: white;
+  }
+
+  .home-production-item.product-simplified .info .product-name {
+    max-height: 36px;
+  }
+
+  .home-production-item.product-simplified .info .product-name {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    word-wrap: break-word;
+  }
+
+  .product-simplified .info>p:not(:last-child) {
+    margin-bottom: 10px;
+  }
+
+  .line-height-normal {
+    line-height: 1.38;
+  }
+
+  .home-production-item.product-simplified .info {
+    height: 93px;
+  }
+
+  .product-simplified .info {
+    box-sizing: border-box;
+    padding: 15px 0;
+    background-color: white;
+  }
+
+  .home-production-item.product-simplified .info .product-name {
+    max-height: 36px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    word-wrap: break-word;
+  }
+
+  .product-simplified .info>.price {
+    vertical-align: baseline;
+  }
+
+  .text-caption-1 {
+    font-size: 13px;
+    color: #424242;
+  }
+
+  .text-caption-3 {
+    font-size: 11px;
+  }
+
+  .product-simplified .info>.price>.discount-ratio {
+    margin-right: 2px;
+  }
+
+  .product-simplified .info>.price>* {
+    vertical-align: inherit;
+  }
+
+  .bold {
+    font-weight: bold;
+  }
+
+  .text-blue {
+    color: #35C5F0;
+  }
+
+  .text-body-1 {
+    font-size: 15px;
+  }
+
+  .home-rank__more-wrap {
+    display: block;
+  }
+
+  .home-rank__more-container {
+    overflow: hidden;
+    border-radius: 4px;
+    position: relative;
+    width: 100%;
+  }
+
+  .home-rank__more-container:before {
+    content: '';
+    display: block;
+    padding-bottom: 100%;
+  }
+
+  .home-rank__more {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: whitesmoke;
+  }
+
+  .home-rank__more__text {
+    font-size: 20px;
+    line-height: 1.35;
+    text-align: center;
+    color: #424242;
+    font-weight: bold;
+  }
+
+  .home-rank__more__text__icon {
+    margin: 15px auto 0;
+    width: 40px;
+    height: 40px;
+    font-size: 0;
+    border-radius: 100%;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+  }
+
+  .home-rank__more__text__icon>.selected, .home-rank__more__text__icon>.unselected {
+    display: block;
+    position: absolute;
+    transition: .1s opacity;
+  }
+
+  .home-rank__more__text__icon>.unselected {
+    width: 40px;
+    height: 40px;
+    background-position: right 601px top 362px;
+    background-image: url('../../../assets/image/icon-pointer.png');
+    background-size: 600px auto;
+    transform: scale(1.3);
+  }
+
+  .home-rank__more__text__icon>.selected {
+    opacity: 0;
+    width: 40px;
+    height: 40px;
+    background-position: right 532px top 264px;
+    background-image: url('../../../assets/image/icon-pointer.png');
+    background-size: 600px auto;
+    transform: scale(1.3);
+  }
+
+  .home-rank__more__text__icon>.selected.active {
+    opacity: 1;
+  }
+
+  .production-rank-feed__category__item.active {
+    color: #35C5F0;
+  }
   `]
 })
 export class CommunityComponent implements OnInit {
   menuWidth: string = '25%';
+  community: Community;
+  mainEntry: any;
+  storiesToday: todayStory[];
+  storiesFame: todayPicture[];
   productItems: today_deal[];
   fulltodaysDeals: any;
-  todaysDeals: store_home[];
+  todaysDeals: todayDeal[];
+  bestContainer: best100;
+  best100: best100;
+
   setNumber: number;
   setNumberFamous: number;
   setMenuNum: number = 1;
   storyMenuOn: boolean = false;
+  style: object;
   
   today: Date;
   tomorrow: Date;
@@ -632,6 +956,9 @@ export class CommunityComponent implements OnInit {
   minutes: number = 0;
   seconds: number = 0;
   activeTimer: boolean = false;
+  activeSelect: boolean;
+  clicked: string = 'total';
+  index: number = 0;
   
   navItems = [
     {
@@ -668,30 +995,6 @@ export class CommunityComponent implements OnInit {
     }
   ]
 
-  storiesItems = [
-    {
-      img: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-advices-cover_images-156375537476564618.JPG/640/426',
-      category: '3화',
-      title: '삼성 비스포크, 우리 집 키친테리어를 부탁해',
-      profileImg: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-users-profile_images-1512439280629_knGlCsma.jpg/72/72',
-      profileName: '오늘의집'
-    },
-    {
-      img: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-advices-cover_images-156375537476564618.JPG/640/426',
-      category: '3화',
-      title: '삼성 비스포크, 우리 집 키친테리어를 부탁해',
-      profileImg: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-users-profile_images-1512439280629_knGlCsma.jpg/72/72',
-      profileName: '오늘의집'
-    },
-    {
-      img: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-advices-cover_images-156375537476564618.JPG/640/426',
-      category: '3화',
-      title: '삼성 비스포크, 우리 집 키친테리어를 부탁해',
-      profileImg: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-users-profile_images-1512439280629_knGlCsma.jpg/72/72',
-      profileName: '오늘의집'
-    },
-  ];
-
   storiesMenu = [
     {
       description: '예쁜 집 구경하기',
@@ -707,49 +1010,40 @@ export class CommunityComponent implements OnInit {
     },
   ]
 
-  todayPhotos = [
+  rankFeeds = [
     {
-      img: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-cards-snapshots1564493973_.jpeg/640/640',
-      profileImg: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-users-profile_images1564494050_YoS.jpeg/72/72',
-      name: 'Wisk'
+      categoryName: '전체',
+      id: 'total'
     },
     {
-      img: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-cards-snapshots1564493973_.jpeg/640/640',
-      profileImg: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-users-profile_images1564494050_YoS.jpeg/72/72',
-      name: 'Wisk'
+      categoryName: '가구',
+      id: 'furniture'
     },
     {
-      img: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-cards-snapshots1564493973_.jpeg/640/640',
-      profileImg: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-users-profile_images1564494050_YoS.jpeg/72/72',
-      name: 'Wisk'
+      categoryName: '패브릭',
+      id: 'fabric'
     },
     {
-      img: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-cards-snapshots1564493973_.jpeg/640/640',
-      profileImg: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-users-profile_images1564494050_YoS.jpeg/72/72',
-      name: 'Wisk'
+      categoryName: '홈데코/조명',
+      id: 'light_homedeco'
     },
     {
-      img: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-cards-snapshots1564493973_.jpeg/640/640',
-      profileImg: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-users-profile_images1564494050_YoS.jpeg/72/72',
-      name: 'Wisk'
+      categoryName: '가전',
+      id: 'home_appliances'
     },
     {
-      img: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-cards-snapshots1564493973_.jpeg/640/640',
-      profileImg: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-users-profile_images1564494050_YoS.jpeg/72/72',
-      name: 'Wisk'
+      categoryName: '수납/생활',
+      id: 'daily_supplies'
     },
     {
-      img: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-cards-snapshots1564493973_.jpeg/640/640',
-      profileImg: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-users-profile_images1564494050_YoS.jpeg/72/72',
-      name: 'Wisk'
+      categoryName: '주방',
+      id: 'kitchenware'
     },
     {
-      img: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-cards-snapshots1564493973_.jpeg/640/640',
-      profileImg: 'https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-users-profile_images1564494050_YoS.jpeg/72/72',
-      name: 'Wisk'
+      categoryName: '반려동물',
+      id: 'companion_animal'
     },
   ]
-
   readonly classes = this.theme.addStyleSheet(styles);
   items = [
     {
@@ -777,11 +1071,17 @@ export class CommunityComponent implements OnInit {
         this.storyMenuOn = true;
     });
 
-    this.storeService.getTodaysDeal().subscribe((data) => {
-      this.fulltodaysDeals = data as store_home[];
-      this.todaysDeals = this.fulltodaysDeals.todaydeal;
-      this.setNumber = this.todaysDeals.length;
-    });
+    this.communityService.getCommunityHome()
+      .subscribe((data) => {
+        this.community = data as Community;
+        this.mainEntry = this.community.today_entry;
+        this.storiesToday = this.community.today_story;
+        this.todaysDeals = this.community.todaydeal;
+        this.storiesFame = this.community.today_picture;
+        this.bestContainer = this.community.best100_category_list;
+        this.best100 = this.bestContainer.total;
+      });
+
     this.dealTimer();
   }
 
@@ -802,5 +1102,19 @@ export class CommunityComponent implements OnInit {
       this.seconds = Math.floor((this.gap % (1000 * 60)) / 1000);
     }, 1000);
     this.activeTimer = true;
+  }
+  
+  changeCategory(categoryid: string) {
+    this.best100 = this.community.best100_category_list[categoryid];
+
+    this.clicked = categoryid;
+  }
+
+  selectedActive() {
+    this.activeSelect = true;
+  }
+
+  unselectActive() {
+    this.activeSelect = false;
   }
 }
