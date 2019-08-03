@@ -1,5 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { cart_list } from 'src/app/core/models/cart.interface';
+import { CartService } from 'src/app/core/services/cart.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-item-cards',
@@ -10,10 +12,10 @@ import { cart_list } from 'src/app/core/models/cart.interface';
         <ul *ngFor="let item of itemList">
           <li>
             <article class="item-card">
-              <!--<app-check-box class="checkbox" [isChecked]="item['isChecked']"></app-check-box>-->
+              <app-check-box class="checkbox" [isChecked]="item['isChecked'] " (click)="cartService.toggleChecked(item['id'])"></app-check-box>
               <a class="product">
                 <div class="item-image">
-                  <img src="{{item['image']}}">
+                  <img src="{{item['thumnail_image']}}">
                 </div>
                 <div class="item-content">
                   <h1 class="content-header">{{item['product']}}</h1>
@@ -28,6 +30,18 @@ import { cart_list } from 'src/app/core/models/cart.interface';
               </button>
               <div class="product-option">
                 <h2 class="option-name">{{item['product_option']}}</h2>
+                <div class="product-option-item">
+                  <form [formGroup]="quantityForm" (ngSubmit)="onSubmin()">
+                    <div class="option-quantity">
+                      <input class="form-controls option-quantity-count"
+                      type="string"
+                      formControlName="quantity"
+                      value="{{item['quantity']}}">
+                      <p class="error" *ngIf="quantity.errors?.pattern">1이상의 정수를 입력하세요.</p>
+                    </div>
+                  </form>
+                  <div class="option-price">{{item['total_price']}}</div>
+                </div>
               </div>
             </article>
             <div class="carted-product-footer">
@@ -48,8 +62,21 @@ import { cart_list } from 'src/app/core/models/cart.interface';
 export class ItemCardComponent implements OnInit {
   @Input() itemList: cart_list[];
   @Input() brand: string;
-  constructor() { }
+  quantityForm: FormGroup;
+  constructor(private cartService: CartService
+    , private fb: FormBuilder) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.quantityForm = this.fb.group(
+      {
+        quantity: ['', [Validators.required, Validators.pattern("^[1-9]{1}$|^[1-9]{1}[0-9]{1,}$")]]
+      }
+    );
+  }
+  get quantity() {
+    return this.quantityForm.get('quantity');
+  }
+  onSubmin() {
 
+  }
 }

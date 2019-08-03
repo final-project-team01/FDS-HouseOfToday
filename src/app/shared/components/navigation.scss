@@ -55,16 +55,30 @@
     transition: 0.1s background;
     .cart-btn-icon {
       position: absolute;
-      top: 7px;
-      left: 7px;
+      top: -1px;
+      left: -1px;
       transition: 0.1s opacity;
       background-repeat: no-repeat;
       background-size: 400px;
       display: inline-block;
-      width: 22px;
-      height: 22px;
-      background-position: top -121px left -100px;
+      width: 37px;
+      height: 37px;
+      background-position: left -90px top -112px;
       background-image: url("/assets/image/icon-etc.png");
+    }
+    .ticker {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 21px;
+      height: 21px;
+      font-size: 12px;
+      line-height: 19px;
+      text-align: center;
+      color: white;
+      box-sizing: border-box;
+      background-color: #f77;
+      border-radius: 100%;
     }
   }
   .cart-btn:hover {

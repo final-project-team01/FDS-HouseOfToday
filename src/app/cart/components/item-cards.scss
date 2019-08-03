@@ -113,9 +113,11 @@ ul {
       font-weight: 400;
       line-height: 20px;
       color: #424242;
+      padding: 0 22px 10px 0;
     }
-    .option-price {
-      flex: 0 0 auto;
+    .product-option-item {
+      display: flex;
+      justify-content: space-between;
       font-size: 15px;
       font-weight: 700;
       line-height: 24px;
@@ -123,6 +125,21 @@ ul {
     }
   }
 }
+
+.option-quantity {
+  .option-quantity-count {
+    height: 24px;
+    padding: 0 10px;
+    font-size: 13px;
+    line-height: 22px;
+    border-radius: 3px;
+    text-align: center;
+    font-family: Tahoma, sans;
+    width: 80px;
+    display: inline-block;
+  }
+}
+
 .carted-product-footer {
   margin-top: 16px;
   .product-subtotal {
@@ -132,4 +149,24 @@ ul {
     display: flex;
     justify-content: end;
   }
+}
+
+.form-controls {
+  transition: 0.2s border-color, 0.2s box-shadow, 0.2s background-color;
+  display: block;
+  box-sizing: border-box;
+  height: 40px;
+  width: 100%;
+  padding: 0 15px;
+  line-height: 40px;
+  border-radius: 4px;
+  border: solid 1px #dbdbdb;
+  background-color: white;
+  color: #424242;
+}
+.error {
+  display: inline-block;
+  font-size: 0.8rem;
+  color: #f77;
+  margin-left: 5px;
 }

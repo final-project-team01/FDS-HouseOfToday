@@ -16,4 +16,10 @@ export class CommunityService {
     const fullpath = this.commonService.getFullPath(path);
     return this.httpClient.get(fullpath);
   }
+
+  getPhotoInfo(id: number) {
+    const path = `community/photo/${id}/`;
+    const fullPath = this.commonService.getFullPath(path);
+    return this.httpClient.get(fullPath);
+  }
 }
