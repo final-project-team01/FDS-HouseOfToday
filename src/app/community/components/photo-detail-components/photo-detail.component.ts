@@ -49,7 +49,6 @@ export class PhotoDetailComponent implements OnInit {
       .subscribe(data => {
         this.photoInfo = data;
         this.comments = this.photoInfo.photo_comments;
-        console.log(this.comments);
         this.chosenComments = this.comments.filter((comment, index) => index >= 0 && index < 3);
         const cp = Math.ceil(this.comments.length / 3);
         this.commentPages = Array(cp);

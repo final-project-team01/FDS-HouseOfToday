@@ -32,11 +32,11 @@ import { CommonService } from 'src/app/core/services/common.service';
       </figure>
       <div class="article-footer">
         <span class="footer-item dot">조회 {{ photoInfo.hit_count }}</span>
-        <span class="footer-item dot">댓글 {{ photoInfo.comment_count }}</span>
+        <span class="footer-item dot">댓글 {{ originalList.length }}</span>
         <button class="report cursor">신고</button>
       </div>
       <hr>
-      <h2>댓글 <span>{{ photoInfo.comment_count }}</span></h2>
+      <h2>댓글 <span>{{ originalList.length }}</span></h2>
       <div class="comment-input">
         <div class="profile-img">
           <img
