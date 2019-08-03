@@ -67,10 +67,9 @@ import { CommonService } from 'src/app/core/services/common.service';
   `,
   styles: [`
   .article-container{
-    width: 870px;
+    width: 806px;
     display: inline-block;
     padding: 40px 40px 0 0;
-    background-color: yellow;
     border-right: 1px solid #ededed;
   }
   .article-type{

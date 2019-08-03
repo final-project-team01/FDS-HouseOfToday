@@ -10,7 +10,8 @@ import { CommunityService } from 'src/app/core/services/community.service';
     <div class="wrapper">
       <app-photo-article 
         [photoInfo]="photoInfo"></app-photo-article>
-      <app-photo-user></app-photo-user>
+      <app-photo-user
+        [photoInfo]="photoInfo"></app-photo-user>
     </div>
   `,
   styles: [`
@@ -18,10 +19,9 @@ import { CommunityService } from 'src/app/core/services/community.service';
     display:flex;
     margin: 0 auto;
     box-sizing: border-box;
-    width: 1200px;
+    width: 1136px;
     min-height: 1px;
     position: relative;
-    background-color: skyblue;
   }
   `]
 })
@@ -42,6 +42,8 @@ export class PhotoDetailComponent implements OnInit {
     this.communityService.getPhotoInfo(this.id)
       .subscribe(data => {
         this.photoInfo = data;
+        // console.log(this.photoInfo);
+        
       });
   }
 
