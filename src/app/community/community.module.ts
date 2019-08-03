@@ -24,7 +24,7 @@ import { ProjectListComponent } from './components/project/project-list.componen
     PhotoDetailComponent,
     PhotoArticleComponent,
     PhotoUserComponent,
-    ProjectListComponent
+    ProjectListComponent,
   ],
   imports: [
     CommonModule
