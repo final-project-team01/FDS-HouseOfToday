@@ -14,6 +14,15 @@ export class CartService {
   // httpClient: any;
 
   private _cartItem: cart_list[];
+  private _isOrder: boolean = true;
+
+  set isOrder(b: boolean) {
+    this._isOrder = b;
+  }
+
+  get isOrder() {
+    return this._isOrder;
+  }
 
   get cartItem() {
     return this._cartItem ? this._cartItem : []
@@ -149,5 +158,32 @@ export class CartService {
     ).map(item => item.id);
 
     this.removeItems(...items);
+  }
+
+  setItemQuantity(itemId: number, quantity: number) {
+    this._cartItem.forEach(
+      item => {
+        if (item.id === itemId)
+          item.quantity = quantity;
+      }
+    )
+  }
+
+  isOrderPossible() {
+    return this._cartItem.filter(item => item.isChecked).filter(
+      item => !(item.quantity > 0)
+    ).length === 0 ? true : false;
+  }
+
+  changeQuantity(id: number, quantity: number) {
+    let headers = this.commonService.setAuthorization(this.commonService.Token);
+    const path = `/products/orderitem/${id}`;
+    const fullPath = this.commonService.getFullPath(path);
+    this.httpClient.put(fullPath, { quantity }, { headers }).subscribe(
+      list => {
+        this.getCartList();
+      },
+      (error: HttpErrorResponse) => { console.log(error) }
+    );
   }
 }
