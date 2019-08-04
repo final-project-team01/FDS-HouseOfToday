@@ -18,6 +18,7 @@ import { CommentComponent } from './components/comment.component';
 import { ProjectArticleComponent } from './components/project-detail-components/project-article.component';
 import { ProjectUserComponent } from './components/project-detail-components/project-user.component';
 import { ProjectTableComponent } from './components/project-detail-components/project-table.component';
+import { ProjectResolve } from './components/project/project-resolve';
 
 @NgModule({
   declarations: [
@@ -38,9 +39,10 @@ import { ProjectTableComponent } from './components/project-detail-components/pr
     CommonModule
     , SharedModule
     , CoreModule
-    , CommunityRoutingModule
     , LyCarouselModule
-    , 
-  ]
+    , CommunityRoutingModule
+    ,
+  ],
+  providers: [ProjectResolve],
 })
-export class CommunityModule {}
+export class CommunityModule { }
