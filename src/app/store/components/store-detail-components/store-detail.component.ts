@@ -141,13 +141,13 @@ export class StoreDetailComponent implements OnInit {
         this.productOption = data['product_option'];
         this.productReviews = data['review'];
         this.productQnas = data['pdqna'];
-        this.chosenReviews = this.productReviews.filter((review, index) => index >= 0 && index < 3);
-        this.chosenQnas = this.productQnas.filter((review, index) => index >= 0 && index < 3);
+        this.chosenReviews = this.productReviews.filter((review, index) => index >= 0 && index < 5);
+        this.chosenQnas = this.productQnas.filter((review, index) => index >= 0 && index < 5);
         this.qnaAmount = this.productQnas.length;
         this.reviewAmount = this.productInfo['review_count'];
         this.starAvg = +this.productInfo['star_avg'];
-        const rp = Math.ceil(this.reviewAmount / 3);
-        const qp = Math.ceil(this.qnaAmount / 3);
+        const rp = Math.ceil(this.reviewAmount / 5);
+        const qp = Math.ceil(this.qnaAmount / 5);
         this.reviewPages = Array(rp);
         this.qnaPages = Array(qp);
         this.activeId = this.productImages[0].id;

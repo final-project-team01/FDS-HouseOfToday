@@ -22,4 +22,10 @@ export class CommunityService {
     const fullPath = this.commonService.getFullPath(path);
     return this.httpClient.get(fullPath);
   }
+
+  getProjectInfo(id: number) {
+    const path = `community/housewarming/${id}/`;
+    const fullPath = this.commonService.getFullPath(path);
+    return this.httpClient.get(fullPath);
+  }
 }
