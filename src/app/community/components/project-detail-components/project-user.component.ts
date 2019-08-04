@@ -38,7 +38,6 @@ import { Component, OnInit, Input } from '@angular/core';
     position: sticky;
     top: 81px;
     padding: 40px 0 0 40px;
-    background-color: lightgreen;
   }
   h1{
     font-size: 15px;
@@ -93,6 +92,7 @@ import { Component, OnInit, Input } from '@angular/core';
     float: left;
   }
   hr{
+    border: 1px solid #ededed;
     margin: 20px 0;
   }
   .author{

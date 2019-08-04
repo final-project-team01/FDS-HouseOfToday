@@ -5,7 +5,7 @@ import { Component, OnInit, Input } from '@angular/core';
   template: `
   <table *ngIf="projectInfo">
     <tbody>
-      <tr *ngIf="projectInfo.structure !== '-'">
+      <tr *ngIf="projectInfo.structure">
         <td class="table key">건물</td>
         <td class="table">{{ projectInfo.structure }}</td>
       </tr>
@@ -51,7 +51,7 @@ import { Component, OnInit, Input } from '@angular/core';
     table-layout: fixed;
     font-size: 15px;
     color: #424242;
-    margin: 20px 0 0 60px;
+    margin: 20px 0 0 30px;
   }
   .table{
     border-bottom: 1px solid #424242;

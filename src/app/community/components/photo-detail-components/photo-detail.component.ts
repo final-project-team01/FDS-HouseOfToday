@@ -49,8 +49,8 @@ export class PhotoDetailComponent implements OnInit {
       .subscribe(data => {
         this.photoInfo = data;
         this.comments = this.photoInfo.photo_comments;
-        this.chosenComments = this.comments.filter((comment, index) => index >= 0 && index < 3);
-        const cp = Math.ceil(this.comments.length / 3);
+        this.chosenComments = this.comments.filter((comment, index) => index >= 0 && index < 5);
+        const cp = Math.ceil(this.comments.length / 5);
         this.commentPages = Array(cp);
       });
   }

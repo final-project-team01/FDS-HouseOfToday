@@ -21,8 +21,6 @@ import { CommunityService } from 'src/app/core/services/community.service';
     box-sizing: border-box;
     width: 1136px;
     min-height: 1px;
-    position: relative;
-    background-color: skyblue;
   }
   `]
 })
@@ -43,8 +41,6 @@ export class ProjectsDetailComponent implements OnInit {
     this.communityService.getProjectInfo(this.id)
       .subscribe(data => {
         this.projectInfo = data;
-        console.log(this.projectInfo);
-        
       });
   }
 

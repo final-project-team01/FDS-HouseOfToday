@@ -36,24 +36,11 @@ import { CommonService } from 'src/app/core/services/common.service';
         <button class="report cursor">신고</button>
       </div>
       <hr>
-      <h2>댓글 <span>{{ originalList.length }}</span></h2>
-      <div class="comment-input">
-        <div class="profile-img">
-          <img
-            src="{{ this.commonService.getUserDetail() 
-            ? this.commonService.getUserDetail()['type']==='django' ? this.commonService.getUserDetail()['profile'] : this.commonService.getUserDetail()['social_profile']
-            : 'assets/image/36.png' }}"
-            class="user-profile">
-        </div>
-        <form>
-          <input type="text" placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다 :)">
-        </form>
-      </div>
-      <app-comment 
-        [originalList]="originalList"
-        [chosenList]="chosenList"
-        [pages]="pages"></app-comment>
     </div>
+    <app-comment 
+      [originalList]="originalList"
+      [chosenList]="chosenList"
+      [pages]="pages"></app-comment>
   `,
   styles: [`
   .article-container{
@@ -127,38 +114,7 @@ import { CommonService } from 'src/app/core/services/common.service';
   }
   hr{
     margin: 50px 0;
-  }
-  h2{
-    font-size: 18px;
-    font-weight: 700;
-    color: #000;
-    margin: 10px 0 20px;
-  }
-  h2 > span{
-    color: #35c5f0;
-  }
-  .comment-input{
-    position: relative;
-  }
-  .profile-img{
-    width: 32px;
-    height: 32px;
-    overflow: hidden;
-    border-radius: 50%;
-  }
-  .user-profile{
-    height: 100%;
-    margin-left: -16px;
-  }
-  input{
-    width: 95%;
-    height: 40px;
     border: 1px solid #ededed;
-    border-radius: 5px;
-    padding: 0 15px;
-    position: absolute;
-    top: -4px;
-    right: 0;
   }
   `]
 })
