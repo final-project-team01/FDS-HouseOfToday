@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from 'src/app/core/services/cart.service';
-import { cart_list, cart_price } from 'src/app/core/models/cart.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonService } from 'src/app/core/services/common.service';
 
@@ -29,8 +28,8 @@ import { CommonService } from 'src/app/core/services/common.service';
                 </span>
               </div>
               <div class="cart-content">
-                <app-item-cards *ngFor="let brand of cartService.cartItemGroup['brands']"
-                [itemList]="cartService.cartItemGroup[brand]" [brand]="brand"
+                <app-item-cards *ngFor="let brand of cartService.getItemGroup()"
+                [itemList]="cartService.cartItem | cartItemFilter: brand" [brand]="brand"
                 (checkEvent)="checkEvent($event)"
                 ></app-item-cards>
               </div>
@@ -40,17 +39,17 @@ import { CommonService } from 'src/app/core/services/common.service';
                 <dl class="cart-sidebar-summary">
                   <div class="summary-row">
                     <dt>총 상품금액</dt>
-                    <dd>{{cartService.cartPrice['total']}} 원</dd>
+                    <dd>{{cartService.getTotalPrice()}} 원</dd>
                   </div>
                   <div class="summary-row">
                     <dt>총 배송비</dt>
-                    <dd>{{cartService.cartPrice['deliver_fee']}} 원</dd></div>                  
+                    <dd>{{cartService.getDeliverFee()}} 원</dd></div>                  
                   <div class="summary-row summary-row-total">
                     <dt>결제금액</dt>
-                    <dd>{{cartService.cartPrice['total']}} 원</dd></div>
+                    <dd>{{cartService.getTotalPrice()+cartService.getDeliverFee()}} 원</dd></div>
                 </dl>
                 <div class="cart-sidebar-order">
-                  <button Button class="btn-order">{{cartService.cartPrice['orderCount']}} 개 상품 구매하기</button>
+                  <button Button class="btn-order">{{cartService.getTotalCount()}} 개 상품 구매하기</button>
                 </div>
               </div>
             </div>
@@ -69,15 +68,6 @@ export class CartComponent implements OnInit {
   constructor(private router: Router, private cartService: CartService
     , private commonService: CommonService
   ) {
-    // if (this.commonService.isLogin()) {
-    //   this.cartService.getCartList().subscribe(
-    //     list => {
-    //       list.forEach(item => { item.isChecked = true });
-    //       this.cartService.setCartItems(list);
-    //     },
-    //     (error: HttpErrorResponse) => { console.log(error) }
-    //   );
-    // }
   }
 
   ngOnInit() {

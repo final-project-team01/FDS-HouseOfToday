@@ -3,7 +3,7 @@ import { CoreModule } from '../core.module';
 import { CommonService } from './common.service';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 
-import { cart_option, cart_list, buy_option, cart_price } from '../models/cart.interface';
+import { cart_option, cart_list, buy_option } from '../models/cart.interface';
 
 @Injectable({
   providedIn: CoreModule
@@ -13,29 +13,17 @@ export class CartService {
   // httpClient: any;
 
   private _cartItem: cart_list[];
-  private _cartPrice: cart_price = { total: 0, deliver_fee: 0, orderCount: 0 };
-  private _cartItemGroup = {};
-  private _isEmpty = true;
-  private _isTotalChecked = true;
-
-  get isTotalChecked() {
-    return this._isTotalChecked;
-  }
-
-  get cartPrice() {
-    return this._cartPrice;
-  }
-
-  get cartItemGroup() {
-    return this._cartItemGroup;
-  }
 
   get cartItem() {
     return this._cartItem ? this._cartItem : []
   }
 
   get iSEmpty() {
-    return this._isEmpty;
+    return this._cartItem && this._cartItem.length ? false : true;
+  }
+
+  get isTotalChecked() {
+    return this._cartItem.filter(item => item.isChecked === false).length ? false : true;
   }
 
   getCartItemsCount() {
@@ -76,28 +64,8 @@ export class CartService {
     return this.httpClient.get<[cart_list]>(fullPath, { headers });
   }
 
-  itemFilter() {
-    if (this.cartItem.length ? false : true) return;
-
-    this._isEmpty = false;
-
-    this._cartPrice.deliver_fee = 0;
-    this._cartPrice.total = this._cartItem.filter(item => item.isChecked).length ? this._cartItem.filter(item => item.isChecked).map(item => item.total_price).reduce((prev, next) => prev + next) : 0;
-
-    this._cartPrice.orderCount = this._cartItem.filter(item => item.isChecked).length;
-
-    this._cartItemGroup["brands"] = this._cartItem.map(item => item.brand_name);
-    this._cartItemGroup["brands"].forEach(
-      brand => {
-        this._cartItemGroup[brand] = this._cartItem.filter(item => item.brand_name === brand);
-      }
-    );
-    this._isTotalChecked = this._cartItem.length === this._cartItem.filter(item => item.isChecked).length ? true : false;
-  }
-
   setCartItems(cartItem: cart_list[]) {
     this._cartItem = cartItem;
-    this.itemFilter();
   }
 
   toggleChecked(id: number) {
@@ -106,13 +74,31 @@ export class CartService {
         item => { return item.id !== id ? item : { ...item, "isChecked": !item.isChecked } }
       )
     );
-    this.itemFilter();
   }
   reset() {
     this._cartItem = [];
-    this._cartPrice = { total: 0, deliver_fee: 0, orderCount: 0 };
-    this._cartItemGroup = {};
-    this._isEmpty = true;
-    this._isTotalChecked = true;
+  }
+
+  getTotalPrice() {
+    const items = this._cartItem.filter(
+      item => { return item.isChecked }
+    ).map(item => item.total_price);
+    return items.length > 0 ? items.reduce((p, n) => p + n) : 0;
+  }
+  getDeliverFee() {
+    const items = this._cartItem.filter(
+      item => { return item.isChecked }
+    ).map(item => { return item.deliver_fee === '무료배송' ? 0 : item.deliver_fee }
+    );
+
+    return items.length > 0 ? items.reduce((p, n) => p + n) : 0;
+  }
+  getTotalCount() {
+    return this._cartItem.filter(
+      item => { return item.isChecked }
+    ).length;
+  }
+  getItemGroup() {
+    return this._cartItem.map(item => item.brand_name);
   }
 }
