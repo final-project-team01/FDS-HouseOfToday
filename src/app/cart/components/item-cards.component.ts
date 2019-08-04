@@ -13,7 +13,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
           <li>
             <article class="item-card">
               <app-check-box class="checkbox" [isChecked]="item['isChecked'] " (click)="cartService.toggleChecked(item['id'])"></app-check-box>
-              <a class="product">
+              <a class="product" (click)="goDetail(item)">
                 <div class="item-image">
                   <img src="{{item['thumnail_image']}}">
                 </div>
@@ -22,7 +22,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
                   <p class="item-caption"> {{item['deliver_fee']}} | {{item['deliver']}}</p>
                 </div>
               </a>
-              <button class="product-delete">
+              <button class="product-delete" (click)="removeItem(item['id'])">
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" preserveAspectRatio="xMidYMid meet">
                   <path fill-rule="nonzero" d="M6 4.6L10.3.3l1.4 1.4L7.4 6l4.3 4.3-1.4 1.4L6 7.4l-4.3 4.3-1.4-1.4L4.6 6 .3 1.7 1.7.3 6 4.6z">
                   </path>
@@ -78,5 +78,11 @@ export class ItemCardComponent implements OnInit {
   }
   onSubmin() {
 
+  }
+  goDetail(item) {
+    console.log(item);
+  }
+  removeItem(id: number) {
+    this.cartService.removeItems(id);
   }
 }

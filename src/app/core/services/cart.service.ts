@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { CoreModule } from '../core.module';
 import { CommonService } from './common.service';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import { cart_option, cart_list, buy_option } from '../models/cart.interface';
+import { user_order } from '../models/user.interface';
 
 @Injectable({
   providedIn: CoreModule
@@ -61,7 +62,13 @@ export class CartService {
     const headers = this.commonService.setAuthorization(this.commonService.Token);
     const path = "products/cart/";
     const fullPath = this.commonService.getFullPath(path);
-    return this.httpClient.get<[cart_list]>(fullPath, { headers });
+    this.httpClient.get<[cart_list]>(fullPath, { headers }).subscribe(
+      list => {
+        list.forEach(item => { item.isChecked = true });
+        this.setCartItems(list);
+      },
+      (error: HttpErrorResponse) => { console.log(error) }
+    );
   }
 
   setCartItems(cartItem: cart_list[]) {
@@ -99,6 +106,48 @@ export class CartService {
     ).length;
   }
   getItemGroup() {
-    return this._cartItem.map(item => item.brand_name);
+    return this._cartItem.map(item => item.brand_name)
+      .filter((item, index, array) => { return array.indexOf(item) === index });
+  }
+
+  buyItems(userToken: string) {
+    const path = '/products/order_cart/create/';
+    const fullPath = this.commonService.getFullPath(path);
+    let headers = this.commonService.setAuthorization(userToken);
+    let pk_list = '';
+    const list = this._cartItem.filter(item => item.isChecked).map(item => item.id)
+
+    list.forEach((item, index) => {
+      pk_list = index !== list.length - 1 ?
+        pk_list + item + ','
+        : pk_list + item
+    });
+    pk_list = `"${pk_list}"`;
+    return this.httpClient.post<user_order>(fullPath, { pk_list }, { headers });
+  }
+
+  removeItems(...ids: number[]) {
+    let headers = this.commonService.setAuthorization(this.commonService.Token);
+    ids.forEach(
+      (id, index, array) => {
+        const path = `/products/orderitem/${id}`;
+        const fullPath = this.commonService.getFullPath(path);
+        this.httpClient.delete(fullPath, { headers }).subscribe(
+          list => {
+            if (index === array.length - 1)
+              this.getCartList();
+          },
+          (error: HttpErrorResponse) => { console.log(error) }
+        );
+      }
+    );
+  }
+
+  removeCheckItems() {
+    const items = this._cartItem.filter(
+      item => item.isChecked
+    ).map(item => item.id);
+
+    this.removeItems(...items);
   }
 }
