@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { CoreModule } from '../core.module';
 import { CommonService } from './common.service';
+import { housewarming } from '../models/community.interface';
 
 @Injectable({
   providedIn: CoreModule
@@ -21,5 +22,12 @@ export class CommunityService {
     const path = `community/photo/${id}/`;
     const fullPath = this.commonService.getFullPath(path);
     return this.httpClient.get(fullPath);
+  }
+
+  getHousewarming() {
+    const path = '/community/housewarming/';
+    const fullpath = this.commonService.getFullPath(path);
+    const headers = this.commonService.setAuthorization(this.commonService.Token);
+    return this.httpClient.get<housewarming>(fullpath, { headers });
   }
 }
