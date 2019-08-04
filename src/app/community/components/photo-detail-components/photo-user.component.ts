@@ -53,21 +53,18 @@ import { Component, OnInit, Input } from '@angular/core';
     margin-right: 10px;
   }
   .like-and-scrap span{
+    display: inline-block;
+    width: 24px;
+    height: 24px;
     vertical-align: middle;
     margin-right: 8px;
     background-image: url('../../../../assets/image/common-action.png');
   }
   .heart{
-    display: inline-block;
     background-position: -240px -280px;
-    width: 24px;
-    height: 24px;
   }
   .scrap{
-    display: inline-block;
     background-position: -280px -280px;
-    width: 24px;
-    height: 24px;
   }
   .author{
     display: flex;
