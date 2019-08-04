@@ -93,14 +93,19 @@ ul {
   .product-delete {
     position: absolute;
     display: inline-block;
-    top: 15px;
-    right: 10px;
+    top: 0;
+    right: 0;
     padding: 5px;
     background: none;
     border: none;
     font-size: 0;
     transition: opacity 0.1s;
     color: #424242;
+    opacity: 1;
+    cursor: pointer;
+  }
+  .product-delete:hover {
+    opacity: 0.5;
   }
   .product-option {
     position: relative;

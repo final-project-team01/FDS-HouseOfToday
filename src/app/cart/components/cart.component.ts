@@ -24,7 +24,7 @@ import { CommonService } from 'src/app/core/services/common.service';
                   <app-check-box [caption]="true" [isChecked]="cartService.isTotalChecked">모두 선택</app-check-box>
                 </span>
                 <span class="cart-header-right">
-                  <button class="cart-header-delete">선택삭제</button>
+                  <button class="cart-header-delete" (click)="removeItems()">선택삭제</button>
                 </span>
               </div>
               <div class="cart-content">
@@ -49,7 +49,7 @@ import { CommonService } from 'src/app/core/services/common.service';
                     <dd>{{cartService.getTotalPrice()+cartService.getDeliverFee()}} 원</dd></div>
                 </dl>
                 <div class="cart-sidebar-order">
-                  <button Button class="btn-order">{{cartService.getTotalCount()}} 개 상품 구매하기</button>
+                  <button Button class="btn-order" (click)="buyItems()">{{cartService.getTotalCount()}} 개 상품 구매하기</button>
                 </div>
               </div>
             </div>
@@ -79,5 +79,18 @@ export class CartComponent implements OnInit {
 
   goStore() {
     this.router.navigate(['store']);
+  }
+
+  buyItems() {
+    this.cartService.buyItems(this.commonService.Token).subscribe(
+      req => {
+        this.cartService.getCartList();
+      },
+      (error: HttpErrorResponse) => { console.log(error) }
+    )
+  }
+
+  removeItems() {
+    this.cartService.removeCheckItems();
   }
 }

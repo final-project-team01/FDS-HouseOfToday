@@ -48,13 +48,7 @@ export class NavigationComponent implements OnInit {
 
   ngOnInit() {
     if (this.commonService.isLogin()) {
-      this.cartService.getCartList().subscribe(
-        list => {
-          list.forEach(item => { item.isChecked = true });
-          this.cartService.setCartItems(list);
-        },
-        (error: HttpErrorResponse) => { console.log(error) }
-      );
+      this.cartService.getCartList();
     }
   }
 
