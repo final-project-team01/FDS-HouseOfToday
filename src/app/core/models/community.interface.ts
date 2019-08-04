@@ -51,12 +51,27 @@ export interface todayPicture {
 }
 
 export interface best100 {
-  total ?
-  light_homedeco ?
-  daily_supplies ?
-  fabric ?
-  kitchenware ?
-  home_appliances ?
-  companion_animal ?
-  furniture ?
+  total?
+  light_homedeco?
+  daily_supplies?
+  fabric?
+  kitchenware?
+  home_appliances?
+  companion_animal?
+  furniture?
+}
+
+export interface housewarming_posts {
+  id: number,
+  cover_image: string,
+  title: string,
+  author_profile: string,
+  author: string,
+  scrap_count: number,
+  hit_count: number
+}
+
+export interface housewarming {
+  total_post_count: number,
+  housewarming_posts: housewarming_posts[]
 }
