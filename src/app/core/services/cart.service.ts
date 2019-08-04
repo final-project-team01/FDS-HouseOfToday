@@ -13,7 +13,7 @@ export class CartService {
   // commonService: any;
   // httpClient: any;
 
-  private _cartItem: cart_list[];
+  private _cartItem: cart_list[] = null;
   private _isOrder: boolean = true;
 
   set isOrder(b: boolean) {
@@ -25,10 +25,11 @@ export class CartService {
   }
 
   get cartItem() {
-    return this._cartItem ? this._cartItem : []
+    return this._cartItem;
   }
 
   get iSEmpty() {
+    console.log(this._cartItem)
     return this._cartItem && this._cartItem.length ? false : true;
   }
 
