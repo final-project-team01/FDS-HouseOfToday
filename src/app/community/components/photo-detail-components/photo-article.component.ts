@@ -49,26 +49,10 @@ import { CommonService } from 'src/app/core/services/common.service';
           <input type="text" placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다 :)">
         </form>
       </div>
-      <div class="comment-section">
-        <div class="each-comment" *ngFor="let comment of chosenList">
-            <img src="{{ comment.author_profile_image }}"
-              class="author_profile_image">
-            <div class="comment">
-              <span class="comment-author">{{ comment.author }}</span>
-              <span class="comment-text">{{ comment.text }}</span><br>
-              <span class="comment-created dot">{{ comment.created }}</span>
-              <span class="heart"></span>
-              <button class="like-comment dot cursor">좋아요</button>
-              <button class="report cursor">신고</button>
-            </div>
-        </div>
-      </div>
-      <app-pagination
+      <app-comment 
         [originalList]="originalList"
         [chosenList]="chosenList"
-        [pages]="pages"
-        (change)="changePage($event)">
-      </app-pagination>
+        [pages]="pages"></app-comment>
     </div>
   `,
   styles: [`
@@ -176,48 +160,6 @@ import { CommonService } from 'src/app/core/services/common.service';
     top: -4px;
     right: 0;
   }
-  .each-comment{
-    position: relative;
-    margin: 20px 0;
-  }
-  .author_profile_image{
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    position: absolute;
-    top: 5px;
-  }
-  .comment{
-    margin-left: 40px;
-  }
-  .comment-author{
-    color: #424242;
-    font-weight: 700;
-    font-size: 15px;
-    margin-right: 10px;
-  }
-  .comment-created{
-    font-weight: 400;
-    color: #757575;
-    font-size: 13px;
-  }
-  .like-comment{
-    background: none;
-    border: none;
-    color: #757575;
-    padding: 0;
-    font-size: 13px;
-    font-weight: 700;
-  }
-  .heart{
-    display: inline-block;
-    vertical-align: middle;
-    width: 20px;
-    height: 20px;
-    background-image: url('../../../../assets/image/common-action@2x.png');
-    background-position: -49px -146px;
-    background-size: 490px;
-  }
   `]
 })
 export class PhotoArticleComponent implements OnInit {
@@ -232,10 +174,6 @@ export class PhotoArticleComponent implements OnInit {
   constructor(private commonService: CommonService) { }
 
   ngOnInit() {
-  }
-
-  changePage(chosenList){
-    this.chosenList = chosenList;
   }
 
 }
