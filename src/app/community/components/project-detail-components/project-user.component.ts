@@ -8,11 +8,11 @@ import { Component, OnInit, Input } from '@angular/core';
       <h2>{{ projectInfo.title }}</h2>
       <small>{{ projectInfo.created }}</small>
       <div class="like-and-scrap">
-        <button>
+        <button class="cursor">
           <span class="heart"></span>
           <span class="count">좋아요 {{ projectInfo.like_count }}</span>
         </button>
-        <button>
+        <button class="cursor">
           <span class="scrap"></span>
           <span class="count">스크랩 {{ projectInfo.scrap_count }}</span>
         </button>
@@ -23,8 +23,6 @@ import { Component, OnInit, Input } from '@angular/core';
           class="author_profile_image">
           <div class="about-author">
             <span class="author-name">{{ projectInfo.author }}</span><br>
-            <small *ngIf="projectInfo.author_profile_comment">
-            {{ projectInfo.author_profile_comment }}</small>
           </div>
         <button class="follow cursor">팔로우</button>
       </div>
@@ -34,7 +32,7 @@ import { Component, OnInit, Input } from '@angular/core';
   `,
   styles: [`
   .user-container{
-    width: 330px;
+    width: 336px;
     display: inline-block;
     height: calc(100vh - 81px);
     position: sticky;

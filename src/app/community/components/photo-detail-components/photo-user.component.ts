@@ -5,11 +5,11 @@ import { Component, OnInit, Input } from '@angular/core';
   template: `
   <div class="user-container" *ngIf="photoInfo">
     <div class="like-and-scrap">
-      <button>
+      <button class="cursor">
         <span class="heart"></span>
         {{ photoInfo.like_count }}
       </button>
-      <button>
+      <button class="cursor">
         <span class="scrap"></span>
         {{ photoInfo.scrap_count }}
       </button>

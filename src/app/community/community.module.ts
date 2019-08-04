@@ -17,6 +17,7 @@ import { ProjectListComponent } from './components/project/project-list.componen
 import { CommentComponent } from './components/comment.component';
 import { ProjectArticleComponent } from './components/project-detail-components/project-article.component';
 import { ProjectUserComponent } from './components/project-detail-components/project-user.component';
+import { ProjectTableComponent } from './components/project-detail-components/project-table.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { ProjectUserComponent } from './components/project-detail-components/pro
     CommentComponent,
     ProjectArticleComponent,
     ProjectUserComponent,
+    ProjectTableComponent,
   ],
   imports: [
     CommonModule
