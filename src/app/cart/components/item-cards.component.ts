@@ -36,11 +36,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
                       <input class="form-controls option-quantity-count"
                       type="string"
                       formControlName="quantity"
-                      value="{{item['quantity']}}">
-                      <p class="error" *ngIf="quantity.errors?.pattern">1이상의 정수를 입력하세요.</p>
+                      value="{{item['quantity']}}"
+                      (blur)="setQuantity(item['id'],quantityCount.value)"
+                      (keyup)="keyup($event.key,item['id'],quantityCount.value)"
+                      #quantityCount>
+                      <p class="error" *ngIf="isValidationVisible(item['quantity'], quantity.errors)">1이상의 정수를 입력하세요.</p>
                     </div>
                   </form>
-                  <div class="option-price">{{item['total_price']}}</div>
+                  <div class="option-price">{{isValidationVisible(item['quantity'], quantity.errors) ? '-' : item['total_price']}}</div>
                 </div>
               </div>
             </article>
@@ -84,5 +87,19 @@ export class ItemCardComponent implements OnInit {
   }
   removeItem(id: number) {
     this.cartService.removeItems(id);
+  }
+
+  setQuantity(id: number, quantity: string) {
+    this.cartService.setItemQuantity(id, +quantity);
+    if (+quantity > 0) {
+      this.cartService.changeQuantity(id, +quantity);
+    }
+  }
+  keyup(key: string, id: number, quantity: string) {
+    if (key === 'enter')
+      this.setQuantity(id, quantity);
+  }
+  isValidationVisible(quantity: number, errors) {
+    return (!(quantity > 0) && errors) ? true : false
   }
 }

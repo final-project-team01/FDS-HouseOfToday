@@ -23,3 +23,8 @@ export interface cart_list {
   thumnail_image: string,
   isChecked?: boolean;
 }
+
+export interface put_quantity {
+  quantity: number | [],
+  total_price?: number;
+}
