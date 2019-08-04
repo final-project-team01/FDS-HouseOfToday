@@ -6,17 +6,12 @@ import { PhotoComponent } from './components/photo.component';
 import { PhotoDetailComponent } from './components/photo-detail-components/photo-detail.component';
 import { ProjectsComponent } from './components/projects.component';
 import { ProjectsDetailComponent } from './components/project-detail-components/projects-detail.component';
-import { ProjectResolve } from './components/project/project-resolve';
 
 const routes: Routes = [
   { path: 'community', component: CommunityComponent },
   { path: 'photo', component: PhotoComponent },
   { path: 'photo/:id', component: PhotoDetailComponent },
-  {
-    path: 'project', component: ProjectsComponent, resolve: {
-      project: ProjectResolve,
-    }
-  },
+  { path: 'project', component: ProjectsComponent },
   { path: 'project/:id', component: ProjectsDetailComponent }
 ];
 
@@ -24,4 +19,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class CommunityRoutingModule { }
+export class CommunityRoutingModule {}
