@@ -30,4 +30,9 @@ export class CommunityService {
     const headers = this.commonService.setAuthorization(this.commonService.Token);
     return this.httpClient.get<housewarming>(fullpath, { headers });
   }
+  getProjectInfo(id: number) {
+    const path = `community/housewarming/${id}/`;
+    const fullPath = this.commonService.getFullPath(path);
+    return this.httpClient.get(fullPath);
+  }
 }

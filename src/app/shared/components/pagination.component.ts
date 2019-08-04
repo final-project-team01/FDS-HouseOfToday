@@ -4,7 +4,7 @@ import { CommonService } from 'src/app/core/services/common.service';
 @Component({
   selector: 'app-pagination',
   template: `
-  <div class="pagination">
+  <div class="pagination" *ngIf="originalList">
     <button class="btn arrow left" (click)="goLeft()"></button>
     <div class="page-container" [style.width.px]="getWidth(pages)">
       <div class="num-container" [style.left.px]="left">
