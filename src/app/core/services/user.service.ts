@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http'
 import { CoreModule } from '../core.module';
 import { CommonService } from './common.service';
 import { AuthService } from './auth.service';
-import { user_detail } from '../models/user.interface';
+import { user_detail, user_order } from '../models/user.interface';
 
 @Injectable({
   providedIn: CoreModule
@@ -24,5 +24,12 @@ export class UserService {
     const fullPath = this.commonService.getFullPath(path);
     return this.http.get<[user_detail]>(fullPath, { headers });
 
+  }
+
+  getProductOrder() {
+    const headers = this.commonService.setAuthorization(this.commonService.Token);
+    const path = "products/order/";
+    const fullPath = this.commonService.getFullPath(path);
+    return this.http.get<user_order[]>(fullPath, { headers });
   }
 }
