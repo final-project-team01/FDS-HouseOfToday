@@ -130,7 +130,7 @@ const styles = {
         <ul class="row home-cards__content">
           <li *ngFor="let storyFame of storiesFame; let i = index" class="col-6 col-md-3 home-cards__content__item">
             <article class="story-entry story-card-item">
-              <a class="story-entry-link">
+              <a class="story-entry-link" routerLink="/photo/{{storyFame.id}}">
                 <div class="story-entry__image-wrap">
                   <img class="story-entry__image" src="{{storyFame.image}}">
                 </div>
@@ -167,7 +167,7 @@ const styles = {
               <ul class="row production-rank-feed__list">
                 <div class="col-4 production-rank-feed__item" *ngFor="let best3 of best100; let i = index">
                   <div class="product-simplified home-production-item">
-                    <a class="product-item">
+                    <a class="product-item" routerLink="/store/{{best3.id}}">
                       <div class="img-wrap square">
                         <img class="lazyload" src="{{best3.thumnail_images[0].image}}">
                       </div>
