@@ -29,12 +29,16 @@ import { Component, OnInit, Input } from '@angular/core';
         <td class="table key">기간</td>
         <td class="table">{{ projectInfo.period }}</td>
       </tr>
+      <tr *ngIf="projectInfo.budget !== '-'">
+        <td class="table key">예산</td>
+        <td class="table">{{ projectInfo.budget }}</td>
+      </tr>
       <tr *ngIf="projectInfo.detail_part !== '-'">
-        <td class="table key">가족형태</td>
+        <td class="table key">세부공정</td>
         <td class="table">{{ projectInfo.detail_part }}</td>
       </tr>
       <tr *ngIf="projectInfo.family !== '-'">
-        <td class="table key">예산</td>
+        <td class="table key">가족형태</td>
         <td class="table">{{ projectInfo.family }}</td>
       </tr>
       <tr *ngIf="projectInfo.location !== '-'">
