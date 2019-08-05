@@ -5,12 +5,12 @@ import { CommonService } from 'src/app/core/services/common.service';
   selector: 'app-product-list',
   template: `
   <div class="row">
-    <div *ngFor="let productItem of productItems; let i=index" class="col-12 col-md-4 col-lg-3" [style.max-width]="menuWidth">
+    <div *ngFor="let productItem of productItems; let i=index" class="col-12 col-md-4 col-lg-3" [style.max-width]="menuWidth" (mouseover)="zoomImg(i)" (mouseleave)="zoomOut(i)">
       <div *ngIf="i < setNumber">
       <p class="today-deal-timer" [class.active]="activeTimer">{{hours < 10 ? "0" + hours : hours}}:{{minutes < 10 ? "0" + minutes : minutes}}:{{seconds < 10 ? "0" + seconds : seconds}}남음</p>
       <div *ngIf="activeRank" class="itemRanking">{{i + 1}}</div>
       <article class="store-index-today-deal-item">
-        <a class="store-index-today-deal-item__overlay" routerLink="/store/{{productItem.id}}" (mouseover)="zoomImg(i)" (mouseleave)="zoomOut(i)"></a>
+        <a class="store-index-today-deal-item__overlay" routerLink="/store/{{productItem.id}}" ></a>
         <div class="store-index-today-deal-item__image">
           <div class="production-item-image">
             <img class="image" [ngStyle]="hovered === i ? style : ''" src="{{productItem.thumnail_images[0].image}}" alt>
@@ -238,6 +238,7 @@ import { CommonService } from 'src/app/core/services/common.service';
   }
 
   .today-deal-timer {
+    cursor: pointer;
     background-color: #f77;
     line-height: 15px;
     border-radius: 4px;
@@ -295,7 +296,7 @@ export class ProductListComponent implements OnInit {
   zoomImg(index: number) {
     this.hovered = index;
     this.style = {
-      'transform': 'scale(1.3) translate(-40%, -40%)'
+      'transform': 'scale(1.1) translate(-45%, -45%)'
     }
   }
 
