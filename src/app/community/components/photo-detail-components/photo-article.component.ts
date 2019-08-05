@@ -21,9 +21,15 @@ import { CommonService } from 'src/app/core/services/common.service';
         </div>
         <aside class="products">
           <a routerLink="/store/{{ photoInfo.product_id }}">
-            <img src="{{ photoInfo.product_image }}" class="product-img" alt="실내에 사용된 제품 이미지"
-            (mouseover)="showBtn = 'block'"
-            (mouseleave)="showBtn = 'none'">
+            <app-basic-uses-avatar
+              [size]="100"
+              [pic]="photoInfo.product_image"
+              [isBorder]="false"
+              class="product-img"
+              alt="실내에 사용된 제품 이미지"
+              (mouseover)="showBtn = 'block'"
+              (mouseleave)="showBtn = 'none'">
+            </app-basic-uses-avatar>
           </a>
         </aside>
         <figcaption>
