@@ -10,7 +10,7 @@ export class CartHoverDirective {
   @HostListener("mouseover") mouseover() {
 
     this.renderer.setStyle(
-      this.el.nativeElement.children[0],
+      this.el.nativeElement.querySelector('.cart-btn-icon'),
       "background-position", "top -112px left -147px"
     );
 
@@ -18,7 +18,7 @@ export class CartHoverDirective {
   @HostListener("mouseout", ["$event"]) mouseout(event) {
 
     this.renderer.setStyle(
-      this.el.nativeElement.children[0],
+      this.el.nativeElement.querySelector('.cart-btn-icon'),
       "background-position", "top -112px left -91px"
     );
   }
