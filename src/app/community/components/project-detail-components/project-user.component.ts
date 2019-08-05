@@ -19,8 +19,12 @@ import { Component, OnInit, Input } from '@angular/core';
       </div>
       <hr>
       <div class="author">
-        <img src="{{ projectInfo.author_profile }}"
+        <app-basic-uses-avatar
+          [size]="50"
+          [pic]="projectInfo.author_profile"
+          [isBorder]="false"
           class="author_profile_image">
+        </app-basic-uses-avatar>
           <div class="about-author">
             <span class="author-name">{{ projectInfo.author }}</span><br>
           </div>

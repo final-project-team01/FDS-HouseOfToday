@@ -35,10 +35,34 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
               </div>
               <span>({{ getScore(5) }}개)</span>
             </li>
-            <li>4점</li>
-            <li>3점</li>
-            <li>2점</li>
-            <li>1점</li>
+            <li>
+              <div class="stars" *ngFor="let star of originalList; let i = index" >
+                <span class="star pic-icon" *ngIf=" i < 4">
+                </span>
+              </div>
+              <span>({{ getScore(4) }}개)</span>
+            </li>
+            <li>
+              <div class="stars" *ngFor="let star of originalList; let i = index" >
+                <span class="star pic-icon" *ngIf=" i < 3">
+                </span>
+              </div>
+              <span>({{ getScore(3) }}개)</span>
+            </li>
+            <li>
+              <div class="stars" *ngFor="let star of originalList; let i = index" >
+                <span class="star pic-icon" *ngIf=" i < 2">
+                </span>
+              </div>
+              <span>({{ getScore(2) }}개)</span>
+            </li>
+            <li>
+              <div class="stars" *ngFor="let star of originalList; let i = index" >
+                <span class="star pic-icon" *ngIf=" i < 1">
+                </span>
+              </div>
+              <span>({{ getScore(1) }}개)</span>
+            </li>
           </ul>
         </li>
         <li>
