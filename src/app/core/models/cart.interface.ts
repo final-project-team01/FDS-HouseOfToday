@@ -14,7 +14,7 @@ export interface cart_list {
   id: number,
   user: number,
   product: string,
-  deliver_fee: string,
+  deliver_fee: '무료배송' | number,
   deliver: string,
   product_option: string,
   quantity: number;
@@ -24,8 +24,7 @@ export interface cart_list {
   isChecked?: boolean;
 }
 
-export interface cart_price {
-  total: number;
-  deliver_fee: number;
-  orderCount: number;
+export interface put_quantity {
+  quantity: number | [],
+  total_price?: number;
 }

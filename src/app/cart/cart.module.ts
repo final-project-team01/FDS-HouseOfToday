@@ -9,12 +9,13 @@ import { ItemCardComponent } from './components/item-cards.component';
 import { CartRoutingModule } from './cart-routing.module';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
+import { CartItemFilterPipe } from './components/cart-item-filter.pipe';
 
 @NgModule({
   declarations: [
     CartComponent
     , CheckBoxComponent
-    , ItemCardComponent
+    , ItemCardComponent, CartItemFilterPipe
   ],
   imports: [
     CommonModule

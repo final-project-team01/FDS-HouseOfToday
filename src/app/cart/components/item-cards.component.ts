@@ -13,7 +13,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
           <li>
             <article class="item-card">
               <app-check-box class="checkbox" [isChecked]="item['isChecked'] " (click)="cartService.toggleChecked(item['id'])"></app-check-box>
-              <a class="product">
+              <a class="product" (click)="goDetail(item)">
                 <div class="item-image">
                   <img src="{{item['thumnail_image']}}">
                 </div>
@@ -22,7 +22,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
                   <p class="item-caption"> {{item['deliver_fee']}} | {{item['deliver']}}</p>
                 </div>
               </a>
-              <button class="product-delete">
+              <button class="product-delete" (click)="removeItem(item['id'])">
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" preserveAspectRatio="xMidYMid meet">
                   <path fill-rule="nonzero" d="M6 4.6L10.3.3l1.4 1.4L7.4 6l4.3 4.3-1.4 1.4L6 7.4l-4.3 4.3-1.4-1.4L4.6 6 .3 1.7 1.7.3 6 4.6z">
                   </path>
@@ -36,11 +36,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
                       <input class="form-controls option-quantity-count"
                       type="string"
                       formControlName="quantity"
-                      value="{{item['quantity']}}">
-                      <p class="error" *ngIf="quantity.errors?.pattern">1이상의 정수를 입력하세요.</p>
+                      value="{{item['quantity']}}"
+                      (blur)="setQuantity(item['id'],quantityCount.value)"
+                      (keyup)="keyup($event.key,item['id'],quantityCount.value)"
+                      #quantityCount>
+                      <p class="error" *ngIf="isValidationVisible(item['quantity'], quantity.errors)">1이상의 정수를 입력하세요.</p>
                     </div>
                   </form>
-                  <div class="option-price">{{item['total_price']}}</div>
+                  <div class="option-price">{{isValidationVisible(item['quantity'], quantity.errors) ? '-' : item['total_price']}}</div>
                 </div>
               </div>
             </article>
@@ -78,5 +81,25 @@ export class ItemCardComponent implements OnInit {
   }
   onSubmin() {
 
+  }
+  goDetail(item) {
+    console.log(item);
+  }
+  removeItem(id: number) {
+    this.cartService.removeItems(id);
+  }
+
+  setQuantity(id: number, quantity: string) {
+    this.cartService.setItemQuantity(id, +quantity);
+    if (+quantity > 0) {
+      this.cartService.changeQuantity(id, +quantity);
+    }
+  }
+  keyup(key: string, id: number, quantity: string) {
+    if (key === 'enter')
+      this.setQuantity(id, quantity);
+  }
+  isValidationVisible(quantity: number, errors) {
+    return (!(quantity > 0) && errors) ? true : false
   }
 }

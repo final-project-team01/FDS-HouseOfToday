@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { CoreModule } from '../core.module';
 import { CommonService } from './common.service';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
 
-import { cart_option, cart_list, buy_option, cart_price } from '../models/cart.interface';
+import { cart_option, cart_list, buy_option } from '../models/cart.interface';
+import { user_order } from '../models/user.interface';
 
 @Injectable({
   providedIn: CoreModule
@@ -12,30 +13,28 @@ export class CartService {
   // commonService: any;
   // httpClient: any;
 
-  private _cartItem: cart_list[];
-  private _cartPrice: cart_price = { total: 0, deliver_fee: 0, orderCount: 0 };
-  private _cartItemGroup = {};
-  private _isEmpty = true;
-  private _isTotalChecked = true;
+  private _cartItem: cart_list[] = null;
+  private _isOrder: boolean = true;
 
-  get isTotalChecked() {
-    return this._isTotalChecked;
+  set isOrder(b: boolean) {
+    this._isOrder = b;
   }
 
-  get cartPrice() {
-    return this._cartPrice;
-  }
-
-  get cartItemGroup() {
-    return this._cartItemGroup;
+  get isOrder() {
+    return this._isOrder;
   }
 
   get cartItem() {
-    return this._cartItem ? this._cartItem : []
+    return this._cartItem;
   }
 
   get iSEmpty() {
-    return this._isEmpty;
+    console.log(this._cartItem)
+    return this._cartItem && this._cartItem.length ? false : true;
+  }
+
+  get isTotalChecked() {
+    return this._cartItem.filter(item => item.isChecked === false).length ? false : true;
   }
 
   getCartItemsCount() {
@@ -73,31 +72,17 @@ export class CartService {
     const headers = this.commonService.setAuthorization(this.commonService.Token);
     const path = "products/cart/";
     const fullPath = this.commonService.getFullPath(path);
-    return this.httpClient.get<[cart_list]>(fullPath, { headers });
-  }
-
-  itemFilter() {
-    if (this.cartItem.length ? false : true) return;
-
-    this._isEmpty = false;
-
-    this._cartPrice.deliver_fee = 0;
-    this._cartPrice.total = this._cartItem.filter(item => item.isChecked).length ? this._cartItem.filter(item => item.isChecked).map(item => item.total_price).reduce((prev, next) => prev + next) : 0;
-
-    this._cartPrice.orderCount = this._cartItem.filter(item => item.isChecked).length;
-
-    this._cartItemGroup["brands"] = this._cartItem.map(item => item.brand_name);
-    this._cartItemGroup["brands"].forEach(
-      brand => {
-        this._cartItemGroup[brand] = this._cartItem.filter(item => item.brand_name === brand);
-      }
+    this.httpClient.get<[cart_list]>(fullPath, { headers }).subscribe(
+      list => {
+        list.forEach(item => { item.isChecked = true });
+        this.setCartItems(list);
+      },
+      (error: HttpErrorResponse) => { console.log(error) }
     );
-    this._isTotalChecked = this._cartItem.length === this._cartItem.filter(item => item.isChecked).length ? true : false;
   }
 
   setCartItems(cartItem: cart_list[]) {
     this._cartItem = cartItem;
-    this.itemFilter();
   }
 
   toggleChecked(id: number) {
@@ -106,13 +91,100 @@ export class CartService {
         item => { return item.id !== id ? item : { ...item, "isChecked": !item.isChecked } }
       )
     );
-    this.itemFilter();
   }
   reset() {
     this._cartItem = [];
-    this._cartPrice = { total: 0, deliver_fee: 0, orderCount: 0 };
-    this._cartItemGroup = {};
-    this._isEmpty = true;
-    this._isTotalChecked = true;
+  }
+
+  getTotalPrice() {
+    const items = this._cartItem.filter(
+      item => { return item.isChecked }
+    ).map(item => item.total_price);
+    return items.length > 0 ? items.reduce((p, n) => p + n) : 0;
+  }
+  getDeliverFee() {
+    const items = this._cartItem.filter(
+      item => { return item.isChecked }
+    ).map(item => { return item.deliver_fee === '무료배송' ? 0 : item.deliver_fee }
+    );
+
+    return items.length > 0 ? items.reduce((p, n) => p + n) : 0;
+  }
+  getTotalCount() {
+    return this._cartItem.filter(
+      item => { return item.isChecked }
+    ).length;
+  }
+  getItemGroup() {
+    return this._cartItem.map(item => item.brand_name)
+      .filter((item, index, array) => { return array.indexOf(item) === index });
+  }
+
+  buyItems(userToken: string) {
+    const path = '/products/order_cart/create/';
+    const fullPath = this.commonService.getFullPath(path);
+    let headers = this.commonService.setAuthorization(userToken);
+    let pk_list = '';
+    const list = this._cartItem.filter(item => item.isChecked).map(item => item.id)
+
+    list.forEach((item, index) => {
+      pk_list = index !== list.length - 1 ?
+        pk_list + item + ','
+        : pk_list + item
+    });
+    pk_list = `"${pk_list}"`;
+    return this.httpClient.post<user_order>(fullPath, { pk_list }, { headers });
+  }
+
+  removeItems(...ids: number[]) {
+    let headers = this.commonService.setAuthorization(this.commonService.Token);
+    ids.forEach(
+      (id, index, array) => {
+        const path = `/products/orderitem/${id}`;
+        const fullPath = this.commonService.getFullPath(path);
+        this.httpClient.delete(fullPath, { headers }).subscribe(
+          list => {
+            if (index === array.length - 1)
+              this.getCartList();
+          },
+          (error: HttpErrorResponse) => { console.log(error) }
+        );
+      }
+    );
+  }
+
+  removeCheckItems() {
+    const items = this._cartItem.filter(
+      item => item.isChecked
+    ).map(item => item.id);
+
+    this.removeItems(...items);
+  }
+
+  setItemQuantity(itemId: number, quantity: number) {
+    this._cartItem.forEach(
+      item => {
+        if (item.id === itemId)
+          item.quantity = quantity;
+      }
+    )
+  }
+
+  isOrderPossible() {
+    return this._cartItem.filter(item => item.isChecked).filter(
+      item => !(item.quantity > 0)
+    ).length === 0 ? true : false;
+  }
+
+  changeQuantity(id: number, quantity: number) {
+    let headers = this.commonService.setAuthorization(this.commonService.Token);
+    const path = `/products/orderitem/${id}`;
+    const fullPath = this.commonService.getFullPath(path);
+    this.httpClient.put(fullPath, { quantity }, { headers }).subscribe(
+      list => {
+        this.getCartList();
+      },
+      (error: HttpErrorResponse) => { console.log(error) }
+    );
   }
 }

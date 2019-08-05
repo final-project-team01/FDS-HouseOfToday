@@ -5,7 +5,7 @@ import { CommunityComponent } from './components/community.component';
 import { PhotoComponent } from './components/photo.component';
 import { PhotoDetailComponent } from './components/photo-detail-components/photo-detail.component';
 import { ProjectsComponent } from './components/projects.component';
-import { ProjectsDetailComponent } from './components/projects-detail.component';
+import { ProjectsDetailComponent } from './components/project-detail-components/projects-detail.component';
 
 const routes: Routes = [
   { path: 'community', component: CommunityComponent },

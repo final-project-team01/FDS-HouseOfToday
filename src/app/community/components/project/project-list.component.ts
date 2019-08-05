@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { housewarming_posts } from 'src/app/core/models/community.interface';
 
 @Component({
   selector: 'app-project-list',
@@ -8,18 +9,24 @@ import { Component, OnInit } from '@angular/core';
         <a>
           <div class="project-cover">
             <div class="project-cover-image">
-              <img src="https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-projects-cover_images-156446942153873608.jpg/480/288?quality=80">
+              <img src="{{item['cover_image']}}">
             </div>
-            <h1 class="project-cover-title">제목</h1>
+            <h1 class="project-cover-title">{{item['title']}}</h1>
           </div>
         </a>
         <div>
           <div class="project-item-writer">
-            작성자
+            <app-basic-uses-avatar
+            [size]="16"
+            [pic]="item['author_profile']"
+            [isBorder]="false">
+            </app-basic-uses-avatar>
+            <span class="item-writer-name">작성자</span>
           </div>
           <div class="project-item-stats">
-            <span>스크랩</span>
-            <span>조회수</span>
+            <span>스크랩 {{item['scrap_count']}}</span>
+            <span class="dot"></span>
+            <span>조회수 {{item['hit_count']}}</span>
           </div>
         </div>
       </div>
@@ -29,6 +36,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProjectListComponent implements OnInit {
 
+  @Input() item: housewarming_posts;
   constructor() { }
 
   ngOnInit() {
