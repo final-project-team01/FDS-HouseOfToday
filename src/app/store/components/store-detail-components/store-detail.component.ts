@@ -238,15 +238,17 @@ export class StoreDetailComponent implements OnInit {
     const user = localStorage.getItem('user');
     // 옵션을 선택했는지, 로그인 되었는지 체크
     if (this.checkCondition('장바구니', user) === false) return;
-    this.chosenOptions.forEach(option => {
+    this.chosenOptions.forEach((option, index, array) => {
       const payload: cart_option = { 
         product: option.productId,
         product_option: option.optionId,
-        quantity: option.quantity  
+        quantity: option.quantity
       };
       this.cartService.addCart(payload, user)
       .subscribe(res => {
-        console.log('success');
+        if(index === array.length - 1){
+          this.cartService.getCartList();
+        }
       },
         err => {
           console.log(err.message);

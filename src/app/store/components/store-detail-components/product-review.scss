@@ -84,16 +84,22 @@
           background-position: -386px 3px;
         }
         .review-star-filter{
-          width: 200px;
+          width: 170px;
           position: absolute;
           top: 45px;
           left: 50%;
-          background-color: yellow;
+          background-color: white;
           transform: translateX(-50%);
-          padding: 15px;
           border-radius: 10px;
-          .stars{
-            display: inline-block;
+          box-shadow: 0 -1px 16px rgba(0,0,0,.2);
+          li{
+            padding: 13px 15px;
+            .stars{
+              display: inline-block;
+            }
+          }
+          li:hover{
+            background-color: rgba(239,251,255,0.5);
           }
         }
       }
