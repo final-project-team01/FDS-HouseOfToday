@@ -6,10 +6,10 @@ import { housewarming_posts } from 'src/app/core/models/community.interface';
   template: `
     <article>
       <div class="project-item">
-        <a>
+        <a ImageZoom>
           <div class="project-cover">
             <div class="project-cover-image">
-              <img src="{{item['cover_image']}}">
+              <img class="image-zoom" src="{{item['cover_image']}}">
             </div>
             <h1 class="project-cover-title">{{item['title']}}</h1>
           </div>
