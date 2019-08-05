@@ -21,6 +21,7 @@ import { ButtonDirective } from './directive/button.directive';
 import { CommunityListComponent } from './components/community-list.component';
 import { CartHoverDirective } from './components/cart-hover.directive';
 import { PaginationComponent } from './components/pagination.component';
+import { ImageZoomDirective } from './directive/image-zoom.directive';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { PaginationComponent } from './components/pagination.component';
     ButtonDirective,
     CommunityListComponent,
     CartHoverDirective,
-    PaginationComponent
+    PaginationComponent,
+    ImageZoomDirective
   ],
   imports: [CommonModule, CoreModule, AlyleModule, SharedRoutingModule],
   exports: [
@@ -52,7 +54,8 @@ import { PaginationComponent } from './components/pagination.component';
     ButtonDirective,
     BasicRadioComponent,
     CommunityListComponent,
-    PaginationComponent
+    PaginationComponent,
+    ImageZoomDirective
   ]
 })
-export class SharedModule {}
+export class SharedModule { }
