@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/core/services/user.service';
+import { user_order } from 'src/app/core/models/user.interface';
 
 @Component({
   selector: 'app-order-list',
@@ -47,7 +48,7 @@ import { UserService } from 'src/app/core/services/user.service';
         <div class="arrow"></div>
         <div class="step">
           <div class="title">결제완료</div>
-          <div class="count">0</div>
+          <div class="count">{{OrderCount}}</div>
         </div>
         <div class="arrow"></div>
         <div class="step">
@@ -278,7 +279,15 @@ import { UserService } from 'src/app/core/services/user.service';
   ]
 })
 export class OrderListComponent implements OnInit {
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) { }
+  orderList: user_order[] = [];
+  ngOnInit() {
+    this.userService.getProductOrder().subscribe(
+      orderList => this.orderList = orderList
+    )
+  }
 
-  ngOnInit() {}
+  get OrderCount() {
+    return this.orderList ? this.orderList.length : 0;
+  }
 }

@@ -14,9 +14,13 @@ export interface user_detail {
 }
 
 export interface order_list {
-  product: string;
-  product_option: string;
-  quantity: number;
+  product: string,
+  product_option: string,
+  quantity: number,
+  brand_name?: string,
+  product_id?: number,
+  thumnail_image?: string,
+  total_price?: number
 }
 
 export interface user_order {
