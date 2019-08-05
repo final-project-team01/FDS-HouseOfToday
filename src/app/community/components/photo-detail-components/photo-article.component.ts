@@ -1,33 +1,53 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { CommonService } from 'src/app/core/services/common.service';
 
 @Component({
   selector: 'app-photo-article',
   template: `
-    <div class="article-container">
+    <div class="article-container" *ngIf="photoInfo">
       <div class="article-type">
-        <span class="bar">10평대</span>
-        <span class="bar">모던 스타일</span>
-        <span>빌라&amp;연립</span>
-        <span>어제</span>
+        <span>{{ photoInfo.category }}</span>
+        <span>{{ photoInfo.created }}</span>
       </div>
-    Nullam finibus, nisl vitae dictum egestas, nunc velit volutpat dolor, eu euismod arcu magna in ligula. Aenean in euismod dolor. Etiam varius urna ac quam tempor, sed sollicitudin metus consequat. Vivamus condimentum lectus elit, laoreet convallis lectus ultricies in. Maecenas non tempus felis, non sagittis metus. Nullam vitae vulputate tortor, eget ullamcorper risus. Nulla sit amet accumsan mauris, vitae scelerisque est.
-
-    Mauris aliquam, risus eget dignissim rhoncus, nisl leo mollis purus, sed cursus magna metus id lorem. Praesent rhoncus venenatis ligula vel gravida. Fusce sollicitudin ligula non felis imperdiet pellentesque et laoreet lectus. Proin porttitor egestas velit, sit amet porta orci feugiat vitae. Praesent ut est nec risus eleifend sollicitudin. Nullam nec ultricies quam. Duis vitae porttitor erat. Cras a porta nulla, ac semper ante. Nunc ullamcorper fringilla ipsum, nec pellentesque mi tincidunt nec. Fusce nulla justo, consequat a dignissim id, congue sit amet nisl.
-    
-    Duis quis erat dignissim, sollicitudin tortor non, blandit velit. Mauris et lectus eu diam scelerisque commodo. Curabitur tempor porttitor enim, quis iaculis neque mollis eget. Suspendisse tincidunt dapibus est et blandit. Pellentesque condimentum hendrerit blandit. Pellentesque vulputate convallis nisl, vitae aliquet odio dictum in. Etiam pellentesque at dolor eu auctor. Aliquam tristique ultrices sem at ullamcorper.
-    
-    Quisque ac semper magna. Ut consequat vehicula enim. Sed eu diam massa. Quisque a ullamcorper lorem. Nulla mollis sagittis purus eu blandit. Maecenas ac faucibus turpis. In sit amet urna justo. Suspendisse ultrices turpis in ipsum aliquam, nec luctus arcu mattis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Curabitur vitae porttitor urna, non sodales ligula. Duis in ultrices lorem. Suspendisse potenti. Donec nisi nulla, sagittis nec magna eget, ornare vehicula libero. Vivamus malesuada est placerat elit lobortis, quis suscipit ipsum aliquam. Curabitur porta nisi eu ex hendrerit, id gravida dolor tempor.
-    
-    Nam sit amet leo blandit, dapibus nunc eget, tristique tortor. Fusce in mollis enim. Mauris porttitor mi et ultricies faucibus. Aliquam imperdiet enim nec metus iaculis fermentum. Donec feugiat mi quam, in malesuada urna tincidunt ac. Vestibulum dictum massa non aliquam semper. Curabitur a elit aliquam ex accumsan efficitur. Proin tincidunt vehicula vulputate. Vivamus blandit odio nunc, sit amet tincidunt metus consequat quis. In mollis vulputate mauris, non euismod nisi elementum at. Donec pharetra odio id magna molestie, eu varius nulla maximus.
+      <figure>
+        <div class="photo-container"
+          (mouseover)="showBtn = 'block'"
+          (mouseleave)="showBtn = 'none'">
+          <img src="{{ photoInfo.image }}" class="photo" alt="실내 이미지">
+          <a routerLink="/store/{{ photoInfo.product_id }}" class="product-plus"
+            [style.top]="photoInfo.axis_top + '%'"
+            [style.left]="photoInfo.axis_left + '%'"
+            [style.display]="showBtn">해당 상품 보러가기</a>
+        </div>
+        <aside class="products">
+          <a routerLink="/store/{{ photoInfo.product_id }}">
+            <img src="{{ photoInfo.product_image }}" class="product-img" alt="실내에 사용된 제품 이미지"
+            (mouseover)="showBtn = 'block'"
+            (mouseleave)="showBtn = 'none'">
+          </a>
+        </aside>
+        <figcaption>
+          <div *ngIf="photoInfo.text">{{ photoInfo.text }}</div>
+        </figcaption>
+      </figure>
+      <div class="article-footer">
+        <span class="footer-item dot">조회 {{ photoInfo.hit_count }}</span>
+        <span class="footer-item dot">댓글 {{ originalList.length }}</span>
+        <button class="report cursor">신고</button>
+      </div>
+      <hr>
     </div>
+    <app-comment 
+      [originalList]="originalList"
+      [chosenList]="chosenList"
+      [pages]="pages"></app-comment>
   `,
   styles: [`
   .article-container{
-    width: 700px;
+    width: 806px;
     display: inline-block;
-    position: relative;
-    padding-right: 40px;
-    background-color: yellow;
+    padding: 40px 40px 0 0;
+    border-right: 1px solid #ededed;
   }
   .article-type{
     margin-bottom: 30px;
@@ -38,15 +58,76 @@ import { Component, OnInit } from '@angular/core';
   .article-type > span:last-child{
     float: right;
   }
-  .bar::after{
-    content: '|';
-    margin: 0 6px;
+  figure{
+    margin-bottom: 50px;
+  }
+  .photo{
+    width:100%;
+  }
+  .photo-container{
+    position: relative;
+  }
+  figcaption{
+    font-size: 15px;
+    line-height: 22px;
+    margin-top: 30px;
+  }
+  .products{
+    margin-top: 20px;
+  }
+  .product-img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+  }
+  .product-plus{
+    display: inline-block;
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background-image: url('../../../../assets/image/icon-etc-2.png');
+    padding-top: 25px;
+    background-position: -120px -61px;
+    background-size: 400px;
+    overflow: hidden;
+  }
+  .footer-item{
+    font-size: 13px;
+    color: #757575;
+  }
+  .dot::after{
+    content: "";
+    width: 2px;
+    height: 2px;
+    border-radius: 1px;
+    background-color: #bdbdbd;
+    opacity: .9;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 5px;
+  }
+  .report{
+    border: none;
+    background: transparent;
+    color: #bdbdbd;
+    padding: 0;
+  }
+  hr{
+    margin: 50px 0;
+    border: 1px solid #ededed;
   }
   `]
 })
 export class PhotoArticleComponent implements OnInit {
 
-  constructor() { }
+  @Input() photoInfo: any; 
+  @Input() originalList: any;
+  @Input() chosenList: any;
+  @Input() pages: any;
+
+  showBtn = 'none';
+
+  constructor(private commonService: CommonService) { }
 
   ngOnInit() {
   }

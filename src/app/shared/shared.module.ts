@@ -20,6 +20,7 @@ import { BasicRadioComponent } from './UI/basic-radio/basic-radio.component';
 import { ButtonDirective } from './directive/button.directive';
 import { CommunityListComponent } from './components/community-list.component';
 import { CartHoverDirective } from './components/cart-hover.directive';
+import { PaginationComponent } from './components/pagination.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { CartHoverDirective } from './components/cart-hover.directive';
     ButtonDirective,
     CommunityListComponent,
     CartHoverDirective,
+    PaginationComponent
   ],
   imports: [CommonModule, CoreModule, AlyleModule, SharedRoutingModule],
   exports: [
@@ -50,6 +52,7 @@ import { CartHoverDirective } from './components/cart-hover.directive';
     ButtonDirective,
     BasicRadioComponent,
     CommunityListComponent,
+    PaginationComponent
   ]
 })
 export class SharedModule {}
