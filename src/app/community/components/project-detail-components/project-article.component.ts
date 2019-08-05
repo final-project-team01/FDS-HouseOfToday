@@ -10,10 +10,11 @@ import { CommonService } from 'src/app/core/services/common.service';
       [projectInfo]="_projectInfo"></app-project-table>
       <hr>
       <article *ngFor="let content of contents">
+      <h2 *ngIf="content.title !== ''">{{ content.title }}</h2>
       <figure>
       <img src="{{ content.image }}" class="content-image">
       <figcaption *ngIf="content.text !== '-'">
-      {{ content.text }}
+        {{ content.text }}
       </figcaption>
       </figure>
       </article>
@@ -55,6 +56,17 @@ import { CommonService } from 'src/app/core/services/common.service';
   article{
     margin: 0 auto 60px auto;
   }
+  h2{
+    padding: 5px 5px 5px 10px;
+    border: none;
+    color: #424242;
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: bold;
+    border-left: 3px solid #dcdcdc;
+    margin-top: 10px;
+    margin-bottom: 15px;
+  }
   .content-image{
     width: 100%;
   }
@@ -85,6 +97,7 @@ export class ProjectArticleComponent implements OnInit {
 
   @Input() 
   set projectInfo(projectInfo) {
+    if (!projectInfo) return;
     this._projectInfo = projectInfo;
     this.comments = projectInfo.housewarming_comments;
     this.chosenComments = projectInfo.housewarming_comments.filter((review, index) => index >= 0 && index < 5);
@@ -93,15 +106,18 @@ export class ProjectArticleComponent implements OnInit {
     console.log(projectInfo);
   }
   get contents(){
-    const contents = this._projectInfo.housewarming_detail_content.sort(function(a, b) {
+    const contents 
+      = this._projectInfo ? this._projectInfo.housewarming_detail_content.sort(function(a, b) {
       return a.id - b.id;
-    });
+    }) : false;
     return contents;
   }
 
   constructor(private commonService: CommonService) { }
 
   ngOnInit() {
+    console.log(this._projectInfo);
+    
   }
 
 }
