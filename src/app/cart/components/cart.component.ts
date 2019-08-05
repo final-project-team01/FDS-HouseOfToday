@@ -46,14 +46,15 @@ import { CommonService } from 'src/app/core/services/common.service';
                   <dl class="cart-sidebar-summary">
                     <div class="summary-row">
                       <dt>총 상품금액</dt>
-                      <dd>{{cartService.getTotalPrice()}} 원</dd>
+                      <dd>{{
+                        commonService.addComma(cartService.getTotalPrice())}} 원</dd>
                     </div>
                     <div class="summary-row">
                       <dt>총 배송비</dt>
-                      <dd>{{cartService.getDeliverFee()}} 원</dd></div>                  
+                      <dd>{{commonService.addComma(cartService.getDeliverFee())}} 원</dd></div>                  
                     <div class="summary-row summary-row-total">
                       <dt>결제금액</dt>
-                      <dd>{{cartService.getTotalPrice()+cartService.getDeliverFee()}} 원</dd></div>
+                      <dd>{{commonService.addComma(cartService.getTotalPrice()+cartService.getDeliverFee())}} 원</dd></div>
                   </dl>
                   <div class="cart-sidebar-order">
                     <button BlueButton class="btn-order" (click)="buyItems()">{{cartService.getTotalCount()}} 개 상품 구매하기</button>

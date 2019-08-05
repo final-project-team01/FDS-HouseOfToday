@@ -22,6 +22,7 @@ import { CommunityListComponent } from './components/community-list.component';
 import { CartHoverDirective } from './components/cart-hover.directive';
 import { PaginationComponent } from './components/pagination.component';
 import { ImageZoomDirective } from './directive/image-zoom.directive';
+import { CheckBoxComponent } from './components/check-box/check-box.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ImageZoomDirective } from './directive/image-zoom.directive';
     CommunityListComponent,
     CartHoverDirective,
     PaginationComponent,
-    ImageZoomDirective
+    ImageZoomDirective,
+    CheckBoxComponent
   ],
   imports: [CommonModule, CoreModule, AlyleModule, SharedRoutingModule],
   exports: [
@@ -55,7 +57,8 @@ import { ImageZoomDirective } from './directive/image-zoom.directive';
     BasicRadioComponent,
     CommunityListComponent,
     PaginationComponent,
-    ImageZoomDirective
+    ImageZoomDirective,
+    CheckBoxComponent
   ]
 })
 export class SharedModule { }

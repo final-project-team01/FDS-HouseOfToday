@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { cart_list } from 'src/app/core/models/cart.interface';
 import { CartService } from 'src/app/core/services/cart.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CommonService } from 'src/app/core/services/common.service';
 
 @Component({
   selector: 'app-item-cards',
@@ -43,7 +44,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
                       <p class="error" *ngIf="isValidationVisible(item['quantity'], quantity.errors)">1이상의 정수를 입력하세요.</p>
                     </div>
                   </form>
-                  <div class="option-price">{{isValidationVisible(item['quantity'], quantity.errors) ? '-' : item['total_price']}}</div>
+                  <div class="option-price">{{isValidationVisible(item['quantity'], quantity.errors) ? '-' : commonService.addComma(item['total_price'])}}</div>
                 </div>
               </div>
             </article>
@@ -67,7 +68,8 @@ export class ItemCardComponent implements OnInit {
   @Input() brand: string;
   quantityForm: FormGroup;
   constructor(private cartService: CartService
-    , private fb: FormBuilder) { }
+    , private fb: FormBuilder
+    , private commonService: CommonService) { }
 
   ngOnInit() {
     this.quantityForm = this.fb.group(
@@ -83,7 +85,6 @@ export class ItemCardComponent implements OnInit {
 
   }
   goDetail(item) {
-    console.log(item);
   }
   removeItem(id: number) {
     this.cartService.removeItems(id);

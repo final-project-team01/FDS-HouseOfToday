@@ -13,56 +13,56 @@ export class CommonService {
   private isNavFiexd = false;
   private userDetail: user_detail;
 
-  public readonly url: string = "http://52.78.112.247/";
+  readonly url: string = "http://52.78.112.247/";
   constructor() { }
 
-  public setToken(newToken: string) {
+  setToken(newToken: string) {
     this._token = newToken;
   }
 
-  public get Token() {
+  get Token() {
     return this._token;
   }
 
-  public isLogin() {
+  isLogin() {
     return this._token ? true : false;
   }
 
-  public getFullPath(path: string) {
+  getFullPath(path: string) {
     if (path.startsWith('/'))
       path = path.substr(1);
 
     return this.url[this.url.length - 1] === '/' ? this.url + path : this.url + "/" + path;
   }
 
-  public setLocate(nav: number) {
+  setLocate(nav: number) {
     this.locate = nav;
   }
-  public getLocate() {
+  getLocate() {
     return this.locate;
   }
 
-  public setNav(nav: number) {
+  setNav(nav: number) {
     this.nav = nav;
   }
-  public getNav() {
+  getNav() {
     return this.nav;
   }
 
-  public resetNav() {
+  resetNav() {
     this.nav = this.locate;
   }
 
-  public setIsNavFixed(isFixed: boolean) {
+  setIsNavFixed(isFixed: boolean) {
     this.isNavFiexd = isFixed;
   }
-  public getIsNavFixed() {
+  getIsNavFixed() {
     return this.isNavFiexd;
   }
-  public setHeader(headers: HttpHeaders, key: string, value: string) {
+  setHeader(headers: HttpHeaders, key: string, value: string) {
     return headers.set(key, value);
   }
-  public setAuthorization(token: string) {
+  setAuthorization(token: string) {
     if (!token.startsWith("token"))
       token = "token " + token;
 
@@ -71,19 +71,19 @@ export class CommonService {
 
     return headers;
   }
-  public setUserDetail(userDetail: user_detail) {
+  setUserDetail(userDetail: user_detail) {
     this.userDetail = userDetail
   }
-  public getUserDetail() {
+  getUserDetail() {
     return this.userDetail;
   }
 
-  public addComma(num: number) {
+  addComma(num: number) {
     const regexp = /\B(?=(\d{3})+(?!\d))/g;
     return num.toString().replace(regexp, ',');
   }
 
-  public changePage(i: number, chosenList, originalList) {
+  changePage(i: number, chosenList, originalList) {
     const start = i * 5;
     const end = start + 5;
     chosenList
