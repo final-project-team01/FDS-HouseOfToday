@@ -3,6 +3,7 @@ import { cart_list } from 'src/app/core/models/cart.interface';
 import { CartService } from 'src/app/core/services/cart.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from 'src/app/core/services/common.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-item-cards',
@@ -14,9 +15,9 @@ import { CommonService } from 'src/app/core/services/common.service';
           <li>
             <article class="item-card">
               <app-check-box class="checkbox" [isChecked]="item['isChecked'] " (click)="cartService.toggleChecked(item['id'])"></app-check-box>
-              <a class="product" (click)="goDetail(item)">
+              <a class="product" (click)="goDetail(item['product_id'])" ImageZoom>
                 <div class="item-image">
-                  <img src="{{item['thumnail_image']}}">
+                  <img class="image-zoom" src="{{item['thumnail_image']}}">
                 </div>
                 <div class="item-content">
                   <h1 class="content-header">{{item['product']}}</h1>
@@ -69,7 +70,8 @@ export class ItemCardComponent implements OnInit {
   quantityForm: FormGroup;
   constructor(private cartService: CartService
     , private fb: FormBuilder
-    , private commonService: CommonService) { }
+    , private commonService: CommonService
+    , private router: Router) { }
 
   ngOnInit() {
     this.quantityForm = this.fb.group(
@@ -84,7 +86,8 @@ export class ItemCardComponent implements OnInit {
   onSubmin() {
 
   }
-  goDetail(item) {
+  goDetail(product_id: number) {
+    this.router.navigate([`/store/${product_id}`]);
   }
   removeItem(id: number) {
     this.cartService.removeItems(id);
