@@ -77,9 +77,9 @@ const styles = {
         <ul class="row home-stories__content">
           <li *ngFor="let storyToday of storiesToday" class="col-6 col-md-3 home-stories__content__item">
             <article class="story-entry story-story-item">
-              <a class="story-entry-link">
+              <a class="story-entry-link" ImageZoom>
                 <div class="story-entry__image-wrap">
-                  <img class="story-entry__image" src="{{storyToday.cover_image}}">
+                  <img class="story-entry__image image-zoom" src="{{storyToday.cover_image}}">
                 </div>
                 <div class="story-entry__content-wrap">
                   <div class="story-entry__content">
@@ -948,7 +948,7 @@ export class CommunityComponent implements OnInit {
   setMenuNum: number = 1;
   storyMenuOn: boolean = false;
   style: object;
-  
+
   today: Date;
   tomorrow: Date;
   gap: number;
@@ -959,7 +959,7 @@ export class CommunityComponent implements OnInit {
   activeSelect: boolean;
   clicked: string = 'total';
   index: number = 0;
-  
+
   navItems = [
     {
       icon: 'https://bucketplace-v2-development.s3.amazonaws.com/uploads/shortcut/items/1556598477191_Q8SKO.jpg',
@@ -1059,7 +1059,7 @@ export class CommunityComponent implements OnInit {
 
   constructor(private communityService: CommunityService
     , private commonService: CommonService, private theme: LyTheme2, private storeService: StoreService
-  ) {  }
+  ) { }
 
   ngOnInit() {
     this.commonService.setLocate(0);
@@ -1069,7 +1069,7 @@ export class CommunityComponent implements OnInit {
         this.productItems = data as today_deal[];
         this.setNumber = 4;
         this.storyMenuOn = true;
-    });
+      });
 
     this.communityService.getCommunityHome()
       .subscribe((data) => {
@@ -1103,7 +1103,7 @@ export class CommunityComponent implements OnInit {
     }, 1000);
     this.activeTimer = true;
   }
-  
+
   changeCategory(categoryid: string) {
     this.best100 = this.community.best100_category_list[categoryid];
 
