@@ -55,7 +55,7 @@ import { product_option } from 'src/app/core/models/store.interface';
       </div>
       <div class="btn-container">
       <button type="submit" class="cart cursor" (click)="cart()">장바구니담기</button>
-      <button class="cursor" (click)="buy()" Button>구매하기</button>
+      <button class="cursor" (click)="buy()" BlueButton>구매하기</button>
       </div>
     </div>
   `,
@@ -118,11 +118,11 @@ export class ProductOptionComponent implements OnInit {
     this.set.emit({ option, input });
   }
 
-  cart(){
+  cart() {
     this.intoCart.emit();
   }
 
-  buy(){
+  buy() {
     this.buyDirect.emit();
   }
 }
