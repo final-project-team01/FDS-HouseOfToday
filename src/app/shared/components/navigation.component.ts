@@ -15,8 +15,8 @@ import { HttpErrorResponse } from '@angular/common/http';
           <span  class="logo" aria-label="오늘의집"></span>
         </a>
         <div class="navigation-menu">
-          <a routerLink="/community" routerLinkActive="active" (mouseover)="changMenu(0)">커뮤니티</a>
-          <a routerLink="/store" routerLinkActive="active" (mouseover)="changMenu(1)">스토어</a>
+          <a routerLink="/community" routerLinkActive="active" (mouseover)="changMenu(0)" BlueFont>커뮤니티</a>
+          <a routerLink="/store" routerLinkActive="active" (mouseover)="changMenu(1)" BlueFont>스토어</a>
         </div>
         <a routerLink="/cart" class="cart-btn" CartHover>
           <span class="cart-btn-icon" ></span>    

@@ -7,9 +7,9 @@ import { CommonService } from 'src/app/core/services/common.service';
   <div class="navigation-secondary">
     <nav>
       <a routerLink="/store" routerLinkActive="active"
-      [routerLinkActiveOptions]="{ exact: true }">스토어 홈</a>
-      <a routerLink="/store/category" routerLinkActive="active">카테고리</a>
-      <a routerLink="/store/rank" routerLinkActive="active">랭킹</a>
+      [routerLinkActiveOptions]="{ exact: true }" BlueFont>스토어 홈</a>
+      <a routerLink="/store/category" routerLinkActive="active" BlueFont>카테고리</a>
+      <a routerLink="/store/rank" routerLinkActive="active" BlueFont>랭킹</a>
     </nav>
   </div>
   `,
