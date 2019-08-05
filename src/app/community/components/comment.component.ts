@@ -18,9 +18,13 @@ import { CommonService } from 'src/app/core/services/common.service';
     </form>
   </div>
   <div class="comment-section">
-    <div class="each-comment" *ngFor="let comment of chosenList">
-        <img src="{{ comment.author_profile_image }}"
-          class="author_profile_image">
+    <div class="each-comment" *ngFor="let comment of chosenList; let i = index">
+      <app-basic-uses-avatar
+        [size]="32"
+        [pic]="this.chosenList[i].author_profile_image"
+        [isBorder]="false"
+        class="author_profile_image">
+      </app-basic-uses-avatar>
         <div class="comment">
           <span class="comment-author">{{ comment.author }}</span>
           <span class="comment-text">{{ comment.text }}</span><br>
@@ -153,5 +157,4 @@ export class CommentComponent implements OnInit {
       : 'assets/image/36.png';
     return picurl;
   }
-
 }
