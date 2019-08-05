@@ -51,7 +51,7 @@ export class PhotoDetailComponent implements OnInit {
         this.comments = this.photoInfo.photo_comments;
         this.chosenComments = this.comments.filter((comment, index) => index >= 0 && index < 5);
         const cp = Math.ceil(this.comments.length / 5);
-        this.commentPages = Array(cp);
+        this.commentPages = Array(cp);        
       });
   }
 

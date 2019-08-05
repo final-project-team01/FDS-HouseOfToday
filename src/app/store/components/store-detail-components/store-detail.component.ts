@@ -139,7 +139,9 @@ export class StoreDetailComponent implements OnInit {
         this.productImages = data['thumnail_images'];
         this.productDetailImages = data['detail_images'];
         this.productOption = data['product_option'];
-        this.productReviews = data['review'];
+        this.productReviews = data['review'].sort(function(a, b) {
+          return b.star_score - a.star_score;
+        });
         this.productQnas = data['pdqna'];
         this.chosenReviews = this.productReviews.filter((review, index) => index >= 0 && index < 5);
         this.chosenQnas = this.productQnas.filter((review, index) => index >= 0 && index < 5);
@@ -238,15 +240,17 @@ export class StoreDetailComponent implements OnInit {
     const user = localStorage.getItem('user');
     // 옵션을 선택했는지, 로그인 되었는지 체크
     if (this.checkCondition('장바구니', user) === false) return;
-    this.chosenOptions.forEach(option => {
+    this.chosenOptions.forEach((option, index, array) => {
       const payload: cart_option = { 
         product: option.productId,
         product_option: option.optionId,
-        quantity: option.quantity  
+        quantity: option.quantity
       };
       this.cartService.addCart(payload, user)
       .subscribe(res => {
-        console.log('success');
+        if(index === array.length - 1){
+          this.cartService.getCartList();
+        }
       },
         err => {
           console.log(err.message);

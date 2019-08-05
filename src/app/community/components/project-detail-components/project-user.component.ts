@@ -19,14 +19,18 @@ import { Component, OnInit, Input } from '@angular/core';
       </div>
       <hr>
       <div class="author">
-        <img src="{{ projectInfo.author_profile }}"
+        <app-basic-uses-avatar
+          [size]="50"
+          [pic]="projectInfo.author_profile"
+          [isBorder]="false"
           class="author_profile_image">
+        </app-basic-uses-avatar>
           <div class="about-author">
             <span class="author-name">{{ projectInfo.author }}</span><br>
           </div>
         <button class="follow cursor">팔로우</button>
       </div>
-      <button class="see-more cursor">이 집의 모든 제품 보기</button>
+      <button class="see-more cursor" Button>이 집의 모든 제품 보기</button>
       <button class="report cursor">신고</button>
     </div>
   `,
