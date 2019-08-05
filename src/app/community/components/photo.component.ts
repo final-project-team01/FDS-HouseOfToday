@@ -22,7 +22,7 @@ import { CommonService } from 'src/app/core/services/common.service';
 
       <div class="card_list">
         <div class="contents">
-          <article class="card_item">
+          <article *ngFor="let item of cardItems" class="card_item">
             <div class="card_item_top_bar">
               <div class="user_icon_image">
                 <app-basic-uses-avatar></app-basic-uses-avatar>
@@ -35,15 +35,15 @@ import { CommonService } from 'src/app/core/services/common.service';
               </address>
             </div>
             <div class="card_item_content">
-              <div class="content_description">설명</div>
               <div class="content_image">
-                <a class="image" href="#">photo</a>
+                <a class="image" href="#"></a>
               </div>
               <aside class="card_item_action">
                 <button>1</button>
                 <button>2</button>
                 <button>3</button>
               </aside>
+              <div class="content_description">카드 아이템 설명 공간</div>
             </div>
             <div class="reply_user_icon_image">
               <app-basic-uses-avatar></app-basic-uses-avatar>
@@ -57,7 +57,6 @@ import { CommonService } from 'src/app/core/services/common.service';
   styles: [
     `
       .container {
-        background-color: lightgray;
         width: 1136px;
         margin: 0 auto;
         font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', '맑은 고딕',
@@ -82,7 +81,6 @@ import { CommonService } from 'src/app/core/services/common.service';
         cursor: pointer;
       }
       .card_list {
-        background-color: gray;
       }
       .contents {
         margin-right: -10px;
@@ -93,18 +91,15 @@ import { CommonService } from 'src/app/core/services/common.service';
         margin-bottom: 40px;
       }
       .card_item {
-        background-color: pink;
         padding: 0 10px;
         width: 25%;
         display: inline-block;
       }
       .card_item_top_bar {
-        background-color: green;
         font-size: 15px;
       }
 
       .user_icon_image {
-        background-color: black;
         float: left;
         position: absolute;
       }
@@ -113,30 +108,29 @@ import { CommonService } from 'src/app/core/services/common.service';
         margin-bottom: 16px;
       }
       .user_name {
-        background-color: yellow;
         display: inline-block;
         color: #424242;
         font-weight: 500;
       }
       .user_follow {
         background: none;
-        background-color: blue;
         color: #35c5f0;
         font-weight: 700;
         line-height: 19px;
         padding: 0;
       }
       .card_item_content {
-        background-color: red;
         position: relative;
       }
       .content_description {
-        background-color: beige;
         margin-top: 12px;
       }
       .image {
         background-color: hotpink;
         width: 100%;
+        height: 269px;
+        border-radius: 6px;
+
         display: inline-block;
         top: 0;
       }
@@ -146,7 +140,6 @@ import { CommonService } from 'src/app/core/services/common.service';
         padding: 13px 0 16px;
       }
       address > p {
-        background-color: brown;
         font-size: 12px;
         line-height: 16px;
         color: #757575;
@@ -160,10 +153,18 @@ import { CommonService } from 'src/app/core/services/common.service';
   ]
 })
 export class PhotoComponent implements OnInit {
+  cardItems = [];
+
   constructor(
     private communityService: CommunityService,
     private commonService: CommonService
-  ) {}
+  ) {
+    for (let I = 0; I < 16; I++) {
+      const item = { item: I };
+      this.cardItems =
+        this.cardItems.length > 0 ? [...this.cardItems, item] : [item];
+    }
+  }
 
   ngOnInit() {
     this.commonService.setLocate(0);
