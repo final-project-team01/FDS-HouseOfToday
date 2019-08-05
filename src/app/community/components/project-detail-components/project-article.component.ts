@@ -85,6 +85,7 @@ export class ProjectArticleComponent implements OnInit {
 
   @Input() 
   set projectInfo(projectInfo) {
+    if (!projectInfo) return;
     this._projectInfo = projectInfo;
     this.comments = projectInfo.housewarming_comments;
     this.chosenComments = projectInfo.housewarming_comments.filter((review, index) => index >= 0 && index < 5);
@@ -93,9 +94,10 @@ export class ProjectArticleComponent implements OnInit {
     console.log(projectInfo);
   }
   get contents(){
-    const contents = this._projectInfo.housewarming_detail_content.sort(function(a, b) {
+    const contents 
+      = this._projectInfo ? this._projectInfo.housewarming_detail_content.sort(function(a, b) {
       return a.id - b.id;
-    });
+    }) : false;
     return contents;
   }
 

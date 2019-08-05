@@ -7,11 +7,11 @@ import { CommonService } from 'src/app/core/services/common.service';
   <h2>댓글 <span *ngIf="originalList">{{ originalList.length }}</span></h2>
   <div class="comment-input">
     <div class="profile-img">
-      <img
-        src="{{ this.commonService.getUserDetail() 
-        ? this.commonService.getUserDetail()['type']==='django' ? this.commonService.getUserDetail()['profile'] : this.commonService.getUserDetail()['social_profile']
-        : 'assets/image/36.png' }}"
-        class="user-profile">
+        <app-basic-uses-avatar
+          [size]="32"
+          [pic]="getPicture()"
+          [isBorder]="false">
+        </app-basic-uses-avatar>
     </div>
     <form>
       <input type="text" placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다 :)">
@@ -145,6 +145,13 @@ export class CommentComponent implements OnInit {
 
   changePage(chosenList){
     this.chosenList = chosenList;
+  }
+
+  getPicture(){
+    const picurl = this.commonService.getUserDetail() 
+      ? this.commonService.getUserDetail()['type']==='django' ? this.commonService.getUserDetail()['profile'] : this.commonService.getUserDetail()['social_profile']
+      : 'assets/image/36.png';
+    return picurl;
   }
 
 }
