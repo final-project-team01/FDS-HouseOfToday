@@ -27,7 +27,7 @@ import { CommonService } from 'src/app/core/services/common.service';
           </a>
         </aside>
         <figcaption>
-          <div *ngIf="photoInfo.text">{{ photoInfo.text }}</div>
+          <div *ngIf="photoInfo.text"><pre>{{ photoInfo.text }}</pre></div>
         </figcaption>
       </figure>
       <div class="article-footer">

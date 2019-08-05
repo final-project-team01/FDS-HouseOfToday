@@ -30,7 +30,7 @@ import { Component, OnInit, Input } from '@angular/core';
           </div>
         <button class="follow cursor">팔로우</button>
       </div>
-      <button class="see-more cursor">이 집의 모든 제품 보기</button>
+      <button class="see-more cursor" Button>이 집의 모든 제품 보기</button>
       <button class="report cursor">신고</button>
     </div>
   `,

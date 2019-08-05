@@ -139,7 +139,9 @@ export class StoreDetailComponent implements OnInit {
         this.productImages = data['thumnail_images'];
         this.productDetailImages = data['detail_images'];
         this.productOption = data['product_option'];
-        this.productReviews = data['review'];
+        this.productReviews = data['review'].sort(function(a, b) {
+          return b.star_score - a.star_score;
+        });
         this.productQnas = data['pdqna'];
         this.chosenReviews = this.productReviews.filter((review, index) => index >= 0 && index < 5);
         this.chosenQnas = this.productQnas.filter((review, index) => index >= 0 && index < 5);
