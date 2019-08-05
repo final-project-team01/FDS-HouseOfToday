@@ -32,7 +32,7 @@ import { UserService } from 'src/app/core/services/user.service';
           [style.opacity]="capsOpacity">
             Caps Lock 이 켜져있네요!
           </div>
-          <button type="submit" class="submit" Button>로그인</button>
+          <button type="submit" class="submit" BlueButton>로그인</button>
         </form>
         </div>
         <div class="login-menu">

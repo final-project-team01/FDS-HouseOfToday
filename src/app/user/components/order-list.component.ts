@@ -37,7 +37,7 @@ import { user_order } from 'src/app/core/models/user.interface';
           <div class="slot_item_description">
             나는 5000P, 친구는 5000원 쿠폰
           </div>
-          <a>추천하기</a>
+          <a BlueButton>추천하기</a>
         </div>
       </div>
       <div class="order_state">
@@ -209,11 +209,6 @@ import { user_order } from 'src/app/core/models/user.interface';
         width: 140px;
         height: 40px;
         line-height: 40px;
-        background-color: #35c5f0;
-        color: #ffffff;
-        display: inline-block;
-        border-radius: 4px;
-        font-weight: bold;
       }
       .order_state {
         margin-top: 30px;

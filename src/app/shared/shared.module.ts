@@ -17,7 +17,7 @@ import { NavFixedDirective } from './components/nav-fixed.directive';
 import { SubNavFixedDirective } from './components/sub-nav-fixed.directive';
 import { AvatarWithButtonComponent } from './UI/avatar-with-button/avatar-with-button.component';
 import { BasicRadioComponent } from './UI/basic-radio/basic-radio.component';
-import { ButtonDirective } from './directive/button.directive';
+import { BlueButtonDirective } from './directive/blue-button.directive';
 import { CommunityListComponent } from './components/community-list.component';
 import { CartHoverDirective } from './components/cart-hover.directive';
 import { PaginationComponent } from './components/pagination.component';
@@ -34,7 +34,7 @@ import { ImageZoomDirective } from './directive/image-zoom.directive';
     ProductListComponent,
     NavFixedDirective,
     SubNavFixedDirective,
-    ButtonDirective,
+    BlueButtonDirective,
     CommunityListComponent,
     CartHoverDirective,
     PaginationComponent,
@@ -51,7 +51,7 @@ import { ImageZoomDirective } from './directive/image-zoom.directive';
     BasicUsesAvatarComponent,
     ProductListComponent,
     AvatarWithButtonComponent,
-    ButtonDirective,
+    BlueButtonDirective,
     BasicRadioComponent,
     CommunityListComponent,
     PaginationComponent,

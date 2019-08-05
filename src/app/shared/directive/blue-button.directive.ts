@@ -1,9 +1,9 @@
 import { Directive, ElementRef, Renderer2, HostListener } from '@angular/core';
 
 @Directive({
-  selector: '[Button]'
+  selector: '[BlueButton]'
 })
-export class ButtonDirective {
+export class BlueButtonDirective {
 
   constructor(private el: ElementRef, private renderer: Renderer2) {
     renderer.setStyle(el.nativeElement, 'box-sizing', 'border-box');
