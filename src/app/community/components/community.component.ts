@@ -85,7 +85,12 @@ const styles = {
                   <div class="story-entry__content">
                     <div class="story-entry__content__title">{{storyToday.title}}<br></div>
                     <div class="story-entry__content__profile">
-                      <img class="story-entry__content__profile__image" src="{{storyToday.author_profile}}">
+                      <app-basic-uses-avatar
+                      [size]="22"
+                      [pic]="storyToday.author_profile"
+                      [isBorder]="false"
+                      class="story-entry__content__profile__image">
+                      </app-basic-uses-avatar>
                       <span class="story-entry__content__profile__name">{{storyToday.author}}</span>
                     </div>
                   </div>
@@ -137,7 +142,12 @@ const styles = {
                 <div class="story-entry__content-wrap">
                   <div class="story-entry__content">
                     <div class="story-entry__content__profile">
-                      <img class="story-entry__content__profile__image" src="{{storyFame.author_profile_image}}">
+                      <app-basic-uses-avatar
+                      [size]="22"
+                      [pic]="storyFame.author_profile_image"
+                      [isBorder]="false"
+                      class="story-entry__content__profile__image">
+                      </app-basic-uses-avatar>
                       <span class="story-entry__content__profile__name">{{storyFame.author}}</span>
                     </div>
                   </div>
@@ -576,8 +586,6 @@ const styles = {
   }
 
   .story-story-item .story-entry__content__profile__image {
-    width: 22px;
-    height: 22px;
     vertical-align: -8px;
     display: inline-block;
     background-size: cover;
@@ -652,8 +660,6 @@ const styles = {
   }
 
   .story-card-item .story-entry__content__profile__image {
-    width: 22px;
-    height: 22px;
     vertical-align: -7px;
     display: inline-block;
     border-radius: 100%;
