@@ -1117,12 +1117,4 @@ export class CommunityComponent implements OnInit {
 
     this.clicked = categoryid;
   }
-
-  selectedActive() {
-    this.activeSelect = true;
-  }
-
-  unselectActive() {
-    this.activeSelect = false;
-  }
 }
