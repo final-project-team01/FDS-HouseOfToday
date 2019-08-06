@@ -44,8 +44,7 @@ import { CommonService } from 'src/app/core/services/common.service';
       <hr>
     </div>
     <app-comment 
-      [originalList]="originalList"
-      [pages]="pages"></app-comment>
+      [originalList]="originalList"></app-comment>
   `,
   styles: [`
   .article-container{
@@ -127,7 +126,6 @@ export class PhotoArticleComponent implements OnInit {
 
   @Input() photoInfo: any; 
   @Input() originalList: any;
-  @Input() pages: any;
 
   showBtn = 'none';
 

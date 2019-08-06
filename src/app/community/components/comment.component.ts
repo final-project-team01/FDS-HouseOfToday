@@ -37,7 +37,6 @@ import { CommonService } from 'src/app/core/services/common.service';
   </div>
   <app-pagination
     [originalList]="originalList"
-    [pages]="pages"
     (change)="changePage($event)">
   </app-pagination>
   `,
@@ -138,7 +137,6 @@ import { CommonService } from 'src/app/core/services/common.service';
 export class CommentComponent implements OnInit {
 
   @Input() originalList: any;
-  @Input() pages: any;
   
   index = 0;
 

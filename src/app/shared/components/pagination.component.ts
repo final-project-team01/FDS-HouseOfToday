@@ -4,7 +4,7 @@ import { CommonService } from 'src/app/core/services/common.service';
 @Component({
   selector: 'app-pagination',
   template: `
-  <div class="pagination" *ngIf="originalList">
+  <div class="pagination" *ngIf="_originalList">
     <button class="btn arrow left" (click)="goLeft()"></button>
     <div class="page-container" [style.width.px]="getWidth(pages)">
       <div class="num-container" [style.left.px]="left">
@@ -23,17 +23,25 @@ import { CommonService } from 'src/app/core/services/common.service';
 })
 export class PaginationComponent implements OnInit {
 
-  @Input() originalList: any;
-  @Input() pages: any;
+  @Input() 
+  set originalList(originalList){
+    if(!originalList) return;
+    this._originalList = originalList;
+    const p = Math.ceil(this._originalList.length / 5)
+    this.pages = Array(p);
+  };
   @Output() change = new EventEmitter;
 
   activeId = 0;
   previousIndex = 0;
   left = 0;
+  pages = [];
+  _originalList = [];
 
   constructor(private commonService: CommonService) { }
 
   ngOnInit() {
+    
   }
 
   getWidth(pages: any){

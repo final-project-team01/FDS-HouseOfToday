@@ -10,8 +10,7 @@ import { CommunityService } from 'src/app/core/services/community.service';
     <div class="wrapper">
       <app-photo-article 
         [photoInfo]="photoInfo"
-        [originalList]="comments"
-        [pages]="commentPages"></app-photo-article>
+        [originalList]="comments"></app-photo-article>
       <app-photo-user
         [photoInfo]="photoInfo"></app-photo-user>
     </div>

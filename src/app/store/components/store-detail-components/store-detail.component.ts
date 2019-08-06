@@ -73,15 +73,11 @@ import { cart_option, buy_option } from 'src/app/core/models/cart.interface';
         </h3>
         <app-product-review
           [originalList]="productReviews"
-          [chosenList]="chosenReviews"
-          [pages]="reviewPages"
           [starAvg]="starAvg">
         </app-product-review>
         <h3 #qna>문의 <span class="qna-amount">{{ qnaAmount }}</span></h3>
         <app-product-qna
-          [originalList]="productQnas"
-          [chosenList]="chosenQnas"
-          [pages]="qnaPages">
+          [originalList]="productQnas">
         </app-product-qna>
         <h3 class="delivery" #delivery>배송 관련 안내</h3>
         <app-product-delivery
@@ -108,11 +104,7 @@ export class StoreDetailComponent implements OnInit {
   productReviews: review[];
   reviewAmount: number;
   starAvg: number;
-  reviewPages = [];
-  qnaPages = [];
   productQnas: qna[];
-  chosenReviews: review[];
-  chosenQnas: qna[];
   qnaAmount: number;
   chosenOptions: ChosenOption[] = [];
   totalPrice = '0';
@@ -143,15 +135,9 @@ export class StoreDetailComponent implements OnInit {
           return b.star_score - a.star_score;
         });
         this.productQnas = data['pdqna'];
-        this.chosenReviews = this.productReviews.filter((review, index) => index >= 0 && index < 5);
-        this.chosenQnas = this.productQnas.filter((review, index) => index >= 0 && index < 5);
         this.qnaAmount = this.productQnas.length;
         this.reviewAmount = this.productInfo['review_count'];
         this.starAvg = +this.productInfo['star_avg'];
-        const rp = Math.ceil(this.reviewAmount / 5);
-        const qp = Math.ceil(this.qnaAmount / 5);
-        this.reviewPages = Array(rp);
-        this.qnaPages = Array(qp);
         this.activeId = this.productImages[0].id;
         const originalPrice = this.productInfo.price / (100 - +this.productInfo.discount_rate) * 100;
         this.originalPrice = this.commonService.addComma(Math.floor(originalPrice / 10) * 10);

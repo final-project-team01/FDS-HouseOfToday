@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { review } from 'src/app/core/models/store.interface';
-import { CommonService } from 'src/app/core/services/common.service';
 
 
 @Component({
@@ -29,35 +28,35 @@ import { CommonService } from 'src/app/core/services/common.service';
           </button>
           <ul class="review-star-filter">
             <li class="cursor" (click)="reviewFilter(5)">
-              <div class="stars" *ngFor="let star of chosenList; let i = index" >
+              <div class="stars" *ngFor="let star of _originalList; let i = index" >
                 <span class="star pic-icon" *ngIf=" i < 5">
                 </span>
               </div>
               <span>({{ getScore(5) }}개)</span>
             </li>
             <li class="cursor" (click)="reviewFilter(4)">
-              <div class="stars" *ngFor="let star of chosenList; let i = index" >
+              <div class="stars" *ngFor="let star of _originalList; let i = index" >
                 <span class="star pic-icon" *ngIf=" i < 4">
                 </span>
               </div>
               <span>({{ getScore(4) }}개)</span>
             </li>
             <li class="cursor" (click)="reviewFilter(3)">
-              <div class="stars" *ngFor="let star of chosenList; let i = index" >
+              <div class="stars" *ngFor="let star of _originalList; let i = index" >
                 <span class="star pic-icon" *ngIf=" i < 3">
                 </span>
               </div>
               <span>({{ getScore(3) }}개)</span>
             </li>
             <li class="cursor" (click)="reviewFilter(2)">
-              <div class="stars" *ngFor="let star of chosenList; let i = index" >
+              <div class="stars" *ngFor="let star of _originalList; let i = index" >
                 <span class="star pic-icon" *ngIf=" i < 2">
                 </span>
               </div>
               <span>({{ getScore(2) }}개)</span>
             </li>
             <li class="cursor" (click)="reviewFilter(1)">
-              <div class="stars" *ngFor="let star of chosenList; let i = index" >
+              <div class="stars" *ngFor="let star of _originalList; let i = index" >
                 <span class="star pic-icon" *ngIf=" i < 1">
                 </span>
               </div>
@@ -72,7 +71,8 @@ import { CommonService } from 'src/app/core/services/common.service';
         </li>
       </ul>
       </div>
-      <article class="user-review" *ngFor="let review of originalList | pageFilter: index">
+      <div class="user-review-container">
+      <article class="user-review" *ngFor="let review of copyOriginalList | pageFilter: index">
         <span class="user">사용자</span>
         <div class="review-star-score">
           <span class="star pic-icon" *ngFor="let star of range(review['star_score'])">
@@ -85,9 +85,9 @@ import { CommonService } from 'src/app/core/services/common.service';
         <p class="review-comment">{{ review.comment }}</p>
         <button class="helpful cursor">도움이 돼요</button>
       </article>
+      </div>
       <app-pagination 
-        [originalList]="originalList"
-        [pages]="pages"
+        [originalList]="copyOriginalList"
         (change)="changePage($event)">
       </app-pagination>
     </div>
@@ -96,11 +96,15 @@ import { CommonService } from 'src/app/core/services/common.service';
 })
 export class ProductReviewComponent implements OnInit {
 
-  @Input() originalList: review[];
-  @Input() chosenList: review[];
-  @Input() pages: any;
   @Input() starAvg: number;
-
+  @Input() 
+  set originalList(originalList: review[]){
+    this._originalList = originalList;
+    this.copyOriginalList = originalList
+  };
+  
+  _originalList: review[];
+  copyOriginalList: review[]
   index = 0;
 
   constructor() { }
@@ -118,6 +122,12 @@ export class ProductReviewComponent implements OnInit {
   }
 
   getScore(n: number){
-    return this.originalList ? this.originalList.filter(review => review.star_score === n).length : 0;
+    return this._originalList ? this._originalList.filter(review => review.star_score === n).length : 0;
+  }
+
+  reviewFilter(n: number){
+    this.copyOriginalList = this._originalList.filter(review => {
+      if(review.star_score === n) return review;
+    });
   }
 }
