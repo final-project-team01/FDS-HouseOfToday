@@ -106,6 +106,18 @@ import { Component, OnInit } from '@angular/core';
       </dd>
     </dl>
 
+    <dl>
+      <dt>필터버튼 / 필터다운버튼</dt>
+      <dd>
+        <button FilterButton>필터버튼</button>
+        <app-filter-drop-button>드랍버튼</app-filter-drop-button>
+      </dd>
+      <dd>
+        <div [innerText]="filterButton">
+        </div>
+      </dd>
+    </dl>
+
   
   `,
   styles: [
@@ -175,6 +187,9 @@ export class CommonComponent implements OnInit {
           <span class="more-left" MoreButton></span>          
         </div>
       `;
+
+  filterButton = `<button FilterButton>필터버튼</button>
+  <app-filter-drop-button>드랍버튼</app-filter-drop-button>`
   constructor() { }
 
   ngOnInit() {
