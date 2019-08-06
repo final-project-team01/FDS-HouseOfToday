@@ -25,7 +25,7 @@ const styles = {
       <section class="container home-header">
         <div class="row">
           <div class="col-12 col-md-9 home-header__story">
-            <article class="story-header" *ngFor="let mainImage of mainEntry">
+            <article class="story-header" *ngFor="let mainImage of mainEntry" ButtonTurnBlue>
               <a class="story-header-link" ImageZoom>
                 <div class="story-header__image-wrap">
                   <div class="story-header__image image-zoom" [ngStyle]="{ 'background-image': 'url(' + mainImage.cover_image + ')' }">
@@ -40,7 +40,7 @@ const styles = {
                       <span class="story-header__content__profile__name">{{mainImage.author}}</span>
                     </div>
                   </div>
-                  <div class="home-header__story__more">보러가기</div>
+                  <div class="home-header__story__more button-turn-blue">보러가기</div>
                 </div>
               </a>
             </article>
@@ -102,7 +102,7 @@ const styles = {
           <div class="menu-wrap">
             <div class="col-6 col-md-3 home-stories__content__menu-wrap">
               <div class="home-stories__content__menu">
-                <a *ngFor="let storyMenu of storiesMenu"class="home-stories__content__menu__entry">
+                <a *ngFor="let storyMenu of storiesMenu"class="home-stories__content__menu__entry" ButtonColorChange>
                   <div class="description">{{storyMenu.description}}</div>
                   <div class="title">
                     <span class="text">{{storyMenu.title}}</span>
@@ -171,7 +171,7 @@ const styles = {
         </header>
         <div class="production-rank-feed">
           <ul class="production-rank-feed__category">
-            <li *ngFor="let rankFeed of rankFeeds; let i = index" class="production-rank-feed__category__item" role="button" (click)="changeCategory(rankFeed.id)" [class.active]="clicked === rankFeed.id">{{rankFeed.categoryName}}</li>
+            <li *ngFor="let rankFeed of rankFeeds; let i = index" class="production-rank-feed__category__item" role="button" (click)="changeCategory(rankFeed.id)" [class.active]="clicked === rankFeed.id" BlueFont>{{rankFeed.categoryName}}</li>
           </ul>
           <div class="row production-rank-feed__group">
             <div class="col production-rank-feed__list-wrap">

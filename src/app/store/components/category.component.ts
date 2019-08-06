@@ -15,7 +15,7 @@ import { store_list, categoryfilter, today_deal } from 'src/app/core/models/stor
             <section class="commerce-category">
               <ul *ngFor="let categoryList of categoryLists" class="commerce-category-list">
                 <li class="commerce-category-list_item">
-                  <a class="categorylist" [class.active]="listActive === categoryList.id"(click)="changeCategory(categoryList.id)">{{ categoryList.name }}</a>
+                  <a class="categorylist" [class.active]="listActive === categoryList.id"(click)="changeCategory(categoryList.id)" OpacityDot7Font>{{ categoryList.name }}</a>
                 </li>
               </ul>
             </section>
