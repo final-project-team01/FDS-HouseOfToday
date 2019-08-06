@@ -27,6 +27,8 @@ import { BlueFontDirective } from './directive/blue-font.directive';
 import { OpacityDot7FontDirective } from './directive/opacity-dot7-font.directive';
 import { ButtonColorChangeDirective } from './directive/button-color-change.directive';
 import { ButtonTurnBlueDirective } from './directive/button-turn-blue.directive';
+import { MoreButtonDirective } from './directive/more-button.directive';
+import { MoreBigButtonDirective } from './directive/more-big-button.directive';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,10 @@ import { ButtonTurnBlueDirective } from './directive/button-turn-blue.directive'
     BlueFontDirective,
     OpacityDot7FontDirective,
     ButtonColorChangeDirective,
-    ButtonTurnBlueDirective
+    ButtonTurnBlueDirective,
+    MoreButtonDirective,
+    MoreBigButtonDirective
+
   ],
   imports: [CommonModule, CoreModule, AlyleModule, SharedRoutingModule],
   exports: [
@@ -70,7 +75,9 @@ import { ButtonTurnBlueDirective } from './directive/button-turn-blue.directive'
     BlueFontDirective,
     OpacityDot7FontDirective,
     ButtonColorChangeDirective,
-    ButtonTurnBlueDirective
+    ButtonTurnBlueDirective,
+    MoreButtonDirective,
+    MoreBigButtonDirective
   ]
 })
 export class SharedModule { }
