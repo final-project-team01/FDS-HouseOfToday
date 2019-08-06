@@ -22,47 +22,25 @@ import { review } from 'src/app/core/models/store.interface';
         <li class="review-filter-menu cursor"><span class="pic-icon"></span>사진리뷰</li>
       </ul>
       <ul class="filter-btns">
-        <li>
+        <li 
+        (mouseover)="showFilter = 'block'"
+        (mouseleave)="showFilter = 'none'">
           <button class="review-filter-btn cursor">별점
           <span class="pointer-icon"></span>
           </button>
-          <ul class="review-star-filter">
-            <li class="cursor" (click)="reviewFilter(5)">
-              <div class="stars" *ngFor="let star of _originalList; let i = index" >
-                <span class="star pic-icon" *ngIf=" i < 5">
-                </span>
-              </div>
-              <span>({{ getScore(5) }}개)</span>
-            </li>
-            <li class="cursor" (click)="reviewFilter(4)">
-              <div class="stars" *ngFor="let star of _originalList; let i = index" >
-                <span class="star pic-icon" *ngIf=" i < 4">
-                </span>
-              </div>
-              <span>({{ getScore(4) }}개)</span>
-            </li>
-            <li class="cursor" (click)="reviewFilter(3)">
-              <div class="stars" *ngFor="let star of _originalList; let i = index" >
-                <span class="star pic-icon" *ngIf=" i < 3">
-                </span>
-              </div>
-              <span>({{ getScore(3) }}개)</span>
-            </li>
-            <li class="cursor" (click)="reviewFilter(2)">
-              <div class="stars" *ngFor="let star of _originalList; let i = index" >
-                <span class="star pic-icon" *ngIf=" i < 2">
-                </span>
-              </div>
-              <span>({{ getScore(2) }}개)</span>
-            </li>
-            <li class="cursor" (click)="reviewFilter(1)">
-              <div class="stars" *ngFor="let star of _originalList; let i = index" >
-                <span class="star pic-icon" *ngIf=" i < 1">
-                </span>
-              </div>
-              <span>({{ getScore(1) }}개)</span>
+          <div>
+          <ul class="review-star-filter"
+          [style.display]="showFilter">
+            <li class="cursor" *ngFor="let score of scoreArray; let i = index" 
+              (click)="reviewFilter(score)">
+              <span class="star pic-icon" *ngFor="let score of range(score)">
+              </span>
+              <span class="greystar pic-icon" *ngFor="let score of range(i)">
+              </span>
+              <span>({{ getScore(score) }}개)</span>
             </li>
           </ul>
+          </div>
         </li>
         <li>
           <button class="review-filter-btn cursor">옵션
@@ -72,11 +50,10 @@ import { review } from 'src/app/core/models/store.interface';
       </ul>
       </div>
       <div class="user-review-container">
-      <article class="user-review" *ngFor="let review of copyOriginalList | pageFilter: index">
+      <article class="user-review" *ngFor="let review of filteredList | pageFilter: index">
         <span class="user">사용자</span>
         <div class="review-star-score">
-          <span class="star pic-icon" *ngFor="let star of range(review['star_score'])">
-          </span>
+          <span class="star pic-icon" *ngFor="let star of range(review['star_score'])"></span>
         </div>
         <span class="review-date">{{ review.created }}</span>
         <div class="review-image" *ngIf="review.image !== null">
@@ -87,7 +64,7 @@ import { review } from 'src/app/core/models/store.interface';
       </article>
       </div>
       <app-pagination 
-        [originalList]="copyOriginalList"
+        [originalList]="filteredList"
         (change)="changePage($event)">
       </app-pagination>
     </div>
@@ -100,11 +77,13 @@ export class ProductReviewComponent implements OnInit {
   @Input() 
   set originalList(originalList: review[]){
     this._originalList = originalList;
-    this.copyOriginalList = originalList
+    this.filteredList = originalList
   };
   
   _originalList: review[];
-  copyOriginalList: review[]
+  filteredList: review[];
+  showFilter = 'none';
+  scoreArray = [5, 4, 3, 2, 1];
   index = 0;
 
   constructor() { }
@@ -126,8 +105,9 @@ export class ProductReviewComponent implements OnInit {
   }
 
   reviewFilter(n: number){
-    this.copyOriginalList = this._originalList.filter(review => {
+    this.filteredList = this._originalList.filter(review => {
       if(review.star_score === n) return review;
     });
+    this.showFilter = 'none';
   }
 }
