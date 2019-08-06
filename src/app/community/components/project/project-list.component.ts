@@ -6,7 +6,7 @@ import { housewarming_posts } from 'src/app/core/models/community.interface';
   template: `
     <article>
       <div class="project-item">
-        <a ImageZoom>
+        <a routerLink="/project/{{item['id']}}" ImageZoom>
           <div class="project-cover">
             <div class="project-cover-image">
               <img class="image-zoom" src="{{item['cover_image']}}">
