@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/core/services/user.service';
+import { CommonService } from 'src/app/core/services/common.service';
+
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { gender } from 'src/app/core/models/user.interface';
 
 @Component({
   selector: 'app-user-modify',
@@ -8,22 +13,23 @@ import { Component, OnInit } from '@angular/core';
     <div class="contents">
       <div class="user_modi_title">회원정보수정</div>
       <div class="withdraw"><a href="#">탈퇴하기</a></div>
-      <form class="edit_user_profile">
+      <form [formGroup]="userFrom" class="edit_user_profile" (ngSubmit)="onSubmit()">
         <div class="field">
           <div class="user_modi_subtitle">이메일</div>
-          <input type="text" class="email" value="email" />
+          <input type="text" class="email" value="{{getEmail()}}" disabled />
           <span> @ </span>
-          <input type="text" class="email" value="email.format" />
+          <input type="text" class="email" value="{{getEmailFormat()}}" disabled />
           <div class="email_alert">
             이메일을 변경하시려면 운영자에게 이메일을 보내주세요.
           </div>
         </div>
         <div class="field">
           <div class="user_modi_subtitle">별명</div>
-          <input
+          <input formControlName="userName"
             type="text"
             class="nickname"
             placeholder="별명을 입력해주세요."
+            value="{{getUserName()}}"            
           />
         </div>
         <div class="field">
@@ -31,12 +37,15 @@ import { Component, OnInit } from '@angular/core';
           <input type="text" class="homepage" placeholder="http://~" />
         </div>
         <div class="field">
-          <div class="user_modi_subtitle">셩별</div>
-          <aui-basic-radio></aui-basic-radio>
+          <div class="user_modi_subtitle">성별</div>          
+          <div class="user-gender">
+            <app-check-box [isChecked]="gender===1" [caption]="true" (click)="setGender(1)" [isDisabled]="true">남자</app-check-box>
+            <app-check-box [isChecked]="gender===2" [caption]="true" (click)="setGender(2)" [isDisabled]="true">여자</app-check-box>
+          </div>
         </div>
+        <!--
         <div class="field">
           <div class="user_modi_subtitle">생년월일</div>
-
           <div class="birth_info_border">
             <select class="birth_info">
               <option>YYYY</option>
@@ -62,24 +71,28 @@ import { Component, OnInit } from '@angular/core';
             </select>
           </div>
         </div>
+        -->
         <div class="field">
           <div class="user_modi_subtitle">프로필 이미지</div>
           <div class="profile_image">
             <div class="add_photo_icon"></div>
+            <img src="{{commonService.getUserDetailProfile()}}"/>
           </div>
         </div>
+<!--
         <div class="field">
           <div class="user_modi_subtitle">커버 이미지</div>
           <div class="cover_image">
             <div class="add_photo_icon"></div>
           </div>
         </div>
+-->
         <div class="field">
           <div class="user_modi_subtitle">한줄 소개</div>
-          <input type="text" class="oneLine_intro" />
+          <input formGroupName="userIntro" type="text" class="oneLine_intro"/>
         </div>
-        <button class="edit_submit">회원 정보 수정</button>
       </form>
+      <button class="edit_submit" (click)="onSubmit()" BlueButton>회원 정보 수정</button>
     </div>
     <app-footer></app-footer>
   `,
@@ -121,6 +134,12 @@ import { Component, OnInit } from '@angular/core';
         color: #424242;
         float: left;
       }
+      .user-gender{
+        display: flex;        
+      }
+      .user-gender > app-check-box {
+        width:100px;
+      }
       .field > input,
       .birth_info {
         height: 40px;
@@ -152,7 +171,12 @@ import { Component, OnInit } from '@angular/core';
       .cover_image {
         background-color: lightgray;
         border: 1px solid #dcdcdc;
+        width: 220px;
+        height: 220px;
         display: flex;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
       }
       .profile_image {
         width: 220px;
@@ -162,7 +186,7 @@ import { Component, OnInit } from '@angular/core';
         width: 350px;
         height: 220px;
       }
-      .add_photo_icon {
+      .add_photo_icon {        
         background-image: url(assets/image/icon-etc-2.png);
         background-position-x: 0px;
         background-position-y: -991px;
@@ -170,6 +194,7 @@ import { Component, OnInit } from '@angular/core';
         width: 62px;
         height: 60px;
         margin: auto;
+        position:absolute;
       }
       .oneLine_intro {
         width: calc(100% - 144px);
@@ -186,15 +211,46 @@ import { Component, OnInit } from '@angular/core';
         border-radius: 4px;
         border-style: none;
       }
-    `
+      `
   ]
 })
 export class UserModifyComponent implements OnInit {
   birthYear = [];
   birthMonth = [];
   birthDay = [];
+  gender: gender = 0;
+  userFrom: FormGroup;
 
-  constructor() {
+  get userName() {
+    return this.userFrom.get('userName');
+  }
+  get userIntro() {
+    return this.userFrom.get('userIntro');
+  }
+  constructor(private fb: FormBuilder, private userService: UserService, private commonService: CommonService) {
+    commonService.getUserDetail();
+    this.getEmailFormat();
+  }
+
+  getGender() {
+    const gender = this.gender ||
+      (this.commonService.getUserDetail() ?
+        this.commonService.getUserDetail().gender ?
+          this.commonService.getUserDetail().gender :
+          0
+        : 0);
+    console.log(gender);
+    return gender;
+  }
+
+  ngOnInit() {
+    this.userFrom = this.fb.group({
+      userName: ['', []],
+      userIntro: ['', []]
+    });
+
+    this.getGender();
+    /*
     for (let Y = 1919; Y < 2020; Y++) {
       const year = { year: Y };
       this.birthYear =
@@ -210,7 +266,26 @@ export class UserModifyComponent implements OnInit {
       this.birthDay =
         this.birthDay.length > 0 ? [...this.birthDay, day] : [day];
     }
+    */
   }
 
-  ngOnInit() {}
+  getEmail() {
+    return this.commonService.getUserDetail() ? this.commonService.getUserDetail().email.split('@')[0] : '';
+  }
+  getEmailFormat() {
+    return this.commonService.getUserDetail() ? this.commonService.getUserDetail().email.split('@')[1] : '';
+  }
+  getUserName() {
+    return this.commonService.getUserDetail() ? this.commonService.getUserDetail().username : '';
+  }
+
+
+  setGender(gender: gender) {
+    this.gender = gender;
+  }
+  onSubmit() {
+
+  }
+
+
 }
