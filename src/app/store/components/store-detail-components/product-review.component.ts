@@ -19,23 +19,23 @@ import { review } from 'src/app/core/models/store.interface';
       <ul>
         <li class="review-filter-menu cursor">베스트순</li>
         <li class="review-filter-menu cursor">최신순</li>
-        <li class="review-filter-menu cursor"><span class="pic-icon"></span>사진리뷰</li>
+        <li class="review-filter-menu cursor"><span class="icon-etc"></span>사진리뷰</li>
       </ul>
       <ul class="filter-btns">
         <li 
         (mouseover)="showFilter = 'block'"
         (mouseleave)="showFilter = 'none'">
           <button class="review-filter-btn cursor" [class.active]="chosenScore !== 0">별점
-          <span class="pointer-icon arrow"></span>
+          <span class="icon-pointer arrow"></span>
           </button>
           <div>
           <ul class="review-star-filter"
           [style.display]="showFilter">
             <li class="cursor" *ngFor="let score of scoreArray; let i = index" 
               (click)="reviewFilter(score)">
-              <span class="star pic-icon" *ngFor="let score of range(score)">
+              <span class="star icon-etc" *ngFor="let score of range(score)">
               </span>
-              <span class="greystar pic-icon" *ngFor="let score of range(i)">
+              <span class="greystar icon-etc" *ngFor="let score of range(i)">
               </span>
               <span [class.blueText]="chosenScore === score"> ({{ getScore(score) }}개)</span>
             </li>
@@ -44,24 +44,24 @@ import { review } from 'src/app/core/models/store.interface';
         </li>
         <li>
           <button class="review-filter-btn cursor">옵션
-          <span class="pointer-icon arrow"></span>
+          <span class="icon-pointer arrow"></span>
           </button>
         </li>
       </ul>
       </div>
       <div class="chosenScore" *ngIf="chosenScore !== 0">
-        <span class="star pic-icon" *ngFor="let score of range(chosenScore)">
+        <span class="star icon-etc" *ngFor="let score of range(chosenScore)">
         </span>
-        <span class="greystar pic-icon" *ngFor="let score of range(5 - chosenScore)">
+        <span class="greystar icon-etc" *ngFor="let score of range(5 - chosenScore)">
         </span>
         <span class="blueText"> ({{ getScore(chosenScore) }}개)</span>
-        <span class="pointer-icon close cursor" (click)="cancelFilter()"></span>
+        <span class="icon-pointer close cursor" (click)="cancelFilter()"></span>
       </div>
       <div class="user-review-container">
       <article class="user-review" *ngFor="let review of filteredList | pageFilter: index">
         <span class="user">사용자</span>
         <div class="review-star-score">
-          <span class="star pic-icon" *ngFor="let star of range(review['star_score'])"></span>
+          <span class="star icon-etc" *ngFor="let star of range(review['star_score'])"></span>
         </div>
         <span class="review-date">{{ review.created }}</span>
         <div class="review-image" *ngIf="review.image !== null">
