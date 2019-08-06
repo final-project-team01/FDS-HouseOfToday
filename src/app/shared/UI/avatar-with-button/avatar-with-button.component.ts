@@ -18,11 +18,7 @@ import { CartService } from 'src/app/core/services/cart.service';
                 : ''
             }}"
             src="{{
-              commonService.getUserDetail()
-                ? this.commonService.getUserDetail()['type'] === 'django'
-                  ? commonService.getUserDetail()['profile']
-                  : commonService.getUserDetail()['social_profile']
-                : 'assets/image/36.png'
+              commonService.getUserDetailProfile()
             }}"
           />
         </ly-avatar>
@@ -72,9 +68,9 @@ export class AvatarWithButtonComponent implements OnInit {
     private router: Router,
     private kakaoService: KakaoService,
     private cartService: CartService
-  ) {}
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
   logout(e: Event) {
     e.preventDefault();
     if (this.commonService.getUserDetail()['type'] !== 'django') {
