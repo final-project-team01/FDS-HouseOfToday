@@ -19,7 +19,7 @@ import { CommonService } from 'src/app/core/services/common.service';
         <div class="cart-empty" *ngIf="getCartState(); else elseBlock">
           <div class="cart-empty-content">
             <img src="assets/image/cart-empty-placeholder.png">
-            <a Button (click)="goStore()">상품 담으러 가기</a>
+            <a BlueButton (click)="goStore()">상품 담으러 가기</a>
           </div> 
         </div>
         <ng-template #elseBlock>      
@@ -46,17 +46,18 @@ import { CommonService } from 'src/app/core/services/common.service';
                   <dl class="cart-sidebar-summary">
                     <div class="summary-row">
                       <dt>총 상품금액</dt>
-                      <dd>{{cartService.getTotalPrice()}} 원</dd>
+                      <dd>{{
+                        commonService.addComma(cartService.getTotalPrice())}} 원</dd>
                     </div>
                     <div class="summary-row">
                       <dt>총 배송비</dt>
-                      <dd>{{cartService.getDeliverFee()}} 원</dd></div>                  
+                      <dd>{{commonService.addComma(cartService.getDeliverFee())}} 원</dd></div>                  
                     <div class="summary-row summary-row-total">
                       <dt>결제금액</dt>
-                      <dd>{{cartService.getTotalPrice()+cartService.getDeliverFee()}} 원</dd></div>
+                      <dd>{{commonService.addComma(cartService.getTotalPrice()+cartService.getDeliverFee())}} 원</dd></div>
                   </dl>
                   <div class="cart-sidebar-order">
-                    <button Button class="btn-order" (click)="buyItems()">{{cartService.getTotalCount()}} 개 상품 구매하기</button>
+                    <button BlueButton class="btn-order" (click)="buyItems()">{{cartService.getTotalCount()}} 개 상품 구매하기</button>
                   </div>
                 </div>
               </div>

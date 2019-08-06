@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { review } from 'src/app/core/models/store.interface';
+import { CommonService } from 'src/app/core/services/common.service';
 
 
 @Component({
@@ -26,6 +27,43 @@ import { review } from 'src/app/core/models/store.interface';
           <button class="review-filter-btn cursor">별점
           <span class="pointer-icon"></span>
           </button>
+          <ul class="review-star-filter">
+            <li class="cursor" (click)="reviewFilter(5)">
+              <div class="stars" *ngFor="let star of chosenList; let i = index" >
+                <span class="star pic-icon" *ngIf=" i < 5">
+                </span>
+              </div>
+              <span>({{ getScore(5) }}개)</span>
+            </li>
+            <li class="cursor" (click)="reviewFilter(4)">
+              <div class="stars" *ngFor="let star of chosenList; let i = index" >
+                <span class="star pic-icon" *ngIf=" i < 4">
+                </span>
+              </div>
+              <span>({{ getScore(4) }}개)</span>
+            </li>
+            <li class="cursor" (click)="reviewFilter(3)">
+              <div class="stars" *ngFor="let star of chosenList; let i = index" >
+                <span class="star pic-icon" *ngIf=" i < 3">
+                </span>
+              </div>
+              <span>({{ getScore(3) }}개)</span>
+            </li>
+            <li class="cursor" (click)="reviewFilter(2)">
+              <div class="stars" *ngFor="let star of chosenList; let i = index" >
+                <span class="star pic-icon" *ngIf=" i < 2">
+                </span>
+              </div>
+              <span>({{ getScore(2) }}개)</span>
+            </li>
+            <li class="cursor" (click)="reviewFilter(1)">
+              <div class="stars" *ngFor="let star of chosenList; let i = index" >
+                <span class="star pic-icon" *ngIf=" i < 1">
+                </span>
+              </div>
+              <span>({{ getScore(1) }}개)</span>
+            </li>
+          </ul>
         </li>
         <li>
           <button class="review-filter-btn cursor">옵션
@@ -35,7 +73,7 @@ import { review } from 'src/app/core/models/store.interface';
       </ul>
       </div>
       <article class="user-review" *ngFor="let review of chosenList">
-        <span>사용자</span>
+        <span class="user">사용자</span>
         <div class="review-star-score">
           <span class="star pic-icon" *ngFor="let star of range(review['star_score'])">
           </span>
@@ -78,5 +116,7 @@ export class ProductReviewComponent implements OnInit {
     this.chosenList = chosenList;
   }
 
-  
+  getScore(n: number){
+    return this.originalList ? this.originalList.filter(review => review.star_score === n).length : 0;
+  }
 }

@@ -17,10 +17,18 @@ import { NavFixedDirective } from './components/nav-fixed.directive';
 import { SubNavFixedDirective } from './components/sub-nav-fixed.directive';
 import { AvatarWithButtonComponent } from './UI/avatar-with-button/avatar-with-button.component';
 import { BasicRadioComponent } from './UI/basic-radio/basic-radio.component';
-import { ButtonDirective } from './directive/button.directive';
+import { BlueButtonDirective } from './directive/blue-button.directive';
 import { CommunityListComponent } from './components/community-list.component';
 import { CartHoverDirective } from './components/cart-hover.directive';
 import { PaginationComponent } from './components/pagination.component';
+import { ImageZoomDirective } from './directive/image-zoom.directive';
+import { CheckBoxComponent } from './components/check-box/check-box.component';
+import { BlueFontDirective } from './directive/blue-font.directive';
+import { OpacityDot7FontDirective } from './directive/opacity-dot7-font.directive';
+import { ButtonColorChangeDirective } from './directive/button-color-change.directive';
+import { ButtonTurnBlueDirective } from './directive/button-turn-blue.directive';
+import { MoreButtonDirective } from './directive/more-button.directive';
+import { MoreBigButtonDirective } from './directive/more-big-button.directive';
 
 @NgModule({
   declarations: [
@@ -33,10 +41,19 @@ import { PaginationComponent } from './components/pagination.component';
     ProductListComponent,
     NavFixedDirective,
     SubNavFixedDirective,
-    ButtonDirective,
+    BlueButtonDirective,
     CommunityListComponent,
     CartHoverDirective,
-    PaginationComponent
+    PaginationComponent,
+    ImageZoomDirective,
+    CheckBoxComponent,
+    BlueFontDirective,
+    OpacityDot7FontDirective,
+    ButtonColorChangeDirective,
+    ButtonTurnBlueDirective,
+    MoreButtonDirective,
+    MoreBigButtonDirective
+
   ],
   imports: [CommonModule, CoreModule, AlyleModule, SharedRoutingModule],
   exports: [
@@ -49,10 +66,18 @@ import { PaginationComponent } from './components/pagination.component';
     BasicUsesAvatarComponent,
     ProductListComponent,
     AvatarWithButtonComponent,
-    ButtonDirective,
+    BlueButtonDirective,
     BasicRadioComponent,
     CommunityListComponent,
-    PaginationComponent
+    PaginationComponent,
+    ImageZoomDirective,
+    CheckBoxComponent,
+    BlueFontDirective,
+    OpacityDot7FontDirective,
+    ButtonColorChangeDirective,
+    ButtonTurnBlueDirective,
+    MoreButtonDirective,
+    MoreBigButtonDirective
   ]
 })
-export class SharedModule {}
+export class SharedModule { }

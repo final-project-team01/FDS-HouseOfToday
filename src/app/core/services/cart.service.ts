@@ -29,7 +29,6 @@ export class CartService {
   }
 
   get iSEmpty() {
-    console.log(this._cartItem)
     return this._cartItem && this._cartItem.length ? false : true;
   }
 

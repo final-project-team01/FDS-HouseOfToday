@@ -14,7 +14,7 @@ export class BasicUsesAvatarComponent implements OnInit {
 
   @Input() size = 36;
   @Input() pic = "assets/image/36.png";
-  @Input() isBorder = true;
+  @Input() isBorder = false;
   private style = {}
   constructor() { }
 

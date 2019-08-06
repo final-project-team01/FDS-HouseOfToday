@@ -7,20 +7,24 @@ import { CommonService } from 'src/app/core/services/common.service';
   <h2>댓글 <span *ngIf="originalList">{{ originalList.length }}</span></h2>
   <div class="comment-input">
     <div class="profile-img">
-      <img
-        src="{{ this.commonService.getUserDetail() 
-        ? this.commonService.getUserDetail()['type']==='django' ? this.commonService.getUserDetail()['profile'] : this.commonService.getUserDetail()['social_profile']
-        : 'assets/image/36.png' }}"
-        class="user-profile">
+        <app-basic-uses-avatar
+          [size]="32"
+          [pic]="getPicture()"
+          [isBorder]="false">
+        </app-basic-uses-avatar>
     </div>
     <form>
       <input type="text" placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다 :)">
     </form>
   </div>
   <div class="comment-section">
-    <div class="each-comment" *ngFor="let comment of chosenList">
-        <img src="{{ comment.author_profile_image }}"
-          class="author_profile_image">
+    <div class="each-comment" *ngFor="let comment of chosenList; let i = index">
+      <app-basic-uses-avatar
+        [size]="32"
+        [pic]="this.chosenList[i].author_profile_image"
+        [isBorder]="false"
+        class="author_profile_image">
+      </app-basic-uses-avatar>
         <div class="comment">
           <span class="comment-author">{{ comment.author }}</span>
           <span class="comment-text">{{ comment.text }}</span><br>
@@ -147,4 +151,10 @@ export class CommentComponent implements OnInit {
     this.chosenList = chosenList;
   }
 
+  getPicture(){
+    const picurl = this.commonService.getUserDetail() 
+      ? this.commonService.getUserDetail()['type']==='django' ? this.commonService.getUserDetail()['profile'] : this.commonService.getUserDetail()['social_profile']
+      : 'assets/image/36.png';
+    return picurl;
+  }
 }

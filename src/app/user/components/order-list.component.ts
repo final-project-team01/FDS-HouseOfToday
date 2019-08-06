@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/core/services/user.service';
+import { user_order } from 'src/app/core/models/user.interface';
 
 @Component({
   selector: 'app-order-list',
@@ -36,7 +37,7 @@ import { UserService } from 'src/app/core/services/user.service';
           <div class="slot_item_description">
             나는 5000P, 친구는 5000원 쿠폰
           </div>
-          <a>추천하기</a>
+          <a BlueButton>추천하기</a>
         </div>
       </div>
       <div class="order_state">
@@ -47,7 +48,7 @@ import { UserService } from 'src/app/core/services/user.service';
         <div class="arrow"></div>
         <div class="step">
           <div class="title">결제완료</div>
-          <div class="count">0</div>
+          <div class="count">{{OrderCount}}</div>
         </div>
         <div class="arrow"></div>
         <div class="step">
@@ -207,11 +208,6 @@ import { UserService } from 'src/app/core/services/user.service';
         width: 140px;
         height: 40px;
         line-height: 40px;
-        background-color: #35c5f0;
-        color: #ffffff;
-        display: inline-block;
-        border-radius: 4px;
-        font-weight: bold;
       }
       .order_state {
         margin-top: 30px;
@@ -277,7 +273,15 @@ import { UserService } from 'src/app/core/services/user.service';
   ]
 })
 export class OrderListComponent implements OnInit {
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) { }
+  orderList: user_order[] = [];
+  ngOnInit() {
+    this.userService.getProductOrder().subscribe(
+      orderList => this.orderList = orderList
+    )
+  }
 
-  ngOnInit() {}
+  get OrderCount() {
+    return this.orderList ? this.orderList.length : 0;
+  }
 }
