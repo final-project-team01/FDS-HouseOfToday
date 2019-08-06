@@ -50,7 +50,9 @@ import { communityPhoto } from 'src/app/core/models/community.interface';
           <article *ngFor="let item of cardItems" class="card_item">
             <div class="card_item_top_bar">
               <div class="user_icon_image">
-                <app-basic-uses-avatar> </app-basic-uses-avatar>
+                <app-basic-uses-avatar
+                  [pic]="[item.author_profile_image]"
+                ></app-basic-uses-avatar>
               </div>
               <address class="card_item_user_info">
                 <div class="user_name">{{ item.author }}</div>
@@ -82,8 +84,22 @@ import { communityPhoto } from 'src/app/core/models/community.interface';
                 </div>
               </aside>
               <div class="content_description">{{ item.text }}</div>
+
               <div class="reply_user_icon_image">
-                <app-basic-uses-avatar></app-basic-uses-avatar>
+                <article>
+                  <address class="card_item_user_reply_info">
+                    <app-basic-uses-avatar
+                      [size]="24"
+                      [isBorder]="false"
+                      [pic]="[item.comments[0].author_profile_image]"
+                    ></app-basic-uses-avatar>
+
+                    <div class="reply_user_name">
+                      {{ item.comments[0].author }}
+                    </div>
+                  </address>
+                  <p class="user_comment">{{ item.comments[0].text }}</p>
+                </article>
               </div>
             </div>
           </article>
@@ -182,7 +198,7 @@ import { communityPhoto } from 'src/app/core/models/community.interface';
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: normal;
-        height: 76px;
+        max-height: 76px;
       }
       .image {
         background-color: lightgray;
@@ -235,6 +251,26 @@ import { communityPhoto } from 'src/app/core/models/community.interface';
         background-position-y: 83px;
         width: 28px;
         height: 26px;
+      }
+      .card_item_user_reply_info {
+        margin-top: 12px;
+        font-size: 15px;
+        line-height: 22px;
+        display: flex;
+      }
+      .card_item_user_reply_info > p {
+        display: inline-block;
+      }
+      .user_comment {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
+        max-height: 30px;
+      }
+      .reply_user_name {
+        font-weight: 700;
+        font-size: 15px;
+        line-height: 22px;
       }
     `
   ]
