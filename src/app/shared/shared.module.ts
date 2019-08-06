@@ -29,6 +29,7 @@ import { ButtonColorChangeDirective } from './directive/button-color-change.dire
 import { ButtonTurnBlueDirective } from './directive/button-turn-blue.directive';
 import { MoreButtonDirective } from './directive/more-button.directive';
 import { MoreBigButtonDirective } from './directive/more-big-button.directive';
+import { PageFilterPipe } from './page-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -52,8 +53,8 @@ import { MoreBigButtonDirective } from './directive/more-big-button.directive';
     ButtonColorChangeDirective,
     ButtonTurnBlueDirective,
     MoreButtonDirective,
-    MoreBigButtonDirective
-
+    MoreBigButtonDirective,
+    PageFilterPipe
   ],
   imports: [CommonModule, CoreModule, AlyleModule, SharedRoutingModule],
   exports: [
@@ -77,7 +78,8 @@ import { MoreBigButtonDirective } from './directive/more-big-button.directive';
     ButtonColorChangeDirective,
     ButtonTurnBlueDirective,
     MoreButtonDirective,
-    MoreBigButtonDirective
+    MoreBigButtonDirective,
+    PageFilterPipe
   ]
 })
 export class SharedModule { }
