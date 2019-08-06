@@ -108,7 +108,6 @@ import { UserService } from 'src/app/core/services/user.service';
         font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', '맑은 고딕',
           'Malgun Gothic', sans-serif;
         letter-spacing: -0.4px;
-        background-color: antiquewhite;
       }
 
       .my_mileage,
