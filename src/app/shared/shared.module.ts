@@ -17,11 +17,14 @@ import { NavFixedDirective } from './components/nav-fixed.directive';
 import { SubNavFixedDirective } from './components/sub-nav-fixed.directive';
 import { AvatarWithButtonComponent } from './UI/avatar-with-button/avatar-with-button.component';
 import { BasicRadioComponent } from './UI/basic-radio/basic-radio.component';
-import { ButtonDirective } from './directive/button.directive';
+import { BlueButtonDirective } from './directive/blue-button.directive';
 import { CommunityListComponent } from './components/community-list.component';
 import { CartHoverDirective } from './components/cart-hover.directive';
 import { PaginationComponent } from './components/pagination.component';
 import { ImageZoomDirective } from './directive/image-zoom.directive';
+import { CheckBoxComponent } from './components/check-box/check-box.component';
+import { BlueFontDirective } from './directive/blue-font.directive';
+import { OpacityDot7FontDirective } from './directive/opacity-dot7-font.directive';
 
 @NgModule({
   declarations: [
@@ -34,11 +37,14 @@ import { ImageZoomDirective } from './directive/image-zoom.directive';
     ProductListComponent,
     NavFixedDirective,
     SubNavFixedDirective,
-    ButtonDirective,
+    BlueButtonDirective,
     CommunityListComponent,
     CartHoverDirective,
     PaginationComponent,
-    ImageZoomDirective
+    ImageZoomDirective,
+    CheckBoxComponent,
+    BlueFontDirective,
+    OpacityDot7FontDirective
   ],
   imports: [CommonModule, CoreModule, AlyleModule, SharedRoutingModule],
   exports: [
@@ -51,11 +57,14 @@ import { ImageZoomDirective } from './directive/image-zoom.directive';
     BasicUsesAvatarComponent,
     ProductListComponent,
     AvatarWithButtonComponent,
-    ButtonDirective,
+    BlueButtonDirective,
     BasicRadioComponent,
     CommunityListComponent,
     PaginationComponent,
-    ImageZoomDirective
+    ImageZoomDirective,
+    CheckBoxComponent,
+    BlueFontDirective,
+    OpacityDot7FontDirective
   ]
 })
 export class SharedModule { }

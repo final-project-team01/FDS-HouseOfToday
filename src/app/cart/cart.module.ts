@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { CartComponent } from './components/cart.component';
-import { CheckBoxComponent } from './components/check-box.component';
 import { ItemCardComponent } from './components/item-cards.component';
 
 import { CartRoutingModule } from './cart-routing.module';
@@ -14,7 +13,6 @@ import { CartItemFilterPipe } from './components/cart-item-filter.pipe';
 @NgModule({
   declarations: [
     CartComponent
-    , CheckBoxComponent
     , ItemCardComponent, CartItemFilterPipe
   ],
   imports: [

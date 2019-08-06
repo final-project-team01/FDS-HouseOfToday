@@ -53,7 +53,7 @@
       span{
         width: 23px;
         height: 18px;
-        background-position: -167px -666px;
+        background-position: -232px -670px;
         vertical-align: middle;
       }
     }
@@ -64,6 +64,7 @@
       > li{
         display: inline-block;
         margin-left: 5px;
+        position: relative;
         .review-filter-btn{
           font-size: 15px;
           line-height: 19px;
@@ -82,23 +83,49 @@
           height: 12px;
           background-position: -386px 3px;
         }
+        .review-star-filter{
+          width: 170px;
+          position: absolute;
+          top: 50px;
+          left: 50%;
+          background-color: white;
+          transform: translateX(-50%);
+          border-radius: 10px;
+          box-shadow: 0 -1px 16px rgba(0,0,0,.2);
+          li{
+            padding: 13px 15px;
+            .stars{
+              display: inline-block;
+            }
+          }
+          li:hover{
+            background-color: rgba(190, 239, 255, 0.5);
+          }
+        }
+        .review-star-filter::before{
+          content: "";
+          display: block;
+          position: absolute;
+          border-top: solid 10px transparent;
+          border-bottom: solid 10px transparent;
+          border-right: solid 15px #F78;
+          left: 56%;
+          transform: rotate(45deg);
+          top: -7px;
+          -webkit-transform: translate(-100%, -50%);
+          transform: translate(-100%, -50%) rotate(89deg);
+        }
       }
     }
   }
   .user-review{
     padding: 30px 0;
     border-bottom: 1px solid lightgrey;
-    :first-child{
+    .user{
       display: block;
     }
     .review-star-score{
       display: inline-block;
-      .star{
-        display: inherit;
-        width: 16px;
-        height: 16px;
-        background-position: 106px 0;
-      }
     }
     .review-date{
       vertical-align: 2px;
@@ -127,6 +154,13 @@
       margin-right: 10px;
       background-color: #fff;
     }
+  }
+  .star{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-position: 106px 0;
+    margin-right: 2px;
   }
 }
 .pic-icon{

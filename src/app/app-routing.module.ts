@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { NotFoundComponent } from './shared/components/not-found.component';
+import { CommonComponent } from './common.component';
 // import { CommunityComponent } from './community/components/community.component';
 // import { StoreComponent } from './store/components/store.component';
 // import { PhotoComponent } from './community/components/photo.component';
@@ -20,6 +21,7 @@ const routes: Routes = [
   // { path: 'store/rank', component: RankComponent },
   // { path: 'signin', component: SigninComponent },
   // { path: 'signup', component: SignupComponent },
+  { path: 'common', component: CommonComponent },
   { path: '**', component: NotFoundComponent }
 ];
 

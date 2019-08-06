@@ -15,8 +15,12 @@ import { Component, OnInit, Input } from '@angular/core';
       </button>
     </div>
     <div class="author">
-      <img src="{{ photoInfo.author_profile_image }}"
+      <app-basic-uses-avatar
+        [size]="50"
+        [pic]="photoInfo.author_profile_image"
+        [isBorder]="false"
         class="author_profile_image">
+      </app-basic-uses-avatar>
         <div class="about-author">
           <span class="author-name">{{ photoInfo.author }}</span><br>
           <small *ngIf="photoInfo.author_profile_comment">

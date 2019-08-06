@@ -14,10 +14,12 @@ import { LyThemeModule, LY_THEME } from '@alyle/ui';
 import { MinimaLight } from '@alyle/ui/themes/minima';
 import { UserModule } from './user/user.module';
 import { CartModule } from './cart/cart.module';
+import { CommonComponent } from './common.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    CommonComponent,
   ],
   imports: [
     BrowserModule,
