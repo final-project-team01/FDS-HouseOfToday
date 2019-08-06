@@ -15,7 +15,7 @@ export class CartHoverDirective {
     );
 
   }
-  @HostListener("mouseout", ["$event"]) mouseout(event) {
+  @HostListener("mouseout") mouseout() {
 
     this.renderer.setStyle(
       this.el.nativeElement.querySelector('.cart-btn-icon'),
