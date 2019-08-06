@@ -25,8 +25,8 @@ import { review } from 'src/app/core/models/store.interface';
         <li 
         (mouseover)="showFilter = 'block'"
         (mouseleave)="showFilter = 'none'">
-          <button class="review-filter-btn cursor">별점
-          <span class="pointer-icon"></span>
+          <button class="review-filter-btn cursor" [class.active]="chosenScore !== 0">별점
+          <span class="pointer-icon arrow"></span>
           </button>
           <div>
           <ul class="review-star-filter"
@@ -37,17 +37,25 @@ import { review } from 'src/app/core/models/store.interface';
               </span>
               <span class="greystar pic-icon" *ngFor="let score of range(i)">
               </span>
-              <span>({{ getScore(score) }}개)</span>
+              <span [class.blueText]="chosenScore === score"> ({{ getScore(score) }}개)</span>
             </li>
           </ul>
           </div>
         </li>
         <li>
           <button class="review-filter-btn cursor">옵션
-          <span class="pointer-icon"></span>
+          <span class="pointer-icon arrow"></span>
           </button>
         </li>
       </ul>
+      </div>
+      <div class="chosenScore" *ngIf="chosenScore !== 0">
+        <span class="star pic-icon" *ngFor="let score of range(chosenScore)">
+        </span>
+        <span class="greystar pic-icon" *ngFor="let score of range(5 - chosenScore)">
+        </span>
+        <span class="blueText"> ({{ getScore(chosenScore) }}개)</span>
+        <span class="pointer-icon close cursor" (click)="cancelFilter()"></span>
       </div>
       <div class="user-review-container">
       <article class="user-review" *ngFor="let review of filteredList | pageFilter: index">
@@ -57,7 +65,7 @@ import { review } from 'src/app/core/models/store.interface';
         </div>
         <span class="review-date">{{ review.created }}</span>
         <div class="review-image" *ngIf="review.image !== null">
-          <img src="../../../../assets/image/meat.jpg">
+          <img src="{{ review.image }}">
         </div>
         <p class="review-comment">{{ review.comment }}</p>
         <button class="helpful cursor">도움이 돼요</button>
@@ -83,6 +91,7 @@ export class ProductReviewComponent implements OnInit {
   _originalList: review[];
   filteredList: review[];
   showFilter = 'none';
+  chosenScore = 0;
   scoreArray = [5, 4, 3, 2, 1];
   index = 0;
 
@@ -109,5 +118,11 @@ export class ProductReviewComponent implements OnInit {
       if(review.star_score === n) return review;
     });
     this.showFilter = 'none';
+    this.chosenScore = n;
+  }
+
+  cancelFilter(){
+    this.chosenScore = 0;
+    this.filteredList = this._originalList;
   }
 }
