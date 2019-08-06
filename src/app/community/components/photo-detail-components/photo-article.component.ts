@@ -45,7 +45,6 @@ import { CommonService } from 'src/app/core/services/common.service';
     </div>
     <app-comment 
       [originalList]="originalList"
-      [chosenList]="chosenList"
       [pages]="pages"></app-comment>
   `,
   styles: [`
@@ -128,7 +127,6 @@ export class PhotoArticleComponent implements OnInit {
 
   @Input() photoInfo: any; 
   @Input() originalList: any;
-  @Input() chosenList: any;
   @Input() pages: any;
 
   showBtn = 'none';

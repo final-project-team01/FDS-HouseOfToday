@@ -25,6 +25,7 @@ import { ImageZoomDirective } from './directive/image-zoom.directive';
 import { CheckBoxComponent } from './components/check-box/check-box.component';
 import { BlueFontDirective } from './directive/blue-font.directive';
 import { OpacityDot7FontDirective } from './directive/opacity-dot7-font.directive';
+import { PageFilterPipe } from './page-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,9 @@ import { OpacityDot7FontDirective } from './directive/opacity-dot7-font.directiv
     ImageZoomDirective,
     CheckBoxComponent,
     BlueFontDirective,
-    OpacityDot7FontDirective
+    OpacityDot7FontDirective,
+    PageFilterPipe
+
   ],
   imports: [CommonModule, CoreModule, AlyleModule, SharedRoutingModule],
   exports: [
@@ -64,7 +67,9 @@ import { OpacityDot7FontDirective } from './directive/opacity-dot7-font.directiv
     ImageZoomDirective,
     CheckBoxComponent,
     BlueFontDirective,
-    OpacityDot7FontDirective
+    OpacityDot7FontDirective,
+    PageFilterPipe
+
   ]
 })
 export class SharedModule { }

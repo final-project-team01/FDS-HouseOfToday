@@ -24,7 +24,6 @@ import { CommonService } from 'src/app/core/services/common.service';
 export class PaginationComponent implements OnInit {
 
   @Input() originalList: any;
-  @Input() chosenList: any;
   @Input() pages: any;
   @Output() change = new EventEmitter;
 
@@ -53,7 +52,7 @@ export class PaginationComponent implements OnInit {
       this.activeId -= 1;
       this.left += 40;
     }
-    this.getChosenList(this.activeId);
+    this.changeIndex(this.activeId);
     this.previousIndex = this.activeId;
   }
 
@@ -68,12 +67,12 @@ export class PaginationComponent implements OnInit {
       this.activeId += 1;
       this.left -= 40;
     }
-    this.getChosenList(this.activeId);
+    this.changeIndex(this.activeId);
     this.previousIndex = this.activeId;
   }
 
   changePage(i: number){
-    this.getChosenList(i);
+    this.changeIndex(i);
     this.activeId = i;
     // 페이지 이동 간격 체크하는 변수
     const diff = i - this.previousIndex;
@@ -91,9 +90,8 @@ export class PaginationComponent implements OnInit {
     this.previousIndex = i;
   }
 
-  getChosenList(i: number){
-    this.chosenList = this.commonService.changePage(i, this.chosenList, this.originalList);
-    this.change.emit(this.chosenList);
+  changeIndex(i: number){
+    this.change.emit(i);
   }
 
 }

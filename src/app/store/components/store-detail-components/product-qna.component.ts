@@ -32,7 +32,6 @@ import { qna } from 'src/app/core/models/store.interface';
       </article>
       <app-pagination 
         [originalList]="originalList"
-        [chosenList]="chosenList"
         [pages]="pages"
         (change)="changePage($event)"
       ></app-pagination>

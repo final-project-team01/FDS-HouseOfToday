@@ -72,7 +72,7 @@ import { CommonService } from 'src/app/core/services/common.service';
         </li>
       </ul>
       </div>
-      <article class="user-review" *ngFor="let review of chosenList">
+      <article class="user-review" *ngFor="let review of originalList | pageFilter: index">
         <span class="user">사용자</span>
         <div class="review-star-score">
           <span class="star pic-icon" *ngFor="let star of range(review['star_score'])">
@@ -87,7 +87,6 @@ import { CommonService } from 'src/app/core/services/common.service';
       </article>
       <app-pagination 
         [originalList]="originalList"
-        [chosenList]="chosenList"
         [pages]="pages"
         (change)="changePage($event)">
       </app-pagination>
@@ -102,6 +101,8 @@ export class ProductReviewComponent implements OnInit {
   @Input() pages: any;
   @Input() starAvg: number;
 
+  index = 0;
+
   constructor() { }
 
   ngOnInit() {
@@ -112,8 +113,8 @@ export class ProductReviewComponent implements OnInit {
     return Array(i);
   }
 
-  changePage(chosenList: review[]){
-    this.chosenList = chosenList;
+  changePage(i: number){
+    this.index = i;
   }
 
   getScore(n: number){
