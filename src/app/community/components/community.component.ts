@@ -199,11 +199,12 @@ const styles = {
             </div>
             <div class="col-12 col-md-3 home-rank__more-wrap">
               <div class="home-rank__more-container">
-                <a class="home-rank__more" (mouseover)="selectedActive()" (mouseleave)="unselectActive()" routerLink="/store/rank">
+                <a class="home-rank__more" routerLink="/store/rank" MoreBigButton>
                   <div class="home-rank__more__text">베스트 100 보기
                     <div class="home-rank__more__text__icon">
-                      <span class="unselected icon-page-home__b-1"></span>
-                      <span class="selected icon-page-home__b-1" [class.active]="activeSelect"></span>
+                      <div style="position:relative; height:50px;">
+                        <span class="more-right" MoreButton></span> 
+                      </div>
                     </div>
                   </div>
                 </a>
