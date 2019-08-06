@@ -8,7 +8,7 @@ import { thumbnail_image } from 'src/app/core/models/store.interface';
     <div class="pic-list">
       <button class="pic-item cursor" *ngFor="let pic of productImages; let i=index"
       [style.backgroundImage]="'url('+ pic.image +')'"
-      (click)="activeId = pic.id"
+      (mouseover)="activeId = pic.id"
       [class.active]="pic.id === activeId"></button>
     </div>
     <div class="main-picture-container">

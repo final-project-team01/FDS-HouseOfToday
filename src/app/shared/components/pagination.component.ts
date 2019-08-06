@@ -4,7 +4,7 @@ import { CommonService } from 'src/app/core/services/common.service';
 @Component({
   selector: 'app-pagination',
   template: `
-  <div class="pagination" *ngIf="originalList">
+  <div class="pagination" *ngIf="_originalList">
     <button class="btn arrow left" (click)="goLeft()"></button>
     <div class="page-container" [style.width.px]="getWidth(pages)">
       <div class="num-container" [style.left.px]="left">
@@ -23,18 +23,25 @@ import { CommonService } from 'src/app/core/services/common.service';
 })
 export class PaginationComponent implements OnInit {
 
-  @Input() originalList: any;
-  @Input() chosenList: any;
-  @Input() pages: any;
+  @Input() 
+  set originalList(originalList){
+    if(!originalList) return;
+    this._originalList = originalList;
+    const p = Math.ceil(this._originalList.length / 5)
+    this.pages = Array(p);
+  };
   @Output() change = new EventEmitter;
 
   activeId = 0;
   previousIndex = 0;
   left = 0;
+  pages = [];
+  _originalList = [];
 
   constructor(private commonService: CommonService) { }
 
   ngOnInit() {
+    
   }
 
   getWidth(pages: any){
@@ -53,7 +60,7 @@ export class PaginationComponent implements OnInit {
       this.activeId -= 1;
       this.left += 40;
     }
-    this.getChosenList(this.activeId);
+    this.changeIndex(this.activeId);
     this.previousIndex = this.activeId;
   }
 
@@ -68,12 +75,12 @@ export class PaginationComponent implements OnInit {
       this.activeId += 1;
       this.left -= 40;
     }
-    this.getChosenList(this.activeId);
+    this.changeIndex(this.activeId);
     this.previousIndex = this.activeId;
   }
 
   changePage(i: number){
-    this.getChosenList(i);
+    this.changeIndex(i);
     this.activeId = i;
     // 페이지 이동 간격 체크하는 변수
     const diff = i - this.previousIndex;
@@ -91,9 +98,8 @@ export class PaginationComponent implements OnInit {
     this.previousIndex = i;
   }
 
-  getChosenList(i: number){
-    this.chosenList = this.commonService.changePage(i, this.chosenList, this.originalList);
-    this.change.emit(this.chosenList);
+  changeIndex(i: number){
+    this.change.emit(i);
   }
 
 }
