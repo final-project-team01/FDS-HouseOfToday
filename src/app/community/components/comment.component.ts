@@ -18,10 +18,10 @@ import { CommonService } from 'src/app/core/services/common.service';
     </form>
   </div>
   <div class="comment-section">
-    <div class="each-comment" *ngFor="let comment of chosenList; let i = index">
+    <div class="each-comment" *ngFor="let comment of originalList | pageFilter: index; let i = index">
       <app-basic-uses-avatar
         [size]="32"
-        [pic]="this.chosenList[i].author_profile_image"
+        [pic]="this.originalList[i].author_profile_image"
         [isBorder]="false"
         class="author_profile_image">
       </app-basic-uses-avatar>
@@ -37,8 +37,6 @@ import { CommonService } from 'src/app/core/services/common.service';
   </div>
   <app-pagination
     [originalList]="originalList"
-    [chosenList]="chosenList"
-    [pages]="pages"
     (change)="changePage($event)">
   </app-pagination>
   `,
@@ -139,16 +137,16 @@ import { CommonService } from 'src/app/core/services/common.service';
 export class CommentComponent implements OnInit {
 
   @Input() originalList: any;
-  @Input() chosenList: any;
-  @Input() pages: any;
+  
+  index = 0;
 
   constructor(private commonService: CommonService) { }
 
   ngOnInit() {
   }
 
-  changePage(chosenList){
-    this.chosenList = chosenList;
+  changePage(i: number){
+    this.index = i;
   }
 
   getPicture(){

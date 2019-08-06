@@ -30,7 +30,6 @@ import { RankContainerComponent } from './components/rank-container.component';
 import { RankBestComponent } from './components/rank-best.component';
 import { CartModalComponent } from './components/store-detail-components/cart-modal.component';
 import { SortFilterComponent } from './components/sort-filter.component';
-import { ReviewFilterPipe } from './components/store-detail-components/review-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -53,7 +52,6 @@ import { ReviewFilterPipe } from './components/store-detail-components/review-fi
     , RankBestComponent
     , CartModalComponent
     , SortFilterComponent
-    , ReviewFilterPipe
   ],
   imports: [
     CommonModule

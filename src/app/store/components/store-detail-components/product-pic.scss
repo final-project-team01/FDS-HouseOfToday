@@ -1,3 +1,4 @@
+
 .product-pic-container{
   width: 570px;
   display: inline-block;
@@ -22,19 +23,22 @@
       outline: none;
     }
     .pic-item.active{
-      border: 1px solid #35C5F0;
+      border: 2px solid #35C5F0;
     }
   }
   .main-picture-container{
     display: inline-block;
     .main-picture{
-      display: none;
+      display: inline-block;
+      position: absolute;
+      top: 0;
+      left: 0;
       border-radius: 10px;
       width: 570px;
       height: 570px;
     }
     .main-picture.active{
-      display: block;
+      z-index: 10;
     }
   }
 }
