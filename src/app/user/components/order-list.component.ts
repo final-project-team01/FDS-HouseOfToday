@@ -109,7 +109,6 @@ import { user_order } from 'src/app/core/models/user.interface';
         font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', '맑은 고딕',
           'Malgun Gothic', sans-serif;
         letter-spacing: -0.4px;
-        background-color: antiquewhite;
       }
 
       .my_mileage,

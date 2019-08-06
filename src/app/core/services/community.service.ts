@@ -9,8 +9,10 @@ import { housewarming } from '../models/community.interface';
   providedIn: CoreModule
 })
 export class CommunityService {
-
-  constructor(private httpClient: HttpClient, private commonService: CommonService) { }
+  constructor(
+    private httpClient: HttpClient,
+    private commonService: CommonService
+  ) {}
 
   getCommunityHome() {
     const path = 'community/home/';
@@ -27,11 +29,18 @@ export class CommunityService {
   getHousewarming() {
     const path = '/community/housewarming/';
     const fullpath = this.commonService.getFullPath(path);
-    const headers = this.commonService.setAuthorization(this.commonService.Token);
+    const headers = this.commonService.setAuthorization(
+      this.commonService.Token
+    );
     return this.httpClient.get<housewarming>(fullpath, { headers });
   }
   getProjectInfo(id: number) {
     const path = `community/housewarming/${id}/`;
+    const fullPath = this.commonService.getFullPath(path);
+    return this.httpClient.get(fullPath);
+  }
+  getPhotoImage() {
+    const path = '/community/photo/';
     const fullPath = this.commonService.getFullPath(path);
     return this.httpClient.get(fullPath);
   }

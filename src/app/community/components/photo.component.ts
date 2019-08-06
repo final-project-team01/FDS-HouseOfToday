@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommunityService } from 'src/app/core/services/community.service';
 import { CommonService } from 'src/app/core/services/common.service';
+import { communityPhoto } from 'src/app/core/models/community.interface';
 
 @Component({
   selector: 'app-photo',
@@ -9,14 +10,38 @@ import { CommonService } from 'src/app/core/services/common.service';
     <div class="container">
       <div class="filter_control">
         <ul class="filter_control_list_item">
-          <li class="filter_control_items">정렬</li>
-          <li class="filter_control_items">주거형태</li>
-          <li class="filter_control_items">공간</li>
-          <li class="filter_control_items">평수</li>
-          <li class="filter_control_items">스타일</li>
-          <li class="filter_control_items">컬러</li>
-          <li class="filter_control_items">셀프/전문</li>
-          <li class="filter_control_items">제품정보</li>
+          <li class="filter_control_items">
+            정렬
+            <div class="down_arrow"></div>
+          </li>
+          <li class="filter_control_items">
+            주거형태
+            <div class="down_arrow"></div>
+          </li>
+          <li class="filter_control_items">
+            공간
+            <div class="down_arrow"></div>
+          </li>
+          <li class="filter_control_items">
+            평수
+            <div class="down_arrow"></div>
+          </li>
+          <li class="filter_control_items">
+            스타일
+            <div class="down_arrow"></div>
+          </li>
+          <li class="filter_control_items">
+            컬러
+            <div class="down_arrow"></div>
+          </li>
+          <li class="filter_control_items">
+            셀프/전문
+            <div class="down_arrow"></div>
+          </li>
+          <li class="filter_control_items">
+            제품정보
+            <div class="down_arrow"></div>
+          </li>
         </ul>
       </div>
 
@@ -25,10 +50,10 @@ import { CommonService } from 'src/app/core/services/common.service';
           <article *ngFor="let item of cardItems" class="card_item">
             <div class="card_item_top_bar">
               <div class="user_icon_image">
-                <app-basic-uses-avatar></app-basic-uses-avatar>
+                <app-basic-uses-avatar> </app-basic-uses-avatar>
               </div>
               <address class="card_item_user_info">
-                <div class="user_name">user_name</div>
+                <div class="user_name">{{ item.author }}</div>
                 <span> . </span>
                 <button class="user_follow">팔로우</button>
                 <p>추가 설명 공간</p>
@@ -36,17 +61,30 @@ import { CommonService } from 'src/app/core/services/common.service';
             </div>
             <div class="card_item_content">
               <div class="content_image">
-                <a class="image" href="#"></a>
+                <a class="image" href="#"
+                  ><img class="image" src="{{ item.image }}"
+                /></a>
               </div>
               <aside class="card_item_action">
-                <button>1</button>
-                <button>2</button>
-                <button>3</button>
+                <div class="card_action">
+                  <button class="like_btn"></button>
+                  <span class="action_info">{{ item.like_count }}</span>
+                </div>
+
+                <div class="card_action">
+                  <button class="scrap_btn"></button>
+                  <span class="action_info">{{ item.scrap_count }}</span>
+                </div>
+
+                <div class="card_action">
+                  <button class="reply_comment_btn"></button>
+                  <span class="action_info">{{ item.comment_count }}</span>
+                </div>
               </aside>
-              <div class="content_description">카드 아이템 설명 공간</div>
-            </div>
-            <div class="reply_user_icon_image">
-              <app-basic-uses-avatar></app-basic-uses-avatar>
+              <div class="content_description">{{ item.text }}</div>
+              <div class="reply_user_icon_image">
+                <app-basic-uses-avatar></app-basic-uses-avatar>
+              </div>
             </div>
           </article>
         </div>
@@ -67,7 +105,12 @@ import { CommonService } from 'src/app/core/services/common.service';
         border-style: none;
         cursor: pointer;
       }
-
+      .y-root-i1 i2 i4 {
+        border-style: none;
+      }
+      .filter_control {
+        padding: 15px 0 5px;
+      }
       .filter_control_items {
         background-color: #f5f5f5;
         color: #757575;
@@ -80,6 +123,14 @@ import { CommonService } from 'src/app/core/services/common.service';
         border-radius: 4px;
         cursor: pointer;
       }
+      .down_arrow {
+        background-image: url(assets/image/icon-pointer.png);
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        background-position-x: -509px;
+        background-position-y: 4px;
+      }
       .card_list {
       }
       .contents {
@@ -89,14 +140,17 @@ import { CommonService } from 'src/app/core/services/common.service';
       }
       article {
         margin-bottom: 40px;
+        float: left;
       }
       .card_item {
         padding: 0 10px;
         width: 25%;
         display: inline-block;
+        height: 530px;
       }
       .card_item_top_bar {
         font-size: 15px;
+        min-height: 40px;
       }
 
       .user_icon_image {
@@ -121,12 +175,17 @@ import { CommonService } from 'src/app/core/services/common.service';
       }
       .card_item_content {
         position: relative;
+        margin-bottom: 30px;
       }
       .content_description {
         margin-top: 12px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
+        height: 76px;
       }
       .image {
-        background-color: hotpink;
+        background-color: lightgray;
         width: 100%;
         height: 269px;
         border-radius: 6px;
@@ -139,6 +198,14 @@ import { CommonService } from 'src/app/core/services/common.service';
         justify-content: space-around;
         padding: 13px 0 16px;
       }
+      .card_action {
+        display: flex;
+        align-items: center;
+      }
+      .action_info {
+        margin-left: 6px;
+        font-size: 12px;
+      }
       address > p {
         font-size: 12px;
         line-height: 16px;
@@ -146,8 +213,28 @@ import { CommonService } from 'src/app/core/services/common.service';
         margin-top: 2px;
       }
       .reply_user_icon_image {
-        background-color: yellowgreen;
         display: block;
+      }
+      .like_btn {
+        background-image: url(assets/image/common-action@2x.png);
+        background-size: 400px;
+        width: 28px;
+        height: 26px;
+      }
+      .scrap_btn {
+        background-image: url(assets/image/common-action@2x.png);
+        background-size: 400px;
+        background-position-x: -80px;
+        width: 28px;
+        height: 26px;
+      }
+      .reply_comment_btn {
+        background-image: url(assets/image/common-action@2x.png);
+        background-size: 400px;
+        background-position-x: 82px;
+        background-position-y: 83px;
+        width: 28px;
+        height: 26px;
       }
     `
   ]
@@ -169,5 +256,8 @@ export class PhotoComponent implements OnInit {
   ngOnInit() {
     this.commonService.setLocate(0);
     this.commonService.setNav(0);
+    this.communityService.getPhotoImage().subscribe((data) => {
+      this.cardItems = data as communityPhoto[];
+    });
   }
 }

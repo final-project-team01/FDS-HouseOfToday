@@ -61,6 +61,7 @@ import { Component, OnInit } from '@angular/core';
         font-size: 10px;
         padding: 30px 0 50px;
         color: #757575;
+        clear: both;
       }
       .footer-contents {
         margin-left: auto;
