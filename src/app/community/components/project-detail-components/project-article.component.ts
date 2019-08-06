@@ -33,9 +33,7 @@ import { CommonService } from 'src/app/core/services/common.service';
         </span></span>
       </div>
       <app-comment 
-        [originalList]="comments"
-        [chosenList]="chosenComments"
-        [pages]="pages"></app-comment>
+        [originalList]="comments"></app-comment>
     </div>
   `,
   styles: [`
@@ -92,17 +90,12 @@ export class ProjectArticleComponent implements OnInit {
 
   _projectInfo: any;
   comments: any;
-  chosenComments: any;
-  pages: any;
 
   @Input() 
   set projectInfo(projectInfo) {
     if (!projectInfo) return;
     this._projectInfo = projectInfo;
     this.comments = projectInfo.housewarming_comments;
-    this.chosenComments = projectInfo.housewarming_comments.filter((review, index) => index >= 0 && index < 5);
-    const ap = Math.ceil(projectInfo.housewarming_comments.length / 5);
-    this.pages = Array(ap);
     console.log(projectInfo);
   }
   get contents(){

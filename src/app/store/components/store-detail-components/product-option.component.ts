@@ -9,7 +9,7 @@ import { product_option } from 'src/app/core/models/store.interface';
     <div class="product-option-container">
       <div class="selectbox" (clickOutside)="hide()">
       <input type="text" placeholder="옵션" readonly (focus)="show()" class="cursor" #input>
-        <span class="product-option-icon icon"></span>
+        <span class="product-option-icon icon-pointer"></span>
         <ul class="option-item-list" *ngIf="visible">
           <li *ngFor="let option of productOption; let i = index" class="option-item cursor"
           (click)="add(option, input)">
@@ -23,14 +23,14 @@ import { product_option } from 'src/app/core/models/store.interface';
           <div class="ea-container">
             <input type="number" [value]="option.quantity" class="selected-item-ea"
               #input (keyup.enter)="setAmount(option, input)">
-            <button class="increase cursor"
+            <button class="increase cursor icon-etc"
               (click)="increaseAmount(option)"></button>
-            <button class="decrease cursor"
+            <button class="decrease cursor icon-etc"
               (click)="decreaseAmount(option)"></button>
           </div>
           <span class="selected-item-price">
           {{ commonService.addComma(option.price * option.quantity) + '원' }}</span>
-          <button class="selected-item-cancel icon cursor" (click)="remove(option.id)"></button>
+          <button class="selected-item-cancel icon-pointer cursor" (click)="remove(option.id)"></button>
         </div>
       </div>
       <ng-template #noscroll>
@@ -39,14 +39,14 @@ import { product_option } from 'src/app/core/models/store.interface';
         <div class="ea-container">
           <input type="number" [value]="option.quantity" class="selected-item-ea"
             #input (keyup.enter)="setAmount(option, input)">
-          <button class="increase cursor"
+          <button class="increase cursor icon-etc"
             (click)="increaseAmount(option)"></button>
-          <button class="decrease cursor"
+          <button class="decrease cursor icon-etc"
             (click)="decreaseAmount(option)"></button>
         </div>
         <span class="selected-item-price">
           {{ commonService.addComma(option.price * option.quantity) + '원' }}</span>
-        <button class="selected-item-cancel icon" (click)="remove(option.id)"></button>
+        <button class="selected-item-cancel icon-pointer cursor" (click)="remove(option.id)"></button>
       </div>
       </ng-template>
       <div class="price">

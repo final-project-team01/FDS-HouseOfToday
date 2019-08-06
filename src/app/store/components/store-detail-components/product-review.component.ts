@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { review } from 'src/app/core/models/store.interface';
-import { CommonService } from 'src/app/core/services/common.service';
 
 
 @Component({
@@ -20,75 +19,60 @@ import { CommonService } from 'src/app/core/services/common.service';
       <ul>
         <li class="review-filter-menu cursor">베스트순</li>
         <li class="review-filter-menu cursor">최신순</li>
-        <li class="review-filter-menu cursor"><span class="pic-icon"></span>사진리뷰</li>
+        <li class="review-filter-menu cursor"><span class="icon-etc"></span>사진리뷰</li>
       </ul>
       <ul class="filter-btns">
-        <li>
-          <button class="review-filter-btn cursor">별점
-          <span class="pointer-icon"></span>
+        <li 
+        (mouseover)="showFilter = 'block'"
+        (mouseleave)="showFilter = 'none'">
+          <button class="review-filter-btn cursor" [class.active]="chosenScore !== 0">별점
+          <span class="icon-pointer arrow"></span>
           </button>
-          <ul class="review-star-filter">
-            <li class="cursor" (click)="reviewFilter(5)">
-              <div class="stars" *ngFor="let star of chosenList; let i = index" >
-                <span class="star pic-icon" *ngIf=" i < 5">
-                </span>
-              </div>
-              <span>({{ getScore(5) }}개)</span>
-            </li>
-            <li class="cursor" (click)="reviewFilter(4)">
-              <div class="stars" *ngFor="let star of chosenList; let i = index" >
-                <span class="star pic-icon" *ngIf=" i < 4">
-                </span>
-              </div>
-              <span>({{ getScore(4) }}개)</span>
-            </li>
-            <li class="cursor" (click)="reviewFilter(3)">
-              <div class="stars" *ngFor="let star of chosenList; let i = index" >
-                <span class="star pic-icon" *ngIf=" i < 3">
-                </span>
-              </div>
-              <span>({{ getScore(3) }}개)</span>
-            </li>
-            <li class="cursor" (click)="reviewFilter(2)">
-              <div class="stars" *ngFor="let star of chosenList; let i = index" >
-                <span class="star pic-icon" *ngIf=" i < 2">
-                </span>
-              </div>
-              <span>({{ getScore(2) }}개)</span>
-            </li>
-            <li class="cursor" (click)="reviewFilter(1)">
-              <div class="stars" *ngFor="let star of chosenList; let i = index" >
-                <span class="star pic-icon" *ngIf=" i < 1">
-                </span>
-              </div>
-              <span>({{ getScore(1) }}개)</span>
+          <div>
+          <ul class="review-star-filter"
+          [style.display]="showFilter">
+            <li class="cursor" *ngFor="let score of scoreArray; let i = index" 
+              (click)="reviewFilter(score)">
+              <span class="star icon-etc" *ngFor="let score of range(score)">
+              </span>
+              <span class="greystar icon-etc" *ngFor="let score of range(i)">
+              </span>
+              <span [class.blueText]="chosenScore === score"> ({{ getScore(score) }}개)</span>
             </li>
           </ul>
+          </div>
         </li>
         <li>
           <button class="review-filter-btn cursor">옵션
-          <span class="pointer-icon"></span>
+          <span class="icon-pointer arrow"></span>
           </button>
         </li>
       </ul>
       </div>
-      <article class="user-review" *ngFor="let review of chosenList">
+      <div class="chosenScore" *ngIf="chosenScore !== 0">
+        <span class="star icon-etc" *ngFor="let score of range(chosenScore)">
+        </span>
+        <span class="greystar icon-etc" *ngFor="let score of range(5 - chosenScore)">
+        </span>
+        <span class="blueText"> ({{ getScore(chosenScore) }}개)</span>
+        <span class="icon-pointer close cursor" (click)="cancelFilter()"></span>
+      </div>
+      <div class="user-review-container">
+      <article class="user-review" *ngFor="let review of filteredList | pageFilter: index">
         <span class="user">사용자</span>
         <div class="review-star-score">
-          <span class="star pic-icon" *ngFor="let star of range(review['star_score'])">
-          </span>
+          <span class="star icon-etc" *ngFor="let star of range(review['star_score'])"></span>
         </div>
         <span class="review-date">{{ review.created }}</span>
         <div class="review-image" *ngIf="review.image !== null">
-          <img src="../../../../assets/image/meat.jpg">
+          <img src="{{ review.image }}">
         </div>
         <p class="review-comment">{{ review.comment }}</p>
         <button class="helpful cursor">도움이 돼요</button>
       </article>
+      </div>
       <app-pagination 
-        [originalList]="originalList"
-        [chosenList]="chosenList"
-        [pages]="pages"
+        [originalList]="filteredList"
         (change)="changePage($event)">
       </app-pagination>
     </div>
@@ -97,10 +81,19 @@ import { CommonService } from 'src/app/core/services/common.service';
 })
 export class ProductReviewComponent implements OnInit {
 
-  @Input() originalList: review[];
-  @Input() chosenList: review[];
-  @Input() pages: any;
   @Input() starAvg: number;
+  @Input() 
+  set originalList(originalList: review[]){
+    this._originalList = originalList;
+    this.filteredList = originalList
+  };
+  
+  _originalList: review[];
+  filteredList: review[];
+  showFilter = 'none';
+  chosenScore = 0;
+  scoreArray = [5, 4, 3, 2, 1];
+  index = 0;
 
   constructor() { }
 
@@ -112,11 +105,24 @@ export class ProductReviewComponent implements OnInit {
     return Array(i);
   }
 
-  changePage(chosenList: review[]){
-    this.chosenList = chosenList;
+  changePage(i: number){
+    this.index = i;
   }
 
   getScore(n: number){
-    return this.originalList ? this.originalList.filter(review => review.star_score === n).length : 0;
+    return this._originalList ? this._originalList.filter(review => review.star_score === n).length : 0;
+  }
+
+  reviewFilter(n: number){
+    this.filteredList = this._originalList.filter(review => {
+      if(review.star_score === n) return review;
+    });
+    this.showFilter = 'none';
+    this.chosenScore = n;
+  }
+
+  cancelFilter(){
+    this.chosenScore = 0;
+    this.filteredList = this._originalList;
   }
 }
