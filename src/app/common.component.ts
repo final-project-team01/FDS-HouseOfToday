@@ -86,6 +86,26 @@ import { Component, OnInit } from '@angular/core';
       </dd>
     </dl>
 
+    <dl>
+      <dt>more button</dt>
+      <dd>
+        <div style="position:relative; height:50px;">
+          <span class="more-right" MoreButton></span>          
+        </div>
+        <div style="position:relative; height:50px;">
+          <span class="more-left" MoreButton></span>          
+        </div>
+
+        <div style="position:relative; height:100px; width:100px;" MoreBigButton>
+          <span class="more-left" MoreButton></span>          
+        </div>
+      </dd>
+      <dd>
+        <div [innerText]="moreButton">
+        </div>
+      </dd>
+    </dl>
+
   
   `,
   styles: [
@@ -140,6 +160,21 @@ export class CommonComponent implements OnInit {
   OpacityDot7Font = `<a OpacityDot7Font>글자가</a>
         <button OpacityDot7Font>약간 흐려지는</button>
         <span OpacityDot7Font>OpacityDot7Font</span>`;
+
+  moreButton = `
+  <div style="position:relative; height:50px;">
+          <span class="more-right" MoreButton></span>          
+        </div>
+
+
+        <div style="position:relative; height:50px;">
+          <span class="more-left" MoreButton></span>          
+        </div>      
+
+        <div style="position:relative; height:100px; width:100px;" MoreBigButton>
+          <span class="more-left" MoreButton></span>          
+        </div>
+      `;
   constructor() { }
 
   ngOnInit() {
