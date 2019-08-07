@@ -319,7 +319,7 @@ export class SignupComponent implements OnInit {
     const nickname = this.nickname.value;
 
     this.authService.createAccounts(email, password, nickname).subscribe(
-      req => this.router.navigate(['/signin'])
+      res => this.router.navigate(['/signin'])
     )
 
 

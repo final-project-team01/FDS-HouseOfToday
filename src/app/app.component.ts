@@ -39,12 +39,12 @@ export class AppComponent {
       this.commonService.setToken(user);
     }
     if (this.commonService.isLogin()) {
-      this.getUserDetail();
+      this.getUser();
     }
   }
-  getUserDetail() {
-    this.userService.getUserDetail().subscribe((req) => {
-      this.commonService.setUserDetail(req[0]);
+  getUser() {
+    this.userService.getUser().subscribe((res) => {
+      this.commonService.setUserDetail(res[0]);
     });
   }
 }

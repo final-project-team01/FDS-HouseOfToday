@@ -16,6 +16,7 @@ export class BlueButtonDirective {
     renderer.setStyle(el.nativeElement, 'background-color', '#35C5F0');
     renderer.setStyle(el.nativeElement, 'border-color', '#35C5F0');
     renderer.setStyle(el.nativeElement, 'color', 'white');
+    renderer.setStyle(el.nativeElement, 'cursor', 'pointer');
   }
   @HostListener("mouseover") mouseoverHandler() {
     this.renderer.setStyle(this.el.nativeElement, 'background-color', '#11b9eb');
