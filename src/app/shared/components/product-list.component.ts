@@ -23,7 +23,7 @@ import { CommonService } from 'src/app/core/services/common.service';
           </h1>
           <span class="production-item-price">
             <span class="production-item-price__rate">{{productItem.discount}}<span 
-            class="percentage">{{productItem.discount_rate}}%</span>
+            class="percentage" *ngIf="productItem.discount_rate">{{productItem.discount_rate}}%</span>
             </span>
             <span class="production-item-price__price">{{commonService.addComma(productItem.price)}}</span>
           </span>

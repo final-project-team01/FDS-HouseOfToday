@@ -26,7 +26,7 @@ const styles = {
         <div class="row">
           <div class="col-12 col-md-9 home-header__story">
             <article class="story-header" *ngFor="let mainImage of mainEntry" ButtonTurnBlue>
-              <a class="story-header-link" ImageZoom>
+              <a class="story-header-link" routerLink="/project/{{mainImage.id}}" ImageZoom>
                 <div class="story-header__image-wrap">
                   <div class="story-header__image image-zoom" [ngStyle]="{ 'background-image': 'url(' + mainImage.cover_image + ')' }">
                   </div>
@@ -117,7 +117,7 @@ const styles = {
       <section class="container home-section">
         <header class="row home-section__header">
           <h2 class="col home-section__header__content">오늘의딜</h2>
-          <a class="home-section__header__more home-hide-sm">더보기</a>
+          <a class="home-section__header__more home-hide-sm" routerLink="/store">더보기</a>
         </header>
         <app-product-list
         [productItems]="todaysDeals"
@@ -131,7 +131,7 @@ const styles = {
       <section class="container home-section home-cards">
         <header class="row home-section__header">
           <h2 class="col home-section__header__content">오늘의 인기 사진</h2>
-          <a class="home-section__header__more home-hide-sm">더보기</a>
+          <a class="home-section__header__more home-hide-sm" routerLink="/photo">더보기</a>
         </header>
         <ul class="row home-cards__content">
           <li *ngFor="let storyFame of storiesFame; let i = index" class="col-6 col-md-3 home-cards__content__item">
@@ -167,7 +167,7 @@ const styles = {
       <section class="container home-section home-exhibitions">
         <header class="row home-section__header">
           <h2 class="col home-section__header__content">베스트 100</h2>
-          <a class="home-section__header__more home-hide-sm">더보기</a>
+          <a class="home-section__header__more home-hide-sm" routerLink="/store/rank">더보기</a>
         </header>
         <div class="production-rank-feed">
           <ul class="production-rank-feed__category">
@@ -185,7 +185,7 @@ const styles = {
                       <div class="info">
                         <p class="product-name text-caption-1 line-height-normal">{{best3.name}}</p>
                         <p class="price text-caption-3">
-                          <span class="discount-ratio text-blue text-body-1 bold">{{best3.discount_rate}}%</span>
+                          <span *ngIf="best3.discount_rate" class="discount-ratio text-blue text-body-1 bold">{{best3.discount_rate}}%</span>
                           <strong class="selling-price text-body-1 text-black">{{commonService.addComma(best3.price)}}</strong>
                         </p>
                       </div>
