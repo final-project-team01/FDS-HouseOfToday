@@ -10,38 +10,20 @@ import { communityPhoto } from 'src/app/core/models/community.interface';
     <div class="container">
       <div class="filter_control">
         <ul class="filter_control_list_item">
-          <li class="filter_control_items">
-            정렬
-            <div class="down_arrow"></div>
-          </li>
-          <li class="filter_control_items">
-            주거형태
-            <div class="down_arrow"></div>
-          </li>
-          <li class="filter_control_items">
-            공간
-            <div class="down_arrow"></div>
-          </li>
-          <li class="filter_control_items">
-            평수
-            <div class="down_arrow"></div>
-          </li>
-          <li class="filter_control_items">
-            스타일
-            <div class="down_arrow"></div>
-          </li>
-          <li class="filter_control_items">
-            컬러
-            <div class="down_arrow"></div>
-          </li>
-          <li class="filter_control_items">
-            셀프/전문
-            <div class="down_arrow"></div>
-          </li>
-          <li class="filter_control_items">
-            제품정보
-            <div class="down_arrow"></div>
-          </li>
+          <app-filter-drop-button class="filter">정렬</app-filter-drop-button>
+          <app-filter-drop-button class="filter"
+            >주거형태</app-filter-drop-button
+          >
+          <app-filter-drop-button class="filter">공간</app-filter-drop-button>
+          <app-filter-drop-button class="filter">평수</app-filter-drop-button>
+          <app-filter-drop-button class="filter">스타일</app-filter-drop-button>
+          <app-filter-drop-button class="filter">컬러</app-filter-drop-button>
+          <app-filter-drop-button class="filter"
+            >셀프/전문</app-filter-drop-button
+          >
+          <app-filter-drop-button class="filter"
+            >제품정보</app-filter-drop-button
+          >
         </ul>
       </div>
 
@@ -58,7 +40,7 @@ import { communityPhoto } from 'src/app/core/models/community.interface';
                 <div class="user_name">{{ item.author }}</div>
                 <span> . </span>
                 <button class="user_follow">팔로우</button>
-                <p>추가 설명 공간</p>
+                <p>{{ item.author_profile_comment }}</p>
               </address>
             </div>
             <div class="card_item_content">
@@ -139,15 +121,8 @@ import { communityPhoto } from 'src/app/core/models/community.interface';
         border-radius: 4px;
         cursor: pointer;
       }
-      .down_arrow {
-        background-image: url(assets/image/icon-pointer.png);
-        display: inline-block;
-        width: 12px;
-        height: 12px;
-        background-position-x: -509px;
-        background-position-y: 4px;
-      }
-      .card_list {
+      .filter {
+        margin-left: 5px;
       }
       .contents {
         margin-right: -10px;
@@ -168,7 +143,6 @@ import { communityPhoto } from 'src/app/core/models/community.interface';
         font-size: 15px;
         min-height: 40px;
       }
-
       .user_icon_image {
         float: left;
         position: absolute;
@@ -227,6 +201,9 @@ import { communityPhoto } from 'src/app/core/models/community.interface';
         line-height: 16px;
         color: #757575;
         margin-top: 2px;
+        overflow: hidden;
+        /* text-overflow: ellipsis; */
+        white-space: nowrap;
       }
       .reply_user_icon_image {
         display: block;
@@ -271,6 +248,7 @@ import { communityPhoto } from 'src/app/core/models/community.interface';
         font-weight: 700;
         font-size: 15px;
         line-height: 22px;
+        margin-left: 6px;
       }
     `
   ]
