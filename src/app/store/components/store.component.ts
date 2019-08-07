@@ -7,6 +7,7 @@ import {
   store_home,
   today_deal
 } from 'src/app/core/models/store.interface';
+import { ThrowStmt } from '@angular/compiler';
 
 const styles = {
   carousel: {
@@ -98,14 +99,14 @@ const styles = {
               <ul class="filter-bar__control-list__right">
                 <li class="filter-bar__control-list__item" (mouseover)="showFilter()" (mouseleave)="hideFilter()">
                   <div class="drop-down panel-drop-down filter-bar-control">
-                    <button class="filter-bar-order-button" type="button">{{filterListItem}}</button>
+                    <button class="filter-bar-order-button" type="button">{{filterListItem}} <svg class="caret" width="8" height="8" viewBox="0 0 8 8" preserveAspectRatio="xMidYMid meet"><path fill="#BDBDBD" d="M0 2l4 4 4-4z"></path></svg></button>
                     <div class="filter-wrapper">
-                      <app-filter-option class="filter-list-list"
+                      <app-filter-option [width]="200" class="filter-list-list"
                       *ngIf="filterShow">
                         <ul>
-                          <li class="filter-list-item" (click)="highPricefilter()">가격높은 순</li>
-                          <li class="filter-list-item" (click)="lowPricefilter()">가격낮은 순</li>
-                          <li class="filter-list-item" (click)="highReviewfilter()">리뷰많은 순</li>
+                          <li class="filter-list-item" (click)="highPricefilter()" [class.active]="activeFont === 1" HoverBlueBackground>가격높은 순</li>
+                          <li class="filter-list-item" (click)="lowPricefilter()" [class.active]="activeFont === 2" HoverBlueBackground>가격낮은 순</li>
+                          <li class="filter-list-item" (click)="highReviewfilter()" [class.active]="activeFont === 3" HoverBlueBackground>리뷰많은 순</li>
                         </ul>
                       </app-filter-option>
                     </div>
@@ -480,16 +481,23 @@ const styles = {
     }
 
     .filter-list-item {
-      font-size: 10px;
-      margin: 5px 0px 5px 20px;
+      font-size: 12px;
+      padding: 5px 0px 5px 20px;
+      height: 60px;
+      display: flex;
+      align-items: center;
     }
 
     .filter-wrapper {
-      right: -52px;
-      top: 5px;
+      right: -85px;
+      top: 40px;
       position: absolute;
-      padding-top: 30px;  
-      z-index: 100;    
+      z-index: 100; 
+    }
+
+    .filter-list-item.active {
+      color: #35C5F0;
+      font-weight: bold;
     }
     `
   ]
@@ -533,6 +541,7 @@ export class StoreComponent implements OnInit {
   activeTimer: boolean = false;
   filterListItem: string = '인기순';
   filterShow: boolean;
+  activeFont: number;
 
   keywords = [
     {
@@ -584,6 +593,8 @@ export class StoreComponent implements OnInit {
       return b.price - a.price;
     });
     this.filterListItem = '가격높은 순';
+    this.filterShow = false;
+    this.activeFont = 1;
   }
 
   lowPricefilter() {
@@ -591,6 +602,8 @@ export class StoreComponent implements OnInit {
       return a.price - b.price;
     });
     this.filterListItem = '가격낮은 순';
+    this.filterShow = false;
+    this.activeFont = 2;
   }
 
   highReviewfilter() {
@@ -598,6 +611,8 @@ export class StoreComponent implements OnInit {
       return b.review_count - a.review_count;
     });
     this.filterListItem = '리뷰많은 순';
+    this.filterShow = false;
+    this.activeFont = 3;
   }
 
   showFilter() {

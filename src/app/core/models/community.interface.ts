@@ -10,7 +10,7 @@ export interface todayEntry {
   id: number;
   cover_image: string;
   title: string;
-  author_profile: string;
+  author_profile_image: string;
   author: string;
   scrap_count: number;
   hit_count: number;
@@ -20,7 +20,7 @@ export interface todayStory {
   id: number;
   cover_image: string;
   title: string;
-  author_profile: string;
+  author_profile_image: string;
   author: string;
   scrap_count: number;
   hit_count: number;
