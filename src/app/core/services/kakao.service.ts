@@ -2,6 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { CoreModule } from '../core.module';
 import { StorageService } from './storage.service';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment.prod';
 
 declare let Kakao: any;
 
@@ -13,7 +14,7 @@ export class KakaoService {
   constructor(private storageService: StorageService
     , private router: Router
   ) {
-    Kakao.init('b677f5095160228c024bdde3bdd1a5bd');
+    Kakao.init(environment.kakao);
   }
 
   login(loginEvent) {

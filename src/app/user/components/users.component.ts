@@ -243,7 +243,7 @@ import { CommonService } from 'src/app/core/services/common.service';
 export class UsersComponent implements OnInit {
   pic: string;
   constructor(
-    private commonService: CommonService
+    public commonService: CommonService
   ) { }
 
   ngOnInit() {

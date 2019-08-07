@@ -73,7 +73,7 @@ import { CommonService } from 'src/app/core/services/common.service';
 export class CartComponent implements OnInit {
   isEmpty = false;
 
-  constructor(private router: Router, private cartService: CartService
+  constructor(private router: Router, public cartService: CartService
     , private commonService: CommonService
   ) {
   }
