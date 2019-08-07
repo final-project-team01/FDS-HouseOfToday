@@ -27,7 +27,7 @@ import { CommonService } from 'src/app/core/services/common.service';
   ]
 })
 export class HeaderComponent {
-  constructor(private commonService: CommonService) { }
+  constructor(public commonService: CommonService) { }
 
 
 }

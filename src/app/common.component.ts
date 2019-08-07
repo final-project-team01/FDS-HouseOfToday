@@ -118,6 +118,22 @@ import { Component, OnInit } from '@angular/core';
       </dd>
     </dl>
 
+    <dl>
+      <dt>필터옵션창</dt>
+      <dd>       
+        <app-filter-option>
+        <ul>
+          <li>1</li>
+          <li>2</li>
+        </ul>
+        </app-filter-option>       
+        
+        <app-filter-option [width]="100">as</app-filter-option>        
+      </dd>
+      <dd>        
+      </dd>
+    </dl>
+
   
   `,
   styles: [
@@ -190,6 +206,15 @@ export class CommonComponent implements OnInit {
 
   filterButton = `<button FilterButton>필터버튼</button>
   <app-filter-drop-button>드랍버튼</app-filter-drop-button>`
+
+  filterOption = `<app-filter-option>
+  <ul>
+    <li>1</li>
+    <li>2</li>
+  </ul>
+  </app-filter-option>       
+  
+  <app-filter-option [width]="100">as</app-filter-option>`
   constructor() { }
 
   ngOnInit() {

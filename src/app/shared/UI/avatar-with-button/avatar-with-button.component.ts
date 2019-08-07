@@ -63,11 +63,11 @@ import { CartService } from 'src/app/core/services/cart.service';
 })
 export class AvatarWithButtonComponent implements OnInit {
   constructor(
-    private storageService: StorageService,
-    private commonService: CommonService,
-    private router: Router,
-    private kakaoService: KakaoService,
-    private cartService: CartService
+    public storageService: StorageService,
+    public commonService: CommonService,
+    public router: Router,
+    public kakaoService: KakaoService,
+    public cartService: CartService
   ) { }
 
   ngOnInit() { }

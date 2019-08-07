@@ -20,8 +20,8 @@ export class KakaoComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private kakaoService: KakaoService
-  ) {}
+    public kakaoService: KakaoService
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 }
