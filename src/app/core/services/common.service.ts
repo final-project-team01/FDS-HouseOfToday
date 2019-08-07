@@ -78,16 +78,23 @@ export class CommonService {
     return this.userDetail;
   }
 
+  getUserDetailProfile() {    
+    return this.getUserDetail() ? this.getUserDetail()['type'] === 'django'
+      ? this.getUserDetail()['profile']
+      : this.getUserDetail()['social_profile']
+      : 'assets/image/36.png';
+  }
+
   addComma(num: number) {
     const regexp = /\B(?=(\d{3})+(?!\d))/g;
     return num.toString().replace(regexp, ',');
   }
 
-  changePage(i: number, chosenList, originalList) {
-    const start = i * 5;
-    const end = start + 5;
-    chosenList
-      = originalList.filter((review, index) => index >= start && index < end);
-    return chosenList;
-  }
+  // changePage(i: number, chosenList, originalList) {
+  //   const start = i * 5;
+  //   const end = start + 5;
+  //   chosenList
+  //     = originalList.filter((review, index) => index >= start && index < end);
+  //   return chosenList;
+  // }
 }

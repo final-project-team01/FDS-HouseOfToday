@@ -1,6 +1,6 @@
 import { sign_type } from './auth.interface';
 
-export type gender = 1 | 2;
+export type gender = 1 | 2 | 0;
 export interface user_detail {
   id: number;
   username: string;

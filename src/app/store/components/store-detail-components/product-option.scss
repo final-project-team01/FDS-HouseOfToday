@@ -1,7 +1,7 @@
 .product-option-container{
   display: inline-block;
   width: 100%;
-  .icon{
+  .icon-pointer{
     display: inline-block;
     background-image: url('../../../../assets/image/icon-pointer.png');
   }
@@ -79,7 +79,7 @@
         text-align: center;
         width: 60px;
       }
-      button{
+      .icon-etc{
         width: 22px;
         height: 22px;
         background-image: url('../../../../assets/image/icon-etc.png');

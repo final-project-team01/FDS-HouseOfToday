@@ -10,9 +10,7 @@ import { CommunityService } from 'src/app/core/services/community.service';
     <div class="wrapper">
       <app-photo-article 
         [photoInfo]="photoInfo"
-        [originalList]="comments"
-        [chosenList]="chosenComments"
-        [pages]="commentPages"></app-photo-article>
+        [originalList]="comments"></app-photo-article>
       <app-photo-user
         [photoInfo]="photoInfo"></app-photo-user>
     </div>
@@ -37,7 +35,6 @@ export class PhotoDetailComponent implements OnInit {
   id: number;
   photoInfo: any;
   comments = [];
-  chosenComments = [];
   commentPages = [];
 
   ngOnInit() {
@@ -49,7 +46,6 @@ export class PhotoDetailComponent implements OnInit {
       .subscribe(data => {
         this.photoInfo = data;
         this.comments = this.photoInfo.photo_comments;
-        this.chosenComments = this.comments.filter((comment, index) => index >= 0 && index < 5);
         const cp = Math.ceil(this.comments.length / 5);
         this.commentPages = Array(cp);        
       });
