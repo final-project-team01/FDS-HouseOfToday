@@ -28,18 +28,19 @@ import { review } from 'src/app/core/models/store.interface';
           <button class="review-filter-btn cursor" [class.active]="chosenScore !== 0">별점
           <span class="icon-pointer arrow"></span>
           </button>
-          <div>
-          <ul class="review-star-filter"
-          [style.display]="showFilter">
-            <li class="cursor" *ngFor="let score of scoreArray; let i = index" 
-              (click)="reviewFilter(score)">
-              <span class="star icon-etc" *ngFor="let score of range(score)">
-              </span>
-              <span class="greystar icon-etc" *ngFor="let score of range(i)">
-              </span>
-              <span [class.blueText]="chosenScore === score"> ({{ getScore(score) }}개)</span>
-            </li>
-          </ul>
+          <div [style.display]="showFilter">
+            <app-filter-option [width]="170">
+              <ul class="review-star-filter">
+                <li class="cursor" *ngFor="let score of scoreArray; let i = index" 
+                  (click)="reviewFilter(score)">
+                  <span class="star icon-etc" *ngFor="let score of range(score)">
+                  </span>
+                  <span class="greystar icon-etc" *ngFor="let score of range(i)">
+                  </span>
+                  <span [class.blueText]="chosenScore === score"> ({{ getScore(score) }}개)</span>
+                </li>
+              </ul>
+            </app-filter-option>
           </div>
         </li>
         <li>
