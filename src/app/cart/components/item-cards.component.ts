@@ -100,7 +100,7 @@ export class ItemCardComponent implements OnInit {
     }
   }
   keyup(key: string, id: number, quantity: string) {
-    if (key === 'enter')
+    if (key.toUpperCase() === 'ENTER')
       this.setQuantity(id, quantity);
   }
   isValidationVisible(quantity: number, errors) {
