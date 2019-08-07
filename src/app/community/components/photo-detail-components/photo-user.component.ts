@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { photo_info } from 'src/app/core/models/community.interface';
 
 @Component({
   selector: 'app-photo-user',
@@ -113,7 +114,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class PhotoUserComponent implements OnInit {
 
-  @Input() photoInfo: any; 
+  @Input() photoInfo: photo_info; 
 
   constructor() { }
 

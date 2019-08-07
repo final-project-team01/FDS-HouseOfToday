@@ -8,11 +8,11 @@ import { product_option } from 'src/app/core/models/store.interface';
   template: `
     <div class="product-option-container">
       <div class="selectbox" (clickOutside)="hide()">
-      <input type="text" placeholder="옵션" readonly (focus)="show()" class="cursor" #input>
+      <input type="text" placeholder="옵션" readonly (focus)="show()" class="cursor" #optionInput>
         <span class="product-option-icon icon-pointer"></span>
         <ul class="option-item-list" *ngIf="visible">
           <li *ngFor="let option of productOption; let i = index" class="option-item cursor"
-          (click)="add(option, input)">
+          (click)="add(option, optionInput)">
           {{ option.name }}
           </li>
         </ul>
@@ -54,7 +54,7 @@ import { product_option } from 'src/app/core/models/store.interface';
         <mark class="order-price">{{ totalPrice }}<span>원</span></mark>
       </div>
       <div class="btn-container">
-      <button type="submit" class="cart cursor" (click)="cart()">장바구니담기</button>
+      <button type="submit" class="cart cursor" (click)="cart(optionInput)">장바구니담기</button>
       <button class="cursor" (click)="buy()" BlueButton>구매하기</button>
       </div>
     </div>
@@ -114,11 +114,12 @@ export class ProductOptionComponent implements OnInit {
     return name.slice(0, i);
   }
 
-  setAmount(option, input) {
+  setAmount(option: ChosenOption, input: HTMLInputElement) {
     this.set.emit({ option, input });
   }
 
-  cart() {
+  cart(input: HTMLInputElement) {
+    input.value = '';
     this.intoCart.emit();
   }
 
