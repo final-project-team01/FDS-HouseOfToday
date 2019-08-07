@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CommonService } from 'src/app/core/services/common.service';
+import { photo_info, photo_comments } from 'src/app/core/models/community.interface';
 
 @Component({
   selector: 'app-photo-article',
@@ -124,8 +125,8 @@ import { CommonService } from 'src/app/core/services/common.service';
 })
 export class PhotoArticleComponent implements OnInit {
 
-  @Input() photoInfo: any; 
-  @Input() originalList: any;
+  @Input() photoInfo: photo_info; 
+  @Input() originalList: photo_comments[];
 
   showBtn = 'none';
 

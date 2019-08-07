@@ -115,3 +115,32 @@ export interface housewarming_comments {
   text: string;
   created: string;
 }
+
+export interface photo_info {
+  id?: number;
+  photo_comments?: photo_comments[];
+  category?: string;
+  created?: string;
+  image?: string;
+  axis_left?: number;
+  axis_top?: number;
+  product_image?: string;
+  product_id?: number;
+  text?: string;
+  author?: string;
+  author_profile_image?: string;
+  author_profile_comment?: string;
+  like_count?: number;
+  scrap_count?: number;
+  hit_count?: number;
+  comment_count?: number;
+}
+
+export interface photo_comments {
+  id: number;
+  author: string;
+  author_profile_image: string;
+  text: string;
+  created: string;
+  photo: number
+}
