@@ -46,12 +46,12 @@ import { Component, OnInit } from '@angular/core';
     padding: 10px 30px;
     font-size: 20px;
     font-weight: 300;
-    margin: 20px;
+    margin: 40px;
     box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.2);
   }
   button:hover{
     box-shadow: 0 0 0 0;
-    margin-top: 25px;
+    margin-top: 45px;
   }
   `]
 })
