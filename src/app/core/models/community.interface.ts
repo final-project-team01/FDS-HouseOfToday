@@ -65,7 +65,7 @@ export interface housewarming_posts {
   id: number;
   cover_image: string;
   title: string;
-  author_profile: string;
+  author_profile_image: string;
   author: string;
   scrap_count: number;
   hit_count: number;

@@ -224,8 +224,8 @@ export class SigninComponent implements OnInit {
       const email = this.loginForm.get("email").value;
       const password = this.loginForm.get("password").value;
 
-      this.authService.getToken(email, password).subscribe(req => {
-        if (req["token"]) this.loginSuccess(req["token"]);
+      this.authService.getToken(email, password).subscribe(res => {
+        if (res["token"]) this.loginSuccess(res["token"]);
         else console.log("onSubmit fail");
       });
     }
@@ -235,8 +235,8 @@ export class SigninComponent implements OnInit {
     this.commonService.setToken(token);
     this.storageService.setLocal("user", token);
     this.storageService.setSession("user", token);
-    this.userService.getUserDetail().subscribe((req) => {
-      this.commonService.setUserDetail(req[0]);
+    this.userService.getUser().subscribe((res) => {
+      this.commonService.setUserDetail(res[0]);
       this.router.navigate(['/']);
     });
 

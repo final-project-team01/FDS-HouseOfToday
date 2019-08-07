@@ -92,7 +92,7 @@ export class CartComponent implements OnInit {
   buyItems() {
     if (!this.cartService.isOrderPossible()) return;
     this.cartService.buyItems(this.commonService.Token).subscribe(
-      req => {
+      res => {
         this.cartService.getCartList();
       },
       (error: HttpErrorResponse) => { console.log(error) }
