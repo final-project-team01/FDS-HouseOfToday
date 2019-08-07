@@ -163,3 +163,22 @@ export interface photo_comments {
   created: string;
   photo: number
 }
+
+export interface communityPhoto {
+  id: number;
+  author: string;
+  author_profile_image: string;
+  image: string;
+  hit_count: number;
+  like_count: number;
+  scrap_count: number;
+  comment_count: number;
+  text: string;
+  comments: commentInfo[];
+}
+
+export interface commentInfo {
+  author_profile_image: string;
+  author: string;
+  text: string;
+}
