@@ -25,10 +25,11 @@ import { review } from 'src/app/core/models/store.interface';
         <li 
         (mouseover)="showFilter = 'block'"
         (mouseleave)="showFilter = 'none'">
-          <button class="review-filter-btn cursor" [class.active]="chosenScore !== 0">별점
+          <button class="review-filter-btn cursor" 
+            [class.active]="chosenScore !== 0" FilterButton>별점
           <span class="icon-pointer arrow"></span>
           </button>
-          <div [style.display]="showFilter">
+          <div *ngIf="showFilter === 'block'">
             <app-filter-option [width]="170">
               <ul class="review-star-filter">
                 <li class="cursor" *ngFor="let score of scoreArray; let i = index" 
