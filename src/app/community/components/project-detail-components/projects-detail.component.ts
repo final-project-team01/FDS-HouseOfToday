@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonService } from 'src/app/core/services/common.service';
 import { ActivatedRoute } from '@angular/router';
 import { CommunityService } from 'src/app/core/services/community.service';
+import { housewarming_info } from 'src/app/core/models/community.interface';
 
 @Component({
   selector: 'app-projects-detail',
@@ -31,7 +32,7 @@ export class ProjectsDetailComponent implements OnInit {
             , private communityService: CommunityService) { }
 
   id: number;
-  projectInfo: any;
+  projectInfo: housewarming_info;
         
   ngOnInit() {
     this.commonService.setLocate(0);
@@ -41,6 +42,8 @@ export class ProjectsDetailComponent implements OnInit {
     this.communityService.getProjectInfo(this.id)
       .subscribe(data => {
         this.projectInfo = data;
+        console.log(this.projectInfo);
+        
       });
   }
 

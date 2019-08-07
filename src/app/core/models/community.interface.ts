@@ -75,3 +75,43 @@ export interface housewarming {
   total_post_count: number,
   housewarming_posts: housewarming_posts[]
 }
+
+export interface housewarming_info {
+  id: number;
+  housewarming_detail_content: housewarming_detail_content[];
+  housewarming_comments: housewarming_comments[];
+  title: string;
+  created: string;
+  author: string;
+  author_profile: string;
+  like_count: number;
+  scrap_count: number;
+  hit_count: number;
+  cover_image: string;
+  structure: string;
+  floor_space: string;
+  style: string;
+  work: string;
+  area: string;
+  period: string;
+  budget: string;
+  family: string;
+  detail_part: string;
+  location: string;
+  comment_count: number;
+}
+
+export interface housewarming_detail_content {
+  id: number;
+  title: string;
+  image: string;
+  text: string;
+}
+
+export interface housewarming_comments {
+  id: number;
+  author: string;
+  author_profile_image: string;
+  text: string;
+  created: string;
+}

@@ -33,8 +33,6 @@ export class ProductPicComponent implements OnInit {
   active(id: number, index: number){
     this.activeId = id;
     this.left = index * -570;
-    console.log(this.left);
-    
   }
 
 }

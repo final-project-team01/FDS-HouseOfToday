@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { housewarming_info } from 'src/app/core/models/community.interface';
 
 @Component({
   selector: 'app-project-user',
@@ -164,7 +165,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ProjectUserComponent implements OnInit {
 
-  @Input() projectInfo: any;
+  @Input() projectInfo: housewarming_info;
 
   constructor() { }
 
