@@ -130,7 +130,8 @@ import { Component, OnInit } from '@angular/core';
         
         <app-filter-option [width]="100">as</app-filter-option>        
       </dd>
-      <dd>        
+      <dd>     
+      {{filterOption}}   
       </dd>
     </dl>
 
