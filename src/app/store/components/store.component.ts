@@ -88,34 +88,27 @@ const styles = {
         <div class="filter store-index-product-list__filter">
           <div class="filter-bar">
             <div class="filter-bar__control-list">
-              <ly-field class="freeShipping" appearance="filled">
-                <ly-label>무료배송</ly-label>
-                <ly-select placeholder="Placeholder">
-                  <ly-option class="freeShippingDetail" value="1"
-                    >무료배송</ly-option
-                  >
-                </ly-select>
-              </ly-field>
-              <ly-field class="filteredList">
-                <ly-label>필터</ly-label>
-                <ly-select class="filteredListDetail" placeholder="Placeholder">
-                  <ly-option
-                    class="detail"
-                    value="1"
-                    (click)="highPricefilter()"
-                    >가격높은 순</ly-option
-                  >
-                  <ly-option class="detail" value="2" (click)="lowPricefilter()"
-                    >가격낮은 순</ly-option
-                  >
-                  <ly-option
-                    class="detail"
-                    value="3"
-                    (click)="highReviewfilter()"
-                    >리뷰많은 순</ly-option
-                  >
-                </ly-select>
-              </ly-field>
+              <ul class="filter-bar__control-list__left">
+                <li class="filter-bar__control-list__item">
+                  <div class="drop-down panel-drop-down filter-bar-control">
+                    <app-filter-drop-button>배송</app-filter-drop-button>
+                  </div>
+                </li>
+              </ul>
+              <ul class="filter-bar__control-list__right">
+                <li class="filter-bar__control-list__item">
+                  <div class="drop-down panel-drop-down filter-bar-control">
+                    <button class="filter-bar-order-button" type="button" FilterButtonActive>{{filterListItem}}</button>
+                    <app-filter-option class="filter-list-list filter-show">
+                      <ul>
+                        <li (click)="highPricefilter()">가격높은 순</li>
+                        <li (click)="lowPricefilter()">가격낮은 순</li>
+                        <li (click)="highReviewfilter()">리뷰많은 순</li>
+                      </ul>
+                    </app-filter-option>
+                  </div>
+                </li>
+              </ul> 
             </div>
           </div>
         </div>
@@ -383,8 +376,13 @@ const styles = {
       }
 
       .filter-bar__control-list {
-        position: relative;
-        width: 1136px;
+        justify-content: space-between;
+        min-width: 0;
+        margin: 0 -2px;
+        padding: 5px 0;
+        align-items: center;
+        display: flex;
+        margin-bottom: 20px;
       }
 
       .freeShipping {
@@ -441,6 +439,46 @@ const styles = {
         position: absolute;
         left: 0;
       }
+
+      .filter-bar-order-button {
+        user-select: none;
+        display: inline-block;
+        padding: 7px 4px 6px;
+        box-sizing: border-box;
+        border: none;
+        background: none;
+        color: #424242;
+        font-size: 13px;
+        font-family: inherit;
+        font-weight: 400;
+        line-height: 19px;
+        text-decoration: none;
+        text-align: center;
+        transition: opacity .1s;
+        cursor: pointer;
+    }
+
+    .filter-bar__control-list__left, .filter-bar__control-list__right {
+      flex: 0 0 auto;
+      min-width: 0;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      white-space: nowrap;
+    }
+
+    .drop-down {
+      position: relative;
+      display: inline-block;
+    }
+
+    .filter-list-list {
+      position: absolute;
+      right: -53px;
+      top: 35px;
+      z-index: 1000;
+      display: none;
+    }
     `
   ]
 })
@@ -481,6 +519,7 @@ export class StoreComponent implements OnInit {
   minutes: number = 0;
   seconds: number = 0;
   activeTimer: boolean = false;
+  filterListItem: string = '인기순';
 
   keywords = [
     {
@@ -531,18 +570,21 @@ export class StoreComponent implements OnInit {
     this.productItems = this.productItems.sort(function(a, b) {
       return b.price - a.price;
     });
+    this.filterListItem = '가격높은 순';
   }
 
   lowPricefilter() {
     this.productItems = this.productItems.sort(function(a, b) {
       return a.price - b.price;
     });
+    this.filterListItem = '가격낮은 순';
   }
 
   highReviewfilter() {
     this.productItems = this.productItems.sort(function(a, b) {
       return b.review_count - a.review_count;
     });
+    this.filterListItem = '리뷰많은 순';
   }
 
   dealTimer() {
