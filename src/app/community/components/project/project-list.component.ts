@@ -18,7 +18,7 @@ import { housewarming_posts } from 'src/app/core/models/community.interface';
           <div class="project-item-writer">
             <app-basic-uses-avatar
             [size]="16"
-            [pic]="item['author_profile']"
+            [pic]="item['author_profile_image']"
             [isBorder]="false">
             </app-basic-uses-avatar>
             <span class="item-writer-name">작성자</span>
@@ -40,6 +40,8 @@ export class ProjectListComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
   }
+
 
 }

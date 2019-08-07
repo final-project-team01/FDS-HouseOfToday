@@ -8,6 +8,7 @@ import { ProjectsComponent } from './components/projects.component';
 import { ProjectsDetailComponent } from './components/project-detail-components/projects-detail.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'community', pathMatch: 'full' },
   { path: 'community', component: CommunityComponent },
   { path: 'photo', component: PhotoComponent },
   { path: 'photo/:id', component: PhotoDetailComponent },
@@ -19,4 +20,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class CommunityRoutingModule {}
+export class CommunityRoutingModule { }

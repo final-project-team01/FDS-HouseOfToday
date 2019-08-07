@@ -7,7 +7,6 @@ import { StoreDetailComponent } from './components/store-detail-components/store
 
 const routes: Routes = [
 
-  { path: '', redirectTo: 'store', pathMatch: 'full' },
   { path: 'store', component: StoreComponent },
   { path: 'store/category', component: CategoryComponent },
   { path: 'store/rank', component: RankComponent },

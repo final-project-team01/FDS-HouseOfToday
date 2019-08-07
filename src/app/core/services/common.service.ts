@@ -13,6 +13,7 @@ export class CommonService {
   private nav: number;//메뉴 변경여부
   private isNavFiexd = false;
   private userDetail: user_detail;
+  private _isPopup: boolean = true;
 
   readonly url: string = environment.url
   constructor() { }
@@ -23,6 +24,14 @@ export class CommonService {
 
   get Token() {
     return this._token;
+  }
+
+  set isPopup(b: boolean) {
+    this._isPopup = b;
+  }
+
+  get isPopup() {
+    return this._isPopup;
   }
 
   isLogin() {
@@ -79,7 +88,7 @@ export class CommonService {
     return this.userDetail;
   }
 
-  getUserDetailProfile() {    
+  getUserDetailProfile() {
     return this.getUserDetail() ? this.getUserDetail()['type'] === 'django'
       ? this.getUserDetail()['profile']
       : this.getUserDetail()['social_profile']

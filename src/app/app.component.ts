@@ -3,6 +3,7 @@ import { LyTheme2, ThemeVariables } from '@alyle/ui';
 import { StorageService } from './core/services/storage.service';
 import { CommonService } from './core/services/common.service';
 import { UserService } from './core/services/user.service';
+import { Title } from '@angular/platform-browser';
 
 const STYLES = (theme: ThemeVariables) => ({
   '@global': {
@@ -32,7 +33,8 @@ export class AppComponent {
     private theme: LyTheme2,
     private storageService: StorageService,
     private commonService: CommonService,
-    private userService: UserService
+    private userService: UserService,
+    private titleService: Title
   ) {
     if (!this.commonService.Token) {
       const user = this.storageService.getLocal('user');
@@ -41,6 +43,8 @@ export class AppComponent {
     if (this.commonService.isLogin()) {
       this.getUser();
     }
+
+    this.titleService.setTitle("1등 인테리어 집꾸미기 서비스, 오늘의 집")
   }
   getUser() {
     this.userService.getUser().subscribe((res) => {
