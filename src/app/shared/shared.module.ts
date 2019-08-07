@@ -32,6 +32,7 @@ import { MoreBigButtonDirective } from './directive/more-big-button.directive';
 import { PageFilterPipe } from './page-filter.pipe';
 import { FilterButtonDirective } from './directive/filter-button.directive';
 import { FilterDropButtonComponent } from './components/filter-drop-button.component';
+import { FilterOptionComponent } from './components/filter-option/filter-option.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { FilterDropButtonComponent } from './components/filter-drop-button.compo
     MoreBigButtonDirective,
     PageFilterPipe,
     FilterButtonDirective,
-    FilterDropButtonComponent
+    FilterDropButtonComponent,
+    FilterOptionComponent
   ],
   imports: [CommonModule, CoreModule, AlyleModule, SharedRoutingModule],
   exports: [
@@ -85,7 +87,8 @@ import { FilterDropButtonComponent } from './components/filter-drop-button.compo
     MoreBigButtonDirective,
     PageFilterPipe,
     FilterButtonDirective,
-    FilterDropButtonComponent
+    FilterDropButtonComponent,
+    FilterOptionComponent
   ]
 })
 export class SharedModule { }

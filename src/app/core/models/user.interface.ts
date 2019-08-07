@@ -28,3 +28,19 @@ export interface user_order {
   user: string;
   order_list: order_list[];
 }
+
+export interface account_update {
+  username: string,
+  email: string,
+  gender: gender,
+  birthday: string,
+  message: string,
+  profile: string
+}
+
+export interface account_update_payload {
+  username?: string,
+  gender?: gender,
+  birthday?: string,
+  message?: string
+}

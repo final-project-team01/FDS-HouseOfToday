@@ -13,7 +13,7 @@ export class BasicUsesAvatarComponent implements OnInit {
   @Input() size = 36;
   @Input() pic = 'assets/image/36.png';
   @Input() isBorder = false;
-  private style = {};
+  public style = {};
   constructor() {}
 
   ngOnInit() {

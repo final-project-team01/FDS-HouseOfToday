@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CommonService } from 'src/app/core/services/common.service';
+import { housewarming_info, housewarming_comments } from 'src/app/core/models/community.interface';
 
 @Component({
   selector: 'app-project-article',
@@ -88,15 +89,14 @@ import { CommonService } from 'src/app/core/services/common.service';
 })
 export class ProjectArticleComponent implements OnInit {
 
-  _projectInfo: any;
-  comments: any;
+  _projectInfo: housewarming_info;
+  comments: housewarming_comments[];
 
   @Input() 
-  set projectInfo(projectInfo) {
+  set projectInfo(projectInfo: housewarming_info) {
     if (!projectInfo) return;
     this._projectInfo = projectInfo;
     this.comments = projectInfo.housewarming_comments;
-    console.log(projectInfo);
   }
   get contents(){
     const contents 

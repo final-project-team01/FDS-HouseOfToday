@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/core/services/user.service';
 import { CommonService } from 'src/app/core/services/common.service';
 
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { gender } from 'src/app/core/models/user.interface';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { gender, account_update_payload } from 'src/app/core/models/user.interface';
 
 @Component({
   selector: 'app-user-modify',
   template: `
     <app-navigation></app-navigation>
-    <app-user-nav></app-user-nav>
+    <app-user-nav></app-user-nav>    
     <div class="contents">
       <div class="user_modi_title">회원정보수정</div>
       <div class="withdraw"><a href="#">탈퇴하기</a></div>
@@ -39,39 +39,10 @@ import { gender } from 'src/app/core/models/user.interface';
         <div class="field">
           <div class="user_modi_subtitle">성별</div>          
           <div class="user-gender">
-            <app-check-box [isChecked]="gender===1" [caption]="true" (click)="setGender(1)" [isDisabled]="true">남자</app-check-box>
-            <app-check-box [isChecked]="gender===2" [caption]="true" (click)="setGender(2)" [isDisabled]="true">여자</app-check-box>
+            <app-check-box [isChecked]="getGender()===1" [caption]="true" (click)="setGender(1)" [isDisabled]="true">남자</app-check-box>
+            <app-check-box [isChecked]="getGender()===2" [caption]="true" (click)="setGender(2)" [isDisabled]="true">여자</app-check-box>
           </div>
         </div>
-        <!--
-        <div class="field">
-          <div class="user_modi_subtitle">생년월일</div>
-          <div class="birth_info_border">
-            <select class="birth_info">
-              <option>YYYY</option>
-              <option class="no1" *ngFor="let year of birthYear">{{
-                year.year
-              }}</option>
-            </select>
-          </div>
-
-          <div class="birth_info_border">
-            <select class="birth_info">
-              <option>MM</option>
-              <option *ngFor="let month of birthMonth">{{
-                month.month
-              }}</option>
-            </select>
-          </div>
-
-          <div class="birth_info_border">
-            <select class="birth_info">
-              <option>DD</option>
-              <option *ngFor="let day of birthDay">{{ day.day }}</option>
-            </select>
-          </div>
-        </div>
-        -->
         <div class="field">
           <div class="user_modi_subtitle">프로필 이미지</div>
           <div class="profile_image">
@@ -79,17 +50,9 @@ import { gender } from 'src/app/core/models/user.interface';
             <img src="{{commonService.getUserDetailProfile()}}"/>
           </div>
         </div>
-<!--
-        <div class="field">
-          <div class="user_modi_subtitle">커버 이미지</div>
-          <div class="cover_image">
-            <div class="add_photo_icon"></div>
-          </div>
-        </div>
--->
         <div class="field">
           <div class="user_modi_subtitle">한줄 소개</div>
-          <input formGroupName="userIntro" type="text" class="oneLine_intro"/>
+          <input formControlName="userIntro" type="text" class="oneLine_intro" value="{{getUserIntro()}}"/>
         </div>
       </form>
       <button class="edit_submit" (click)="onSubmit()" BlueButton>회원 정보 수정</button>
@@ -227,7 +190,7 @@ export class UserModifyComponent implements OnInit {
   get userIntro() {
     return this.userFrom.get('userIntro');
   }
-  constructor(private fb: FormBuilder, private userService: UserService, private commonService: CommonService) {
+  constructor(private fb: FormBuilder, private userService: UserService, public commonService: CommonService) {
     commonService.getUserDetail();
     this.getEmailFormat();
   }
@@ -239,34 +202,16 @@ export class UserModifyComponent implements OnInit {
           this.commonService.getUserDetail().gender :
           0
         : 0);
-    console.log(gender);
     return gender;
   }
 
   ngOnInit() {
     this.userFrom = this.fb.group({
-      userName: ['', []],
-      userIntro: ['', []]
+      userName: ['', [Validators.required]],
+      userIntro: ['', [Validators.required]]
     });
 
     this.getGender();
-    /*
-    for (let Y = 1919; Y < 2020; Y++) {
-      const year = { year: Y };
-      this.birthYear =
-        this.birthYear.length > 0 ? [year, ...this.birthYear] : [year];
-    }
-    for (let M = 1; M < 13; M++) {
-      const month = { month: M };
-      this.birthMonth =
-        this.birthMonth.length > 0 ? [...this.birthMonth, month] : [month];
-    }
-    for (let D = 1; D < 31; D++) {
-      const day = { day: D };
-      this.birthDay =
-        this.birthDay.length > 0 ? [...this.birthDay, day] : [day];
-    }
-    */
   }
 
   getEmail() {
@@ -278,13 +223,26 @@ export class UserModifyComponent implements OnInit {
   getUserName() {
     return this.commonService.getUserDetail() ? this.commonService.getUserDetail().username : '';
   }
+  getUserIntro() {
+    return this.commonService.getUserDetail() ? this.commonService.getUserDetail().message : '';
+  }
+
 
 
   setGender(gender: gender) {
     this.gender = gender;
   }
   onSubmit() {
+    const options: account_update_payload = {};
+    const userInfo = this.commonService.getUserDetail();
+    if (this.getGender() !== userInfo.gender)
+      options['gender'] = this.getGender();
+    if (!this.userName.errors && this.userName.value !== userInfo.username)
+      options['username'] = this.userName.value;
+    if (!this.userIntro.errors && this.userIntro.value !== userInfo.message)
+      options['message'] = this.userIntro.value;
 
+    this.userService.patchAccountsUpdate(options);
   }
 
 

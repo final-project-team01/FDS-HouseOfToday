@@ -10,8 +10,6 @@ import { CommonService } from './common.service';
   providedIn: CoreModule
 })
 export class AuthService {
-
-  req: token | non_field_errors;
   constructor(private httpClient: HttpClient
     , private commonService: CommonService
   ) { }

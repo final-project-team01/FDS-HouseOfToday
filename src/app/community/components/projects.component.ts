@@ -29,8 +29,8 @@ export class ProjectsComponent implements OnInit {
     this.commonService.setLocate(0);
     this.commonService.setNav(0);
     this.communityService.getHousewarming().subscribe(
-      req => {
-        this.housewarmingItem = req;
+      res => {
+        this.housewarmingItem = res;
       }
     )
   }
