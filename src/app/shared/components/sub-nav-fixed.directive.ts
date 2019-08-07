@@ -15,7 +15,6 @@ export class SubNavFixedDirective {
 
 
   @HostListener("mouseout", ["$event"]) mouseout(event) {
-    console.log(this.el.nativeElement.offsetTop, this.el.nativeElement.offsetHeight);
     if (!this.commonService.getIsNavFixed() && event.clientY > this.el.nativeElement.offsetTop + this.el.nativeElement.offsetHeight)
       this.commonService.resetNav();
 
