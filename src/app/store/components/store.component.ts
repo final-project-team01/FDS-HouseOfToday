@@ -96,16 +96,19 @@ const styles = {
                 </li>
               </ul>
               <ul class="filter-bar__control-list__right">
-                <li class="filter-bar__control-list__item">
+                <li class="filter-bar__control-list__item" (mouseover)="showFilter()" (mouseleave)="hideFilter()">
                   <div class="drop-down panel-drop-down filter-bar-control">
-                    <button class="filter-bar-order-button" type="button" FilterButtonActive>{{filterListItem}}</button>
-                    <app-filter-option class="filter-list-list filter-show">
-                      <ul>
-                        <li (click)="highPricefilter()">가격높은 순</li>
-                        <li (click)="lowPricefilter()">가격낮은 순</li>
-                        <li (click)="highReviewfilter()">리뷰많은 순</li>
-                      </ul>
-                    </app-filter-option>
+                    <button class="filter-bar-order-button" type="button">{{filterListItem}}</button>
+                    <div class="filter-wrapper">
+                      <app-filter-option class="filter-list-list"
+                      *ngIf="filterShow">
+                        <ul>
+                          <li class="filter-list-item" (click)="highPricefilter()">가격높은 순</li>
+                          <li class="filter-list-item" (click)="lowPricefilter()">가격낮은 순</li>
+                          <li class="filter-list-item" (click)="highReviewfilter()">리뷰많은 순</li>
+                        </ul>
+                      </app-filter-option>
+                    </div>
                   </div>
                 </li>
               </ul> 
@@ -473,11 +476,20 @@ const styles = {
     }
 
     .filter-list-list {
-      position: absolute;
-      right: -53px;
-      top: 35px;
       z-index: 1000;
-      display: none;
+    }
+
+    .filter-list-item {
+      font-size: 10px;
+      margin: 5px 0px 5px 20px;
+    }
+
+    .filter-wrapper {
+      right: -52px;
+      top: 5px;
+      position: absolute;
+      padding-top: 30px;  
+      z-index: 100;    
     }
     `
   ]
@@ -520,6 +532,7 @@ export class StoreComponent implements OnInit {
   seconds: number = 0;
   activeTimer: boolean = false;
   filterListItem: string = '인기순';
+  filterShow: boolean;
 
   keywords = [
     {
@@ -585,6 +598,14 @@ export class StoreComponent implements OnInit {
       return b.review_count - a.review_count;
     });
     this.filterListItem = '리뷰많은 순';
+  }
+
+  showFilter() {
+    this.filterShow = true;
+  }
+
+  hideFilter() {
+    this.filterShow = false;
   }
 
   dealTimer() {
