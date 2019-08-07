@@ -31,19 +31,23 @@ import { store_list, categoryfilter, today_deal } from 'src/app/core/models/stor
                 </nav>
               </div>
             </div>
+            <div class="filter-bar__control-list">
+            <app-filter-drop-button class="filter-drop-button">가격</app-filter-drop-button>
+            <app-filter-drop-button class="filter-drop-button">배송</app-filter-drop-button>
+            </div>
             <div class="category-feed-filter-bar__secondary">
               <p class="category-feed-filter-bar__secondary__summary">전체 {{commonService.addComma(productItems.length)}}</p>
               <ul class="filter-bar__control-list__right">
                 <li class="filter-bar__control-list__item" (mouseover)="showFilter()" (mouseleave)="hideFilter()">
                   <div class="drop-down panel-drop-down filter-bar-control">
-                    <button class="filter-bar-order-button" type="button">{{filterListItem}}</button>
+                    <button class="filter-bar-order-button" type="button">{{filterListItem}} <svg class="caret" width="8" height="8" viewBox="0 0 8 8" preserveAspectRatio="xMidYMid meet"><path fill="#BDBDBD" d="M0 2l4 4 4-4z"></path></svg></button>
                     <div class="filter-wrapper">
-                      <app-filter-option class="filter-list-list"
+                      <app-filter-option [width]="200" class="filter-list-list"
                       *ngIf="filterShow">
                         <ul>
-                          <li class="filter-list-item" (click)="highPricefilter()">가격높은 순</li>
-                          <li class="filter-list-item" (click)="lowPricefilter()">가격낮은 순</li>
-                          <li class="filter-list-item" (click)="highReviewfilter()">리뷰많은 순</li>
+                        <li class="filter-list-item" (click)="highPricefilter()" [class.active]="activeFont === 1" HoverBlueBackground>가격높은 순</li>
+                        <li class="filter-list-item" (click)="lowPricefilter()" [class.active]="activeFont === 2" HoverBlueBackground>가격낮은 순</li>
+                        <li class="filter-list-item" (click)="highReviewfilter()" [class.active]="activeFont === 3" HoverBlueBackground>리뷰많은 순</li>
                         </ul>
                       </app-filter-option>
                     </div>
@@ -244,19 +248,6 @@ import { store_list, categoryfilter, today_deal } from 'src/app/core/models/stor
     z-index: 1000;
   }
 
-  .filter-list-item {
-    font-size: 10px;
-    margin: 5px 0px 5px 20px;
-  }
-
-  .filter-wrapper {
-    right: -52px;
-    top: 5px;
-    position: absolute;
-    padding-top: 30px;  
-    z-index: 100;    
-  }
-
   .category-feed-filter-bar__secondary {
     display: flex;
     align-items: center;
@@ -270,6 +261,30 @@ import { store_list, categoryfilter, today_deal } from 'src/app/core/models/stor
     font-size: 13px;
     color: #757575;
   }
+
+  .filter-drop-button {
+    margin-right: 5px;
+  }
+
+  .filter-list-item {
+    font-size: 12px;
+    padding-left: 20px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+  }
+
+  .filter-wrapper {
+    right: -85px;
+    top: 30px;
+    position: absolute;
+    z-index: 100; 
+  }
+
+  .filter-list-item.active {
+    color: #35C5F0;
+    font-weight: bold;
+  }
   `]
 })
 export class CategoryComponent implements OnInit {
@@ -277,12 +292,13 @@ export class CategoryComponent implements OnInit {
 
   categoryLists: object;
   categoryFilter: any;
-  productItems: today_deal[];
+  productItems: today_deal[] = [];
   categoryName: string = '가구';
   setNumber: number;
   listActive: number = 2;
   filterListItem: string = '인기순';
   filterShow: boolean;
+  activeFont: number;
 
   constructor(private storeService: StoreService
     , private commonService: CommonService
@@ -314,18 +330,27 @@ export class CategoryComponent implements OnInit {
     this.productItems = this.productItems.sort(function(a, b) {
       return b.price - a.price;
     });
+    this.filterShow = false;
+    this.activeFont = 1;
+    this.filterListItem = '가격높은 순';
   }
 
   lowPricefilter() {
     this.productItems = this.productItems.sort(function(a, b) {
       return a.price - b.price;
     })
+    this.filterShow = false;
+    this.activeFont = 2;
+    this.filterListItem = '가격낮은 순';
   }
 
   highReviewfilter() {
     this.productItems = this.productItems.sort(function(a, b) {
       return b.review_count - a.review_count;
     })
+    this.filterShow = false;
+    this.activeFont = 3;
+    this.filterListItem = '리뷰많은 순'
   }
 
   showFilter() {
