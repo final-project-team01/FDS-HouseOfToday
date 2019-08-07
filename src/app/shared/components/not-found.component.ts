@@ -11,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
       <p class="not-found-message">요청하신 페이지를 찾을 수 없습니다!</p>
       <p>방문하시려는 페이지의 주소가 잘못 입력되었거나, 삭제되어 사용하실 수 없습니다. <br>
       입력하신 주소가 정확한지 다시 한번 확인해 주세요.</p>
-      <button BlueButton>보고할래요</button>
+      <button BlueButton class="cursor">보고할래요</button>
     </main>
   `,
   styles: [`
