@@ -60,7 +60,7 @@ import { FilterOptionComponent } from './components/filter-option/filter-option.
     PageFilterPipe,
     FilterButtonDirective,
     FilterDropButtonComponent,
-    FilterOptionComponent
+    FilterOptionComponent,
   ],
   imports: [CommonModule, CoreModule, AlyleModule, SharedRoutingModule],
   exports: [
@@ -88,7 +88,7 @@ import { FilterOptionComponent } from './components/filter-option/filter-option.
     PageFilterPipe,
     FilterButtonDirective,
     FilterDropButtonComponent,
-    FilterOptionComponent
+    FilterOptionComponent,
   ]
 })
 export class SharedModule { }

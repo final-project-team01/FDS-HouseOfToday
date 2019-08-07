@@ -31,7 +31,26 @@ import { store_list, categoryfilter, today_deal } from 'src/app/core/models/stor
                 </nav>
               </div>
             </div>
-            <app-sort-filter (highPricefilterEvent)="highPricefilter()" (lowPricefilterEvent)="lowPricefilter()" (highReviewfilterEvent)="highReviewfilter()"></app-sort-filter>
+            <div class="category-feed-filter-bar__secondary">
+              <p class="category-feed-filter-bar__secondary__summary">전체 {{commonService.addComma(productItems.length)}}</p>
+              <ul class="filter-bar__control-list__right">
+                <li class="filter-bar__control-list__item" (mouseover)="showFilter()" (mouseleave)="hideFilter()">
+                  <div class="drop-down panel-drop-down filter-bar-control">
+                    <button class="filter-bar-order-button" type="button">{{filterListItem}}</button>
+                    <div class="filter-wrapper">
+                      <app-filter-option class="filter-list-list"
+                      *ngIf="filterShow">
+                        <ul>
+                          <li class="filter-list-item" (click)="highPricefilter()">가격높은 순</li>
+                          <li class="filter-list-item" (click)="lowPricefilter()">가격낮은 순</li>
+                          <li class="filter-list-item" (click)="highReviewfilter()">리뷰많은 순</li>
+                        </ul>
+                      </app-filter-option>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div> 
             <div class="product-list">
               <app-product-list [productItems]="productItems" [menuWidth]="menuWidth" [setNumber]="setNumber"></app-product-list>
             </div>
@@ -188,6 +207,69 @@ import { store_list, categoryfilter, today_deal } from 'src/app/core/models/stor
     .categorylist.active {
       color: skyblue;
     }
+
+    .filter-bar-order-button {
+      user-select: none;
+      display: inline-block;
+      padding: 7px 4px 6px;
+      box-sizing: border-box;
+      border: none;
+      background: none;
+      color: #424242;
+      font-size: 13px;
+      font-family: inherit;
+      font-weight: 400;
+      line-height: 19px;
+      text-decoration: none;
+      text-align: center;
+      transition: opacity .1s;
+      cursor: pointer;
+  }
+
+  .filter-bar__control-list__left, .filter-bar__control-list__right {
+    flex: 0 0 auto;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    white-space: nowrap;
+  }
+
+  .drop-down {
+    position: relative;
+    display: inline-block;
+  }
+
+  .filter-list-list {
+    z-index: 1000;
+  }
+
+  .filter-list-item {
+    font-size: 10px;
+    margin: 5px 0px 5px 20px;
+  }
+
+  .filter-wrapper {
+    right: -52px;
+    top: 5px;
+    position: absolute;
+    padding-top: 30px;  
+    z-index: 100;    
+  }
+
+  .category-feed-filter-bar__secondary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 6px;
+    margin-bottom: 20px;
+  }
+
+  .category-feed-filter-bar__secondary__summary {
+    flex: 0 0 auto;
+    font-size: 13px;
+    color: #757575;
+  }
   `]
 })
 export class CategoryComponent implements OnInit {
@@ -199,6 +281,8 @@ export class CategoryComponent implements OnInit {
   categoryName: string = '가구';
   setNumber: number;
   listActive: number = 2;
+  filterListItem: string = '인기순';
+  filterShow: boolean;
 
   constructor(private storeService: StoreService
     , private commonService: CommonService
@@ -243,4 +327,13 @@ export class CategoryComponent implements OnInit {
       return b.review_count - a.review_count;
     })
   }
+
+  showFilter() {
+    this.filterShow = true;
+  }
+
+  hideFilter() {
+    this.filterShow = false;
+  }
+
 }
