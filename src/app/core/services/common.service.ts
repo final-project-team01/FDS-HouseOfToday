@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CoreModule } from '../core.module';
 import { HttpHeaders } from '@angular/common/http';
 import { user_detail } from '../models/user.interface';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: CoreModule
@@ -13,7 +14,7 @@ export class CommonService {
   private isNavFiexd = false;
   private userDetail: user_detail;
 
-  readonly url: string = "http://52.78.112.247/";
+  readonly url: string = environment.url
   constructor() { }
 
   setToken(newToken: string) {

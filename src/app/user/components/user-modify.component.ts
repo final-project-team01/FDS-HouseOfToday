@@ -227,7 +227,7 @@ export class UserModifyComponent implements OnInit {
   get userIntro() {
     return this.userFrom.get('userIntro');
   }
-  constructor(private fb: FormBuilder, private userService: UserService, private commonService: CommonService) {
+  constructor(private fb: FormBuilder, private userService: UserService, public commonService: CommonService) {
     commonService.getUserDetail();
     this.getEmailFormat();
   }
