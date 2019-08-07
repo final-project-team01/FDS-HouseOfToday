@@ -171,6 +171,15 @@
       }
     }
   }
+  .no-review{
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    p{
+      color: grey;
+    }
+  }
   .star{
     display: inline-block;
     width: 16px;

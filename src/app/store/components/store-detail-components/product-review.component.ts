@@ -57,20 +57,23 @@ import { review } from 'src/app/core/models/store.interface';
         <span class="blueText"> ({{ getScore(chosenScore) }}개)</span>
         <span class="icon-pointer close cursor" (click)="cancelFilter()"></span>
       </div>
-      <div class="user-review-container">
-      <article class="user-review" *ngFor="let review of filteredList | pageFilter: index">
-        <span class="user">사용자</span>
-        <div class="review-star-score">
-          <span class="star icon-etc" *ngFor="let star of range(review['star_score'])"></span>
-        </div>
-        <span class="review-date">{{ review.created }}</span>
-        <div class="review-image" *ngIf="review.image !== null">
-          <img src="{{ review.image }}">
-        </div>
-        <p class="review-comment">{{ review.comment }}</p>
-        <button class="helpful cursor">도움이 돼요</button>
-      </article>
+      <div class="user-review-container" *ngIf="filteredList.length !== 0; else noReview">
+        <article class="user-review" *ngFor="let review of filteredList | pageFilter: index">
+          <span class="user">사용자</span>
+          <div class="review-star-score">
+            <span class="star icon-etc" *ngFor="let star of range(review['star_score'])"></span>
+          </div>
+          <span class="review-date">{{ review.created }}</span>
+          <div class="review-image" *ngIf="review.image !== null">
+            <img src="{{ review.image }}">
+          </div>
+          <p class="review-comment">{{ review.comment }}</p>
+          <button class="helpful cursor">도움이 돼요</button>
+        </article>
       </div>
+      <ng-template #noReview class="no-review">
+        <div class="no-review"><p>리뷰가 없습니다.</p></div>
+      </ng-template>
       <app-pagination 
         [originalList]="filteredList"
         (change)="changePage($event)">
@@ -92,7 +95,7 @@ export class ProductReviewComponent implements OnInit {
   filteredList: review[];
   showFilter = 'none';
   chosenScore = 0;
-  scoreArray = [5, 4, 3, 2, 1];
+  scoreArray = [ 5, 4, 3, 2, 1 ];
   index = 0;
 
   constructor() { }
