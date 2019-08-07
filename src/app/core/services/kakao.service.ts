@@ -14,7 +14,7 @@ export class KakaoService {
   constructor(private storageService: StorageService
     , private router: Router
   ) {
-    Kakao.init(environment.kakao);
+    Kakao.init(environment['kakao']);
   }
 
   login(loginEvent) {

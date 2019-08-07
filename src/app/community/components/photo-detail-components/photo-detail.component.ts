@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonService } from 'src/app/core/services/common.service';
 import { ActivatedRoute } from '@angular/router';
 import { CommunityService } from 'src/app/core/services/community.service';
+import { photo_info, photo_comments } from 'src/app/core/models/community.interface';
 
 @Component({
   selector: 'app-photo-detail',
@@ -33,9 +34,8 @@ export class PhotoDetailComponent implements OnInit {
             , private communityService: CommunityService) { }
 
   id: number;
-  photoInfo: any;
-  comments = [];
-  commentPages = [];
+  photoInfo: photo_info;
+  comments: photo_comments[];
 
   ngOnInit() {
     this.commonService.setLocate(0);
@@ -46,8 +46,8 @@ export class PhotoDetailComponent implements OnInit {
       .subscribe(data => {
         this.photoInfo = data;
         this.comments = this.photoInfo.photo_comments;
-        const cp = Math.ceil(this.comments.length / 5);
-        this.commentPages = Array(cp);        
+        console.log(this.photoInfo);
+        
       });
   }
 

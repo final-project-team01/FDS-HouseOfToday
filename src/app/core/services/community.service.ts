@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { CoreModule } from '../core.module';
 import { CommonService } from './common.service';
-import { housewarming } from '../models/community.interface';
+import { housewarming, housewarming_info } from '../models/community.interface';
 
 @Injectable({
   providedIn: CoreModule
@@ -37,7 +37,7 @@ export class CommunityService {
   getProjectInfo(id: number) {
     const path = `community/housewarming/${id}/`;
     const fullPath = this.commonService.getFullPath(path);
-    return this.httpClient.get(fullPath);
+    return this.httpClient.get<housewarming_info>(fullPath);
   }
   getPhotoImage() {
     const path = '/community/photo/';

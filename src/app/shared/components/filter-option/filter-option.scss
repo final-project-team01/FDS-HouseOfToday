@@ -3,7 +3,6 @@
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 -1px 16px rgba(0, 0, 0, 0.2);
-  padding: 13px 15px;
   cursor: pointer;
 }
 .filter-option::after {
@@ -13,7 +12,7 @@
   border-top: solid 10px transparent;
   border-bottom: solid 10px transparent;
   border-right: solid 15px white;
-  top: 0;
+  top: -8px;
   left: 50%;
   transform: rotate(45deg);
   transform: translate(-100%, -50%) rotate(89deg);
