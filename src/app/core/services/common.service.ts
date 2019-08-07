@@ -78,6 +78,13 @@ export class CommonService {
     return this.userDetail;
   }
 
+  getUserDetailProfile() {    
+    return this.getUserDetail() ? this.getUserDetail()['type'] === 'django'
+      ? this.getUserDetail()['profile']
+      : this.getUserDetail()['social_profile']
+      : 'assets/image/36.png';
+  }
+
   addComma(num: number) {
     const regexp = /\B(?=(\d{3})+(?!\d))/g;
     return num.toString().replace(regexp, ',');

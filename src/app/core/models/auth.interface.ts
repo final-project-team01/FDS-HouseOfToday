@@ -10,7 +10,7 @@ export interface non_field_errors {
   non_field_errors: []
 }
 
-export interface userInfo {
+export interface user_info {
   email: string;
   password: string;
   nickname: string;

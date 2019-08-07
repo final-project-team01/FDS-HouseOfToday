@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/core/services/user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { userInfo } from 'src/app/core/models/auth.interface';
+import { user_info } from 'src/app/core/models/auth.interface';
 import { PasswordValidator } from './password-validator';
 import { Router } from '@angular/router';
 
@@ -106,8 +106,7 @@ import { Router } from '@angular/router';
         </p>
       </div>
     </main>
-  </div>
-  <pre>{{nickname.errors?.pattern |  json}}</pre>
+  </div>  
   
   `,
   styles: [`
@@ -277,7 +276,7 @@ import { Router } from '@angular/router';
 })
 export class SignupComponent implements OnInit {
   signupForm: FormGroup;
-  userInfo: userInfo;
+  userInfo: user_info;
   isMore14: false;
   isCheckAll: false;
   isPolicy: false;
