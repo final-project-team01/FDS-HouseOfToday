@@ -27,13 +27,13 @@
     }
   }
   .main-picture-container{
-    height: 570px;
     display: flex;
-    align-items: center;
+    height: 570px;
     overflow: hidden;
     border-radius: 10px;
     .main-picture{
       position: relative;
+      flex-shrink: 0;
       left: 0px;
       width: 570px;
       height: 570px;
