@@ -12,8 +12,6 @@ export class PageFilterPipe implements PipeTransform {
     const end = start + 5;
     const chosenList
       = originalList.filter((review, index) => index >= start && index < end);
-      console.log(originalList, chosenList);
-      
     return chosenList;
   }
 

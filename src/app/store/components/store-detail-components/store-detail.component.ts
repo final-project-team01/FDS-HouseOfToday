@@ -7,7 +7,7 @@ import { UserService } from 'src/app/core/services/user.service';
 import { CartService } from 'src/app/core/services/cart.service';
 
 import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
-import { thumbnail_image, detail_image, product_option, review, qna }
+import { thumbnail_image, detail_image, product_option, review, qna, product_info }
   from 'src/app/core/models/store.interface';
 import { cart_option, buy_option } from 'src/app/core/models/cart.interface';
 
@@ -97,7 +97,7 @@ export class StoreDetailComponent implements OnInit {
   activeId: number;
   sticky = false;
   noSticky = false;
-  productInfo: any;
+  productInfo: product_info;
   productImages: thumbnail_image[];
   productDetailImages: detail_image[];
   productOption: product_option[];

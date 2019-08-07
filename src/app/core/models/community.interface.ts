@@ -94,3 +94,91 @@ export interface commentInfo {
   author: string;
   text: string;
 }
+
+export interface housewarming_info {
+  id: number;
+  housewarming_detail_content: housewarming_detail_content[];
+  housewarming_comments: housewarming_comments[];
+  title: string;
+  created: string;
+  author: string;
+  author_profile: string;
+  like_count: number;
+  scrap_count: number;
+  hit_count: number;
+  cover_image: string;
+  structure: string;
+  floor_space: string;
+  style: string;
+  work: string;
+  area: string;
+  period: string;
+  budget: string;
+  family: string;
+  detail_part: string;
+  location: string;
+  comment_count: number;
+}
+
+export interface housewarming_detail_content {
+  id: number;
+  title: string;
+  image: string;
+  text: string;
+}
+
+export interface housewarming_comments {
+  id: number;
+  author: string;
+  author_profile_image: string;
+  text: string;
+  created: string;
+}
+
+export interface photo_info {
+  id?: number;
+  photo_comments?: photo_comments[];
+  category?: string;
+  created?: string;
+  image?: string;
+  axis_left?: number;
+  axis_top?: number;
+  product_image?: string;
+  product_id?: number;
+  text?: string;
+  author?: string;
+  author_profile_image?: string;
+  author_profile_comment?: string;
+  like_count?: number;
+  scrap_count?: number;
+  hit_count?: number;
+  comment_count?: number;
+}
+
+export interface photo_comments {
+  id: number;
+  author: string;
+  author_profile_image: string;
+  text: string;
+  created: string;
+  photo: number
+}
+
+export interface communityPhoto {
+  id: number;
+  author: string;
+  author_profile_image: string;
+  image: string;
+  hit_count: number;
+  like_count: number;
+  scrap_count: number;
+  comment_count: number;
+  text: string;
+  comments: commentInfo[];
+}
+
+export interface commentInfo {
+  author_profile_image: string;
+  author: string;
+  text: string;
+}
