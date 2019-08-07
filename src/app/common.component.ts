@@ -86,6 +86,54 @@ import { Component, OnInit } from '@angular/core';
       </dd>
     </dl>
 
+    <dl>
+      <dt>more button</dt>
+      <dd>
+        <div style="position:relative; height:50px;">
+          <span class="more-right" MoreButton></span>          
+        </div>
+        <div style="position:relative; height:50px;">
+          <span class="more-left" MoreButton></span>          
+        </div>
+
+        <div style="position:relative; height:100px; width:100px;" MoreBigButton>
+          <span class="more-left" MoreButton></span>          
+        </div>
+      </dd>
+      <dd>
+        <div [innerText]="moreButton">
+        </div>
+      </dd>
+    </dl>
+
+    <dl>
+      <dt>필터버튼 / 필터다운버튼</dt>
+      <dd>
+        <button FilterButton>필터버튼</button>
+        <app-filter-drop-button>드랍버튼</app-filter-drop-button>
+      </dd>
+      <dd>
+        <div [innerText]="filterButton">
+        </div>
+      </dd>
+    </dl>
+
+    <dl>
+      <dt>필터옵션창</dt>
+      <dd>       
+        <app-filter-option>
+        <ul>
+          <li>1</li>
+          <li>2</li>
+        </ul>
+        </app-filter-option>       
+        
+        <app-filter-option [width]="100">as</app-filter-option>        
+      </dd>
+      <dd>        
+      </dd>
+    </dl>
+
   
   `,
   styles: [
@@ -140,6 +188,33 @@ export class CommonComponent implements OnInit {
   OpacityDot7Font = `<a OpacityDot7Font>글자가</a>
         <button OpacityDot7Font>약간 흐려지는</button>
         <span OpacityDot7Font>OpacityDot7Font</span>`;
+
+  moreButton = `
+  <div style="position:relative; height:50px;">
+          <span class="more-right" MoreButton></span>          
+        </div>
+
+
+        <div style="position:relative; height:50px;">
+          <span class="more-left" MoreButton></span>          
+        </div>      
+
+        <div style="position:relative; height:100px; width:100px;" MoreBigButton>
+          <span class="more-left" MoreButton></span>          
+        </div>
+      `;
+
+  filterButton = `<button FilterButton>필터버튼</button>
+  <app-filter-drop-button>드랍버튼</app-filter-drop-button>`
+
+  filterOption = `<app-filter-option>
+  <ul>
+    <li>1</li>
+    <li>2</li>
+  </ul>
+  </app-filter-option>       
+  
+  <app-filter-option [width]="100">as</app-filter-option>`
   constructor() { }
 
   ngOnInit() {

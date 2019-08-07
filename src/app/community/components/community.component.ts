@@ -24,11 +24,12 @@ const styles = {
     <main role="main" id="root">
       <section class="container home-header">
         <div class="row">
-          <div class="col-12 col-md-9 home-head__story">
-            <article class="story-header" *ngFor="let mainImage of mainEntry">
-              <a class="story-header-link">
+          <div class="col-12 col-md-9 home-header__story">
+            <article class="story-header" *ngFor="let mainImage of mainEntry" ButtonTurnBlue>
+              <a class="story-header-link" ImageZoom>
                 <div class="story-header__image-wrap">
-                  <div class="story-header__image" [ngStyle]="{ 'background-image': 'url(' + mainImage.cover_image + ')' }"></div>
+                  <div class="story-header__image image-zoom" [ngStyle]="{ 'background-image': 'url(' + mainImage.cover_image + ')' }">
+                  </div>
                 </div>
                 <div class="story-header__content-wrap">
                   <div class="story-header__content">
@@ -39,7 +40,7 @@ const styles = {
                       <span class="story-header__content__profile__name">{{mainImage.author}}</span>
                     </div>
                   </div>
-                  <div class="home-header__story__more">보러가기</div>
+                  <div class="home-header__story__more button-turn-blue">보러가기</div>
                 </div>
               </a>
             </article>
@@ -85,7 +86,12 @@ const styles = {
                   <div class="story-entry__content">
                     <div class="story-entry__content__title">{{storyToday.title}}<br></div>
                     <div class="story-entry__content__profile">
-                      <img class="story-entry__content__profile__image" src="{{storyToday.author_profile}}">
+                      <app-basic-uses-avatar
+                      [size]="22"
+                      [pic]="storyToday.author_profile"
+                      [isBorder]="false"
+                      class="story-entry__content__profile__image">
+                      </app-basic-uses-avatar>
                       <span class="story-entry__content__profile__name">{{storyToday.author}}</span>
                     </div>
                   </div>
@@ -96,7 +102,7 @@ const styles = {
           <div class="menu-wrap">
             <div class="col-6 col-md-3 home-stories__content__menu-wrap">
               <div class="home-stories__content__menu">
-                <a *ngFor="let storyMenu of storiesMenu"class="home-stories__content__menu__entry">
+                <a *ngFor="let storyMenu of storiesMenu"class="home-stories__content__menu__entry" ButtonColorChange>
                   <div class="description">{{storyMenu.description}}</div>
                   <div class="title">
                     <span class="text">{{storyMenu.title}}</span>
@@ -130,14 +136,19 @@ const styles = {
         <ul class="row home-cards__content">
           <li *ngFor="let storyFame of storiesFame; let i = index" class="col-6 col-md-3 home-cards__content__item">
             <article class="story-entry story-card-item">
-              <a class="story-entry-link">
+              <a class="story-entry-link" routerLink="/photo/{{storyFame.id}}" ImageZoom>
                 <div class="story-entry__image-wrap">
-                  <img class="story-entry__image" src="{{storyFame.image}}">
+                  <img class="story-entry__image image-zoom" src="{{storyFame.image}}">
                 </div>
                 <div class="story-entry__content-wrap">
                   <div class="story-entry__content">
                     <div class="story-entry__content__profile">
-                      <img class="story-entry__content__profile__image" src="{{storyFame.author_profile_image}}">
+                      <app-basic-uses-avatar
+                      [size]="22"
+                      [pic]="storyFame.author_profile_image"
+                      [isBorder]="false"
+                      class="story-entry__content__profile__image">
+                      </app-basic-uses-avatar>
                       <span class="story-entry__content__profile__name">{{storyFame.author}}</span>
                     </div>
                   </div>
@@ -160,16 +171,16 @@ const styles = {
         </header>
         <div class="production-rank-feed">
           <ul class="production-rank-feed__category">
-            <li *ngFor="let rankFeed of rankFeeds; let i = index" class="production-rank-feed__category__item" role="button" (click)="changeCategory(rankFeed.id)" [class.active]="clicked === rankFeed.id">{{rankFeed.categoryName}}</li>
+            <li *ngFor="let rankFeed of rankFeeds; let i = index" class="production-rank-feed__category__item" role="button" (click)="changeCategory(rankFeed.id)" [class.active]="clicked === rankFeed.id" BlueFont>{{rankFeed.categoryName}}</li>
           </ul>
           <div class="row production-rank-feed__group">
             <div class="col production-rank-feed__list-wrap">
               <ul class="row production-rank-feed__list">
                 <div class="col-4 production-rank-feed__item" *ngFor="let best3 of best100; let i = index">
                   <div class="product-simplified home-production-item">
-                    <a class="product-item">
+                    <a class="product-item" routerLink="/store/{{best3.id}}" ImageZoom>
                       <div class="img-wrap square">
-                        <img class="lazyload" src="{{best3.thumnail_images[0].image}}">
+                        <img class="lazyload image-zoom" src="{{best3.thumnail_images[0].image}}">
                       </div>
                       <div class="info">
                         <p class="product-name text-caption-1 line-height-normal">{{best3.name}}</p>
@@ -188,11 +199,12 @@ const styles = {
             </div>
             <div class="col-12 col-md-3 home-rank__more-wrap">
               <div class="home-rank__more-container">
-                <a class="home-rank__more" (mouseover)="selectedActive()" (mouseleave)="unselectActive()" routerLink="/store/rank">
+                <a class="home-rank__more" routerLink="/store/rank" MoreBigButton>
                   <div class="home-rank__more__text">베스트 100 보기
                     <div class="home-rank__more__text__icon">
-                      <span class="unselected icon-page-home__b-1"></span>
-                      <span class="selected icon-page-home__b-1" [class.active]="activeSelect"></span>
+                      <div style="position:relative; height:50px;">
+                        <span class="more-right" MoreButton></span> 
+                      </div>
                     </div>
                   </div>
                 </a>
@@ -275,7 +287,7 @@ const styles = {
     touch-action: manipulation;
   }
 
-  .home-header__story, .story-header__image {
+  .home-header__story .story-header__image {
     padding-bottom: 60%;
     background-color: whitesmoke;
     background-size: cover;
@@ -284,7 +296,7 @@ const styles = {
     border-radius: 5px;
   }
 
-  .home-header__story, .story-header__content-wrap {
+  .home-header__story .story-header__content-wrap {
     padding: 40px;
     flex-direction: row;
     justify-content: flex-end;
@@ -307,7 +319,7 @@ const styles = {
     font-weight: bold;
   }
 
-  .home-header__story, .story-header__content__title {
+  .home-header__story .story-header__content__title {
     max-height: 88px;
     font-size: 28px;
     margin: 8px 0 10px;
@@ -317,7 +329,7 @@ const styles = {
     word-wrap: break-word;
   }
 
-  .home-header__story, .story-header__content__profile {
+  .home-header__story .story-header__content__profile {
     display: block;
     font-size: 13px;
     font-weight: normal;
@@ -326,7 +338,7 @@ const styles = {
     overflow: hidden;
   }
 
-  .home-header__story, .story-header__content__profile__image {
+  .home-header__story .story-header__content__profile__image {
     width: 22px;
     height: 22px;
     vertical-align: -8px;
@@ -576,8 +588,6 @@ const styles = {
   }
 
   .story-story-item .story-entry__content__profile__image {
-    width: 22px;
-    height: 22px;
     vertical-align: -8px;
     display: inline-block;
     background-size: cover;
@@ -652,8 +662,6 @@ const styles = {
   }
 
   .story-card-item .story-entry__content__profile__image {
-    width: 22px;
-    height: 22px;
     vertical-align: -7px;
     display: inline-block;
     border-radius: 100%;

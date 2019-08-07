@@ -25,7 +25,14 @@ import { ImageZoomDirective } from './directive/image-zoom.directive';
 import { CheckBoxComponent } from './components/check-box/check-box.component';
 import { BlueFontDirective } from './directive/blue-font.directive';
 import { OpacityDot7FontDirective } from './directive/opacity-dot7-font.directive';
+import { ButtonColorChangeDirective } from './directive/button-color-change.directive';
+import { ButtonTurnBlueDirective } from './directive/button-turn-blue.directive';
+import { MoreButtonDirective } from './directive/more-button.directive';
+import { MoreBigButtonDirective } from './directive/more-big-button.directive';
 import { PageFilterPipe } from './page-filter.pipe';
+import { FilterButtonDirective } from './directive/filter-button.directive';
+import { FilterDropButtonComponent } from './components/filter-drop-button.component';
+import { FilterOptionComponent } from './components/filter-option/filter-option.component';
 
 @NgModule({
   declarations: [
@@ -46,8 +53,14 @@ import { PageFilterPipe } from './page-filter.pipe';
     CheckBoxComponent,
     BlueFontDirective,
     OpacityDot7FontDirective,
-    PageFilterPipe
-
+    ButtonColorChangeDirective,
+    ButtonTurnBlueDirective,
+    MoreButtonDirective,
+    MoreBigButtonDirective,
+    PageFilterPipe,
+    FilterButtonDirective,
+    FilterDropButtonComponent,
+    FilterOptionComponent
   ],
   imports: [CommonModule, CoreModule, AlyleModule, SharedRoutingModule],
   exports: [
@@ -68,8 +81,14 @@ import { PageFilterPipe } from './page-filter.pipe';
     CheckBoxComponent,
     BlueFontDirective,
     OpacityDot7FontDirective,
-    PageFilterPipe
-
+    ButtonColorChangeDirective,
+    ButtonTurnBlueDirective,
+    MoreButtonDirective,
+    MoreBigButtonDirective,
+    PageFilterPipe,
+    FilterButtonDirective,
+    FilterDropButtonComponent,
+    FilterOptionComponent
   ]
 })
 export class SharedModule { }
