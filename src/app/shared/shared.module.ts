@@ -33,6 +33,7 @@ import { PageFilterPipe } from './page-filter.pipe';
 import { FilterButtonDirective } from './directive/filter-button.directive';
 import { FilterDropButtonComponent } from './components/filter-drop-button.component';
 import { FilterOptionComponent } from './components/filter-option/filter-option.component';
+import { HoverBlueBackgroundDirective } from './directive/hover-blue-background.directive';
 import { PopUpComponent } from './components/pop-up.component';
 
 @NgModule({
@@ -62,6 +63,7 @@ import { PopUpComponent } from './components/pop-up.component';
     FilterButtonDirective,
     FilterDropButtonComponent,
     FilterOptionComponent,
+    HoverBlueBackgroundDirective,
     PopUpComponent,
   ],
   imports: [CommonModule, CoreModule, AlyleModule, SharedRoutingModule],
@@ -91,6 +93,7 @@ import { PopUpComponent } from './components/pop-up.component';
     FilterButtonDirective,
     FilterDropButtonComponent,
     FilterOptionComponent,
+    HoverBlueBackgroundDirective
   ]
 })
 export class SharedModule { }

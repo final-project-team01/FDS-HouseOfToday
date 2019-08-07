@@ -36,7 +36,7 @@ const styles = {
                     <div class="story-header__content__title">{{mainImage.title}}<br>
                     </div>
                     <div class="story-header__content__profile">
-                      <img class="story-header__content__profile__image" src="{{mainImage.author_profile}}"> 
+                      <img class="story-header__content__profile__image" src="{{mainImage.author_profile_image}}"> 
                       <span class="story-header__content__profile__name">{{mainImage.author}}</span>
                     </div>
                   </div>
@@ -78,7 +78,7 @@ const styles = {
         <ul class="row home-stories__content">
           <li *ngFor="let storyToday of storiesToday" class="col-6 col-md-3 home-stories__content__item">
             <article class="story-entry story-story-item">
-              <a class="story-entry-link" ImageZoom>
+              <a routerLink="/project/{{storyToday.id}}"class="story-entry-link" ImageZoom>
                 <div class="story-entry__image-wrap">
                   <img class="story-entry__image image-zoom" src="{{storyToday.cover_image}}">
                 </div>
@@ -88,7 +88,7 @@ const styles = {
                     <div class="story-entry__content__profile">
                       <app-basic-uses-avatar
                       [size]="22"
-                      [pic]="storyToday.author_profile"
+                      [pic]="storyToday.author_profile_image"
                       [isBorder]="false"
                       class="story-entry__content__profile__image">
                       </app-basic-uses-avatar>
@@ -102,7 +102,7 @@ const styles = {
           <div class="menu-wrap">
             <div class="col-6 col-md-3 home-stories__content__menu-wrap">
               <div class="home-stories__content__menu">
-                <a *ngFor="let storyMenu of storiesMenu"class="home-stories__content__menu__entry" ButtonColorChange>
+                <a *ngFor="let storyMenu of storiesMenu"class="home-stories__content__menu__entry" routerLink="/{{storyMenu.route}}" ButtonColorChange>
                   <div class="description">{{storyMenu.description}}</div>
                   <div class="title">
                     <span class="text">{{storyMenu.title}}</span>
@@ -1006,15 +1006,18 @@ export class CommunityComponent implements OnInit {
   storiesMenu = [
     {
       description: '예쁜 집 구경하기',
-      title: '집들이'
+      title: '집들이',
+      route: 'project'
     },
     {
       description: '전문가 시공사례',
-      title: '전문가 집들이'
+      title: '전문가 집들이',
+      route: 'project'
     },
     {
       description: '인테리어 꿀팁 총 집합',
-      title: '노하우'
+      title: '노하우',
+      route: 'project'
     },
   ]
 
