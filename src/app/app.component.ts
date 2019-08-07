@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LyTheme2, ThemeVariables } from '@alyle/ui';
 import { StorageService } from './core/services/storage.service';
 import { CommonService } from './core/services/common.service';
 import { UserService } from './core/services/user.service';
 import { Title } from '@angular/platform-browser';
+import { Router, NavigationEnd } from '@angular/router';
 
 const STYLES = (theme: ThemeVariables) => ({
   '@global': {
@@ -24,7 +25,7 @@ const STYLES = (theme: ThemeVariables) => ({
   `,
   styles: []
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   readonly classes = this.theme.addStyleSheet(STYLES);
 
   title = 'ohouse';
@@ -34,8 +35,19 @@ export class AppComponent {
     private storageService: StorageService,
     private commonService: CommonService,
     private userService: UserService,
-    private titleService: Title
-  ) {
+    private titleService: Title,
+    private router: Router
+  ) { }
+
+  ngOnInit() {
+
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+        return;
+      }
+      window.scrollTo(0, 0)
+    });
+
     if (!this.commonService.Token) {
       const user = this.storageService.getLocal('user');
       this.commonService.setToken(user);
