@@ -268,7 +268,7 @@ import { store_list, categoryfilter, today_deal } from 'src/app/core/models/stor
 
   .filter-list-item {
     font-size: 12px;
-    padding: 5px 0px 5px 20px;
+    padding-left: 20px;
     height: 60px;
     display: flex;
     align-items: center;
@@ -292,7 +292,7 @@ export class CategoryComponent implements OnInit {
 
   categoryLists: object;
   categoryFilter: any;
-  productItems: today_deal[];
+  productItems: today_deal[] = [];
   categoryName: string = '가구';
   setNumber: number;
   listActive: number = 2;
@@ -332,6 +332,7 @@ export class CategoryComponent implements OnInit {
     });
     this.filterShow = false;
     this.activeFont = 1;
+    this.filterListItem = '가격높은 순';
   }
 
   lowPricefilter() {
@@ -340,6 +341,7 @@ export class CategoryComponent implements OnInit {
     })
     this.filterShow = false;
     this.activeFont = 2;
+    this.filterListItem = '가격낮은 순';
   }
 
   highReviewfilter() {
@@ -348,6 +350,7 @@ export class CategoryComponent implements OnInit {
     })
     this.filterShow = false;
     this.activeFont = 3;
+    this.filterListItem = '리뷰많은 순'
   }
 
   showFilter() {
