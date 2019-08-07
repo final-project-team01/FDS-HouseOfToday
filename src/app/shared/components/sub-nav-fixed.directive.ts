@@ -15,10 +15,10 @@ export class SubNavFixedDirective {
 
 
   @HostListener("mouseout", ["$event"]) mouseout(event) {
-    if (!this.commonService.getIsNavFixed() && event.clientY > 130)
+    if (!this.commonService.getIsNavFixed() && event.clientY > this.el.nativeElement.offsetTop + this.el.nativeElement.offsetHeight)
       this.commonService.resetNav();
 
-    else if (this.commonService.getIsNavFixed() && (event.clientY > 130 || event.clientY < 81))
+    else if (this.commonService.getIsNavFixed() && (event.clientY > this.el.nativeElement.offsetTop + this.el.nativeElement.offsetHeight || event.clientY < this.el.nativeElement.offsetTop))
       this.commonService.setNav(-1);
   }
 
