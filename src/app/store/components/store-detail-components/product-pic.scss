@@ -27,18 +27,17 @@
     }
   }
   .main-picture-container{
-    display: inline-block;
+    height: 570px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 10px;
     .main-picture{
-      display: inline-block;
-      position: absolute;
-      top: 0;
-      left: 0;
-      border-radius: 10px;
+      position: relative;
+      left: 0px;
       width: 570px;
       height: 570px;
-    }
-    .main-picture.active{
-      z-index: 10;
+      transition: left 0.5s;
     }
   }
 }
