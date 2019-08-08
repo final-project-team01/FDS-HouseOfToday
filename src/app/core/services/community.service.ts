@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { CoreModule } from '../core.module';
 import { CommonService } from './common.service';
-import { housewarming, housewarming_info } from '../models/community.interface';
+import { housewarming, housewarming_info, communityPhoto } from '../models/community.interface';
 
 @Injectable({
   providedIn: CoreModule
@@ -12,7 +12,7 @@ export class CommunityService {
   constructor(
     private httpClient: HttpClient,
     private commonService: CommonService
-  ) {}
+  ) { }
 
   getCommunityHome() {
     const path = 'community/home/';
@@ -42,6 +42,6 @@ export class CommunityService {
   getPhotoImage() {
     const path = '/community/photo/';
     const fullPath = this.commonService.getFullPath(path);
-    return this.httpClient.get(fullPath);
+    return this.httpClient.get<communityPhoto[]>(fullPath);
   }
 }
