@@ -9,11 +9,7 @@ import { review } from 'src/app/core/models/store.interface';
       <a class="write-review cursor">리뷰쓰기</a>
       <div class="star-rate-container">
         <span class="star-avg">{{ starAvg }}</span>
-        <div class="star-bg">
-          <div class="star-rate" [style.width.px]="starAvg * 60">
-            <img src="../../../../assets/image/star-rate.png">
-          </div>
-        </div>
+        <app-star-rate [starAvg]="starAvg" [width]="300"></app-star-rate>
       </div>
       <div class="filter-container">
       <ul>

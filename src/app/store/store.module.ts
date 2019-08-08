@@ -30,6 +30,7 @@ import { RankContainerComponent } from './components/rank-container.component';
 import { RankBestComponent } from './components/rank-best.component';
 import { CartModalComponent } from './components/store-detail-components/cart-modal.component';
 import { SortFilterComponent } from './components/sort-filter.component';
+import { StarRateComponent } from './components/store-detail-components/star-rate.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { SortFilterComponent } from './components/sort-filter.component';
     , RankBestComponent
     , CartModalComponent
     , SortFilterComponent
+    , StarRateComponent
   ],
   imports: [
     CommonModule

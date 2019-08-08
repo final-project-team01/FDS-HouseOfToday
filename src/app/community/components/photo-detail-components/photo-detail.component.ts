@@ -53,10 +53,7 @@ export class PhotoDetailComponent implements OnInit {
       .subscribe(data => {
         this.photoInfo = data;
         this.comments = this.photoInfo.photo_comments;
-        console.log(this.photoInfo);
-
         this.titleService.setTitle(`${this.photoInfo["author"]}님의 인테리어 사진|오늘의 집 유저들의 집 꾸미기`);
-
       });
   }
 

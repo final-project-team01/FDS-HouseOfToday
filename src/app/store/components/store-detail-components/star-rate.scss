@@ -1,0 +1,16 @@
+  .star-bg{
+    width:300px;
+    background-color: lightgrey;
+    display: inline-block;
+    .star-rate{
+      width: 1px;
+      height: calc(width / 5);
+      background-color: #35C5F0;
+      background-repeat: no-repeat;
+      > img{
+        width: 300px;
+        vertical-align: middle;
+        margin-top: -3px;
+      }
+    }
+  }

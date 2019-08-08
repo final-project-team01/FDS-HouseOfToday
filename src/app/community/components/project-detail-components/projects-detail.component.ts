@@ -49,9 +49,8 @@ export class ProjectsDetailComponent implements OnInit {
     this.communityService.getProjectInfo(this.id)
       .subscribe(data => {
         this.projectInfo = data;
-        this.titleService.setTitle(`${this.projectInfo["title"]}|오늘의 집 인테리어 고수들의 집 꾸미기`);
-        console.log(this.projectInfo);
 
+        this.titleService.setTitle(`${this.projectInfo["title"]}|오늘의 집 인테리어 고수들의 집 꾸미기`);
       });
   }
 
