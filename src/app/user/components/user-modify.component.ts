@@ -12,7 +12,7 @@ import { gender, account_update_payload } from 'src/app/core/models/user.interfa
     <app-user-nav></app-user-nav>    
     <div class="contents">
       <div class="user_modi_title">회원정보수정</div>
-      <div class="withdraw"><a href="#">탈퇴하기</a></div>
+      <div class="withdraw"><a >탈퇴하기</a></div>
       <form [formGroup]="userFrom" class="edit_user_profile" (ngSubmit)="onSubmit()">
         <div class="field">
           <div class="user_modi_subtitle">이메일</div>
@@ -144,6 +144,9 @@ import { gender, account_update_payload } from 'src/app/core/models/user.interfa
       .profile_image {
         width: 220px;
         height: 220px;
+      }
+      .profile_image > img{
+        width:220px;
       }
       .cover_image {
         width: 350px;
