@@ -3,8 +3,7 @@ import { CommonService } from 'src/app/core/services/common.service';
 
 @Component({
   selector: 'app-header',
-  template: `
-    <app-pop-up *ngIf="commonService.isPopup"></app-pop-up>
+  template: `    
     <header>
       <app-navigation></app-navigation>
       <div class="sub-nav" SubNavFixed>
@@ -28,7 +27,6 @@ import { CommonService } from 'src/app/core/services/common.service';
   ]
 })
 export class HeaderComponent {
-  isPopup = true;
   constructor(public commonService: CommonService) { }
 
 

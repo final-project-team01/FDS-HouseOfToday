@@ -1,3 +1,4 @@
+$width: calc(100vw - 18px);
 .main-nav {
   /*position: fixed;*/
   top: 0;
@@ -7,7 +8,7 @@
   transition: top 0.1s;
   background-color: white;
   border-bottom: 1px solid #ededed;
-  width: calc(100vw - 18px);
+  width: $width;
 }
 .navigation-primary {
   box-sizing: border-box;
