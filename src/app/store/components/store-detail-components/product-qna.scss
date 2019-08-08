@@ -60,3 +60,12 @@ small{
   font-size: 12px;
   color: #bdbdbd;
 }
+.no-qna{
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  p{
+    color: grey;
+  }
+}

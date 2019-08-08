@@ -6,6 +6,7 @@ import { qna } from 'src/app/core/models/store.interface';
   template: `
     <div class="product-qna-container" *ngIf="originalList">
       <button class="write-qna cursor">문의하기</button>
+      <div class="user-qna-container" *ngIf="originalList.length !== 0; else noQna">
       <article class="user-qna" *ngFor="let qna of originalList | pageFilter: index; let i = index">
         <div class="qna-type">
           <span class="bar">구매</span>
@@ -30,6 +31,10 @@ import { qna } from 'src/app/core/models/store.interface';
         </p>
         </div>
       </article>
+      </div>
+      <ng-template #noQna>
+        <div class="no-qna"><p>문의가 없습니다.</p></div>
+      </ng-template>
       <app-pagination 
         [originalList]="originalList"
         (change)="changePage($event)"
@@ -50,7 +55,7 @@ export class ProductQnaComponent implements OnInit {
   }
 
   changePage(i: number){
-    this.index = i
+    this.index = i;
   }
 
 }

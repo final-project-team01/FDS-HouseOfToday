@@ -69,7 +69,7 @@ import { review } from 'src/app/core/models/store.interface';
           <button class="helpful cursor">도움이 돼요</button>
         </article>
       </div>
-      <ng-template #noReview class="no-review">
+      <ng-template #noReview>
         <div class="no-review"><p>리뷰가 없습니다.</p></div>
       </ng-template>
       <app-pagination 
