@@ -494,9 +494,11 @@ const styles = {
 
     .filter-wrapper {
       right: -85px;
-      top: 40px;
+      top: 20px;
       position: absolute;
       z-index: 100; 
+      padding-top: 20px;
+      cursor: pointer;
     }
 
     .filter-list-item.active {
