@@ -21,7 +21,7 @@ import { housewarming_posts } from 'src/app/core/models/community.interface';
             [pic]="item['author_profile_image']"
             [isBorder]="false">
             </app-basic-uses-avatar>
-            <span class="item-writer-name">작성자</span>
+            <span class="item-writer-name">{{item['author']}}</span>
           </div>
           <div class="project-item-stats">
             <span>스크랩 {{item['scrap_count']}}</span>
