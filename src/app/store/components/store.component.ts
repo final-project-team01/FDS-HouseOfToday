@@ -23,6 +23,7 @@ const styles = {
   selector: 'app-store',
   template: `
     <app-header></app-header>
+    <div class="viewport">
     <div class="featured-banner">
       <ly-carousel class="store-carousel" [withClass]="classes.carousel">
         <ly-carousel-item
@@ -131,9 +132,12 @@ const styles = {
     <div class="footer">
       <app-footer></app-footer>
     </div>
+    </div>
   `,
   styles: [
-    `
+    ` .viewport{
+        width: calc(100vw - 18px);
+      }
       .featured-banner {
         position: relative;
         height: 375px;

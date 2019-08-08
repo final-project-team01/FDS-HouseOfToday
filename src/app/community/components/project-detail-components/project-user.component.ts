@@ -22,12 +22,13 @@ import { housewarming_info } from 'src/app/core/models/community.interface';
       <div class="author">
         <app-basic-uses-avatar
           [size]="50"
-          [pic]="projectInfo.author_profile"
+          [pic]="projectInfo.author_profile_image"
           [isBorder]="false"
           class="author_profile_image">
         </app-basic-uses-avatar>
           <div class="about-author">
             <span class="author-name">{{ projectInfo.author }}</span><br>
+            <span class="author-profile-comment">{{ projectInfo.author_profile_comment }}</span>
           </div>
         <button class="follow cursor">팔로우</button>
       </div>
@@ -126,6 +127,10 @@ import { housewarming_info } from 'src/app/core/models/community.interface';
   .author-name{
     font-weight: 700;
     font-size: 15px;
+  }
+  .author-profile-comment{
+    font-size: 11px;
+    color: #757575;
   }
   .follow{
     height: 30px;

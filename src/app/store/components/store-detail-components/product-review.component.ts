@@ -59,7 +59,7 @@ import { review } from 'src/app/core/models/store.interface';
         <span class="blueText"> ({{ getScore(chosenScore) }}개)</span>
         <span class="icon-pointer close cursor" (click)="cancelFilter()"></span>
       </div>
-      <div class="user-review-container" *ngIf="filteredList.length !== 0; else noReview">
+      <div class="user-review-container" *ngIf="filteredList?.length !== 0; else noReview">
         <article class="user-review" *ngFor="let review of filteredList | pageFilter: index">
           <span class="user">사용자</span>
           <div class="review-star-score">

@@ -6,9 +6,9 @@ import { product_option } from 'src/app/core/models/store.interface';
 @Component({
   selector: 'app-product-option',
   template: `
-    <div class="product-option-container">
+    <div class="product-option-container" *ngIf="productOption">
       <div class="selectbox" (clickOutside)="hide()">
-      <input type="text" placeholder="옵션" readonly (focus)="show()" class="cursor" #optionInput>
+      <input type="text" placeholder="{{ productOption[0].type }}" readonly (focus)="show()" class="cursor" #optionInput>
         <span class="product-option-icon icon-pointer"></span>
         <ul class="option-item-list" *ngIf="visible">
           <li *ngFor="let option of productOption; let i = index" class="option-item cursor"
