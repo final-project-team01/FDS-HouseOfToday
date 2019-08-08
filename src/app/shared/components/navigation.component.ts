@@ -6,6 +6,7 @@ import { CartService } from 'src/app/core/services/cart.service';
 @Component({
   selector: 'app-navigation',
   template: `
+    <app-pop-up *ngIf="commonService.isPopup"></app-pop-up>
     <div class="main-nav" NavFixed>
       <nav class="navigation-primary">              
         <a routerLink="/" routerLinkActive="active"

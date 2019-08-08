@@ -25,9 +25,11 @@ import { CommonService } from 'src/app/core/services/common.service';
       line-height: 1.3;
       z-index: 1000;
       overflow: hidden;
+      background-color: #35c5f0;      
+      width: calc(100vw - 18px);
+      
     }
-    .pop-up-message{
-      background-color: #35c5f0;
+    .pop-up-message{      
       position: relative;
       display: block;
       height: 80px;
