@@ -29,26 +29,26 @@ import { CommonService } from 'src/app/core/services/common.service';
               </div>
               <div class="short-cut">
                 <div class="short-cut-item">
-                  <a href="#"
+                  <a
                     ><div class="short-cut-icon scrap"></div>
                     스크랩북</a
                   >
                 </div>
                 <div class="short-cut-item">
-                  <a href="#"
+                  <a
                     ><div class="short-cut-icon like"></div>
                     좋아요</a
                   >
                 </div>
                 <div class="short-cut-item">
-                  <a href="#"
+                  <a
                     ><div class="short-cut-icon description"></div>
                     설명</a
                   >
                 </div>
               </div>
               <div class="addFriend_btn">
-                <button><a href="#">친구초대 +5000P</a></button>
+                <button><a>친구초대 +5000P</a></button>
               </div>
             </div>
           </div>
@@ -58,14 +58,14 @@ import { CommonService } from 'src/app/core/services/common.service';
           <div class="contents">
             <section class="post post_photo">
               <h5 class="post_title">사진 <strong>0</strong></h5>
-              <a href="#" class="upload_photo">
+              <a class="upload_photo">
                 <span class="more_icon"></span>
                 첫 번째 사진을 올려보세요</a
               >
             </section>
             <section class="post post_project">
               <h5 class="post_title">집들이 <strong>0</strong></h5>
-              <a href="#" class="upload_project">
+              <a class="upload_project">
                 <span class="more_icon"></span>
                 첫 번째 집들이를 올려보세요</a
               >
