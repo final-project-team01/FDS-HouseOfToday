@@ -9,11 +9,7 @@ import { product_info } from 'src/app/core/models/store.interface';
     <a href="#"><small class="text-grey">{{ productInfo.brand_name }}</small></a>
     <h1 class="product-name">{{ productInfo.name }}</h1>
     <div class="star-grade">
-      <span class="icon-etc"></span>
-      <span class="icon-etc"></span>
-      <span class="icon-etc"></span>
-      <span class="icon-etc"></span>
-      <span class="icon-etc half"></span>
+    <app-star-rate [starAvg]="productInfo.star_avg" [width]="100"></app-star-rate>
         {{ productInfo.review.length }}개 리뷰
     </div>
     <div class="product-price">

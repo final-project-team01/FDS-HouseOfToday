@@ -6,6 +6,7 @@ import { user_order } from 'src/app/core/models/user.interface';
   selector: 'app-order-list',
   template: `
     <app-navigation></app-navigation>
+    <div class="viewport">
     <app-user-nav></app-user-nav>
     <div class="shopping_order_list">
       <div class="my_mileage">
@@ -100,9 +101,13 @@ import { user_order } from 'src/app/core/models/user.interface';
       </div>
     </div>
     <app-footer></app-footer>
+    </div>
   `,
   styles: [
     `
+    .viewport{
+      width: calc(100vw - 18px);
+    }
       /* order-list */
       body {
         line-height: 1;

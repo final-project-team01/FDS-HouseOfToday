@@ -6,6 +6,7 @@ import { CommonService } from 'src/app/core/services/common.service';
   selector: 'app-users',
   template: `
     <app-navigation></app-navigation>
+    <div class="viewport">
     <app-user-nav></app-user-nav>
     <div class="container">
       <div class="row">
@@ -75,9 +76,13 @@ import { CommonService } from 'src/app/core/services/common.service';
       </div>
     </div>
     <app-footer></app-footer>
+    </div>
   `,
   styles: [
-    `
+    /* 페이지 움찔하는거 고침 */
+    `.viewport{
+      width: calc(100vw - 18px);
+    }
       /* user profile */
       body {
         font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', '맑은 고딕';
