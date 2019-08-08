@@ -91,6 +91,15 @@ export class CartService {
       )
     );
   }
+
+  toggleCheckedAll(isChecked: boolean) {
+    this.setCartItems(
+      this._cartItem.map(
+        item => { return { ...item, isChecked } }
+      )
+    );
+  }
+
   reset() {
     this._cartItem = [];
   }

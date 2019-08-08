@@ -43,7 +43,6 @@ export class KakaoService {
   logout(removeFunc) {
     Kakao.Auth.logout(
       (obj) => {
-        console.log("logout", obj);
         if (obj) {
           removeFunc();
           this.router.navigate(['/']);
