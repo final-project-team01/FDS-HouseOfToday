@@ -52,7 +52,8 @@ import { StarRateComponent } from './components/store-detail-components/star-rat
     , RankContainerComponent
     , RankBestComponent
     , CartModalComponent
-    , SortFilterComponent, StarRateComponent
+    , SortFilterComponent
+    , StarRateComponent
   ],
   imports: [
     CommonModule
