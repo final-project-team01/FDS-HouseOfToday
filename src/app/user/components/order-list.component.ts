@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/core/services/user.service';
 import { user_order } from 'src/app/core/models/user.interface';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-order-list',
@@ -273,9 +274,10 @@ import { user_order } from 'src/app/core/models/user.interface';
   ]
 })
 export class OrderListComponent implements OnInit {
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private titleService: Title) { }
   orderList: user_order[] = [];
   ngOnInit() {
+    this.titleService.setTitle("1등 인테리어 집꾸미기 서비스, 오늘의 집");
     this.userService.getProductOrder().subscribe(
       orderList => this.orderList = orderList
     )

@@ -3,6 +3,7 @@ import { CommunityService } from 'src/app/core/services/community.service';
 import { CommonService } from 'src/app/core/services/common.service';
 import { communityPhoto } from 'src/app/core/models/community.interface';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-photo',
@@ -266,10 +267,12 @@ export class PhotoComponent implements OnInit {
   constructor(
     private communityService: CommunityService,
     private commonService: CommonService,
-    private router: Router
+    private router: Router,
+    private titleService: Title
   ) { }
 
   ngOnInit() {
+    this.titleService.setTitle("1등 인테리어 집꾸미기 서비스, 오늘의 집");
     this.commonService.setLocate(0);
     this.commonService.setNav(0);
     this.communityService.getPhotoImage().subscribe((data) => {

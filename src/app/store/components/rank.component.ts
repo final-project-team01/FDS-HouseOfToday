@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { StoreService } from 'src/app/core/services/store.service';
 import { CommonService } from 'src/app/core/services/common.service';
 import { rankingPage, today_deal } from 'src/app/core/models/store.interface';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-rank',
@@ -37,9 +38,11 @@ export class RankComponent implements OnInit {
 
   constructor(private storeService: StoreService
     , private commonService: CommonService
+    , private titleService: Title
   ) { }
 
   ngOnInit() {
+    this.titleService.setTitle("1등 인테리어 집꾸미기 서비스, 오늘의 집");
     this.commonService.setLocate(1);
     this.commonService.setNav(1);
     this.storeService.getRankingList()

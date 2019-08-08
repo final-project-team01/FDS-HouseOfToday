@@ -3,6 +3,7 @@ import { LyTheme2 } from '@alyle/ui';
 import { StoreService } from 'src/app/core/services/store.service';
 import { CommonService } from 'src/app/core/services/common.service';
 import { store_list, categoryfilter, today_deal } from 'src/app/core/models/store.interface';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-category',
@@ -307,9 +308,11 @@ export class CategoryComponent implements OnInit {
 
   constructor(private storeService: StoreService
     , private commonService: CommonService
+    , private titleService: Title
   ) { }
 
   ngOnInit() {
+    this.titleService.setTitle("집 꾸미기 정보부터 구매까지 오늘의 집 스토어");
     this.commonService.setLocate(1);
     this.commonService.setNav(1);
     this.storeService.getProductList()
@@ -332,7 +335,7 @@ export class CategoryComponent implements OnInit {
   }
 
   highPricefilter() {
-    this.productItems = this.productItems.sort(function(a, b) {
+    this.productItems = this.productItems.sort(function (a, b) {
       return b.price - a.price;
     });
     this.filterShow = false;
@@ -341,7 +344,7 @@ export class CategoryComponent implements OnInit {
   }
 
   lowPricefilter() {
-    this.productItems = this.productItems.sort(function(a, b) {
+    this.productItems = this.productItems.sort(function (a, b) {
       return a.price - b.price;
     })
     this.filterShow = false;
@@ -350,7 +353,7 @@ export class CategoryComponent implements OnInit {
   }
 
   highReviewfilter() {
-    this.productItems = this.productItems.sort(function(a, b) {
+    this.productItems = this.productItems.sort(function (a, b) {
       return b.review_count - a.review_count;
     })
     this.filterShow = false;

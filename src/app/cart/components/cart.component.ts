@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CartService } from 'src/app/core/services/cart.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonService } from 'src/app/core/services/common.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-cart',
@@ -75,10 +76,12 @@ export class CartComponent implements OnInit {
 
   constructor(private router: Router, public cartService: CartService
     , private commonService: CommonService
+    , private titleService: Title
   ) {
   }
 
   ngOnInit() {
+    this.titleService.setTitle("1등 인테리어 집꾸미기 서비스, 오늘의 집");
   }
 
   getCartState() {

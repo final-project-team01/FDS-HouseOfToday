@@ -56,7 +56,7 @@ export class AppComponent implements OnInit {
       this.getUser();
     }
 
-    this.titleService.setTitle("1등 인테리어 집꾸미기 서비스, 오늘의 집")
+    this.titleService.setTitle("1등 인테리어 집꾸미기 서비스, 오늘의 집");
   }
   getUser() {
     this.userService.getUser().subscribe((res) => {

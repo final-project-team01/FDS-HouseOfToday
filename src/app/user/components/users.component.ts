@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/core/services/user.service';
 import { CommonService } from 'src/app/core/services/common.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-users',
@@ -243,10 +244,10 @@ import { CommonService } from 'src/app/core/services/common.service';
 export class UsersComponent implements OnInit {
   pic: string;
   constructor(
-    public commonService: CommonService
+    public commonService: CommonService, private titleService: Title
   ) { }
 
   ngOnInit() {
-
+    this.titleService.setTitle("1등 인테리어 집꾸미기 서비스, 오늘의 집");
   }
 }
