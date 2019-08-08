@@ -23,19 +23,6 @@
       border-radius: 5px;
       margin-right: 10px;
     }
-    .star-bg{
-      width:300px;
-      background-color: lightgrey;
-      display: inline-block;
-      .star-rate{
-        width: 1px;
-        background-color: #35C5F0;
-        > img{
-          width: 300px;
-          vertical-align: middle;
-        }
-      }
-    }
   }
   .filter-container{
     margin: 15px 0;
