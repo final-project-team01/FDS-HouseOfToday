@@ -307,7 +307,7 @@ export class CategoryComponent implements OnInit {
   activeFont: number;
 
   constructor(private storeService: StoreService
-    , private commonService: CommonService
+    , public commonService: CommonService
     , private titleService: Title
   ) { }
 

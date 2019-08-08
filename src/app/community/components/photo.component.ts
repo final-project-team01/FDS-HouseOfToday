@@ -53,17 +53,17 @@ import { Title } from '@angular/platform-browser';
                 </div>
                 <aside class="card_item_action">
                   <div class="card_action">
-                    <button class="like_btn"></button>
+                    <a class="like_btn"></a>
                     <span class="action_info">{{ item.like_count }}</span>
                   </div>
   
                   <div class="card_action">
-                    <button class="scrap_btn"></button>
+                    <a class="scrap_btn"></a>
                     <span class="action_info">{{ item.scrap_count }}</span>
                   </div>
   
                   <div class="card_action">
-                    <button class="reply_comment_btn"></button>
+                    <a class="reply_comment_btn"></a>
                     <span class="action_info">{{ item.comment_count }}</span>
                   </div>
                 </aside>
