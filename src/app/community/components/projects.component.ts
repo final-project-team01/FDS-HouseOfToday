@@ -3,6 +3,7 @@ import { CommunityService } from 'src/app/core/services/community.service';
 import { housewarming } from 'src/app/core/models/community.interface';
 import { CommonService } from 'src/app/core/services/common.service';
 import { Title } from '@angular/platform-browser';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-projects',
@@ -35,7 +36,8 @@ export class ProjectsComponent implements OnInit {
     this.communityService.getHousewarming().subscribe(
       res => {
         this.housewarmingItem = res;
-      }
+      },
+      (error: HttpErrorResponse) => { console.log(error) }
     )
   }
 

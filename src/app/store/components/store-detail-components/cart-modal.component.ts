@@ -24,19 +24,18 @@ export class CartModalComponent implements OnInit {
   @Output() closeModal = new EventEmitter();
 
   constructor(private router: Router
-            , private commonService: CommonService) { }
+    , private commonService: CommonService) { }
 
   ngOnInit() {
   }
-  
-  close(){
+
+  close() {
     this.closeModal.emit();
   }
 
   goToCart() {
     const user = this.commonService.getUserDetail();
-    console.log(user);
-    
+
     this.router.navigate(['/cart']);
   }
 

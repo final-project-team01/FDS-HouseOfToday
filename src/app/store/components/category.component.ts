@@ -4,6 +4,7 @@ import { StoreService } from 'src/app/core/services/store.service';
 import { CommonService } from 'src/app/core/services/common.service';
 import { store_list, categoryfilter, today_deal } from 'src/app/core/models/store.interface';
 import { Title } from '@angular/platform-browser';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-category',
@@ -319,9 +320,11 @@ export class CategoryComponent implements OnInit {
       .subscribe(data => {
         this.productItems = data as today_deal[];
         this.setNumber = this.productItems.length;
-      });
+      },
+        (error: HttpErrorResponse) => { console.log(error) });
     this.storeService.getCategoryList()
-      .subscribe(data => this.categoryLists = data);
+      .subscribe(data => { this.categoryLists = data },
+        (error: HttpErrorResponse) => { console.log(error) });
   }
 
   changeCategory(id: number) {
@@ -330,7 +333,8 @@ export class CategoryComponent implements OnInit {
         this.categoryFilter = data as categoryfilter[];
         this.productItems = this.categoryFilter.products;
         this.categoryName = this.categoryLists[id - 1].name;
-      });
+      },
+        (error: HttpErrorResponse) => { console.log(error) });
     this.listActive = id;
   }
 

@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CommunityService } from 'src/app/core/services/community.service';
 import { photo_info, photo_comments } from 'src/app/core/models/community.interface';
 import { Title } from '@angular/platform-browser';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-photo-detail',
@@ -48,13 +49,15 @@ export class PhotoDetailComponent implements OnInit {
     this.commonService.setLocate(0);
     this.commonService.setNav(0);
     this.route.paramMap
-      .subscribe(params => this.id = +params.get('id'));
+      .subscribe(params => this.id = +params.get('id'),
+        (error: HttpErrorResponse) => { console.log(error) });
     this.communityService.getPhotoInfo(this.id)
       .subscribe(data => {
         this.photoInfo = data;
         this.comments = this.photoInfo.photo_comments;
         this.titleService.setTitle(`${this.photoInfo["author"]}님의 인테리어 사진|오늘의 집 유저들의 집 꾸미기`);
-      });
+      },
+        (error: HttpErrorResponse) => { console.log(error) });
   }
 
 }

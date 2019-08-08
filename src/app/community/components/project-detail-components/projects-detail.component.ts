@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CommunityService } from 'src/app/core/services/community.service';
 import { housewarming_info } from 'src/app/core/models/community.interface';
 import { Title } from '@angular/platform-browser';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-projects-detail',
@@ -45,13 +46,15 @@ export class ProjectsDetailComponent implements OnInit {
     this.commonService.setLocate(0);
     this.commonService.setNav(0);
     this.route.paramMap
-      .subscribe(params => this.id = +params.get('id'));
+      .subscribe((params) => { this.id = +params.get('id') },
+        (error: HttpErrorResponse) => { console.log(error) })
     this.communityService.getProjectInfo(this.id)
       .subscribe(data => {
         this.projectInfo = data;
 
         this.titleService.setTitle(`${this.projectInfo["title"]}|오늘의 집 인테리어 고수들의 집 꾸미기`);
-      });
+      },
+        (error: HttpErrorResponse) => { console.log(error) });
   }
 
 }

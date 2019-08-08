@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/core/services/user.service';
 import { user_order } from 'src/app/core/models/user.interface';
 import { Title } from '@angular/platform-browser';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-order-list',
@@ -284,7 +285,8 @@ export class OrderListComponent implements OnInit {
   ngOnInit() {
     this.titleService.setTitle("1등 인테리어 집꾸미기 서비스, 오늘의 집");
     this.userService.getProductOrder().subscribe(
-      orderList => this.orderList = orderList
+      orderList => { this.orderList = orderList },
+      (error: HttpErrorResponse) => { console.log(error) }
     )
   }
 

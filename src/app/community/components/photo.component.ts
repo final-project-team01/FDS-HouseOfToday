@@ -4,6 +4,7 @@ import { CommonService } from 'src/app/core/services/common.service';
 import { communityPhoto } from 'src/app/core/models/community.interface';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-photo',
@@ -277,7 +278,8 @@ export class PhotoComponent implements OnInit {
     this.commonService.setNav(0);
     this.communityService.getPhotoImage().subscribe((data) => {
       this.cardItems = data;
-    });
+    },
+      (error: HttpErrorResponse) => { console.log(error) });
   }
   movePhoto(id: number) {
     this.router.navigate([`photo/${id}`]);

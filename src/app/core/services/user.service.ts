@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpErrorResponse } from '@angular/common/http'
 
 import { CoreModule } from '../core.module';
 import { CommonService } from './common.service';
@@ -42,11 +42,10 @@ export class UserService {
     this.http.patch<account_update[]>(fullPath, payload, options).subscribe(
       res => {
         this.getUser().subscribe((user) => {
-          console.log('user', user);
           this.commonService.setUserDetail(user[0]);
         });
       },
-      error => { }
+      (error: HttpErrorResponse) => { console.log(error) }
     );
   }
 }

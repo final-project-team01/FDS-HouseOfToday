@@ -7,6 +7,7 @@ import { today_deal, store_home } from 'src/app/core/models/store.interface';
 import { StoreService } from 'src/app/core/services/store.service';
 import { Community, todayStory, todayPicture, todayDeal, best100 } from 'src/app/core/models/community.interface';
 import { Title } from '@angular/platform-browser';
+import { HttpErrorResponse } from '@angular/common/http';
 
 const styles = {
   carousel: {
@@ -1088,7 +1089,8 @@ export class CommunityComponent implements OnInit {
         this.productItems = data as today_deal[];
         this.setNumber = 4;
         this.storyMenuOn = true;
-      });
+      },
+        (error: HttpErrorResponse) => { console.log(error) });
 
     this.communityService.getCommunityHome()
       .subscribe((data) => {
@@ -1099,7 +1101,8 @@ export class CommunityComponent implements OnInit {
         this.storiesFame = this.community.today_picture;
         this.bestContainer = this.community.best100_category_list;
         this.best100 = this.bestContainer.total;
-      });
+      },
+      (error: HttpErrorResponse) => { console.log(error) });
 
     this.dealTimer();
   }
