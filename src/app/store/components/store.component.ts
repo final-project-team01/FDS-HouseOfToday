@@ -74,7 +74,7 @@ const styles = {
             *ngFor="let keyword of keywords"
             class="col-6 col-md-3 keyword-wrap"
           >
-            <a href="#">
+            <a>
               <div
                 class="keyword"
                 [ngStyle]="{ 'background-image': 'url(' + keyword.url + ')' }"

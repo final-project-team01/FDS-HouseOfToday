@@ -51,7 +51,6 @@ export class PhotoDetailComponent implements OnInit {
       .subscribe(data => {
         this.photoInfo = data;
         this.comments = this.photoInfo.photo_comments;
-        console.log(this.photoInfo);
         
       });
   }
