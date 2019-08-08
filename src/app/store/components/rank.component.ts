@@ -3,6 +3,7 @@ import { StoreService } from 'src/app/core/services/store.service';
 import { CommonService } from 'src/app/core/services/common.service';
 import { rankingPage, today_deal } from 'src/app/core/models/store.interface';
 import { Title } from '@angular/platform-browser';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-rank',
@@ -56,7 +57,8 @@ export class RankComponent implements OnInit {
         this.homeAppliance = this.rankingList.home_appliances;
         this.companionAnimals = this.rankingList.companion_animal;
         this.furniture = this.rankingList.furniture;
-      });
+      },
+        (error: HttpErrorResponse) => { console.log(error) });
   }
 
   showMore() {

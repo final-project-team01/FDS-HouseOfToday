@@ -9,6 +9,7 @@ import {
 } from 'src/app/core/models/store.interface';
 import { ThrowStmt } from '@angular/compiler';
 import { Title } from '@angular/platform-browser';
+import { HttpErrorResponse } from '@angular/common/http';
 
 const styles = {
   carousel: {
@@ -585,13 +586,15 @@ export class StoreComponent implements OnInit {
     this.storeService.getProductList().subscribe((data) => {
       this.productItems = data as today_deal[];
       this.setNumberFamous = this.productItems.length;
-    });
+    },
+      (error: HttpErrorResponse) => { console.log(error) });
 
     this.storeService.getTodaysDeal().subscribe((data) => {
       this.fulltodaysDeals = data as store_home[];
       this.todaysDeals = this.fulltodaysDeals.todaydeal;
       this.setNumber = this.todaysDeals.length;
-    });
+    },
+      (error: HttpErrorResponse) => { console.log(error) });
     this.dealTimer();
   }
 

@@ -6,6 +6,7 @@ import { user_info } from 'src/app/core/models/auth.interface';
 import { PasswordValidator } from './password-validator';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-signup',
@@ -323,7 +324,8 @@ export class SignupComponent implements OnInit {
     const nickname = this.nickname.value;
 
     this.authService.createAccounts(email, password, nickname).subscribe(
-      res => this.router.navigate(['/signin'])
+      res => this.router.navigate(['/signin']),
+      (error: HttpErrorResponse) => { console.log(error) }
     )
 
 
