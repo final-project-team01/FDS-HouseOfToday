@@ -109,7 +109,6 @@ export class ProjectArticleComponent implements OnInit {
   constructor(private commonService: CommonService) { }
 
   ngOnInit() {
-    console.log(this._projectInfo);
     
   }
 

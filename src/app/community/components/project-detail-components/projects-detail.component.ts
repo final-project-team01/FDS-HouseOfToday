@@ -47,7 +47,6 @@ export class ProjectsDetailComponent implements OnInit {
     this.communityService.getProjectInfo(this.id)
       .subscribe(data => {
         this.projectInfo = data;
-        console.log(this.projectInfo);
         
       });
   }

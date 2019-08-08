@@ -124,7 +124,6 @@ export class StoreDetailComponent implements OnInit {
     window.scroll({ top: 0 });
     this.commonService.setLocate(1);
     this.commonService.setNav(1);
-    console.log("detail");
     this.route.paramMap
       .subscribe(params => this.id = +params.get('id'));
     this.storeService.getProductInfo(this.id)
