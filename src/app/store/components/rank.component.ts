@@ -7,11 +7,15 @@ import { rankingPage, today_deal } from 'src/app/core/models/store.interface';
   selector: 'app-rank',
   template: `
     <app-header></app-header>
+    <div class="viewport">
     <app-rank-container [menuWidth]="menuWidth" [rankingList]="rankingList" [productItems]="productItems" [setNumber]="setNumber" [activeClass]="activeClass" [homeDeco]="homeDeco" [dailySupply]="dailySupply" [fabric]="fabric" [kitchenWare]="kitchenWare" [homeAppliance]="homeAppliance" [companionAnimals]="companionAnimals" [furniture]="furniture" (showMoreBtn)="showMore()" [showTen]="showTen" [activeRank]="activeRank"></app-rank-container>
+    </div>
     <app-footer></app-footer>
   `,
   styles: [`
-
+  .viewport{
+    width: calc(100vw - 18px);
+  }
   `]
 })
 export class RankComponent implements OnInit {

@@ -89,6 +89,7 @@ import { communityPhoto } from 'src/app/core/models/community.interface';
       </div>
     </div>
     <app-footer></app-footer>
+
   `,
   styles: [
     `

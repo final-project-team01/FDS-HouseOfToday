@@ -21,6 +21,7 @@ const styles = {
   selector: 'app-community',
   template: `
     <app-header></app-header>
+    <div class="viewport">
     <main role="main" id="root">
       <section class="container home-header">
         <div class="row">
@@ -215,8 +216,12 @@ const styles = {
       </section>
     </main>
     <app-footer></app-footer>
+    </div>
   `,
   styles: [`
+  .viewport{
+    width: calc(100vw - 18px);
+  }
   main {
     display: flex;
     flex-direction: column;

@@ -8,6 +8,7 @@ import { photo_info, photo_comments } from 'src/app/core/models/community.interf
   selector: 'app-photo-detail',
   template: `
     <app-header></app-header>
+    <div class="viewport">
     <div class="wrapper">
       <app-photo-article 
         [photoInfo]="photoInfo"
@@ -15,8 +16,12 @@ import { photo_info, photo_comments } from 'src/app/core/models/community.interf
       <app-photo-user
         [photoInfo]="photoInfo"></app-photo-user>
     </div>
+    </div>
   `,
   styles: [`
+  .viewport{
+    width: calc(100vw - 18px);
+  }
   .wrapper{
     display:flex;
     margin: 0 auto;

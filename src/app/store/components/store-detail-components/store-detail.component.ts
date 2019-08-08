@@ -15,40 +15,17 @@ import { cart_option, buy_option } from 'src/app/core/models/cart.interface';
   selector: 'app-store-detail',
   template: `
     <app-header></app-header>
-    <div class="wrapper">
-      <div class="pic-container">
-        <app-product-pic
-          [productImages]="productImages"
-          [activeId]="activeId"></app-product-pic>
-      </div>
-      <div class="info-container">
-        <app-product-info 
-          [productInfo]="productInfo"
-          [originalPrice]="originalPrice"></app-product-info>
-        <app-product-option 
-          (addOption)="addOption($event)"
-          (deleteOption)="deleteOption($event)"
-          (increase)="increase($event)"
-          (decrease)="decrease($event)"
-          (set)="setAmount($event)"
-          (intoCart)="intoCart()"
-          (buyDirect)="buyDirect()"
-          [productOption]="productOption"
-          [chosenOptions]="chosenOptions" [scroll]="false"
-          [totalPrice]="totalPrice"></app-product-option>
-      </div>
-    </div>
-    <div class="wrapper" #nav (window:scroll)="stickyNav(nav)">
-      <div class="nav-container"
-        [class.sticky]="sticky"
-        [class.no-sticky]="noSticky">
-        <app-product-nav 
-          [reviewAmount]="reviewAmount"
-          [qnaAmount]="qnaAmount"
-          (move)="moveScroll($event, nav, review, qna, delivery)">
-        </app-product-nav>
-        <div class="product-option">
-          <h2>옵션 선택</h2>
+    <div class="viewport">
+      <div class="wrapper">
+        <div class="pic-container">
+          <app-product-pic
+            [productImages]="productImages"
+            [activeId]="activeId"></app-product-pic>
+        </div>
+        <div class="info-container">
+          <app-product-info 
+            [productInfo]="productInfo"
+            [originalPrice]="originalPrice"></app-product-info>
           <app-product-option 
             (addOption)="addOption($event)"
             (deleteOption)="deleteOption($event)"
@@ -58,30 +35,55 @@ import { cart_option, buy_option } from 'src/app/core/models/cart.interface';
             (intoCart)="intoCart()"
             (buyDirect)="buyDirect()"
             [productOption]="productOption"
-            [chosenOptions]="chosenOptions" [scroll]="true"
+            [chosenOptions]="chosenOptions" [scroll]="false"
             [totalPrice]="totalPrice"></app-product-option>
         </div>
       </div>
-      <div class="detail-container">
-        <app-product-detail [productDetailImages]="productDetailImages"
-        ></app-product-detail>
-        <app-product-etc [productInfo]="productInfo"></app-product-etc>
-        <h3 #review>리뷰 
-          <span>
-          {{ reviewAmount }}
-          </span>
-        </h3>
-        <app-product-review
-          [originalList]="productReviews"
-          [starAvg]="starAvg">
-        </app-product-review>
-        <h3 #qna>문의 <span class="qna-amount">{{ qnaAmount }}</span></h3>
-        <app-product-qna
-          [originalList]="productQnas">
-        </app-product-qna>
-        <h3 class="delivery" #delivery>배송 관련 안내</h3>
-        <app-product-delivery
-        [productInfo]="productInfo"></app-product-delivery>
+      <div class="wrapper" #nav (window:scroll)="stickyNav(nav)">
+        <div class="nav-container"
+          [class.sticky]="sticky"
+          [class.no-sticky]="noSticky">
+          <app-product-nav 
+            [reviewAmount]="reviewAmount"
+            [qnaAmount]="qnaAmount"
+            (move)="moveScroll($event, nav, review, qna, delivery)">
+          </app-product-nav>
+          <div class="product-option">
+            <h2>옵션 선택</h2>
+            <app-product-option 
+              (addOption)="addOption($event)"
+              (deleteOption)="deleteOption($event)"
+              (increase)="increase($event)"
+              (decrease)="decrease($event)"
+              (set)="setAmount($event)"
+              (intoCart)="intoCart()"
+              (buyDirect)="buyDirect()"
+              [productOption]="productOption"
+              [chosenOptions]="chosenOptions" [scroll]="true"
+              [totalPrice]="totalPrice"></app-product-option>
+          </div>
+        </div>
+        <div class="detail-container">
+          <app-product-detail [productDetailImages]="productDetailImages"
+          ></app-product-detail>
+          <app-product-etc [productInfo]="productInfo"></app-product-etc>
+          <h3 #review>리뷰 
+            <span>
+            {{ reviewAmount }}
+            </span>
+          </h3>
+          <app-product-review
+            [originalList]="productReviews"
+            [starAvg]="starAvg">
+          </app-product-review>
+          <h3 #qna>문의 <span class="qna-amount">{{ qnaAmount }}</span></h3>
+          <app-product-qna
+            [originalList]="productQnas">
+          </app-product-qna>
+          <h3 class="delivery" #delivery>배송 관련 안내</h3>
+          <app-product-delivery
+          [productInfo]="productInfo"></app-product-delivery>
+        </div>
       </div>
     </div>
     <app-cart-modal
