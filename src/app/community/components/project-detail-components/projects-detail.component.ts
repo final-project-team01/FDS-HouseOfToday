@@ -3,6 +3,7 @@ import { CommonService } from 'src/app/core/services/common.service';
 import { ActivatedRoute } from '@angular/router';
 import { CommunityService } from 'src/app/core/services/community.service';
 import { housewarming_info } from 'src/app/core/models/community.interface';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-projects-detail',
@@ -33,12 +34,13 @@ import { housewarming_info } from 'src/app/core/models/community.interface';
 export class ProjectsDetailComponent implements OnInit {
 
   constructor(private commonService: CommonService
-            , private route: ActivatedRoute
-            , private communityService: CommunityService) { }
+    , private route: ActivatedRoute
+    , private communityService: CommunityService
+    , private titleService: Title) { }
 
   id: number;
   projectInfo: housewarming_info;
-        
+
   ngOnInit() {
     this.commonService.setLocate(0);
     this.commonService.setNav(0);
@@ -47,7 +49,8 @@ export class ProjectsDetailComponent implements OnInit {
     this.communityService.getProjectInfo(this.id)
       .subscribe(data => {
         this.projectInfo = data;
-        
+
+        this.titleService.setTitle(`${this.projectInfo["title"]}|오늘의 집 인테리어 고수들의 집 꾸미기`);
       });
   }
 

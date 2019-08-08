@@ -8,6 +8,7 @@ import {
   today_deal
 } from 'src/app/core/models/store.interface';
 import { ThrowStmt } from '@angular/compiler';
+import { Title } from '@angular/platform-browser';
 
 const styles = {
   carousel: {
@@ -575,10 +576,12 @@ export class StoreComponent implements OnInit {
   constructor(
     private storeService: StoreService,
     private theme: LyTheme2,
-    private commonService: CommonService
-  ) {}
+    private commonService: CommonService,
+    private titleService: Title
+  ) { }
 
   ngOnInit() {
+    this.titleService.setTitle("집 꾸미기 정보부터 구매까지 | 오늘의 집 스토어");
     this.commonService.setLocate(1);
     this.commonService.setNav(1);
     this.storeService.getProductList().subscribe((data) => {
@@ -595,7 +598,7 @@ export class StoreComponent implements OnInit {
   }
 
   highPricefilter() {
-    this.productItems = this.productItems.sort(function(a, b) {
+    this.productItems = this.productItems.sort(function (a, b) {
       return b.price - a.price;
     });
     this.filterListItem = '가격높은 순';
@@ -604,7 +607,7 @@ export class StoreComponent implements OnInit {
   }
 
   lowPricefilter() {
-    this.productItems = this.productItems.sort(function(a, b) {
+    this.productItems = this.productItems.sort(function (a, b) {
       return a.price - b.price;
     });
     this.filterListItem = '가격낮은 순';
@@ -613,7 +616,7 @@ export class StoreComponent implements OnInit {
   }
 
   highReviewfilter() {
-    this.productItems = this.productItems.sort(function(a, b) {
+    this.productItems = this.productItems.sort(function (a, b) {
       return b.review_count - a.review_count;
     });
     this.filterListItem = '리뷰많은 순';

@@ -4,6 +4,7 @@ import { CommonService } from 'src/app/core/services/common.service';
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { gender, account_update_payload } from 'src/app/core/models/user.interface';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-user-modify',
@@ -198,7 +199,8 @@ export class UserModifyComponent implements OnInit {
   get userIntro() {
     return this.userFrom.get('userIntro');
   }
-  constructor(private fb: FormBuilder, private userService: UserService, public commonService: CommonService) {
+  constructor(private fb: FormBuilder, private userService: UserService, public commonService: CommonService
+    , private titleService: Title) {
     commonService.getUserDetail();
     this.getEmailFormat();
   }
@@ -214,6 +216,7 @@ export class UserModifyComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.titleService.setTitle("1등 인테리어 집꾸미기 서비스, 오늘의 집");
     this.userFrom = this.fb.group({
       userName: ['', [Validators.required]],
       userIntro: ['', [Validators.required]]

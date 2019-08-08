@@ -8,7 +8,7 @@ import { CommonService } from 'src/app/core/services/common.service';
       <div class="pop-up-message">
         <span class="message-container">
         <pre>
-        본 사이트는 Fastcampus FDS, WPS, IOS 스쿨에서 프로젝트를 위해 만든 사이트 입니다.
+        본 사이트는 Fastcampus FDS스쿨 12기 회식First팀에서 프로젝트를 위해 만든 사이트 입니다.
         실제 <a href="https://ohou.se/">오늘의 집</a>사이트의 주소는 <a href="https://ohou.se/">ohou.se</a>이며, 본 사이트의 주소는 ohome.co.kr입니다.
         </pre></span>
       </div>

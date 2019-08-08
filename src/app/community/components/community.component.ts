@@ -6,6 +6,7 @@ import { LyTheme2 } from '@alyle/ui';
 import { today_deal, store_home } from 'src/app/core/models/store.interface';
 import { StoreService } from 'src/app/core/services/store.service';
 import { Community, todayStory, todayPicture, todayDeal, best100 } from 'src/app/core/models/community.interface';
+import { Title } from '@angular/platform-browser';
 
 const styles = {
   carousel: {
@@ -1075,9 +1076,11 @@ export class CommunityComponent implements OnInit {
 
   constructor(private communityService: CommunityService
     , private commonService: CommonService, private theme: LyTheme2, private storeService: StoreService
+    , private titleService: Title
   ) { }
 
   ngOnInit() {
+    this.titleService.setTitle("1등 인테리어 집꾸미기 서비스, 오늘의 집");
     this.commonService.setLocate(0);
     this.commonService.setNav(0);
     this.storeService.getProductList()
