@@ -66,7 +66,7 @@ import { HttpErrorResponse } from '@angular/common/http';
           </div>
         </form>
       </section>
-      <section class="sign-up-policy">
+    <!--  <section class="sign-up-policy">
         <label class="bold">약관동의</label>
           <div class="policy-form">
             <div class="policy age">
@@ -101,7 +101,7 @@ import { HttpErrorResponse } from '@angular/common/http';
           <label for="all-check" class="bold agree-all" (click)="checkAll($event)">
             <input type="checkbox" id="all-check" class="check">전체 동의
           </label>
-        </section>
+        </section> -->
         <button type="submit" class="submit" (click)="onSubmit()" BlueButton>회원가입하기</button>
         <p class="has-account">이미 아이디가 있으신가요? 
           <a routerLink="/signin" class="bold login-link">로그인</a>
