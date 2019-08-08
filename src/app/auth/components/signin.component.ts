@@ -9,6 +9,7 @@ import { CommonService } from 'src/app/core/services/common.service';
 import { kakao_info, token_social } from 'src/app/core/models/auth.interface';
 import { UserService } from 'src/app/core/services/user.service';
 import { Title } from '@angular/platform-browser';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -230,7 +231,8 @@ export class SigninComponent implements OnInit {
       this.authService.getToken(email, password).subscribe(res => {
         if (res["token"]) this.loginSuccess(res["token"]);
         else console.log("onSubmit fail");
-      });
+      },
+        (error: HttpErrorResponse) => { console.log(error) });
     }
   }
 
@@ -260,7 +262,8 @@ export class SigninComponent implements OnInit {
         res => {
           if (res["token"]) this.loginSuccess(res["token"]);
           else console.log("onSubmit fail");
-        });
+        },
+        (error: HttpErrorResponse) => { console.log(error) });
     }
   }
 

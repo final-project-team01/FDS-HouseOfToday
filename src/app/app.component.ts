@@ -5,6 +5,7 @@ import { CommonService } from './core/services/common.service';
 import { UserService } from './core/services/user.service';
 import { Title } from '@angular/platform-browser';
 import { Router, NavigationEnd } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 const STYLES = (theme: ThemeVariables) => ({
   '@global': {
@@ -61,6 +62,7 @@ export class AppComponent implements OnInit {
   getUser() {
     this.userService.getUser().subscribe((res) => {
       this.commonService.setUserDetail(res[0]);
-    });
+    }),
+      (error: HttpErrorResponse) => { console.log(error) };
   }
 }

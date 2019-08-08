@@ -11,6 +11,7 @@ import { thumbnail_image, detail_image, product_option, review, qna, product_inf
   from 'src/app/core/models/store.interface';
 import { cart_option, buy_option } from 'src/app/core/models/cart.interface';
 import { Title } from '@angular/platform-browser';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-store-detail',
@@ -127,7 +128,8 @@ export class StoreDetailComponent implements OnInit {
     this.commonService.setLocate(1);
     this.commonService.setNav(1);
     this.route.paramMap
-      .subscribe(params => this.id = +params.get('id'));
+      .subscribe(params => { this.id = +params.get('id') },
+        (error: HttpErrorResponse) => { console.log(error) });
     this.storeService.getProductInfo(this.id)
       .subscribe(data => {
         this.productInfo = data;
@@ -146,7 +148,8 @@ export class StoreDetailComponent implements OnInit {
         this.originalPrice = this.commonService.addComma(Math.floor(originalPrice / 10) * 10);
 
         this.titleService.setTitle(`${this.productInfo['name']} | 집 꾸미기 정보부터 구매까지 오늘의 집 스토어`);
-      });
+      },
+        (error: HttpErrorResponse) => { console.log(error) });
   }
 
   addOption(option: product_option) {
@@ -160,8 +163,6 @@ export class StoreDetailComponent implements OnInit {
     const chosen = { id: this.generateId(), productId, optionId, name: option.name, price: option.price, quantity: 1 };
     this.chosenOptions = [...this.chosenOptions, chosen];
     this.getTotalPrice();
-    console.log(this.chosenOptions);
-
   }
 
   deleteOption(id: number) {
@@ -259,7 +260,6 @@ export class StoreDetailComponent implements OnInit {
     const po_list = this.chosenOptions.map(option => option.optionId).join();
     const qty_list = this.chosenOptions.map(option => option.quantity).join();
     const payload: buy_option = { pd_id, po_list, qty_list };
-    console.log(payload);
 
     this.cartService.buyDirect(payload, user)
       .subscribe(res => {

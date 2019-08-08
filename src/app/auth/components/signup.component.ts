@@ -6,6 +6,7 @@ import { user_info } from 'src/app/core/models/auth.interface';
 import { PasswordValidator } from './password-validator';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-signup',
@@ -65,7 +66,7 @@ import { Title } from '@angular/platform-browser';
           </div>
         </form>
       </section>
-      <section class="sign-up-policy">
+    <!--  <section class="sign-up-policy">
         <label class="bold">약관동의</label>
           <div class="policy-form">
             <div class="policy age">
@@ -100,7 +101,7 @@ import { Title } from '@angular/platform-browser';
           <label for="all-check" class="bold agree-all" (click)="checkAll($event)">
             <input type="checkbox" id="all-check" class="check">전체 동의
           </label>
-        </section>
+        </section> -->
         <button type="submit" class="submit" (click)="onSubmit()" BlueButton>회원가입하기</button>
         <p class="has-account">이미 아이디가 있으신가요? 
           <a routerLink="/signin" class="bold login-link">로그인</a>
@@ -323,7 +324,8 @@ export class SignupComponent implements OnInit {
     const nickname = this.nickname.value;
 
     this.authService.createAccounts(email, password, nickname).subscribe(
-      res => this.router.navigate(['/signin'])
+      res => this.router.navigate(['/signin']),
+      (error: HttpErrorResponse) => { console.log(error) }
     )
 
 

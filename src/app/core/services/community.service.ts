@@ -28,11 +28,8 @@ export class CommunityService {
 
   getHousewarming() {
     const path = '/community/housewarming/';
-    const fullpath = this.commonService.getFullPath(path);
-    const headers = this.commonService.setAuthorization(
-      this.commonService.Token
-    );
-    return this.httpClient.get<housewarming>(fullpath, { headers });
+    const fullpath = this.commonService.getFullPath(path);    
+    return this.httpClient.get<housewarming>(fullpath);
   }
   getProjectInfo(id: number) {
     const path = `community/housewarming/${id}/`;
