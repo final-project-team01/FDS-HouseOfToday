@@ -9,6 +9,7 @@ import { gender } from 'src/app/core/models/user.interface';
   selector: 'app-user-modify',
   template: `
     <app-navigation></app-navigation>
+    <div class="viewport">
     <app-user-nav></app-user-nav>
     <div class="contents">
       <div class="user_modi_title">회원정보수정</div>
@@ -95,9 +96,13 @@ import { gender } from 'src/app/core/models/user.interface';
       <button class="edit_submit" (click)="onSubmit()" BlueButton>회원 정보 수정</button>
     </div>
     <app-footer></app-footer>
+    </div>
   `,
   styles: [
     `
+      .viewport{
+        width: calc(100vw - 18px);
+      }
       .contents {
         max-width: 1030px;
         margin: 30px auto;
