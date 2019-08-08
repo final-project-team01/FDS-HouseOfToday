@@ -9,7 +9,6 @@ export class CartHoverDirective {
 
   @HostListener("mouseover") mouseover() {
 
-    console.log("in");
     this.renderer.setStyle(
       this.el.nativeElement.querySelector('.cart-btn-icon'),
       "background-position", "top -112px left -147px"
