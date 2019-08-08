@@ -90,7 +90,7 @@ export class CommonService {
 
   getUserDetailProfile() {
     return this.getUserDetail() ? this.getUserDetail()['type'] === 'django'
-      ? this.getUserDetail()['profile']
+      ? this.getUserDetail()['profile'] ? this.getUserDetail()['profile'] : 'assets/image/36.png'
       : this.getUserDetail()['social_profile']
       : 'assets/image/36.png';
   }
