@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   <div class="star-bg" [style.width.px]="width">
     <div class="star-rate" [style.width.px]="starAvg * (width / 5)">
       <img src="../../../../assets/image/star-rate.png" 
-        [style.width.px]="width">
+        [style.width.px]="width" [style.height.px]="(width / 5) + 2">
     </div> 
   </div>
 
