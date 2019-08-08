@@ -8,14 +8,19 @@ import { housewarming_info } from 'src/app/core/models/community.interface';
   selector: 'app-projects-detail',
   template: `
   <app-header></app-header>
-  <div class="wrapper">
-    <app-project-article
-    [projectInfo]="projectInfo"></app-project-article>
-    <app-project-user
-    [projectInfo]="projectInfo"></app-project-user>
+  <div class="viewport">
+    <div class="wrapper">
+      <app-project-article
+      [projectInfo]="projectInfo"></app-project-article>
+      <app-project-user
+      [projectInfo]="projectInfo"></app-project-user>
+    </div>
   </div>
   `,
   styles: [`
+  .viewport{
+    width: calc(100vw - 18px);
+  }
   .wrapper{
     display:flex;
     margin: 0 auto;

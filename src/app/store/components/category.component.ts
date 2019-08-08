@@ -8,6 +8,7 @@ import { store_list, categoryfilter, today_deal } from 'src/app/core/models/stor
   selector: 'app-category',
   template: `
     <app-header></app-header>
+    <div class="viewport">
     <div class="category-container">
       <div class="category-wrap container">
         <div class="category row">
@@ -62,9 +63,13 @@ import { store_list, categoryfilter, today_deal } from 'src/app/core/models/stor
         </div>
       </div>
     </div>
+    </div>
     <app-footer></app-footer>
   `,
   styles: [`
+  .viewport{
+    width: calc(100vw - 18px);
+  }
     div {
       display:block;
     }
