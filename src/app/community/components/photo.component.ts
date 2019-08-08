@@ -2,89 +2,91 @@ import { Component, OnInit } from '@angular/core';
 import { CommunityService } from 'src/app/core/services/community.service';
 import { CommonService } from 'src/app/core/services/common.service';
 import { communityPhoto } from 'src/app/core/models/community.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-photo',
   template: `
     <app-header></app-header>
-    <div class="container">
-      <div class="filter_control">
-        <ul class="filter_control_list_item">
-          <app-filter-drop-button class="filter">정렬</app-filter-drop-button>
-          <app-filter-drop-button class="filter"
-            >주거형태</app-filter-drop-button
-          >
-          <app-filter-drop-button class="filter">공간</app-filter-drop-button>
-          <app-filter-drop-button class="filter">평수</app-filter-drop-button>
-          <app-filter-drop-button class="filter">스타일</app-filter-drop-button>
-          <app-filter-drop-button class="filter">컬러</app-filter-drop-button>
-          <app-filter-drop-button class="filter"
-            >셀프/전문</app-filter-drop-button
-          >
-          <app-filter-drop-button class="filter"
-            >제품정보</app-filter-drop-button
-          >
-        </ul>
-      </div>
-
-      <div class="card_list">
-        <div class="contents">
-          <article *ngFor="let item of cardItems" class="card_item">
-            <div class="card_item_top_bar">
-              <div class="user_icon_image">
-                <app-basic-uses-avatar
-                  [pic]="[item.author_profile_image]"
-                ></app-basic-uses-avatar>
-              </div>
-              <address class="card_item_user_info">
-                <div class="user_name">{{ item.author }}</div>
-                <span> . </span>
-                <button class="user_follow">팔로우</button>
-                <p>{{ item.author_profile_comment }}</p>
-              </address>
-            </div>
-            <div class="card_item_content">
-              <div class="content_image">
-                <a class="image" href="#"
-                  ><img class="image" src="{{ item.image }}"
-                /></a>
-              </div>
-              <aside class="card_item_action">
-                <div class="card_action">
-                  <button class="like_btn"></button>
-                  <span class="action_info">{{ item.like_count }}</span>
+    <div class="wrapp">
+      <div class="container">
+        <div class="filter_control">
+          <ul class="filter_control_list_item">
+            <app-filter-drop-button class="filter">정렬</app-filter-drop-button>
+            <app-filter-drop-button class="filter"
+              >주거형태</app-filter-drop-button
+            >
+            <app-filter-drop-button class="filter">공간</app-filter-drop-button>
+            <app-filter-drop-button class="filter">평수</app-filter-drop-button>
+            <app-filter-drop-button class="filter">스타일</app-filter-drop-button>
+            <app-filter-drop-button class="filter">컬러</app-filter-drop-button>
+            <app-filter-drop-button class="filter"
+              >셀프/전문</app-filter-drop-button
+            >
+            <app-filter-drop-button class="filter"
+              >제품정보</app-filter-drop-button
+            >
+          </ul>
+        </div>
+  
+        <div class="card_list">
+          <div class="contents">
+            <article *ngFor="let item of cardItems" class="card_item" ImageZoom (click)="movePhoto(item['id'])">
+              <div class="card_item_top_bar">
+                <div class="user_icon_image">
+                  <app-basic-uses-avatar
+                    [pic]="[item.author_profile_image]"
+                  ></app-basic-uses-avatar>
                 </div>
-
-                <div class="card_action">
-                  <button class="scrap_btn"></button>
-                  <span class="action_info">{{ item.scrap_count }}</span>
-                </div>
-
-                <div class="card_action">
-                  <button class="reply_comment_btn"></button>
-                  <span class="action_info">{{ item.comment_count }}</span>
-                </div>
-              </aside>
-              <div class="content_description">{{ item.text }}</div>
-
-              <div class="reply_user_icon_image">
-                <article>
-                  <address class="card_item_user_reply_info">
-                    <app-basic-uses-avatar
-                      [size]="24"
-                      [isBorder]="false"
-                      [pic]="[item.comments[0].author_profile_image]"
-                    ></app-basic-uses-avatar>
-
-                    <div class="reply_user_name">
-                      {{ item.comments[0].author }}
-                    </div>
-                  </address>
-                  <p class="user_comment">{{ item.comments[0].text }}</p>
-                </article>
+                <address class="card_item_user_info">
+                  <div class="user_name">{{ item.author }}</div>
+                  <span> . </span>
+                  <button class="user_follow">팔로우</button>
+                  <p>{{ item.author_profile_comment }}</p>
+                </address>
               </div>
-            </div>
-          </article>
+              <div class="card_item_content">
+                <div class="content_image">
+                  <a class="image"><img class="image image-zoom" src="{{ item.image }}"
+                  /></a>
+                </div>
+                <aside class="card_item_action">
+                  <div class="card_action">
+                    <button class="like_btn"></button>
+                    <span class="action_info">{{ item.like_count }}</span>
+                  </div>
+  
+                  <div class="card_action">
+                    <button class="scrap_btn"></button>
+                    <span class="action_info">{{ item.scrap_count }}</span>
+                  </div>
+  
+                  <div class="card_action">
+                    <button class="reply_comment_btn"></button>
+                    <span class="action_info">{{ item.comment_count }}</span>
+                  </div>
+                </aside>
+                <div class="content_description">{{ item.text }}</div>
+  
+                <div class="reply_user_icon_image">
+                  <article>
+                    <address class="card_item_user_reply_info">
+                      <app-basic-uses-avatar
+                        [size]="24"
+                        [isBorder]="false"
+                        [pic]="[item.comments[0].author_profile_image]"
+                      ></app-basic-uses-avatar>
+  
+                      <div class="reply_user_name">
+                        {{ item.comments[0].author }}
+                      </div>
+                    </address>
+                    <p class="user_comment">{{ item.comments[0].text }}</p>
+                  </article>
+                </div>
+              </div>
+            </article>
+          </div>
         </div>
       </div>
     </div>
@@ -93,6 +95,9 @@ import { communityPhoto } from 'src/app/core/models/community.interface';
   `,
   styles: [
     `
+      .wrapp{
+        width: calc(100vw - 16px);
+      }
       .container {
         width: 1136px;
         margin: 0 auto;
@@ -151,6 +156,7 @@ import { communityPhoto } from 'src/app/core/models/community.interface';
       .card_item_user_info {
         padding-left: 48px;
         margin-bottom: 16px;
+        height:40px;
       }
       .user_name {
         display: inline-block;
@@ -180,7 +186,7 @@ import { communityPhoto } from 'src/app/core/models/community.interface';
         width: 100%;
         height: 269px;
         border-radius: 6px;
-
+        overflow:hidden;
         display: inline-block;
         top: 0;
       }
@@ -255,24 +261,22 @@ import { communityPhoto } from 'src/app/core/models/community.interface';
   ]
 })
 export class PhotoComponent implements OnInit {
-  cardItems = [];
+  cardItems: communityPhoto[] = [];
 
   constructor(
     private communityService: CommunityService,
-    private commonService: CommonService
-  ) {
-    for (let I = 0; I < 16; I++) {
-      const item = { item: I };
-      this.cardItems =
-        this.cardItems.length > 0 ? [...this.cardItems, item] : [item];
-    }
-  }
+    private commonService: CommonService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.commonService.setLocate(0);
     this.commonService.setNav(0);
     this.communityService.getPhotoImage().subscribe((data) => {
-      this.cardItems = data as communityPhoto[];
+      this.cardItems = data;
     });
+  }
+  movePhoto(id: number) {
+    this.router.navigate([`photo/${id}`]);
   }
 }
