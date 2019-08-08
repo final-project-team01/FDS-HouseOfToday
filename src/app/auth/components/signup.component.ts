@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { user_info } from 'src/app/core/models/auth.interface';
 import { PasswordValidator } from './password-validator';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-signup',
@@ -288,6 +289,7 @@ export class SignupComponent implements OnInit {
     private fb: FormBuilder
     , private authService: AuthService
     , private router: Router
+    , private titleService: Title
   ) { }
 
   ngOnInit() {
@@ -311,6 +313,8 @@ export class SignupComponent implements OnInit {
         Validators.pattern('^[a-zA-Z가-힣ㄱ-ㅎ]{2,15}$')
       ]]
     });
+
+    this.titleService.setTitle("1등 인테리어 집꾸미기 서비스, 오늘의 집");
   }
   onSubmit() {
     if (this.signupForm.invalid) return false;

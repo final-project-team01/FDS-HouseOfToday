@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-common',
@@ -216,9 +217,10 @@ export class CommonComponent implements OnInit {
   </app-filter-option>       
   
   <app-filter-option [width]="100">as</app-filter-option>`
-  constructor() { }
+  constructor(private titleService: Title) { }
 
   ngOnInit() {
+    this.titleService.setTitle("1등 인테리어 집꾸미기 서비스, 오늘의 집");
   }
 
 }

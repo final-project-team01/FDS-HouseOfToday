@@ -8,6 +8,7 @@ import { StorageService } from 'src/app/core/services/storage.service';
 import { CommonService } from 'src/app/core/services/common.service';
 import { kakao_info, token_social } from 'src/app/core/models/auth.interface';
 import { UserService } from 'src/app/core/services/user.service';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -204,6 +205,7 @@ export class SigninComponent implements OnInit {
     , private storageService: StorageService
     , private commonService: CommonService
     , private userService: UserService
+    , private titleService: Title
   ) { }
 
   ngOnInit() {
@@ -211,6 +213,7 @@ export class SigninComponent implements OnInit {
       email: ['', Validators.required],
       password: ['', Validators.required]
     });
+    this.titleService.setTitle("1등 인테리어 집꾸미기 서비스, 오늘의 집");
   }
   isOnCapslock(e: KeyAttribute) {
     this.capsOpacity = e.getModifierState("CapsLock") ? 1 : 0;

@@ -10,6 +10,7 @@ import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
 import { thumbnail_image, detail_image, product_option, review, qna, product_info }
   from 'src/app/core/models/store.interface';
 import { cart_option, buy_option } from 'src/app/core/models/cart.interface';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-store-detail',
@@ -118,6 +119,7 @@ export class StoreDetailComponent implements OnInit {
     , private userService: UserService
     , private commonService: CommonService
     , private cartService: CartService
+    , private titleService: Title
     , private router: Router) { }
 
   ngOnInit() {
@@ -132,7 +134,7 @@ export class StoreDetailComponent implements OnInit {
         this.productImages = data['thumnail_images'];
         this.productDetailImages = data['detail_images'];
         this.productOption = data['product_option'];
-        this.productReviews = data['review'].sort(function(a, b) {
+        this.productReviews = data['review'].sort(function (a, b) {
           return b.star_score - a.star_score;
         });
         this.productQnas = data['pdqna'];
@@ -142,6 +144,8 @@ export class StoreDetailComponent implements OnInit {
         this.activeId = this.productImages[0].id;
         const originalPrice = this.productInfo.price / (100 - +this.productInfo.discount_rate) * 100;
         this.originalPrice = this.commonService.addComma(Math.floor(originalPrice / 10) * 10);
+
+        this.titleService.setTitle(`${this.productInfo['name']} | 집 꾸미기 정보부터 구매까지 오늘의 집 스토어`);
       });
   }
 
@@ -157,7 +161,7 @@ export class StoreDetailComponent implements OnInit {
     this.chosenOptions = [...this.chosenOptions, chosen];
     this.getTotalPrice();
     console.log(this.chosenOptions);
-    
+
   }
 
   deleteOption(id: number) {
@@ -228,20 +232,20 @@ export class StoreDetailComponent implements OnInit {
     // 옵션을 선택했는지, 로그인 되었는지 체크
     if (this.checkCondition('장바구니', user) === false) return;
     this.chosenOptions.forEach((option, index, array) => {
-      const payload: cart_option = { 
+      const payload: cart_option = {
         product: option.productId,
         product_option: option.optionId,
         quantity: option.quantity
       };
       this.cartService.addCart(payload, user)
-      .subscribe(res => {
-        if(index === array.length - 1){
-          this.cartService.getCartList();
-        }
-      },
-        err => {
-          console.log(err.message);
-      });
+        .subscribe(res => {
+          if (index === array.length - 1) {
+            this.cartService.getCartList();
+          }
+        },
+          err => {
+            console.log(err.message);
+          });
     });
     this.chosenOptions = [];
     this.showModal = true;
@@ -254,9 +258,9 @@ export class StoreDetailComponent implements OnInit {
     const pd_id = this.chosenOptions[0].productId.toString();
     const po_list = this.chosenOptions.map(option => option.optionId).join();
     const qty_list = this.chosenOptions.map(option => option.quantity).join();
-    const payload: buy_option = { pd_id, po_list, qty_list }; 
+    const payload: buy_option = { pd_id, po_list, qty_list };
     console.log(payload);
-    
+
     this.cartService.buyDirect(payload, user)
       .subscribe(res => {
         console.log('success');
