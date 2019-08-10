@@ -1,19 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-basic-uses-avatar',
   template: `
-    <ly-avatar [size]="36">
-      <img alt="deul" src="assets/image/160.png">
+    <ly-avatar [size]="size" [ngStyle]="style">
+      <img alt="" src="{{ pic }}" />
     </ly-avatar>
   `,
   styles: []
 })
 export class BasicUsesAvatarComponent implements OnInit {
-
-  constructor() { }
+  @Input() size = 36;
+  @Input() pic = 'assets/image/36.png';
+  @Input() isBorder = false;
+  public style = {};
+  constructor() {}
 
   ngOnInit() {
+    this.style = this.isBorder ? { border: '5px solid #EDEDED' } : '';
   }
-
 }

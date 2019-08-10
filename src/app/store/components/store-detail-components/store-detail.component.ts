@@ -1,178 +1,173 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+
 import { StoreService } from 'src/app/core/services/store.service';
 import { CommonService } from 'src/app/core/services/common.service';
 import { UserService } from 'src/app/core/services/user.service';
+import { CartService } from 'src/app/core/services/cart.service';
+
 import { ChosenOption } from 'src/app/core/models/chosen-option.interface';
-import { thumbnail_image, detail_image, product_option, review, qna }
+import { thumbnail_image, detail_image, product_option, review, qna, product_info }
   from 'src/app/core/models/store.interface';
+import { cart_option, buy_option } from 'src/app/core/models/cart.interface';
+import { Title } from '@angular/platform-browser';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-store-detail',
   template: `
     <app-header></app-header>
-    <div class="top-wrapper">
-      <div class="pic-container">
-        <app-product-pic 
-          [productImages]="productImages"
-          [activeId]="activeId"></app-product-pic>
-      </div>
-      <div class="info-container">
-        <app-product-info [productInfo]="productInfo"></app-product-info>
-        <app-product-option 
-          (addOption)="addOption($event)"
-          (deleteOption)="deleteOption($event)"
-          (increase)="increase($event)"
-          (decrease)="decrease($event)"
-          (set)="setAmount($event)"
-          [productOption]="productOption"
-          [chosenOptions]="chosenOptions" [scroll]="false"></app-product-option>
-      </div>
-    </div>
-    <div class="bottom-wrapper" #nav (window:scroll)="stickyNav(nav)">
-      <div class="detail-container">
-        <app-product-detail [productDetailImages]="productDetailImages"></app-product-detail>
-        <app-product-etc [productInfo]="productInfo"></app-product-etc>
-        <app-product-review 
-          [originalList]="productReviews"
-          [chosenList]="chosenReviews"
-          [pages]="reviewPages"
-          [starAvg]="starAvg"
-        ></app-product-review>
-        <app-product-qna
-        [originalList]="productQnas"
-        [chosenList]="chosenQnas"
-        [pages]="qnaPages"
-        ></app-product-qna>
-        <app-product-delivery
-        [productInfo]="productInfo"></app-product-delivery>
-      </div>
-      <div class="nav-container"
-        [class.sticky]="sticky">
-        <app-product-nav 
-          [reviewAmount]="reviewAmount"
-          [qnaAmount]="qnaAmount"></app-product-nav>
-        <div class="product-option">
-          <h2>옵션 선택</h2>
+    <div class="viewport">
+      <div class="wrapper">
+        <div class="pic-container">
+          <app-product-pic
+            [productImages]="productImages"
+            [activeId]="activeId"></app-product-pic>
+        </div>
+        <div class="info-container">
+          <app-product-info 
+            [productInfo]="productInfo"
+            [originalPrice]="originalPrice"></app-product-info>
           <app-product-option 
             (addOption)="addOption($event)"
             (deleteOption)="deleteOption($event)"
             (increase)="increase($event)"
             (decrease)="decrease($event)"
             (set)="setAmount($event)"
+            (intoCart)="intoCart()"
+            (buyDirect)="buyDirect()"
             [productOption]="productOption"
-            [chosenOptions]="chosenOptions" [scroll]="true"></app-product-option>
+            [chosenOptions]="chosenOptions" [scroll]="false"
+            [totalPrice]="totalPrice"></app-product-option>
+        </div>
+      </div>
+      <div class="wrapper" #nav (window:scroll)="stickyNav(nav)">
+        <div class="nav-container"
+          [class.sticky]="sticky"
+          [class.no-sticky]="noSticky">
+          <app-product-nav 
+            [reviewAmount]="reviewAmount"
+            [qnaAmount]="qnaAmount"
+            (move)="moveScroll($event, nav, review, qna, delivery)">
+          </app-product-nav>
+          <div class="product-option">
+            <h2>옵션 선택</h2>
+            <app-product-option 
+              (addOption)="addOption($event)"
+              (deleteOption)="deleteOption($event)"
+              (increase)="increase($event)"
+              (decrease)="decrease($event)"
+              (set)="setAmount($event)"
+              (intoCart)="intoCart()"
+              (buyDirect)="buyDirect()"
+              [productOption]="productOption"
+              [chosenOptions]="chosenOptions" [scroll]="true"
+              [totalPrice]="totalPrice"></app-product-option>
+          </div>
+        </div>
+        <div class="detail-container">
+          <app-product-detail [productDetailImages]="productDetailImages"
+          ></app-product-detail>
+          <app-product-etc [productInfo]="productInfo"></app-product-etc>
+          <h3 #review>리뷰 
+            <span>
+            {{ reviewAmount }}
+            </span>
+          </h3>
+          <app-product-review
+            [originalList]="productReviews"
+            [starAvg]="starAvg">
+          </app-product-review>
+          <h3 #qna>문의 <span class="qna-amount">{{ qnaAmount }}</span></h3>
+          <app-product-qna
+            [originalList]="productQnas">
+          </app-product-qna>
+          <h3 class="delivery" #delivery>배송 관련 안내</h3>
+          <app-product-delivery
+          [productInfo]="productInfo"></app-product-delivery>
         </div>
       </div>
     </div>
+    <app-cart-modal
+      (closeModal)="closeModal()"
+      [showModal]="showModal"></app-cart-modal>
     <app-footer></app-footer>
   `,
-  styles: [`
-  .top-wrapper, .bottom-wrapper{
-    display: flex;
-    margin: 120px auto 0 auto;
-    box-sizing: border-box;
-    width: 1136px;
-    height: auto;
-    min-height: 1px;
-    position: relative;
-  }
-  .detail-container{
-    border-right: 1px solid #ededed;
-  }
-  .pic-container{
-    display: inline-block;
-    margin-right: auto;
-  }
-  .info-container{
-    width: 450px;
-    display: inline-block;
-  }
-  .nav-container{
-    clear: both;
-    position: absolute;
-    top: -50px;
-  }
-  .product-option{
-    position: absolute;
-    background-color: #FAFAFA;
-    right: 0;
-    width: 30%;
-    padding: 35px 22px;
-  }
-  .product-option > h2{
-    margin-bottom: 20px;
-    font-size: 20px;
-    font-weight: bold;
-  }
-  .sticky{
-    position: fixed;
-    top: 80px;
-    bottom: auto;
-  }
-  `]
+  styleUrls: ['./store-detail.scss']
 })
 export class StoreDetailComponent implements OnInit {
 
   id: number;
   activeId: number;
   sticky = false;
-  productInfo: any;
+  noSticky = false;
+  productInfo: product_info;
   productImages: thumbnail_image[];
   productDetailImages: detail_image[];
   productOption: product_option[];
   productReviews: review[];
   reviewAmount: number;
   starAvg: number;
-  reviewPages = [];
-  qnaPages = [];
   productQnas: qna[];
-  chosenReviews: review[];
-  chosenQnas: qna[];
   qnaAmount: number;
   chosenOptions: ChosenOption[] = [];
+  totalPrice = '0';
+  originalPrice: string;
+  showModal = false;
 
   constructor(private route: ActivatedRoute
     , private storeService: StoreService
     , private userService: UserService
-    , private commonService: CommonService) { }
+    , private commonService: CommonService
+    , private cartService: CartService
+    , private titleService: Title
+    , private router: Router) { }
 
   ngOnInit() {
+    window.scroll({ top: 0 });
     this.commonService.setLocate(1);
     this.commonService.setNav(1);
-    console.log("detail");
     this.route.paramMap
-      .subscribe(params => this.id = +params.get('id'));
+      .subscribe(params => { this.id = +params.get('id') },
+        (error: HttpErrorResponse) => { console.log(error) });
     this.storeService.getProductInfo(this.id)
       .subscribe(data => {
         this.productInfo = data;
         this.productImages = data['thumnail_images'];
         this.productDetailImages = data['detail_images'];
         this.productOption = data['product_option'];
-        this.productReviews = data['review'];
+        this.productReviews = data['review'].sort(function (a, b) {
+          return b.star_score - a.star_score;
+        });
         this.productQnas = data['pdqna'];
-        this.chosenReviews = this.productReviews.filter((review, index) => index >= 0 && index < 3);
-        this.chosenQnas = this.productQnas.filter((review, index) => index >= 0 && index < 3);
         this.qnaAmount = this.productQnas.length;
         this.reviewAmount = this.productInfo['review_count'];
         this.starAvg = +this.productInfo['star_avg'];
-        const rp = Math.ceil(this.reviewAmount / 3);
-        const qp = Math.ceil(this.qnaAmount / 3);
-        this.reviewPages = Array(rp);
-        this.qnaPages = Array(qp);
         this.activeId = this.productImages[0].id;
-      });
+        const originalPrice = this.productInfo.price / (100 - +this.productInfo.discount_rate) * 100;
+        this.originalPrice = this.commonService.addComma(Math.floor(originalPrice / 10) * 10);
+
+        this.titleService.setTitle(`${this.productInfo['name']} | 집 꾸미기 정보부터 구매까지 오늘의 집 스토어`);
+      },
+        (error: HttpErrorResponse) => { console.log(error) });
   }
 
   addOption(option: product_option) {
-    const chosen = {
-      id: this.generateId(), name: this.getName(option['name']), price: option['price'], amount: 1
-    };
+    const productId = option.product;
+    const optionId = option.id;
+    const check = this.chosenOptions.filter(option => option.optionId === optionId).length ? true : false;
+    if (this.chosenOptions.length !== 0 && check) {
+      alert('이미 선택한 옵션입니다');
+      return;
+    }
+    const chosen = { id: this.generateId(), productId, optionId, name: option.name, price: option.price, quantity: 1 };
     this.chosenOptions = [...this.chosenOptions, chosen];
+    this.getTotalPrice();
   }
 
   deleteOption(id: number) {
     this.chosenOptions = this.chosenOptions.filter(option => option.id !== id);
+    this.getTotalPrice();
   }
 
   generateId() {
@@ -180,18 +175,17 @@ export class StoreDetailComponent implements OnInit {
       ? Math.max(...this.chosenOptions.map(option => option.id)) + 1 : 1;
   }
 
-  getName(name: string) {
-    const i = name.indexOf('(');
-    return name.slice(0, i);
-  }
-
-  addComma(num: number) {
-    const regexp = /\B(?=(\d{3})+(?!\d))/g;
-    return num.toString().replace(regexp, ',');
-  }
-
   stickyNav(nav: HTMLDivElement) {
-    if (nav.offsetTop - 80 <= window.pageYOffset) this.sticky = true;
+    const navBottom = nav.offsetHeight + nav.offsetTop - 380;
+    if (nav.offsetTop - 80 <= window.pageYOffset) {
+      if (navBottom < window.pageYOffset + 350) {
+        this.sticky = false;
+        this.noSticky = true;
+      } else {
+        this.noSticky = false;
+        this.sticky = true;
+      }
+    }
     else this.sticky = false;
   }
 
@@ -199,17 +193,97 @@ export class StoreDetailComponent implements OnInit {
     const id = option.id;
     this.chosenOptions = this.chosenOptions.map(
       option => option.id === id ?
-        { ...option, amount: option.amount += 1 } : { ...option, amount: option.amount });
+        { ...option, quantity: option.quantity += 1 } : { ...option, quantity: option.quantity });
+    this.getTotalPrice();
   }
+
   decrease(option: ChosenOption) {
     const id = option.id;
-    if (option.amount <= 1) return;
+    if (option.quantity <= 1) return;
     this.chosenOptions = this.chosenOptions.map(
       option => option.id === id ?
-        { ...option, amount: option.amount -= 1 } : { ...option, amount: option.amount });
+        { ...option, quantity: option.quantity -= 1 } : { ...option, quantity: option.quantity });
+    this.getTotalPrice();
   }
 
   setAmount(data: any) {
-    data.option.amount = +data.input.value;
+    data.option.quantity = +data.input.value;
   }
+
+  getTotalPrice() {
+    if (this.chosenOptions.length === 0) {
+      this.totalPrice = '0';
+      return;
+    }
+    const prices = this.chosenOptions.map(option => option.price * option.quantity);
+    const sum = prices.reduce(
+      (previous, current) => { return previous + current });
+    this.totalPrice = this.commonService.addComma(sum);
+  }
+
+  moveScroll(i: number, nav, review, qna, delivery) {
+    if (i === 0) window.scroll({ top: nav.offsetTop, behavior: 'smooth' });
+    else if (i === 2) window.scrollTo({ top: review.offsetTop + 700, left: 0, behavior: 'smooth' });
+    else if (i === 3) window.scrollTo({ top: qna.offsetTop + 700, left: 0, behavior: 'smooth' });
+    else if (i === 4) window.scroll({ top: delivery.offsetTop + 700, left: 0, behavior: 'smooth' });
+  }
+
+  intoCart() {
+    const user = localStorage.getItem('user');
+    // 옵션을 선택했는지, 로그인 되었는지 체크
+    if (this.checkCondition('장바구니', user) === false) return;
+    this.chosenOptions.forEach((option, index, array) => {
+      const payload: cart_option = {
+        product: option.productId,
+        product_option: option.optionId,
+        quantity: option.quantity
+      };
+      this.cartService.addCart(payload, user)
+        .subscribe(res => {
+          if (index === array.length - 1) {
+            this.cartService.getCartList();
+          }
+        },
+          err => {
+            console.log(err.message);
+          });
+    });
+    this.chosenOptions = [];
+    this.showModal = true;
+    this.getTotalPrice();
+  }
+
+  buyDirect() {
+    const user = localStorage.getItem('user');
+    if (this.checkCondition('구매하기', user) === false) return;
+    const pd_id = this.chosenOptions[0].productId.toString();
+    const po_list = this.chosenOptions.map(option => option.optionId).join();
+    const qty_list = this.chosenOptions.map(option => option.quantity).join();
+    const payload: buy_option = { pd_id, po_list, qty_list };
+
+    this.cartService.buyDirect(payload, user)
+      .subscribe(res => {
+        console.log('success');
+      },
+        err => {
+          console.log(err.message);
+        });
+  }
+
+  closeModal() {
+    this.showModal = false;
+  }
+
+  checkCondition(target: string, user: string) {
+    if (this.chosenOptions.length === 0) {
+      alert(`옵션 선택 후에 ${target} 버튼을 클릭해주세요.`);
+      return false;
+    }
+    if (user === null) {
+      alert('로그인이 필요한 서비스입니다.');
+      this.router.navigate(['/signin']);
+      return false;
+    }
+  }
+
 }

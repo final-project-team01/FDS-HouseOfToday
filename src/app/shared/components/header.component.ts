@@ -3,7 +3,7 @@ import { CommonService } from 'src/app/core/services/common.service';
 
 @Component({
   selector: 'app-header',
-  template: `
+  template: `    
     <header>
       <app-navigation></app-navigation>
       <div class="sub-nav" SubNavFixed>
@@ -21,12 +21,13 @@ import { CommonService } from 'src/app/core/services/common.service';
       background-color: white;
       border-bottom: 1px solid #ededed;
       position: relative;
+      width: calc(100vw - 18px);
     }
   `
   ]
 })
 export class HeaderComponent {
-  constructor(private commonService:CommonService) { }
+  constructor(public commonService: CommonService) { }
 
 
 }

@@ -13,7 +13,14 @@ import { Component, OnInit } from '@angular/core';
             <br />
             <b>평일 10:00~17:00 (점심시간 12:00~13:00 / 주말&공휴일 제외) </b>
           </p>
-          <div class="footer_link">icons</div>
+          <div class="footer_link">
+            <a class="apple_store"></a>
+            <a class="google_play"></a>
+            <a class="kakao_story"></a>
+            <a class="facebook"></a>
+            <a class="instagram"></a>
+            <a class="naver"></a>
+          </div>
         </div>
         <div class="footer_short_cut">
           <a class="#">브랜드 스토리</a>
@@ -61,6 +68,7 @@ import { Component, OnInit } from '@angular/core';
         font-size: 10px;
         padding: 30px 0 50px;
         color: #757575;
+        clear: both;
       }
       .footer-contents {
         margin-left: auto;
@@ -81,13 +89,47 @@ import { Component, OnInit } from '@angular/core';
         color: #424242;
       }
       .footer_link {
-        background-color: darkgoldenrod;
-        width: 300px;
-        height: 50px;
         display: inline-block;
         right: 0;
         top: 0;
         position: absolute;
+      }
+      .footer_link > a {
+        margin: 0 5px;
+      }
+      .apple_store,
+      .google_play,
+      .kakao_story,
+      .facebook,
+      .instagram,
+      .naver {
+        display: inline-block;
+        background-size: 400px;
+        width: 34px;
+        height: 30px;
+      }
+      .apple_store {
+        background-image: url(assets/image/common-footer@2x.png);
+      }
+      .google_play {
+        background-image: url(assets/image/common-footer@2x.png);
+        background-position-x: -40px;
+      }
+      .kakao_story {
+        background-image: url(assets/image/common-footer@2x.png);
+        background-position-x: -76px;
+      }
+      .facebook {
+        background-image: url(assets/image/common-footer@2x.png);
+        background-position-x: -115px;
+      }
+      .instagram {
+        background-image: url(assets/image/common-footer@2x.png);
+        background-position-x: -160px;
+      }
+      .naver {
+        background-image: url(assets/image/common-footer@2x.png);
+        background-position-x: -200px;
       }
       .footer_short_cut {
         margin: 0 -5px 10px;

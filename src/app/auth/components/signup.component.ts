@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/core/services/user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { userInfo } from 'src/app/core/models/auth.interface';
+import { user_info } from 'src/app/core/models/auth.interface';
 import { PasswordValidator } from './password-validator';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-signup',
@@ -64,7 +66,7 @@ import { Router } from '@angular/router';
           </div>
         </form>
       </section>
-      <section class="sign-up-policy">
+    <!--  <section class="sign-up-policy">
         <label class="bold">약관동의</label>
           <div class="policy-form">
             <div class="policy age">
@@ -99,15 +101,14 @@ import { Router } from '@angular/router';
           <label for="all-check" class="bold agree-all" (click)="checkAll($event)">
             <input type="checkbox" id="all-check" class="check">전체 동의
           </label>
-        </section>
-        <button type="submit" class="submit" (click)="onSubmit()">회원가입하기</button>
+        </section> -->
+        <button type="submit" class="submit" (click)="onSubmit()" BlueButton>회원가입하기</button>
         <p class="has-account">이미 아이디가 있으신가요? 
           <a routerLink="/signin" class="bold login-link">로그인</a>
         </p>
       </div>
     </main>
-  </div>
-  <pre>{{nickname.errors?.pattern |  json}}</pre>
+  </div>  
   
   `,
   styles: [`
@@ -267,10 +268,7 @@ import { Router } from '@angular/router';
     line-height: 1;
     height: 70px;
     padding: 26px 0;
-    font-size: 1.2rem;
-    border-radius: 4px;
-    font-weight: bold;
-    text-align: center;
+    font-size: 1.2rem;    
     cursor: pointer;
   }
   .has-account{
@@ -280,7 +278,7 @@ import { Router } from '@angular/router';
 })
 export class SignupComponent implements OnInit {
   signupForm: FormGroup;
-  userInfo: userInfo;
+  userInfo: user_info;
   isMore14: false;
   isCheckAll: false;
   isPolicy: false;
@@ -292,6 +290,7 @@ export class SignupComponent implements OnInit {
     private fb: FormBuilder
     , private authService: AuthService
     , private router: Router
+    , private titleService: Title
   ) { }
 
   ngOnInit() {
@@ -315,6 +314,8 @@ export class SignupComponent implements OnInit {
         Validators.pattern('^[a-zA-Z가-힣ㄱ-ㅎ]{2,15}$')
       ]]
     });
+
+    this.titleService.setTitle("1등 인테리어 집꾸미기 서비스, 오늘의 집");
   }
   onSubmit() {
     if (this.signupForm.invalid) return false;
@@ -323,7 +324,8 @@ export class SignupComponent implements OnInit {
     const nickname = this.nickname.value;
 
     this.authService.createAccounts(email, password, nickname).subscribe(
-      req => this.router.navigate(['/signin'])
+      res => this.router.navigate(['/signin']),
+      (error: HttpErrorResponse) => { console.log(error) }
     )
 
 

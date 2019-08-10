@@ -1,0 +1,18 @@
+.filter-option {
+  position: relative;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 -1px 16px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+.filter-option::after {
+  content: "";
+  display: block;
+  position: absolute;
+  border-top: solid 10px transparent;
+  border-bottom: solid 10px transparent;
+  border-right: solid 15px white;
+  top: -7px;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(89deg);
+}

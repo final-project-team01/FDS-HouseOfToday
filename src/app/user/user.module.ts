@@ -8,15 +8,15 @@ import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { UserNavComponent } from './components/user-nav.component';
 import { UserModifyComponent } from './components/user-modify.component';
-import { CartComponent } from './components/cart.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [UsersComponent, OrderListComponent, UserNavComponent, UserModifyComponent, CartComponent],
-  imports: [
-    CommonModule
-    , CoreModule
-    , SharedModule
-    , UserRoutingModule
-  ]
+  declarations: [
+    UsersComponent,
+    OrderListComponent,
+    UserNavComponent,
+    UserModifyComponent
+  ],
+  imports: [CommonModule, CoreModule, SharedModule, ReactiveFormsModule, UserRoutingModule]
 })
 export class UserModule { }

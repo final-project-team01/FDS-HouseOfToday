@@ -1,0 +1,43 @@
+
+.product-pic-container{
+  width: 570px;
+  display: inline-block;
+  position: relative;
+  margin-left: 65px;
+  .pic-list{
+    margin-right: 10px;
+    position: absolute;
+    top: 0;
+    left: -65px;
+    .pic-item{
+      display: block;
+      width: 55px;
+      height: 55px;
+      margin-bottom: 10px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      border: none;
+      border-radius: 4px;
+    }
+    .pic-item:focus{
+      outline: none;
+    }
+    .pic-item.active{
+      border: 2px solid #35C5F0;
+    }
+  }
+  .main-picture-container{
+    display: flex;
+    height: 570px;
+    overflow: hidden;
+    border-radius: 10px;
+    .main-picture{
+      position: relative;
+      flex-shrink: 0;
+      left: 0px;
+      width: 570px;
+      height: 570px;
+      transition: left 0.5s;
+    }
+  }
+}

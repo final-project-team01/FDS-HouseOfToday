@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from 'src/app/core/services/common.service';
-import { StorageService } from 'src/app/core/services/storage.service';
+import { CartService } from 'src/app/core/services/cart.service';
 
 
 @Component({
   selector: 'app-navigation',
   template: `
+    <app-pop-up *ngIf="commonService.isPopup"></app-pop-up>
     <div class="main-nav" NavFixed>
       <nav class="navigation-primary">              
         <a routerLink="/" routerLinkActive="active"
@@ -13,19 +14,16 @@ import { StorageService } from 'src/app/core/services/storage.service';
           <span  class="logo" aria-label="오늘의집"></span>
         </a>
         <div class="navigation-menu">
-          <a routerLink="/community" routerLinkActive="active" (mouseover)="changMenu(0)">커뮤니티</a>
-          <a routerLink="/store" routerLinkActive="active" (mouseover)="changMenu(1)">스토어</a>
-        </div>        
+          <a routerLink="/community" routerLinkActive="active" (mouseover)="changMenu(0)" BlueFont>커뮤니티</a>
+          <a routerLink="/store" routerLinkActive="active" (mouseover)="changMenu(1)" BlueFont>스토어</a>
+        </div>
+        <a routerLink="/cart" class="cart-btn" CartHover>
+          <span class="cart-btn-icon" ></span>    
+          <span class="ticker" *ngIf="cartService.getCartItemsCount() > 0">{{cartService.getCartItemsCount()}}</span>      
+        </a>
         <div class="user-logged" *ngIf="commonService.isLogin(); else elseBlock">
           <div class="action-logged">        
             <aui-avatar-with-button></aui-avatar-with-button>
-          <!--<div class="navigation-primary__user__list">
-            <ul class="navigation-user-menu">
-              <li><a routerLink="/">마이홈</a></li>
-              <li><a routerLink="/">나의 쇼핑</a></li>
-              <li><a routerLink="/"(click)="logout($event)">로그아웃</a></li>               
-            </ul>
-            </div>-->
           </div>
         </div>
         <ng-template class="user-unlogged" #elseBlock>
@@ -42,24 +40,17 @@ import { StorageService } from 'src/app/core/services/storage.service';
 })
 export class NavigationComponent implements OnInit {
 
-  constructor(private commonService: CommonService
-    , private storageService: StorageService
-
-  ) {
-  }
+  constructor(public commonService: CommonService
+    , public cartService: CartService
+  ) { }
 
   ngOnInit() {
+    if (this.commonService.isLogin()) {
+      this.cartService.getCartList();
+    }
+  }
 
-  }
-  logout(e: Event) {
-    e.preventDefault();
-    this.storageService.removeLocal("user");
-    this.storageService.removeSession("user");
-    this.commonService.setToken("");
-  }
   changMenu(nav: number) {
     this.commonService.setNav(nav);
   }
-
-
 }

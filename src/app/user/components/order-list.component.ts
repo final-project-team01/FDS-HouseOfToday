@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/core/services/user.service';
+import { user_order } from 'src/app/core/models/user.interface';
+import { Title } from '@angular/platform-browser';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-order-list',
   template: `
     <app-navigation></app-navigation>
+    <div class="viewport">
     <app-user-nav></app-user-nav>
     <div class="shopping_order_list">
       <div class="my_mileage">
@@ -36,7 +40,7 @@ import { UserService } from 'src/app/core/services/user.service';
           <div class="slot_item_description">
             나는 5000P, 친구는 5000원 쿠폰
           </div>
-          <a>추천하기</a>
+          <a BlueButton>추천하기</a>
         </div>
       </div>
       <div class="order_state">
@@ -47,7 +51,7 @@ import { UserService } from 'src/app/core/services/user.service';
         <div class="arrow"></div>
         <div class="step">
           <div class="title">결제완료</div>
-          <div class="count">0</div>
+          <div class="count">{{OrderCount}}</div>
         </div>
         <div class="arrow"></div>
         <div class="step">
@@ -99,16 +103,19 @@ import { UserService } from 'src/app/core/services/user.service';
       </div>
     </div>
     <app-footer></app-footer>
+    </div>
   `,
   styles: [
     `
+    .viewport{
+      width: calc(100vw - 18px);
+    }
       /* order-list */
       body {
         line-height: 1;
         font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', '맑은 고딕',
           'Malgun Gothic', sans-serif;
         letter-spacing: -0.4px;
-        background-color: antiquewhite;
       }
 
       .my_mileage,
@@ -208,11 +215,6 @@ import { UserService } from 'src/app/core/services/user.service';
         width: 140px;
         height: 40px;
         line-height: 40px;
-        background-color: #35c5f0;
-        color: #ffffff;
-        display: inline-block;
-        border-radius: 4px;
-        font-weight: bold;
       }
       .order_state {
         margin-top: 30px;
@@ -278,7 +280,17 @@ import { UserService } from 'src/app/core/services/user.service';
   ]
 })
 export class OrderListComponent implements OnInit {
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private titleService: Title) { }
+  orderList: user_order[] = [];
+  ngOnInit() {
+    this.titleService.setTitle("1등 인테리어 집꾸미기 서비스, 오늘의 집");
+    this.userService.getProductOrder().subscribe(
+      orderList => { this.orderList = orderList },
+      (error: HttpErrorResponse) => { console.log(error) }
+    )
+  }
 
-  ngOnInit() {}
+  get OrderCount() {
+    return this.orderList ? this.orderList.length : 0;
+  }
 }

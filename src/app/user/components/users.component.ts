@@ -1,18 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/core/services/user.service';
 import { CommonService } from 'src/app/core/services/common.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-users',
   template: `
     <app-navigation></app-navigation>
+    <div class="viewport">
     <app-user-nav></app-user-nav>
     <div class="container">
       <div class="row">
         <div class="col-12 profile">
           <div class="profile_data">
             <div class="profile_share"></div>
-            <div class="profile_pic"></div>
+            <div class="profile_pic">
+              <app-basic-uses-avatar [size]="130" [pic]="commonService.getUserDetailProfile()"></app-basic-uses-avatar>
+            </div>
             <div class="profile_info">
               <div class="profile_name">
                 <strong>{{
@@ -27,26 +31,26 @@ import { CommonService } from 'src/app/core/services/common.service';
               </div>
               <div class="short-cut">
                 <div class="short-cut-item">
-                  <a href="#"
+                  <a
                     ><div class="short-cut-icon scrap"></div>
                     스크랩북</a
                   >
                 </div>
                 <div class="short-cut-item">
-                  <a href="#"
+                  <a
                     ><div class="short-cut-icon like"></div>
                     좋아요</a
                   >
                 </div>
                 <div class="short-cut-item">
-                  <a href="#"
+                  <a
                     ><div class="short-cut-icon description"></div>
                     설명</a
                   >
                 </div>
               </div>
               <div class="addFriend_btn">
-                <button><a href="#">친구초대 +5000P</a></button>
+                <button><a>친구초대 +5000P</a></button>
               </div>
             </div>
           </div>
@@ -56,14 +60,14 @@ import { CommonService } from 'src/app/core/services/common.service';
           <div class="contents">
             <section class="post post_photo">
               <h5 class="post_title">사진 <strong>0</strong></h5>
-              <a href="#" class="upload_photo">
+              <a class="upload_photo">
                 <span class="more_icon"></span>
                 첫 번째 사진을 올려보세요</a
               >
             </section>
             <section class="post post_project">
               <h5 class="post_title">집들이 <strong>0</strong></h5>
-              <a href="#" class="upload_project">
+              <a class="upload_project">
                 <span class="more_icon"></span>
                 첫 번째 집들이를 올려보세요</a
               >
@@ -73,9 +77,13 @@ import { CommonService } from 'src/app/core/services/common.service';
       </div>
     </div>
     <app-footer></app-footer>
+    </div>
   `,
   styles: [
-    `
+    /* 페이지 움찔하는거 고침 */
+    `.viewport{
+      width: calc(100vw - 18px);
+    }
       /* user profile */
       body {
         font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', '맑은 고딕';
@@ -239,10 +247,12 @@ import { CommonService } from 'src/app/core/services/common.service';
   ]
 })
 export class UsersComponent implements OnInit {
+  pic: string;
   constructor(
-    private userService: UserService,
-    private commonService: CommonService
-  ) {}
+    public commonService: CommonService, private titleService: Title
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.titleService.setTitle("1등 인테리어 집꾸미기 서비스, 오늘의 집");
+  }
 }

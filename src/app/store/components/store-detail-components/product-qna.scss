@@ -1,0 +1,71 @@
+.product-qna-container{
+  width: 690px;
+  padding: 75px 30px 30px 30px;
+  position: relative;
+  .write-qna{
+    width: 100px;
+    height: 40px;
+    position: absolute;
+    right: 30px;
+    top: 50px;
+    font-weight: bold;
+    background-color: #fafafa;
+    border: 1px solid #dbdbdb;
+    color: #424242;
+    border-radius: 4px;
+  }
+  .user-qna{
+    padding: 15px 0;
+    margin: 30px 0;
+    border-bottom: 1px solid lightgrey;
+    .bar::after{
+      content: '|';
+      margin: 0 6px;
+    }
+    .qna-type{
+      font-size: 12px;
+      color: #424242;
+      .a-complete{
+        font-size: 12px;
+        color: #35c0f5;
+      }
+    }
+    .qna{
+      margin-top: 10px;
+      position: relative;
+      p{
+        padding-left: 22px;
+      }
+    }
+    .company{
+      font-weight: bold;
+      margin-right: 3px;
+    }
+    .qna::before{
+      font-weight: bold;
+      color: #35C5F0;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    .user-question::before{
+      content: 'Q';
+    }
+    .company-answer::before{
+      content: 'A';
+    }
+  }
+}
+small{
+  font-size: 12px;
+  color: #bdbdbd;
+}
+.no-qna{
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  p{
+    color: grey;
+  }
+}

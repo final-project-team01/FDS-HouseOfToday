@@ -1,12 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-product-nav',
   template: `
   <div class="product-nav-container">
     <div class="nav-list">
-      <ul class="navigation">
-        <li class="tab" 
+      <ul>
+        <li class="tab cursor" 
         *ngFor="let nav of navMenu; let i=index"
         (click)="setActive(i)" [class.active]="nav.active">
         <h2>{{ nav.title }}
@@ -19,51 +19,13 @@ import { Component, OnInit, Input } from '@angular/core';
     </div>
   </div>
   `,
-  styles: [`
-  *{
-    box-sizing: border-box;
-  }
-
-  .nav-list{
-    width: 1136px;
-  }
-  .tab{
-    display: inline-block;
-    width: 150px;
-    height: 50px;
-    text-align: center;
-    padding: 0 10px;
-    vertical-align: middle;
-    border-top: solid 1px #ededed;
-    border-bottom: solid 1px #ededed;
-    border-left: solid 1px #ededed;
-    background-color: #f7f7f7;
-    cursor: pointer;
-  }
-  .tab > h2{
-    line-height: 50px;
-    font-weight: bold;
-    font-size: 15px;
-    color: #585858;
-  }
-  .tab.active{
-    border-color: #bdbdbd;
-    border-bottom: none;
-    border-right: solid 1px #bdbdbd;
-    border-left: solid 1px #bdbdbd;
-    background-color: white;
-  }
-  .tab.last{
-    width: 386px;
-    border-right: solid 1px #ededed;
-    cursor: default;
-  }
-  `]
+  styleUrls: ['./product-nav.scss']
 })
 export class ProductNavComponent implements OnInit {
 
   @Input() reviewAmount: number;
   @Input() qnaAmount: number;
+  @Output() move = new EventEmitter();
 
   navMenu = [ 
     { title: '상품정보', active: true },
@@ -80,7 +42,7 @@ export class ProductNavComponent implements OnInit {
   
   setActive(i: number){
     this.navMenu.map((nav, index) => nav.active = index === i ? true : false);
-    console.log(this.navMenu);
+    this.move.emit(i);
   }
 
 }

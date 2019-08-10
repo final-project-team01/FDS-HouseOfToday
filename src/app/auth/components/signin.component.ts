@@ -6,6 +6,10 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { Router } from '@angular/router';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { CommonService } from 'src/app/core/services/common.service';
+import { kakao_info, token_social } from 'src/app/core/models/auth.interface';
+import { UserService } from 'src/app/core/services/user.service';
+import { Title } from '@angular/platform-browser';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -18,6 +22,7 @@ import { CommonService } from 'src/app/core/services/common.service';
             <span alt="오늘의 집" aria-label class="login-logo"></span>
           </a>
         </h1>
+        <app-social (kakaoLogin)="kakaoLogin($event)"></app-social>
         <div>
         <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <input type="text" placeholder="이메일" class="email form-control"
@@ -29,7 +34,7 @@ import { CommonService } from 'src/app/core/services/common.service';
           [style.opacity]="capsOpacity">
             Caps Lock 이 켜져있네요!
           </div>
-          <button type="submit" class="submit">로그인</button>
+          <button type="submit" class="submit" BlueButton>로그인</button>
         </form>
         </div>
         <div class="login-menu">
@@ -143,15 +148,6 @@ import { CommonService } from 'src/app/core/services/common.service';
       transform: translate(-100%, -50%);
     }
     .submit{
-      background-color: #35C5F0;
-      border-color: #35C5F0;
-      color: white;
-      box-sizing: border-box;
-      border-width: 1px;
-      border-style: solid;
-      text-align: center;
-      border-radius: 4px;
-      font-weight: bold;
       transition: .2s ease;
       display: block;
       width: 100%;
@@ -160,9 +156,6 @@ import { CommonService } from 'src/app/core/services/common.service';
       padding: 13px 15px;
       font-size: 17px;
       line-height: 1.41;
-    }
-    .submit:active, .submit:hover {
-      background-color: #11b9eb;
     }
     .login-menu{
       margin: 20px 0;
@@ -211,13 +204,17 @@ export class SigninComponent implements OnInit {
     , private authService: AuthService
     , private router: Router
     , private storageService: StorageService
-    , private commonService: CommonService) { }
+    , private commonService: CommonService
+    , private userService: UserService
+    , private titleService: Title
+  ) { }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required]
     });
+    this.titleService.setTitle("1등 인테리어 집꾸미기 서비스, 오늘의 집");
   }
   isOnCapslock(e: KeyAttribute) {
     this.capsOpacity = e.getModifierState("CapsLock") ? 1 : 0;
@@ -231,21 +228,43 @@ export class SigninComponent implements OnInit {
       const email = this.loginForm.get("email").value;
       const password = this.loginForm.get("password").value;
 
-      this.authService.getToken(email, password).subscribe(req => {
-        if (req["token"]) this.loginSuccess(req["token"]);
+      this.authService.getToken(email, password).subscribe(res => {
+        if (res["token"]) this.loginSuccess(res["token"]);
         else console.log("onSubmit fail");
-      });
+      },
+        (error: HttpErrorResponse) => { console.log(error) });
     }
   }
+
   loginSuccess(token: string) {
     this.commonService.setToken(token);
     this.storageService.setLocal("user", token);
     this.storageService.setSession("user", token);
-    console.log("loginSuccess", this.commonService.Token);
-    this.router.navigate(['/']);
+    this.userService.getUser().subscribe((res) => {
+      this.commonService.setUserDetail(res[0]);
+      this.router.navigate(['/']);
+    });
+
   }
   loginFail() {
 
+  }
+  kakaoLogin(userInfo: kakao_info | undefined) {
+    if (userInfo) {
+      const socialInfo: token_social = {
+        type: "카카오",
+        unique_user_id: userInfo.id,
+        username: userInfo.properties.nickname,
+        email: userInfo.kakao_account.email,
+        social_profile: userInfo.properties.profile_image
+      }
+      this.authService.getToken4social(socialInfo).subscribe(
+        res => {
+          if (res["token"]) this.loginSuccess(res["token"]);
+          else console.log("onSubmit fail");
+        },
+        (error: HttpErrorResponse) => { console.log(error) });
+    }
   }
 
 }

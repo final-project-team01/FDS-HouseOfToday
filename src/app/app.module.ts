@@ -13,22 +13,26 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LyThemeModule, LY_THEME } from '@alyle/ui';
 import { MinimaLight } from '@alyle/ui/themes/minima';
 import { UserModule } from './user/user.module';
+import { CartModule } from './cart/cart.module';
+import { CommonComponent } from './common.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CommonComponent,
   ],
   imports: [
-    BrowserModule
-    , SharedModule
-    , CommunityModule
-    , StoreModule
-    , AuthModule
-    , CoreModule
-    , UserModule
-    , BrowserAnimationsModule
-    , LyThemeModule.setTheme('minima-light')
-    , AppRoutingModule
+    BrowserModule,
+    SharedModule,
+    CommunityModule,
+    StoreModule,
+    AuthModule,
+    CoreModule,
+    UserModule,
+    CartModule,
+    BrowserAnimationsModule,
+    LyThemeModule.setTheme('minima-light'),
+    AppRoutingModule
   ],
   providers: [{ provide: LY_THEME, useClass: MinimaLight, multi: true }],
   bootstrap: [AppComponent]

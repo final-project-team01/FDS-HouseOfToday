@@ -2,72 +2,77 @@ import { Injectable } from '@angular/core';
 import { CoreModule } from '../core.module';
 import { HttpHeaders } from '@angular/common/http';
 import { user_detail } from '../models/user.interface';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: CoreModule
 })
 export class CommonService {
   private _token: string = null;
-  private _id: number;
   private locate: number; //페이지 0커뮤니티, 1스토어
   private nav: number;//메뉴 변경여부
   private isNavFiexd = false;
   private userDetail: user_detail;
+  private _isPopup: boolean = true;
 
-  public readonly url: string = "http://52.78.112.247/";
+  readonly url: string = environment.url
   constructor() { }
 
-  public setToken(newToken: string) {
+  setToken(newToken: string) {
     this._token = newToken;
   }
 
-  public get Token() {
+  get Token() {
     return this._token;
   }
 
-  public get Id() {
-    return this._id;
-  }
-  public setId(userId: number) {
-    this._id = userId;
+  set isPopup(b: boolean) {
+    this._isPopup = b;
   }
 
-  public isLogin() {
+  get isPopup() {
+    return this._isPopup;
+  }
+
+  isLogin() {
     return this._token ? true : false;
   }
 
-  public getFullPath(path: string) {
+  getFullPath(path: string) {
+    if (path.startsWith('/'))
+      path = path.substr(1);
+
     return this.url[this.url.length - 1] === '/' ? this.url + path : this.url + "/" + path;
   }
 
-  public setLocate(nav: number) {
+  setLocate(nav: number) {
     this.locate = nav;
   }
-  public getLocate() {
+  getLocate() {
     return this.locate;
   }
 
-  public setNav(nav: number) {
+  setNav(nav: number) {
     this.nav = nav;
   }
-  public getNav() {
+  getNav() {
     return this.nav;
   }
 
-  public resetNav() {
+  resetNav() {
     this.nav = this.locate;
   }
 
-  public setIsNavFixed(isFixed: boolean) {
+  setIsNavFixed(isFixed: boolean) {
     this.isNavFiexd = isFixed;
   }
-  public getIsNavFixed() {
+  getIsNavFixed() {
     return this.isNavFiexd;
   }
-  public setHeader(headers: HttpHeaders, key: string, value: string) {
+  setHeader(headers: HttpHeaders, key: string, value: string) {
     return headers.set(key, value);
   }
-  public setAuthorization(token: string) {
+  setAuthorization(token: string) {
     if (!token.startsWith("token"))
       token = "token " + token;
 
@@ -76,23 +81,30 @@ export class CommonService {
 
     return headers;
   }
-  public setUserDetail(userDetail: user_detail) {
+  setUserDetail(userDetail: user_detail) {
     this.userDetail = userDetail
   }
-  public getUserDetail() {
+  getUserDetail() {
     return this.userDetail;
   }
 
-  public addComma(num: number) {
+  getUserDetailProfile() {
+    return this.getUserDetail() ? this.getUserDetail()['type'] === 'django'
+      ? this.getUserDetail()['profile'] ? this.getUserDetail()['profile'] : 'assets/image/36.png'
+      : this.getUserDetail()['social_profile']
+      : 'assets/image/36.png';
+  }
+
+  addComma(num: number) {
     const regexp = /\B(?=(\d{3})+(?!\d))/g;
     return num.toString().replace(regexp, ',');
   }
 
-  public changePage(i: number, chosenList, originalList){
-    const start = i * 3;
-    const end = start + 3;
-    chosenList 
-      = originalList.filter((review, index) => index >= start && index < end);
-    return chosenList;
-  }
+  // changePage(i: number, chosenList, originalList) {
+  //   const start = i * 5;
+  //   const end = start + 5;
+  //   chosenList
+  //     = originalList.filter((review, index) => index >= start && index < end);
+  //   return chosenList;
+  // }
 }
