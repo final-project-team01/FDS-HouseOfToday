@@ -30,13 +30,10 @@ export class CartModalComponent implements OnInit {
   }
   
   close(){
-    this.closeModal.emit();
+    this.closeModal.emit('cart');
   }
 
   goToCart() {
-    const user = this.commonService.getUserDetail();
-    console.log(user);
-    
     this.router.navigate(['/cart']);
   }
 

@@ -87,8 +87,13 @@ import { cart_option, buy_option } from 'src/app/core/models/cart.interface';
       </div>
     </div>
     <app-cart-modal
-      (closeModal)="closeModal()"
-      [showModal]="showModal"></app-cart-modal>
+      (closeModal)="closeModal($event)"
+      [showModal]="showCartModal">
+    </app-cart-modal>
+    <app-buy-modal
+      (closeModal)="closeModal($event)"
+      [showModal]="showBuyModal">
+    </app-buy-modal>
     <app-footer></app-footer>
   `,
   styleUrls: ['./store-detail.scss']
@@ -111,7 +116,8 @@ export class StoreDetailComponent implements OnInit {
   chosenOptions: ChosenOption[] = [];
   totalPrice = '0';
   originalPrice: string;
-  showModal = false;
+  showCartModal = false;
+  showBuyModal = false;
 
   constructor(private route: ActivatedRoute
     , private storeService: StoreService
@@ -124,7 +130,6 @@ export class StoreDetailComponent implements OnInit {
     window.scroll({ top: 0 });
     this.commonService.setLocate(1);
     this.commonService.setNav(1);
-    console.log("detail");
     this.route.paramMap
       .subscribe(params => this.id = +params.get('id'));
     this.storeService.getProductInfo(this.id)
@@ -157,8 +162,6 @@ export class StoreDetailComponent implements OnInit {
     const chosen = { id: this.generateId(), productId, optionId, name: option.name, price: option.price, quantity: 1 };
     this.chosenOptions = [...this.chosenOptions, chosen];
     this.getTotalPrice();
-    console.log(this.chosenOptions);
-    
   }
 
   deleteOption(id: number) {
@@ -245,8 +248,8 @@ export class StoreDetailComponent implements OnInit {
       });
     });
     this.chosenOptions = [];
-    this.showModal = true;
     this.getTotalPrice();
+    this.showCartModal = true;
   }
 
   buyDirect() {
@@ -256,19 +259,20 @@ export class StoreDetailComponent implements OnInit {
     const po_list = this.chosenOptions.map(option => option.optionId).join();
     const qty_list = this.chosenOptions.map(option => option.quantity).join();
     const payload: buy_option = { pd_id, po_list, qty_list }; 
-    console.log(payload);
-    
     this.cartService.buyDirect(payload, user)
       .subscribe(res => {
-        console.log('success');
+        this.chosenOptions = [];
+        this.getTotalPrice(); 
+        this.showBuyModal = true;
       },
         err => {
           console.log(err.message);
         });
   }
 
-  closeModal() {
-    this.showModal = false;
+  closeModal(modalName: string) {
+    if (modalName === 'cart') this.showCartModal = false;
+    else this.showBuyModal = false;
   }
 
   checkCondition(target: string, user: string) {
