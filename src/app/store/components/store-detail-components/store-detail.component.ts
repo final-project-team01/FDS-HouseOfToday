@@ -268,6 +268,9 @@ export class StoreDetailComponent implements OnInit {
         err => {
           console.log(err.message);
         });
+    this.chosenOptions = [];
+    this.getTotalPrice(); 
+    this.showBuyModal = true;
   }
 
   closeModal(modalName: string) {
