@@ -10,7 +10,7 @@ import { CommonService } from 'src/app/core/services/common.service';
       <div class="cart-modal"
         [class.showModal]="showModal">
         <p class="cart-modal-message">장바구니에 상품을 담았습니다.</p>
-        <button class="go-to-cart btn cursor" (click)="goToCart()">장바구니 보러가기 <span class="icon-pointer"></span></button>
+        <button class="go-to-cart btn cursor" BlueButton (click)="goToCart()">장바구니 보러가기 <span class="icon-pointer"></span></button>
         <button class="ok btn cursor" (click)="close()">확인</button>
         <button aria-label="close" class="close icon-pointer cursor" (click)="close()"></button>
       </div>
@@ -28,14 +28,12 @@ export class CartModalComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  close() {
-    this.closeModal.emit();
+  
+  close(){
+    this.closeModal.emit('cart');
   }
 
   goToCart() {
-    const user = this.commonService.getUserDetail();
-
     this.router.navigate(['/cart']);
   }
 

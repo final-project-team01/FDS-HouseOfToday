@@ -89,8 +89,13 @@ import { HttpErrorResponse } from '@angular/common/http';
       </div>
     </div>
     <app-cart-modal
-      (closeModal)="closeModal()"
-      [showModal]="showModal"></app-cart-modal>
+      (closeModal)="closeModal($event)"
+      [showModal]="showCartModal">
+    </app-cart-modal>
+    <app-buy-modal
+      (closeModal)="closeModal($event)"
+      [showModal]="showBuyModal">
+    </app-buy-modal>
     <app-footer></app-footer>
   `,
   styleUrls: ['./store-detail.scss']
@@ -113,7 +118,8 @@ export class StoreDetailComponent implements OnInit {
   chosenOptions: ChosenOption[] = [];
   totalPrice = '0';
   originalPrice: string;
-  showModal = false;
+  showCartModal = false;
+  showBuyModal = false;
 
   constructor(private route: ActivatedRoute
     , private storeService: StoreService
@@ -250,8 +256,8 @@ export class StoreDetailComponent implements OnInit {
           });
     });
     this.chosenOptions = [];
-    this.showModal = true;
     this.getTotalPrice();
+    this.showCartModal = true;
   }
 
   buyDirect() {
@@ -260,19 +266,24 @@ export class StoreDetailComponent implements OnInit {
     const pd_id = this.chosenOptions[0].productId.toString();
     const po_list = this.chosenOptions.map(option => option.optionId).join();
     const qty_list = this.chosenOptions.map(option => option.quantity).join();
-    const payload: buy_option = { pd_id, po_list, qty_list };
-
+    const payload: buy_option = { pd_id, po_list, qty_list }; 
     this.cartService.buyDirect(payload, user)
       .subscribe(res => {
-        console.log('success');
+        this.chosenOptions = [];
+        this.getTotalPrice(); 
+        this.showBuyModal = true;
       },
         err => {
           console.log(err.message);
         });
+    this.chosenOptions = [];
+    this.getTotalPrice(); 
+    this.showBuyModal = true;
   }
 
-  closeModal() {
-    this.showModal = false;
+  closeModal(modalName: string) {
+    if (modalName === 'cart') this.showCartModal = false;
+    else this.showBuyModal = false;
   }
 
   checkCondition(target: string, user: string) {

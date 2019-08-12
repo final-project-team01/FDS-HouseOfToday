@@ -1,0 +1,44 @@
+.buy-modal-container{
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  opacity: 0;
+  visibility: hidden;
+  transition: visibility 0s .45s, opacity .15s linear;
+  .buy-modal{
+    width: calc(100% - 40px);
+    max-width: 425px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -75%);
+    padding: 40px;
+    margin: unset;
+    background: white;
+    border-radius: 4px;
+    position: absolute;
+    text-align: center;
+    transition: transform .15s linear;
+    p{
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 30px;
+    }
+    .close{
+      padding: 5px 30px;
+      font-size: 17px;
+    }
+  }
+  .showModal{
+    transform: translate(-50%, -50%);
+    transition: transform .15s linear;
+  }
+}
+.show{
+  opacity: 1;
+  visibility: visible;
+  transition: visibility 0s 0s, opacity .15s linear;
+}

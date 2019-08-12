@@ -32,6 +32,7 @@ import { CartModalComponent } from './components/store-detail-components/cart-mo
 import { SortFilterComponent } from './components/sort-filter.component';
 import { StarRateComponent } from './components/store-detail-components/star-rate.component';
 import { BrandComponent } from './components/brand.component';
+import { BuyModalComponent } from './components/store-detail-components/buy-modal.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,6 @@ import { BrandComponent } from './components/brand.component';
     , ProductOptionComponent
     , ProductDetailComponent
     , ClickOutsideDirective
-    , StoreDetailComponent
     , ProductReviewComponent
     , ProductQnaComponent
     , ProductEtcComponent
@@ -54,7 +54,9 @@ import { BrandComponent } from './components/brand.component';
     , RankBestComponent
     , CartModalComponent
     , SortFilterComponent
-    , StarRateComponent, BrandComponent
+    , BrandComponent
+    , StarRateComponent
+    , BuyModalComponent
   ],
   imports: [
     CommonModule
