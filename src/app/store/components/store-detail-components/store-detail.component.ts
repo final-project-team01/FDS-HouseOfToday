@@ -208,6 +208,7 @@ export class StoreDetailComponent implements OnInit {
 
   setAmount(data: any) {
     data.option.quantity = +data.input.value;
+    this.getTotalPrice();
   }
 
   getTotalPrice() {

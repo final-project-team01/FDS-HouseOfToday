@@ -114,7 +114,7 @@ export class ProductOptionComponent implements OnInit {
     return name.slice(0, i);
   }
 
-  setAmount(option: ChosenOption, input: HTMLInputElement) {
+  setAmount(option, input) {
     this.set.emit({ option, input });
   }
 
