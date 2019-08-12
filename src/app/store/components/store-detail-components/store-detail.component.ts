@@ -139,6 +139,7 @@ export class StoreDetailComponent implements OnInit {
     this.storeService.getProductInfo(this.id)
       .subscribe(data => {
         this.productInfo = data;
+        console.log(this.productInfo);
         this.productImages = data['thumnail_images'];
         this.productDetailImages = data['detail_images'];
         this.productOption = data['product_option'];

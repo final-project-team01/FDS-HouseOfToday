@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { review } from 'src/app/core/models/store.interface';
+import { CommonService } from 'src/app/core/services/common.service';
+import { StoreService } from 'src/app/core/services/store.service';
 
 
 @Component({
@@ -66,7 +68,18 @@ import { review } from 'src/app/core/models/store.interface';
             <img src="{{ review.image }}">
           </div>
           <p class="review-comment">{{ review.comment }}</p>
-          <button class="helpful cursor">도움이 돼요</button>
+          <button class="helpful clicked cursor" BlueButton
+          *ngIf="this.commonService.getUserDetail()['id'] === 88; else helpfulClicked">
+            <svg width="16" height="16" viewBox="0 0 16 16" preserveAspectRatio="xMidYMid meet">
+              <path fill="#FFF" d="M2.28 4.99l4.15 6.03 7.36-9.35 1.54 1.2-9 11.46L.67 6.1z" fill-rule="evenodd">
+              </path>
+            </svg>
+          도움됨</button>
+          <ng-template #helpfulClicked>
+            <button class="helpful cursor" (click)="helpful(review.id)">
+            도움이 돼요</button>
+          </ng-template>
+          <span *ngIf="review.helpful_count > 0">{{ review.helpful_count }}명에게 도움이 되었습니다.</span>
         </article>
       </div>
       <ng-template #noReview>
@@ -89,6 +102,7 @@ export class ProductReviewComponent implements OnInit {
     this.filteredList = originalList
   };
   
+  userInfo: any;
   _originalList: review[];
   filteredList: review[];
   showFilter = 'none';
@@ -96,7 +110,8 @@ export class ProductReviewComponent implements OnInit {
   scoreArray = [ 5, 4, 3, 2, 1 ];
   index = 0;
 
-  constructor() { }
+  constructor(private commonService: CommonService
+            , private storeService: StoreService) { }
 
   ngOnInit() {
     
@@ -125,5 +140,12 @@ export class ProductReviewComponent implements OnInit {
   cancelFilter(){
     this.chosenScore = 0;
     this.filteredList = this._originalList;
+  }
+
+  helpful(id: number){
+    console.log(id);
+    
+    this.storeService.checkHelpful(id)
+      .subscribe(res => console.log(res));
   }
 }

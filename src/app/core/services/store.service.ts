@@ -48,4 +48,13 @@ export class StoreService {
     const fullPath = this.commonService.getFullPath(path);
     return this.httpClient.get(fullPath);
   }
+
+  checkHelpful(id: number) {
+    const path = 'products/product/helpful/';
+    const fullPath = this.commonService.getFullPath(path);
+    const user = localStorage.getItem('user');
+    let headers = this.commonService.setAuthorization(user);
+    let options = { headers };
+    return this.httpClient.post(fullPath, { rv_id: id }, options);
+  }
 } 
