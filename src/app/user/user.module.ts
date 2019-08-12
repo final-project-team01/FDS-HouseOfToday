@@ -9,13 +9,15 @@ import { SharedModule } from '../shared/shared.module';
 import { UserNavComponent } from './components/user-nav.component';
 import { UserModifyComponent } from './components/user-modify.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ListComponent } from './components/order-list/list.component';
 
 @NgModule({
   declarations: [
     UsersComponent,
     OrderListComponent,
     UserNavComponent,
-    UserModifyComponent
+    UserModifyComponent,
+    ListComponent
   ],
   imports: [CommonModule, CoreModule, SharedModule, ReactiveFormsModule, UserRoutingModule]
 })

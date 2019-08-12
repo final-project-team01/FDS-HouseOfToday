@@ -1,27 +1,75 @@
-# Ohouse
+# 오늘의 집 COPY
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.2.
+## FASTCAMPUS FDS12 1조
 
-## Development server
+김들이, 유진혁, 이현호, 황유순
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### 김들이
 
-## Code scaffolding
+- 팀장
+- 디렉토리 작업, routing, module 및 공통기능 구현, 소셜로그인
+- 헤더, 프로필 수정, 집들이, 로그인, 로그아웃 페이지
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### 이현호
 
-## Build
+- 푸터, 사진, 유저 프로필, 구매이력, 프로필 수정 페이지
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+### 유진혁
 
-## Running unit tests
+- 커뮤니티 홈, 스토어 홈, 카테고리, 랭킹 페이지
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### 황유순
 
-## Running end-to-end tests
+- 사진 디테일, 집들이 디테일, 상품 디테일, 404 페이지
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+## 기간
 
-## Further help
+2019.07.15 ~ 2019.08.08
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## 구현
+
+### 페이지
+
+- 회원가입
+- 로그인
+- 커뮤니티 홈
+- 사진
+- 사진 디테일
+- 집들이
+- 집들이 디테일
+- 스토어 홈
+- 카테고리
+- 랭킹
+- 상품 디테일
+- 유저 프로필
+- 구매이력
+- 프로필 수정
+- 장바구니
+- 404
+
+### 주요기능
+
+- Kakao 계정을 통한 로그인
+- 페이지에 따른 title 변경, 로그인 유무에 따른 페이지 라우팅
+- 커뮤니티 홈, 스토어 홈 등 각종 상품 리스트 및 리뷰 필터링
+- 상품 디테일 페이지의 캐러셀
+- 리뷰, 문의, 댓글 등의 페이지네이션
+- 상품 디테일 옵션 선택 동기화
+- 로그인, 회원가입, 장바구니 수량에 벨리데이션
+- 스크롤에 따른 헤더, 상품디테일 옵션, 장바구니 가격창 상태 변화
+- 유저 정보 수정
+- 재사용 기능들의 directive 및 component 분리
+  <br>| (http://ohome.co.kr/common)
+
+## 사용
+
+- Angular(html, scss, typescript)
+- Alyle
+
+## Git
+
+https://github.com/final-project-team01/FDS-HouseOfToday
+
+## Demo
+
+http://ohome.co.kr/

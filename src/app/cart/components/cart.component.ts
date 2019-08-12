@@ -29,7 +29,7 @@ import { Title } from '@angular/platform-browser';
               <div class="commerce-cart">
                 <div class="cart-header">
                   <span class="cart-header-left">
-                    <app-check-box [caption]="true" [isChecked]="cartService.isTotalChecked">모두 선택</app-check-box>
+                    <app-check-box [caption]="true" [isChecked]="cartService.isTotalChecked" (clickEvent)="cartService.toggleCheckedAll($event)">모두 선택</app-check-box>
                   </span>
                   <span class="cart-header-right">
                     <button class="cart-header-delete" (click)="removeItems()">선택삭제</button>

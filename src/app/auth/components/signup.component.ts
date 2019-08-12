@@ -311,7 +311,7 @@ export class SignupComponent implements OnInit {
       }, { validator: PasswordValidator.match }),
       nickname: ['', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z가-힣ㄱ-ㅎ]{2,15}$')
+        Validators.pattern('^[0-9a-zA-Z가-힣ㄱ-ㅎ]{2,15}$')
       ]]
     });
 
