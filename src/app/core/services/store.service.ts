@@ -52,9 +52,11 @@ export class StoreService {
   checkHelpful(id: number) {
     const path = 'products/product/helpful/';
     const fullPath = this.commonService.getFullPath(path);
+    const rv_id = id.toString();
     const user = localStorage.getItem('user');
     let headers = this.commonService.setAuthorization(user);
     let options = { headers };
-    return this.httpClient.post(fullPath, { rv_id: id }, options);
+    let payload = { rv_id };
+    return this.httpClient.post(fullPath, payload, options);
   }
 } 

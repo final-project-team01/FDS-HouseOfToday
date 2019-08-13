@@ -76,7 +76,8 @@ import { HttpErrorResponse } from '@angular/common/http';
           </h3>
           <app-product-review
             [originalList]="productReviews"
-            [starAvg]="starAvg">
+            [starAvg]="starAvg"
+            [productId]="id">
           </app-product-review>
           <h3 #qna>문의 <span class="qna-amount">{{ qnaAmount }}</span></h3>
           <app-product-qna
