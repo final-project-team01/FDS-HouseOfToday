@@ -33,6 +33,7 @@ import { SortFilterComponent } from './components/sort-filter.component';
 import { StarRateComponent } from './components/store-detail-components/star-rate.component';
 import { BrandComponent } from './components/brand.component';
 import { BuyModalComponent } from './components/store-detail-components/buy-modal.component';
+import { ReviewModalComponent } from './components/store-detail-components/review-modal.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,7 @@ import { BuyModalComponent } from './components/store-detail-components/buy-moda
     , SortFilterComponent
     , BrandComponent
     , StarRateComponent
-    , BuyModalComponent
+    , BuyModalComponent, ReviewModalComponent
   ],
   imports: [
     CommonModule
