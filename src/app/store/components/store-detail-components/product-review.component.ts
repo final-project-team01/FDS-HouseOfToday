@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, Renderer2 } from '@angular/core';
 import { review } from 'src/app/core/models/store.interface';
 import { CommonService } from 'src/app/core/services/common.service';
 import { StoreService } from 'src/app/core/services/store.service';
@@ -8,7 +8,7 @@ import { StoreService } from 'src/app/core/services/store.service';
   selector: 'app-product-review',
   template: `
     <div class="product-review-container">
-      <a class="write-review cursor">리뷰쓰기</a>
+      <a class="write-review cursor" (click)="showReviewModal()">리뷰쓰기</a>
       <div class="star-rate-container">
         <span class="star-avg">{{ starAvg }}</span>
         <app-star-rate [starAvg]="starAvg" [width]="300"></app-star-rate>
@@ -92,6 +92,9 @@ import { StoreService } from 'src/app/core/services/store.service';
         (change)="changePage($event)">
       </app-pagination>
     </div>
+    <app-review-modal
+    [showModal]="showModal"
+    (closeModal)="close()"></app-review-modal>
   `,
   styleUrls: ['./product-review.scss']
 })
@@ -112,9 +115,12 @@ export class ProductReviewComponent implements OnInit {
   chosenScore = 0;
   scoreArray = [ 5, 4, 3, 2, 1 ];
   index = 0;
+  showModal: boolean;
+  top: number;
 
   constructor(private commonService: CommonService
-            , private storeService: StoreService) { }
+            , private storeService: StoreService
+            , private renderer: Renderer2) { }
 
   ngOnInit() {
     
@@ -163,6 +169,23 @@ export class ProductReviewComponent implements OnInit {
         this._originalList = res['review'].sort(function (a, b) {
           return b.star_score - a.star_score;
         });
-      });
+    });
+  }
+
+  showReviewModal(){
+    this.showModal = true;
+    this.top = window.scrollY;
+    window.scrollTo({ top: this.top, left: 0 });
+    this.renderer.addClass(document.body, 'no-scroll');
+    this.renderer.setStyle(document.body, 'position', 'fixed');
+    this.renderer.setStyle(document.body, 'top', `-${this.top}px`);
+  }
+
+  close(){
+    this.showModal = false;
+    this.renderer.setStyle(document.body, 'position', '');
+    this.renderer.setStyle(document.body, 'top', '');
+    this.renderer.removeClass(document.body, 'no-scroll');
+    window.scrollTo({ top: this.top, left: 0 });
   }
 }
