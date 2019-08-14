@@ -57,7 +57,8 @@ import { ReviewModalComponent } from './components/store-detail-components/revie
     , SortFilterComponent
     , BrandComponent
     , StarRateComponent
-    , BuyModalComponent, ReviewModalComponent
+    , BuyModalComponent
+    , ReviewModalComponent
   ],
   imports: [
     CommonModule
