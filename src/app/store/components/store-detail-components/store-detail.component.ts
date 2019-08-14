@@ -76,7 +76,8 @@ import { HttpErrorResponse } from '@angular/common/http';
           </h3>
           <app-product-review
             [originalList]="productReviews"
-            [starAvg]="starAvg">
+            [starAvg]="starAvg"
+            [productId]="id">
           </app-product-review>
           <h3 #qna>문의 <span class="qna-amount">{{ qnaAmount }}</span></h3>
           <app-product-qna
@@ -139,6 +140,7 @@ export class StoreDetailComponent implements OnInit {
     this.storeService.getProductInfo(this.id)
       .subscribe(data => {
         this.productInfo = data;
+        console.log(this.productInfo);
         this.productImages = data['thumnail_images'];
         this.productDetailImages = data['detail_images'];
         this.productOption = data['product_option'];
@@ -229,10 +231,10 @@ export class StoreDetailComponent implements OnInit {
   }
 
   moveScroll(i: number, nav, review, qna, delivery) {
-    if (i === 0) window.scroll({ top: nav.offsetTop, behavior: 'smooth' });
-    else if (i === 2) window.scrollTo({ top: review.offsetTop + 700, left: 0, behavior: 'smooth' });
-    else if (i === 3) window.scrollTo({ top: qna.offsetTop + 700, left: 0, behavior: 'smooth' });
-    else if (i === 4) window.scroll({ top: delivery.offsetTop + 700, left: 0, behavior: 'smooth' });
+    if (i === 0) window.scroll({ top: nav.offsetTop });
+    else if (i === 2) window.scrollTo({ top: review.offsetTop + 700, left: 0 });
+    else if (i === 3) window.scrollTo({ top: qna.offsetTop + 700, left: 0 });
+    else if (i === 4) window.scroll({ top: delivery.offsetTop + 700, left: 0 });
   }
 
   intoCart() {

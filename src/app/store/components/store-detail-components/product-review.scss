@@ -1,3 +1,7 @@
+::ng-deep .no-scroll{
+  // height: 100vh;
+  overflow-y: hidden;
+}
 .product-review-container{
   width: 690px;
   padding: 40px 30px 15px 30px;
@@ -126,8 +130,7 @@
         color: #424242;
       }
       .helpful{
-        width: 114px;
-        height: 32px;
+        padding: 5px 20px;
         border-radius: 4px;
         border: 1px solid #35c5f0;
         font-size: 15px;
@@ -135,6 +138,9 @@
         font-weight: 700;
         margin-right: 10px;
         background-color: #fff;
+        svg{
+          margin-bottom: -2px;
+        }
       }
     }
   }

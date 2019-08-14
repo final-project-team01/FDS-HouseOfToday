@@ -59,14 +59,6 @@ export class CartService {
     return this.httpClient.post(fullPath, payload, options);
   }
 
-  // buyProducts(userToken: string) {
-  //   const path = 'products/payment/';
-  //   const fullPath = this.commonService.getFullPath(path);
-  //   let headers = this.commonService.setAuthorization(userToken);
-  //   let options = { headers };
-  //   return this.httpClient.post(fullPath, null, options);
-  // }
-
   getCartList() {
     const headers = this.commonService.setAuthorization(this.commonService.Token);
     const path = "products/cart/";
