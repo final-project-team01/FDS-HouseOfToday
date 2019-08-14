@@ -48,4 +48,20 @@ export class UserService {
       (error: HttpErrorResponse) => { console.log(error) }
     );
   }
+
+  uploadFormData(formData) {
+    const headers = this.commonService.setAuthorizationWithoutContenttype(this.commonService.Token);
+    const path = `accounts/update/${this.commonService.getUserDetail()['id']}/`;
+
+    const fullPath = this.commonService.getFullPath(path);
+    const options = { headers }
+    this.http.patch<account_update[]>(fullPath, formData, options).subscribe(
+      res => {
+        this.getUser().subscribe((user) => {
+          this.commonService.setUserDetail(user[0]);
+        });
+      },
+      (error: HttpErrorResponse) => { console.log(error) }
+    );
+  }
 }

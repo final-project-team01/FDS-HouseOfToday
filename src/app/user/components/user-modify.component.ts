@@ -47,9 +47,11 @@ import { Title } from '@angular/platform-browser';
         </div>
         <div class="field">
           <div class="user_modi_subtitle">프로필 이미지</div>
-          <div class="profile_image">
-            <div class="add_photo_icon"></div>
-            <img src="{{commonService.getUserDetailProfile()}}"/>
+          <div>
+            <input type="file" accept="image/*" (change)="onFileChange(fileInput)" #fileInput>
+            <div class="profile_image">
+              <img src="{{getImageSrc()}}"/>
+            </div>
           </div>
         </div>
         <div class="field">
@@ -150,9 +152,17 @@ import { Title } from '@angular/platform-browser';
       .profile_image {
         width: 220px;
         height: 220px;
+        overflow:hidden;
+        position:relative;
       }
       .profile_image > img{
         width:220px;
+      }
+      .profile_image > input{
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 100%;
       }
       .cover_image {
         width: 350px;
@@ -167,6 +177,14 @@ import { Title } from '@angular/platform-browser';
         height: 60px;
         margin: auto;
         position:absolute;
+      }
+      .profile_image::after{
+        content:"";
+        content: "";
+        width: 220px;
+        height: 220px;
+        position: absolute;
+        background-color: rgba(0,0,0,0.3);
       }
       .oneLine_intro {
         width: calc(100% - 144px);
@@ -192,6 +210,8 @@ export class UserModifyComponent implements OnInit {
   birthDay = [];
   gender: gender = 0;
   userFrom: FormGroup;
+  image = null;
+  file: File = null;
 
   get userName() {
     return this.userFrom.get('userName');
@@ -238,22 +258,57 @@ export class UserModifyComponent implements OnInit {
     return this.commonService.getUserDetail() ? this.commonService.getUserDetail().message : '';
   }
 
+  onFileChange(fileInput: HTMLInputElement) {
+    console.log(fileInput);
+    const files = fileInput.files;
+    if (files && files.length > 0) {
+      // For Preview
+      const file = files[0];
+      const reader = new FileReader();
 
+      /* 브라우저는 보안 문제로 인해 파일 경로의 참조를 허용하지 않는다.
+        따라서 파일 경로를 img 태그에 바인딩할 수 없다.
+        FileReader.readAsDataURL 메소드를 사용하여 이미지 파일을 읽어
+        base64 인코딩된 스트링 데이터를 취득한 후, img 태그에 바인딩한다. */
+      reader.readAsDataURL(file);
+      reader.onload = (e) => {
+        this.file = file;
+        this.image = reader.result;
+      };
+    }
+  }
 
   setGender(gender: gender) {
     this.gender = gender;
   }
+
+  getImageSrc() {
+    return this.image || this.commonService.getUserDetailProfile();
+  }
   onSubmit() {
     const options: account_update_payload = {};
     const userInfo = this.commonService.getUserDetail();
-    if (this.getGender() !== userInfo.gender)
-      options['gender'] = this.getGender();
-    if (!this.userName.errors && this.userName.value !== userInfo.username)
-      options['username'] = this.userName.value;
-    if (!this.userIntro.errors && this.userIntro.value !== userInfo.message)
-      options['message'] = this.userIntro.value;
+    const profile = this.image;
+    const formData = new FormData();
 
-    this.userService.patchAccountsUpdate(options);
+    if (this.image) {
+      formData.append('profile', this.file, this.file.name);
+    }
+    //      options['profile'] = this.file;
+    if (this.getGender() !== userInfo.gender)
+      formData.append('gender', this.getGender().toString());
+    //      options['gender'] = this.getGender();
+    if (!this.userName.errors && this.userName.value !== userInfo.username)
+      formData.append('username', this.userName.value);
+    //      options['username'] = this.userName.value;
+    if (!this.userIntro.errors && this.userIntro.value !== userInfo.message)
+      formData.append('message', this.userIntro.value);
+    //      options['message'] = this.userIntro.value;
+
+
+
+    this.userService.uploadFormData(formData);
+
   }
 
 
