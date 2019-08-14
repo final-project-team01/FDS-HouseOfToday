@@ -5,7 +5,7 @@ import { CommonService } from 'src/app/core/services/common.service';
   selector: 'app-product-list',
   template: `
   <div class="row">
-    <div *ngFor="let productItem of productItems; let i=index" class="col-12 col-md-4 col-lg-3" [style.max-width]="menuWidth" (mouseover)="zoomImg(i)" (mouseleave)="zoomOut(i)">
+    <div *ngFor="let productItem of productItems; let i=index" class="col-12 col-md-4 col-lg-3" [style.max-width]="menuWidth" [style.min-width]="menuWidth" (mouseover)="zoomImg(i)" (mouseleave)="zoomOut(i)">
       <div *ngIf="i < setNumber">
       <p class="today-deal-timer" [class.active]="activeTimer">{{hours < 10 ? "0" + hours : hours}}:{{minutes < 10 ? "0" + minutes : minutes}}:{{seconds < 10 ? "0" + seconds : seconds}}남음</p>
       <div *ngIf="activeRank" class="itemRanking"><app-rank-crown [i]="i"></app-rank-crown>{{i + 1}}</div>
