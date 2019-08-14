@@ -25,6 +25,9 @@
     width: 760px;
     overflow: hidden;
     position: relative;
+    section{
+      padding: 25px 60px;
+    }
     h1{
       padding: 60px 20px 25px 60px;
       font-size: 25px;
@@ -33,10 +36,14 @@
       display: inline-block;
     }
     h2{
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       font-size: 17px;
       font-weight: bold;
       line-height: 17px;
+    }
+    .sub-message{
+      font-size: 13px;
+      color: #757575;
     }
     .review-point{
       margin-top: 65px;
@@ -47,7 +54,6 @@
       display: inline-block;
     }
     .product-info{
-      padding: 25px 60px;
       img{
         width: 94px;
         height: 94px;
@@ -90,7 +96,6 @@
       }
     }
     .select-picture{
-      padding: 25px 60px;
       position: relative;
       span{
         color: #757575;
@@ -123,15 +128,108 @@
         position: absolute;
         transform: translate(-100%, -50%);
       }
-      p, strong{
-        font-size: 13px;
-        color: #757575;
+      .upload{
+        display: block;
+        width: 240px;
+        height: 50px;
+        margin-top: 20px;
+        border: none;
+        border-radius: 4px;
+        background-color: #35c5f0;
+        font-weight: bold;
+        color: #ffffff;
+      }
+      .upload::before{
+        content: "";
+        display: inline-block;
+        margin: 0 5px 3px 0;
+        width: 14px;
+        height: 14px;
+        background-image: url(https://d1nyaccf3kuclt.cloudfront.net/assets/icon_map/icon-pointer.png);
+        background-repeat: no-repeat;
+        background-size: 400px;
+        background-position: top -76px left -331px;
+        vertical-align: middle;
       }
     }
-  }
-  .close{
-    padding: 5px 30px;
-    font-size: 17px;
+    .write-review{
+      textarea{
+        width: 660px;
+        height: 200px;
+        padding: 15px 20px;
+        margin-top: 20px;
+        border: solid 1px #dcdcdc;
+        box-sizing: border-box;
+        resize: none;
+        font-size: 18px;
+        line-height: 30px;
+      }
+      textarea::placeholder{
+        color: #bdbdbd;
+      }
+      small{
+        margin-top: 10px;
+        color: #757575;
+        font-size: 12px;
+      }
+    }
+    .confirmation{
+      input{
+        display: none;
+      }
+      label{
+        font-size: 14px;
+        line-height: 20px;
+        .checkbox{
+          width: 22px;
+          height: 22px;
+          background-size: 400px;
+          background-position: top -264px left -253px;
+          vertical-align: bottom;
+          margin-right: 10px;
+        }
+        .confirm{
+          background-position: top -264px left -201px;
+        }
+        .more_info{
+          color: #35c5f0;
+          font-weight: bold;
+        }
+      }
+    }
+    .actions{
+      margin-top: 25px;
+      padding: 20px 30px;
+      border-top: 1px solid #dcdcdc;
+      div{
+        float: left;
+        padding-top: 7px;
+        p{
+          min-width: 420px;
+          font-size: 13px;
+        }
+      }
+      .submit{
+        float: right;
+        padding: 15px 30px;
+        font-size: 15px;
+      }
+      .close{
+        border-style: none;
+        border-radius: 5px;
+        background-color: white;
+        font-size: 15px;
+        font-weight: bold;
+        color: #35c5f0;
+        padding: 16px;
+        margin-left: 60px;
+      }
+    }
+    .actions::after{
+      content:'';
+      display: block;
+      clear: both;
+    }
   }
 }
 .show{
