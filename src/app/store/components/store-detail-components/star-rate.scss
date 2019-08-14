@@ -8,9 +8,9 @@
       background-color: #35C5F0;
       background-repeat: no-repeat;
       > img{
+        display: flex;
         width: 300px;
         vertical-align: middle;
-        margin-top: -3px;
       }
     }
   }

@@ -75,7 +75,7 @@ import { HttpErrorResponse } from '@angular/common/http';
             </span>
           </h3>
           <app-product-review
-            [originalList]="productReviews"
+            [productInfo]="productInfo"
             [starAvg]="starAvg"
             [productId]="id">
           </app-product-review>
@@ -111,7 +111,6 @@ export class StoreDetailComponent implements OnInit {
   productImages: thumbnail_image[];
   productDetailImages: detail_image[];
   productOption: product_option[];
-  productReviews: review[];
   reviewAmount: number;
   starAvg: number;
   productQnas: qna[];
@@ -144,9 +143,6 @@ export class StoreDetailComponent implements OnInit {
         this.productImages = data['thumnail_images'];
         this.productDetailImages = data['detail_images'];
         this.productOption = data['product_option'];
-        this.productReviews = data['review'].sort(function (a, b) {
-          return b.star_score - a.star_score;
-        });
         this.productQnas = data['pdqna'];
         this.qnaAmount = this.productQnas.length;
         this.reviewAmount = this.productInfo['review_count'];

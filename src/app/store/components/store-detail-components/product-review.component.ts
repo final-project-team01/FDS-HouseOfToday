@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, Renderer2 } from '@angular/core';
-import { review } from 'src/app/core/models/store.interface';
+import { review, product_info } from 'src/app/core/models/store.interface';
 import { CommonService } from 'src/app/core/services/common.service';
 import { StoreService } from 'src/app/core/services/store.service';
 
@@ -17,7 +17,12 @@ import { StoreService } from 'src/app/core/services/store.service';
       <ul>
         <li class="review-filter-menu cursor">베스트순</li>
         <li class="review-filter-menu cursor">최신순</li>
-        <li class="review-filter-menu cursor"><span class="icon-etc"></span>사진리뷰</li>
+        <li class="review-filter-menu cursor">
+          <svg class="icon" width="18" height="18" viewBox="0 0 18 18" 
+            preserveAspectRatio="xMidYMid meet"><path fill="currentColor" 
+            d="M15.821 3a.67.67 0 0 1 .679.672v10.656a.67.67 0 0 1-.679.672H2.18a.67.67 0 0 1-.679-.672V3.672c0-.375.3-.672.679-.672H15.82zm-.679 1.344H2.858v8.14L7.01 7.781c.094-.125.284-.125.394 0l2.321 2.657c.048.046.063.109.048.156l-.3 1.375c-.016.11.11.172.173.094l2.369-2.579a.202.202 0 0 1 .284 0l2.842 3.094V4.344zm-2.526 3.61a1.1 1.1 0 0 1-1.105-1.095 1.1 1.1 0 0 1 1.105-1.093 1.1 1.1 0 0 1 1.105 1.093 1.1 1.1 0 0 1-1.105 1.094z"></path>
+          </svg>
+          사진리뷰</li>
       </ul>
       <ul class="filter-btns">
         <li 
@@ -94,6 +99,7 @@ import { StoreService } from 'src/app/core/services/store.service';
     </div>
     <app-review-modal
     [showModal]="showModal"
+    [productInfo]="_productInfo"
     (closeModal)="close()"></app-review-modal>
   `,
   styleUrls: ['./product-review.scss']
@@ -103,12 +109,19 @@ export class ProductReviewComponent implements OnInit {
   @Input() starAvg: number;
   @Input() productId: number;
   @Input() 
-  set originalList(originalList: review[]){
-    this._originalList = originalList;
-    this.filteredList = originalList
+  set productInfo(productInfo: product_info){
+    if(!productInfo) return;
+    this._productInfo = productInfo;
+    this._originalList = productInfo['review'].sort(function (a, b) {
+      return b.star_score - a.star_score;
+    });
+    this.filteredList = productInfo['review'].sort(function (a, b) {
+      return b.star_score - a.star_score;
+    });
   };
   
   userInfo: any;
+  _productInfo: product_info;
   _originalList: review[];
   filteredList: review[];
   showFilter = 'none';
