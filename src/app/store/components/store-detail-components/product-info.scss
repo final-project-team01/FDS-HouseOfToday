@@ -23,9 +23,14 @@
   }
   .star-grade{
     margin: 5px 6px 0 -2px;
+    display: flex;
+    align-items: center;
     color: #35C5F0;
     font-weight: bold;
     font-size: 13px;
+    span{
+      margin-left: 5px;
+    }
     .icon-etc{
       display: inline-block;
       width: 20px;

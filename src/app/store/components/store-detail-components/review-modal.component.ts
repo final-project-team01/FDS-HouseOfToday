@@ -1,11 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter, ReflectiveInjector } from '@angular/core';
 import { StoreService } from 'src/app/core/services/store.service';
 import { product_info } from 'src/app/core/models/store.interface';
+import { CommonService } from 'src/app/core/services/common.service';
 
 @Component({
   selector: 'app-review-modal',
   template: `
-  <div class="review-modal-container" 
+  <div class="review-modal-container" (click)="showMoreInfo($event)"
     [class.show]="showModal">
     <div class="review-modal"
       [class.showModal]="showModal">
@@ -22,14 +23,16 @@ import { product_info } from 'src/app/core/models/store.interface';
       </section>
       <section class="select-star">
         <h2>별점을 눌러 만족도를 알려주세요.</h2>
-        <span class="satisfied">만족도</span>
-        <span class="icon-etc star"
-          (mouseover)="checkStar(i)"
-          (mouseout)="checkClicked()"
-          (click)="setStar(i)"
-          [class.blue]="i <= comparePoint"
-          *ngFor="let star of range(5); let i = index"></span>
-        <span class="star-message">{{ starMessage(comparePoint) }}</span>
+          <div class="star-container">
+          <span class="satisfied">만족도</span>
+          <span class="icon-etc star"
+            (mouseover)="checkStar(i)"
+            (mouseout)="checkClicked()"
+            (click)="setStar(i)"
+            [class.blue]="i <= comparePoint"
+            *ngFor="let star of commonService.range(5); let i = index"></span>
+          <span class="star-message">{{ starMessage(comparePoint) }}</span>
+        </div>
       </section>
       <section class="select-picture">
         <h2>사진을 등록해주세요.<span>(선택)</span></h2>
@@ -62,7 +65,7 @@ import { product_info } from 'src/app/core/models/store.interface';
         <button aria-label="close" class="close cursor" (click)="close()">
         취소하기
         </button> 
-        <button aria-label="submit" class="submit cursor" BlueButton>
+        <button aria-label="submit" class="submit" BlueButton>
         등록하기
         </button>
       </div>
@@ -91,17 +94,14 @@ export class ReviewModalComponent implements OnInit {
   starChecked = false;
   confirmationChecked = false;
 
-  constructor(private storeSerivce: StoreService) { }
+  constructor(private storeSerivce: StoreService
+            , private commonService: CommonService) { }
 
   ngOnInit() {
   }
 
   close(){
     this.closeModal.emit();
-  }
-
-  range(i: number) {
-    return Array(i);
   }
 
   checkStar(i: number) {
@@ -140,7 +140,8 @@ export class ReviewModalComponent implements OnInit {
     this.confirmationChecked = this.confirmationChecked ? false : true;
   }
 
-  showMoreInfo(){
-    console.log('ddd');
+  showMoreInfo(e){
+    if (e.target.classList.contains('review-modal-container')) this.close();
+    else return false;
   }
 }

@@ -11,7 +11,7 @@ import { StoreService } from 'src/app/core/services/store.service';
       <a class="write-review cursor" (click)="showReviewModal()">리뷰쓰기</a>
       <div class="star-rate-container">
         <span class="star-avg">{{ starAvg }}</span>
-        <app-star-rate [starAvg]="starAvg" [width]="300"></app-star-rate>
+        <app-star-rate [starAvg]="starAvg" [width]="50"></app-star-rate>
       </div>
       <div class="filter-container">
       <ul>
@@ -37,9 +37,9 @@ import { StoreService } from 'src/app/core/services/store.service';
               <ul class="review-star-filter">
                 <li class="cursor" *ngFor="let score of scoreArray; let i = index" 
                   (click)="reviewFilter(score)">
-                  <span class="star icon-etc" *ngFor="let score of range(score)">
+                  <span class="star icon-etc" *ngFor="let score of commonService.range(score)">
                   </span>
-                  <span class="greystar icon-etc" *ngFor="let score of range(i)">
+                  <span class="greystar icon-etc" *ngFor="let score of commonService.range(i)">
                   </span>
                   <span [class.blueText]="chosenScore === score"> ({{ getScore(score) }}개)</span>
                 </li>
@@ -55,9 +55,9 @@ import { StoreService } from 'src/app/core/services/store.service';
       </ul>
       </div>
       <div class="chosenScore" *ngIf="chosenScore !== 0">
-        <span class="star icon-etc" *ngFor="let score of range(chosenScore)">
+        <span class="star icon-etc" *ngFor="let score of commonService.range(chosenScore)">
         </span>
-        <span class="greystar icon-etc" *ngFor="let score of range(5 - chosenScore)">
+        <span class="greystar icon-etc" *ngFor="let score of commonServicerange(5 - chosenScore)">
         </span>
         <span class="blueText"> ({{ getScore(chosenScore) }}개)</span>
         <span class="icon-pointer close cursor" (click)="cancelFilter()"></span>
@@ -66,7 +66,7 @@ import { StoreService } from 'src/app/core/services/store.service';
         <article class="user-review" *ngFor="let review of filteredList | pageFilter: index">
           <span class="user">사용자</span>
           <div class="review-star-score">
-            <span class="star icon-etc" *ngFor="let star of range(review['star_score'])"></span>
+            <span class="star icon-etc" *ngFor="let star of commonService.range(review['star_score'])"></span>
           </div>
           <span class="review-date">{{ review.created }}</span>
           <div class="review-image" *ngIf="review.image !== null">
@@ -137,10 +137,6 @@ export class ProductReviewComponent implements OnInit {
 
   ngOnInit() {
     
-  }
-
-  range(i: number){
-    return Array(i);
   }
 
   changePage(i: number){

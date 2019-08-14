@@ -72,27 +72,30 @@
     .select-star{
       padding: 25px 60px;
       height: 150px;
-      .satisfied{
-        display: inline-block;
-        vertical-align: top;
-        font-size: 14px;
-        font-weight: bold;
-        line-height: 36px;
-        margin-right: 20px;
-      }
-      .star{
-        width: 42px;
-        height: 36px;
-        background-size: 400px;
-        background-position: -109px 0;
-      }
-      .blue{
-        background-position: 3px 0;
-      }
-      .star-message{
-        margin-left: 60px;
-        display: block;
-        font-size: 14px;
+      .star-container{
+        padding-top: 10px;
+        .satisfied{
+          display: inline-block;
+          vertical-align: top;
+          font-size: 14px;
+          font-weight: bold;
+          line-height: 36px;
+          margin-right: 20px;
+        }
+        .star{
+          width: 42px;
+          height: 36px;
+          background-size: 400px;
+          background-position: -109px 0;
+        }
+        .blue{
+          background-position: 3px 0;
+        }
+        .star-message{
+          margin-left: 60px;
+          display: block;
+          font-size: 14px;
+        }
       }
     }
     .select-picture{
