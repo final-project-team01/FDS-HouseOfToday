@@ -15,15 +15,16 @@
     font-weight: 700;
   }
   .star-rate-container{
-    text-align: center;
+    display: flex;
+    justify-content: center;
     margin: 60px 0 30px 0;
+    align-items: center;
     .star-avg{
       padding: 0 10px;
       background-color: #35C5F0;
       color: white;
       font-weight: bold;
       font-size: 20px;
-      vertical-align: middle;
       border-radius: 5px;
       margin-right: 10px;
     }
@@ -41,11 +42,8 @@
       font-weight: 700;
       line-height: 13px;
       color: #757575;
-      span{
-        width: 23px;
-        height: 18px;
-        background-position: -232px -670px;
-        vertical-align: middle;
+      svg{
+        vertical-align: sub;
       }
     }
     .filter-btns{
@@ -178,7 +176,8 @@
 }
 .icon-etc{
   display: inline-block;
-  background-image: url('../../../../assets/image/icon-etc.png');
+  background-size: 400px;
+  background-image: url('../../../../assets/image/icon-etc-2.png');
 }
 
 
