@@ -81,6 +81,16 @@ export class CommonService {
 
     return headers;
   }
+
+  setAuthorizationWithoutContenttype(token: string) {
+    if (!token.startsWith("token"))
+      token = "token " + token;
+
+    const headers = new HttpHeaders().set('Authorization', token);
+
+    return headers;
+  }
+
   setUserDetail(userDetail: user_detail) {
     this.userDetail = userDetail
   }
