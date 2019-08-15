@@ -65,4 +65,13 @@ export class StoreService {
     const fullPath = this.commonService.getFullPath(path);
     return this.httpClient.get(fullPath);
   }
-} 
+
+  createReview(formData) {
+    const path = '/products/product/review/';
+    const fullPath = this.commonService.getFullPath(path);
+    const headers = this.commonService.setAuthorizationWithoutContenttype(this.commonService.Token);
+    let options = { headers };
+    return this.httpClient.post(fullPath, formData, options);
+  }
+
+}
