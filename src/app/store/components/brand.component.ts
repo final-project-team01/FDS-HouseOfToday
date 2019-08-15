@@ -20,7 +20,7 @@ import { today_deal } from 'src/app/core/models/store.interface';
                 <h1 class="brand-profile__name">{{name}}</h1>
                 <p class="brand-profile__overview">
                   <span class="brand-profile__stars">
-                    <app-star-rate [starAvg]="star_average" [width]="100"></app-star-rate>
+                    <app-star-rate [starAvg]="star_average" [width]="20"></app-star-rate>
                   </span>
                   <span class="brand-profile__count">{{star_average}}({{brandItems.length}})</span>
                 </p>
