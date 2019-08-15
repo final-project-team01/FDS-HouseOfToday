@@ -4,7 +4,7 @@
   visibility: hidden;
   transition: visibility 0s .45s, opacity .15s linear;
   position: fixed;
-  overflow-y: scroll;
+  // overflow-y: scroll;
   overflow-x: hidden;
   left: 0;
   top: 0;
@@ -17,6 +17,18 @@
   .icon-etc{
     display: inline-block;
     background-image: url('../../../../assets/image/icon-etc-2.png');
+  }
+  .icon-pointer{
+    display: inline-block;
+    background-image: url('../../../../assets/image/icon-pointer.png');
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 8px;
+    height: 8px;
+    background-repeat: no-repeat;
+    background-size: 400px;
+    background-position: top -76px left -365px;
   }
   .review-modal{
     background: white;
@@ -232,6 +244,32 @@
       content:'';
       display: block;
       clear: both;
+    }
+    .more-info-modal{
+      position: absolute;
+      width: 660px;
+      padding: 15px;
+      box-sizing: border-box;
+      border: 1px solid #dcdcdc;
+      background-color: #ffffff;
+      box-shadow: 0 0 8px 0 rgba(0,0,0,0.3);
+      font-size: 14px;
+      line-height: 20px;
+      z-index: 1;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      visibility: hidden;
+      opacity: 0;
+      ol{
+        list-style-type: decimal;
+        list-style-position: inside;
+      }
+    }
+    .show{
+      opacity: 1;
+      visibility: visible;
+      transition: visibility 0s 0s, opacity .15s linear;
     }
   }
 }
