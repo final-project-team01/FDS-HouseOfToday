@@ -6,7 +6,7 @@ import { CommonService } from 'src/app/core/services/common.service';
 @Component({
   selector: 'app-review-modal',
   template: `
-  <div class="review-modal-container" (click)="modalClose($event)"
+  <div class="review-modal-container" (click)="modalClose($event, textarea, checkbox)"
     [class.show]="showModal">
     <div class="review-modal">
       <h1>리뷰쓰기</h1>
@@ -38,19 +38,24 @@ import { CommonService } from 'src/app/core/services/common.service';
         <span class="red-bubble">250P 증정!</span>
         <p class="sub-message">오늘의집에 올렸던 사진에서 고르거나 새로 업로드 해주세요.</p>
         <strong class="sub-message">상품과 관련 없거나 부적합한 사진을 등록하는 경우, 사전경고 없이 포인트 회수와 함께 사진이 삭제될 수 있습니다.</strong>
-        <button class="upload cursor">새로운 사진 업로드</button>
+        <div class="upload cursor"> 
+          <label for="ex_file" class="cursor">새로운 사진 업로드</label> 
+          <input type="file" id="ex_file"> 
+        </div>
       </section>
       <section class="write-review">
         <h2>리뷰를 작성해주세요.</h2>
         <p class="sub-message">이 제품을 사용하면서 느꼈던 장점과 단점을 솔직하게 알려주세요.</p>
-        <textarea placeholder="이 제품을 사용하면서 느꼈던 장점과 단점을 솔직하게 알려주세요."></textarea>
+        <span class="count">{{ count }}자 | 최소 20자</span>
+        <textarea placeholder="이 제품을 사용하면서 느꼈던 장점과 단점을 솔직하게 알려주세요." #textarea
+          (input)="countChr(textarea)"></textarea>
         <small>*해당 상품과 무관한 내용이나 동일 문자의 반복 등 부적합한 내용은 삭제될 수 있습니다.</small>
       </section>
       <section class="confirmation">
         <h2>직접 제품을 사용하고 작성하는 리뷰인가요?</h2>
         <input type="checkbox" id="agreement" class="agreement">
         <label for="agreement" (click)="confirmation()">
-          <span class="icon-etc checkbox"
+          <span class="icon-etc checkbox" #checkbox
             [class.confirm]="confirmationChecked"></span>
           네. 직접 제품을 사용 후 작성한 리뷰이며, 
           <span class="more_info cursor" (click)="showMoreInfo()">오늘의집 리뷰 정책</span>에 동의합니다.
@@ -61,10 +66,11 @@ import { CommonService } from 'src/app/core/services/common.service';
           <p>* 포토리뷰에 250P 드립니다.</p>
           <p>* 비구매리뷰의 경우, 작성해주신 리뷰를 심사한 후 리뷰 등록 및 포인트 지급이 됩니다.</p>
         </div>
-        <button aria-label="close" class="close cursor" (click)="modalClose()">
+        <button class="close cursor">
         취소하기
         </button> 
-        <button aria-label="submit" class="submit" BlueButton>
+        <button aria-label="submit" class="submit" BlueButton
+          (click)="submit(checkbox)">
         등록하기
         </button>
       </div>
@@ -107,10 +113,11 @@ export class ReviewModalComponent implements OnInit {
   productBrand: string;
   productName: string;
   comparePoint = -1;
-  checkedPoint: number;
+  checkedPoint = -1;
   starChecked = false;
   confirmationChecked = false;
   moreInfo = false;
+  count = 0;
 
   constructor(private storeSerivce: StoreService
             , private commonService: CommonService) { }
@@ -158,13 +165,16 @@ export class ReviewModalComponent implements OnInit {
     this.confirmationChecked = this.confirmationChecked ? false : true;
   }
 
-  modalClose(e){
+  modalClose(e, textarea, checkbox){
+    console.log(e.target);
     if (e.target.classList.contains('review-modal-container')
       || e.target.classList.contains('close')) {
       const check = confirm('작성 중인 내용이 사라집니다.');
       if (check) {
         this.comparePoint = -1;
         this.checkedPoint = -1;
+        textarea.value = '';
+        checkbox.classList.remove('confirm');
         this.close();
       }
       else return;
@@ -173,5 +183,15 @@ export class ReviewModalComponent implements OnInit {
 
   showMoreInfo(){
     this.moreInfo = this.moreInfo ? false : true;
+  }
+
+  countChr(textarea: HTMLTextAreaElement){
+    this.count = textarea.value.length;
+  }
+
+  submit(checkbox: HTMLInputElement){
+    if (this.checkedPoint === -1) alert('만족도');
+    else if (this.count < 20) alert('20자이상');
+    else if (!checkbox.classList.contains('confirm')) alert('동의');
   }
 }

@@ -153,6 +153,18 @@
         background-color: #35c5f0;
         font-weight: bold;
         color: #ffffff;
+        text-align: center;
+        padding-top: 12px;
+        /* 파일 필드 숨기기 */ 
+        input[type="file"]{ 
+          position: absolute; 
+          width: 1px; 
+          height: 1px; 
+          padding: 0; 
+          margin: -1px; 
+          overflow: hidden; 
+          clip:rect(0,0,0,0); border: 0; 
+        }
       }
       .upload::before{
         content: "";
@@ -168,6 +180,15 @@
       }
     }
     .write-review{
+      .sub-message{
+        display: inline-block;
+      }
+      .count{
+        float: right;
+        font-size: 12px;
+        line-height: 20px;
+        color: #bdbdbd;
+      }
       textarea{
         width: 660px;
         height: 200px;
