@@ -10,7 +10,7 @@
   top: 0;
   height: 100%;
   width: 100%;
-  z-index: 100000;
+  z-index: 10000;
   -webkit-overflow-scrolling: touch;
   background: rgba(0,0,0,0.4);
   color: #424242;
@@ -332,4 +332,23 @@
   opacity: 1;
   visibility: visible;
   transition: visibility 0s 0s, opacity .15s linear;
+}
+.invalid-message{
+  background-color: rgba(255,0,0,0.5);
+  width: 300px;
+  height: 50px;
+  text-align: center;
+  border-radius: 8px;
+  border: 1px solid #f56464;
+  position: fixed;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: opacity ease .3s;
+  z-index: 100000;
+  opacity: 0;
+  span{
+    line-height: 50px;
+    color: white;
+  }
 }

@@ -59,4 +59,13 @@ export class StoreService {
     let payload = { rv_id };
     return this.httpClient.post(fullPath, payload, options);
   }
+
+  createReview(payload) {
+    const path = '/products/product/review/';
+    const fullPath = this.commonService.getFullPath(path);
+    const user = localStorage.getItem('user');
+    let headers = this.commonService.setAuthorization(user);
+    let options = { headers };
+    return this.httpClient.post(fullPath, payload, options);
+  }
 } 

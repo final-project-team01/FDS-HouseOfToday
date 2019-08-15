@@ -78,7 +78,7 @@ import { CommonService } from 'src/app/core/services/common.service';
         취소하기
         </button> 
         <button aria-label="submit" class="submit" BlueButton
-          (click)="submit(checkbox)">
+          (click)="submitCheck(checkbox, textarea)">
         등록하기
         </button>
       </div>
@@ -102,6 +102,9 @@ import { CommonService } from 'src/app/core/services/common.service';
       </div>
     </div>
   </div>
+  <div class="invalid-message" [style.opacity]="messageOpacity">
+    <span>{{ invalidMessage }}</span>
+  </div>
   `,
   styleUrls: ['./review-modal.scss']
 })
@@ -113,13 +116,15 @@ export class ReviewModalComponent implements OnInit {
     if (!productInfo) return;
     this.productImg = productInfo['thumnail_images'][0]['image'];
     this.productBrand = productInfo['brand_name'];
-    this.productName = productInfo['name'];    
+    this.productName = productInfo['name'];
+    this.productId = productInfo['id'];
   };
   @Output() closeModal = new EventEmitter;
 
   productImg: string;
   productBrand: string;
   productName: string;
+  productId: number;
   comparePoint = -1;
   checkedPoint = -1;
   starChecked = false;
@@ -128,6 +133,8 @@ export class ReviewModalComponent implements OnInit {
   count = 0;
   file: File = null;
   image = null;
+  messageOpacity: number;
+  invalidMessage: string;
 
   constructor(private storeSerivce: StoreService
             , private commonService: CommonService) { }
@@ -148,7 +155,7 @@ export class ReviewModalComponent implements OnInit {
     else this.comparePoint = -1;
   }
 
-  setStar(i: number ) {
+  setStar(i: number) {
     this.starChecked = true;
     this.checkedPoint = i;
     this.comparePoint = i;
@@ -175,8 +182,7 @@ export class ReviewModalComponent implements OnInit {
     this.confirmationChecked = this.confirmationChecked ? false : true;
   }
 
-  modalClose(e, textarea, checkbox) {
-    console.log(e.target);
+  modalClose(e, textarea: HTMLTextAreaElement, checkbox: HTMLInputElement) {
     if (e.target.classList.contains('review-modal-container')
       || e.target.classList.contains('close')) {
       const check = confirm('작성 중인 내용이 사라집니다.');
@@ -199,10 +205,40 @@ export class ReviewModalComponent implements OnInit {
     this.count = textarea.value.length;
   }
 
-  submit(checkbox: HTMLInputElement) {
-    if (this.checkedPoint === -1) alert('만족도');
-    else if (this.count < 20) alert('20자이상');
-    else if (!checkbox.classList.contains('confirm')) alert('동의');
+  submitCheck(checkbox: HTMLInputElement, textarea: HTMLTextAreaElement) {
+    if (this.checkedPoint === -1) {
+      this.invalidMessage = '별점을 눌러 만족도를 알려주세요.';
+      this.showInvalidMessage();
+    }
+    else if (this.count < 20) {
+      this.invalidMessage = '리뷰를 20자 이상 작성해 주세요.';
+      this.showInvalidMessage();
+    }
+    else if (!checkbox.classList.contains('confirm')) {
+      this.invalidMessage = '아래에 동의해주세요.';
+      this.showInvalidMessage();
+    }
+    else {
+      // const payload = {
+      //   product: this.productId,
+      //   star_score: this.checkedPoint,
+      //   image: this.image,
+      //   comment: textarea.value
+      // }
+      const formData = new FormData();
+      formData.append('image', this.file, this.file.name);
+      console.dir(formData);
+      
+      // this.storeSerivce.createReview(payload)
+      //   .subscribe(res => {
+      //     console.log(res);
+      //   });
+    }
+  }
+
+  showInvalidMessage() {
+    this.messageOpacity = 1;
+    setTimeout(() => { this.messageOpacity = 0; }, 2000);
   }
 
   uploadImg(imgFile) {
