@@ -21,14 +21,7 @@
   .icon-pointer{
     display: inline-block;
     background-image: url('../../../../assets/image/icon-pointer.png');
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    width: 8px;
-    height: 8px;
-    background-repeat: no-repeat;
     background-size: 400px;
-    background-position: top -76px left -365px;
   }
   .review-modal{
     background: white;
@@ -143,6 +136,34 @@
         position: absolute;
         transform: translate(-100%, -50%);
       }
+      .img-container{
+        margin-top: 20px;
+        position: relative;
+        text-align: center;
+        img{
+          height: 300px;
+        }
+        .img-cover{
+          height: 300px;
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          background-color: rgba(0,0,0,0.4);
+          color: #ffffff;
+          font-size: 16px;
+          font-weight: bold;
+          text-align: center;
+          .delete-img{
+            display: block;
+            margin: 130px auto 10px;
+            width: 16px;
+            height: 16px;
+            background-position: -295px -76px;
+          }
+        }
+      }
       .upload{
         display: block;
         width: 240px;
@@ -155,6 +176,23 @@
         color: #ffffff;
         text-align: center;
         padding-top: 12px;
+        label{
+          width: 240px;
+          height: 50px;
+          display: inline-block;
+        }
+        label::before{
+          content: "";
+          display: inline-block;
+          margin: 0 5px 3px 0;
+          width: 14px;
+          height: 14px;
+          background-image: url(https://d1nyaccf3kuclt.cloudfront.net/assets/icon_map/icon-pointer.png);
+          background-repeat: no-repeat;
+          background-size: 400px;
+          background-position: top -76px left -331px;
+          vertical-align: middle;
+        }
         /* 파일 필드 숨기기 */ 
         input[type="file"]{ 
           position: absolute; 
@@ -165,18 +203,6 @@
           overflow: hidden; 
           clip:rect(0,0,0,0); border: 0; 
         }
-      }
-      .upload::before{
-        content: "";
-        display: inline-block;
-        margin: 0 5px 3px 0;
-        width: 14px;
-        height: 14px;
-        background-image: url(https://d1nyaccf3kuclt.cloudfront.net/assets/icon_map/icon-pointer.png);
-        background-repeat: no-repeat;
-        background-size: 400px;
-        background-position: top -76px left -331px;
-        vertical-align: middle;
       }
     }
     .write-review{
@@ -285,6 +311,14 @@
       ol{
         list-style-type: decimal;
         list-style-position: inside;
+      }
+      .close-more-info{
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        width: 8px;
+        height: 8px;
+        background-position: top -76px left -365px;
       }
     }
     .show{

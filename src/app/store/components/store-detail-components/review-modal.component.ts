@@ -38,9 +38,17 @@ import { CommonService } from 'src/app/core/services/common.service';
         <span class="red-bubble">250P 증정!</span>
         <p class="sub-message">오늘의집에 올렸던 사진에서 고르거나 새로 업로드 해주세요.</p>
         <strong class="sub-message">상품과 관련 없거나 부적합한 사진을 등록하는 경우, 사전경고 없이 포인트 회수와 함께 사진이 삭제될 수 있습니다.</strong>
+        <div class="img-container" *ngIf="image != null">
+          <img src="{{ getImage() }}">
+          <div class="img-cover cursor" (click)="deleteImg()">
+            <span class="icon-pointer delete-img"></span>
+            사진 삭제하기
+          </div>
+        </div>
         <div class="upload cursor"> 
           <label for="ex_file" class="cursor">새로운 사진 업로드</label> 
-          <input type="file" id="ex_file"> 
+          <input type="file" id="ex_file"  accept="image/*" 
+            (change)="uploadImg(imgFile)" #imgFile> 
         </div>
       </section>
       <section class="write-review">
@@ -90,7 +98,7 @@ import { CommonService } from 'src/app/core/services/common.service';
           <li>해당 상품에 대한 허위의 내용을 작성한 경우</li>
           <li>욕설, 비난 등 업체나 타인에게 불쾌한 내용을 작성한 경우</li>
         </ol>
-        <span class="icon-pointer cursor" (click)="showMoreInfo()"></span>
+        <span class="icon-pointer close-more-info cursor" (click)="showMoreInfo()"></span>
       </div>
     </div>
   </div>
@@ -118,6 +126,8 @@ export class ReviewModalComponent implements OnInit {
   confirmationChecked = false;
   moreInfo = false;
   count = 0;
+  file: File = null;
+  image = null;
 
   constructor(private storeSerivce: StoreService
             , private commonService: CommonService) { }
@@ -138,7 +148,7 @@ export class ReviewModalComponent implements OnInit {
     else this.comparePoint = -1;
   }
 
-  setStar(i: number ){
+  setStar(i: number ) {
     this.starChecked = true;
     this.checkedPoint = i;
     this.comparePoint = i;
@@ -165,7 +175,7 @@ export class ReviewModalComponent implements OnInit {
     this.confirmationChecked = this.confirmationChecked ? false : true;
   }
 
-  modalClose(e, textarea, checkbox){
+  modalClose(e, textarea, checkbox) {
     console.log(e.target);
     if (e.target.classList.contains('review-modal-container')
       || e.target.classList.contains('close')) {
@@ -181,17 +191,40 @@ export class ReviewModalComponent implements OnInit {
     }
   }
 
-  showMoreInfo(){
+  showMoreInfo() {
     this.moreInfo = this.moreInfo ? false : true;
   }
 
-  countChr(textarea: HTMLTextAreaElement){
+  countChr(textarea: HTMLTextAreaElement) {
     this.count = textarea.value.length;
   }
 
-  submit(checkbox: HTMLInputElement){
+  submit(checkbox: HTMLInputElement) {
     if (this.checkedPoint === -1) alert('만족도');
     else if (this.count < 20) alert('20자이상');
     else if (!checkbox.classList.contains('confirm')) alert('동의');
+  }
+
+  uploadImg(imgFile) {
+    const files = imgFile.files;
+    if (files && files.length > 0){
+      const file = files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (e) => {
+        this.file = file;
+        this.image = reader.result;
+        console.log(this.image);
+        
+      };
+    }
+  }
+
+  getImage() {
+    return this.image;
+  }
+
+  deleteImg() {
+    this.image = null;
   }
 }
