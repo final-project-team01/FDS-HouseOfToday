@@ -38,7 +38,7 @@ import { CommonService } from 'src/app/core/services/common.service';
         <span class="red-bubble">250P 증정!</span>
         <p class="sub-message">오늘의집에 올렸던 사진에서 고르거나 새로 업로드 해주세요.</p>
         <strong class="sub-message">상품과 관련 없거나 부적합한 사진을 등록하는 경우, 사전경고 없이 포인트 회수와 함께 사진이 삭제될 수 있습니다.</strong>
-        <div class="img-container" *ngIf="image != null">
+        <div class="img-container" *ngIf="image !== null">
           <img src="{{ getImage() }}">
           <div class="img-cover cursor" (click)="deleteImg()">
             <span class="icon-pointer delete-img"></span>
@@ -219,20 +219,18 @@ export class ReviewModalComponent implements OnInit {
       this.showInvalidMessage();
     }
     else {
-      // const payload = {
-      //   product: this.productId,
-      //   star_score: this.checkedPoint,
-      //   image: this.image,
-      //   comment: textarea.value
-      // }
       const formData = new FormData();
-      formData.append('image', this.file, this.file.name);
-      console.dir(formData);
+      formData.append('product', this.productId.toString());
+      formData.append('star_score', this.checkedPoint.toString());
+      if (this.image !== null) {
+        formData.append('image', this.file, this.file.name);
+      }
+      formData.append('comment', textarea.value);
       
-      // this.storeSerivce.createReview(payload)
-      //   .subscribe(res => {
-      //     console.log(res);
-      //   });
+      this.storeSerivce.createReview(formData)
+        .subscribe(res => {
+          console.log(res);
+        });
     }
   }
 
