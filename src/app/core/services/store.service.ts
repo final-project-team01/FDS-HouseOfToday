@@ -59,4 +59,10 @@ export class StoreService {
     let payload = { rv_id };
     return this.httpClient.post(fullPath, payload, options);
   }
+
+  getBrandItems(name: string) {
+    const path = `products/product/brand/?query=${name}`
+    const fullPath = this.commonService.getFullPath(path);
+    return this.httpClient.get(fullPath);
+  }
 } 

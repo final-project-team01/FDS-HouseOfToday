@@ -23,7 +23,7 @@ import { product_info } from 'src/app/core/models/store.interface';
     <p class="normal-delivery">일반택배</p>
     <span class="common-etc delivery"></span>
     <hr>
-    <a href="#" class="goToShop"><span class="common-etc"></span>{{ productInfo.brand_name }} 상품보기</a>
+    <a routerLink="/brand/{{productInfo.brand_name}}" class="goToShop"><span class="common-etc"></span>{{ productInfo.brand_name }} 상품보기</a>
     </div>
   `,
   styleUrls: ['./product-info.scss']
