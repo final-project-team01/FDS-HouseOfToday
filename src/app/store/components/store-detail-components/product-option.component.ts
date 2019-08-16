@@ -110,13 +110,11 @@ export class ProductOptionComponent implements OnInit {
     this.set.emit({ option, input });
   }
 
-  cart(input: HTMLInputElement) {
-    input.value = '';
+  cart() {
     this.intoCart.emit();
   }
 
-  buy(input: HTMLInputElement) {
-    input.value = '';
+  buy() {
     this.buyDirect.emit();
   }
 }

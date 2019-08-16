@@ -11,13 +11,15 @@ import { product_option } from 'src/app/core/models/store.interface';
     <h2>문의유형</h2>
       <app-option-select
         [options]="qnaOptions"
-        [placeholder]="qnaPlaceholder">
+        [placeholder]="qnaPlaceholder"
+        (add)="addQnaOption($event)">
       </app-option-select>
     <h2>상품옵션</h2>
       <app-option-select
         [options]="productOption"
         [withType]="true"
-        [placeholder]="optionPlaceholder">
+        [placeholder]="optionPlaceholder"
+        (add)="addProductOption($event)">
       </app-option-select>
     <h2>내용</h2>
       <textarea></textarea>
@@ -58,12 +60,18 @@ export class QnaModalComponent implements OnInit {
   modalClose(e) {
     if (e.target.classList.contains('qna-modal-bg')
       || e.target.classList.contains('close')) {
-      const check = confirm('작성 중인 내용이 사라집니다.');
-      if (check) {
-        this.close();
-      }
-      else return;
+      this.close();
     }
+    else return;
+  }
+
+  addQnaOption(option) {
+    console.log(option);
+  }
+
+  addProductOption(option) {
+    console.log(option);
+    
   }
 
   close(){

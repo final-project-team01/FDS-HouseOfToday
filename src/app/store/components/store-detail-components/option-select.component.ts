@@ -4,7 +4,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   selector: 'app-option-select',
   template: `
   <div class="selectbox" (clickOutside)="hide()">
-    <input type="text" placeholder="{{ placeholder ? placeholder : options[0].type }}" readonly (focus)="show()" class="cursor" #optionInput>
+    <input type="text" placeholder="{{ placeholder ? placeholder : options[0].type }}" 
+      readonly (focus)="show()" class="cursor" #optionInput>
       <span class="product-option-icon icon-pointer"></span>
       <ul class="option-item-list" *ngIf="visible">
         <li *ngFor="let option of options; let i = index" class="option-item cursor"

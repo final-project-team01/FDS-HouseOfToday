@@ -215,7 +215,7 @@ export class ReviewModalComponent implements OnInit {
       this.showInvalidMessage();
     }
     else if (!checkbox.classList.contains('confirm')) {
-      this.invalidMessage = '아래에 동의해주세요.';
+      this.invalidMessage = '오늘의집 리뷰정책에 동의해주세요.';
       this.showInvalidMessage();
     }
     else {

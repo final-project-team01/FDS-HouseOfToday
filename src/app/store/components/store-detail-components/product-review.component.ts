@@ -57,7 +57,7 @@ import { StoreService } from 'src/app/core/services/store.service';
       <div class="chosenScore" *ngIf="chosenScore !== 0">
         <span class="star icon-etc" *ngFor="let score of commonService.range(chosenScore)">
         </span>
-        <span class="greystar icon-etc" *ngFor="let score of commonServicerange(5 - chosenScore)">
+        <span class="greystar icon-etc" *ngFor="let score of commonService.range(5 - chosenScore)">
         </span>
         <span class="blueText"> ({{ getScore(chosenScore) }}개)</span>
         <span class="icon-pointer close cursor" (click)="cancelFilter()"></span>
