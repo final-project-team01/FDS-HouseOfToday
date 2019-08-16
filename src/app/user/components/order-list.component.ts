@@ -137,7 +137,9 @@ import { CommonService } from 'src/app/core/services/common.service';
                 <a class="order-confirm">구매확정</a>
               </div>
               <div class="order-control-btn">
-                <button class="tracking-item control-btn">배송추척</button>
+                <button class="tracking-item control-btn" WhiteButton>
+                  배송추척
+                </button>
                 <button class="comment-item control-btn">리뷰작성</button>
               </div>
             </a>
@@ -399,6 +401,9 @@ import { CommonService } from 'src/app/core/services/common.service';
       }
       .item-product {
         color: #b7b7b7;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
       .item-price {
         color: #727272;
