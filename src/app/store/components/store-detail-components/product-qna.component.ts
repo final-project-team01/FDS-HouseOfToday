@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Renderer2 } from '@angular/core';
-import { qna } from 'src/app/core/models/store.interface';
+import { qna, product_info, product_option } from 'src/app/core/models/store.interface';
 
 @Component({
   selector: 'app-product-qna',
@@ -42,6 +42,7 @@ import { qna } from 'src/app/core/models/store.interface';
     </div>
     <app-qna-modal
       [showModal]="showModal"
+      [productOption]="productOption"
       (closeModal)="close()">
     </app-qna-modal>
   `,
@@ -49,8 +50,15 @@ import { qna } from 'src/app/core/models/store.interface';
 })
 export class ProductQnaComponent implements OnInit {
   
-  @Input() originalList: qna[];
+  @Input()
+  set productInfo(productInfo: product_info){
+    if(!productInfo) return;
+    this.originalList = productInfo['pdqna'];
+    this.productOption = productInfo['product_option'];
+  }
   showModal: boolean;
+  productOption: product_option[];
+  originalList: qna[];
   top: number;
 
   index = 0;

@@ -8,7 +8,7 @@ import { product_option } from 'src/app/core/models/store.interface';
   template: `
     <div class="product-option-container" *ngIf="productOption">
       <app-option-select
-        [productOption]="productOption"
+        [options]="productOption"
         (add)="add($event)">
       </app-option-select>
       <div class="selected-items-container" *ngIf="scroll; else noscroll">

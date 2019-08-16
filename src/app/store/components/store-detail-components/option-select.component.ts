@@ -1,16 +1,15 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { product_option } from 'src/app/core/models/store.interface';
 
 @Component({
   selector: 'app-option-select',
   template: `
   <div class="selectbox" (clickOutside)="hide()">
-    <input type="text" placeholder="{{ productOption[0].type }}" readonly (focus)="show()" class="cursor" #optionInput>
+    <input type="text" placeholder="{{ placeholder ? placeholder : options[0].type }}" readonly (focus)="show()" class="cursor" #optionInput>
       <span class="product-option-icon icon-pointer"></span>
       <ul class="option-item-list" *ngIf="visible">
-        <li *ngFor="let option of productOption; let i = index" class="option-item cursor"
+        <li *ngFor="let option of options; let i = index" class="option-item cursor"
         (click)="addOption(option, optionInput)">
-        {{ option.name }}
+        {{ getOptionName(option) }}
         </li>
       </ul>
   </div>
@@ -19,7 +18,9 @@ import { product_option } from 'src/app/core/models/store.interface';
 })
 export class OptionSelectComponent implements OnInit {
 
-  @Input() productOption: product_option[];
+  @Input() options: any;
+  @Input() placeholder: string;
+  @Input() withType: boolean;
   @Output() add = new EventEmitter;
 
   visible = false;
@@ -38,9 +39,16 @@ export class OptionSelectComponent implements OnInit {
   }
 
   addOption(option: object, input: HTMLInputElement) {
-    input.value = `${option['name']}`;
+    if(this.withType) input.value = this.getOptionName(option);
+    else input.value = `${option['name']}`;
     this.add.emit(option);
     this.hide();
+  }
+
+  getOptionName(option){
+    const i = option.name.lastIndexOf('(');
+    const name = option.name.slice(0, i);
+    return this.withType ? `${option.type}: ${name}` : option.name;
   }
 
 }

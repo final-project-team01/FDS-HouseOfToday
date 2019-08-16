@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { product_option } from 'src/app/core/models/store.interface';
 
 @Component({
   selector: 'app-qna-modal',
@@ -6,16 +7,25 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   <div class="qna-modal-bg" (click)="modalClose($event)"
     [class.show]="showModal">
     <div class="qna-modal">
-      <div class="selectbox" (clickOutside)="hide()">
-        <input type="text" placeholder="선택해주세요." readonly (focus)="show()" class="cursor" #optionInput>
-          <span class="option-icon icon-pointer"></span>
-          <ul class="option-item-list" *ngIf="visible">
-            <li *ngFor="let option of qnaOptions; let i = index" class="option-item cursor"
-            (click)="add(option, optionInput)">
-            {{ option }}
-            </li>
-          </ul>
-      </div>
+    <h1>상품 Q&amp;A 작성하기</h1>
+    <h2>문의유형</h2>
+      <app-option-select
+        [options]="qnaOptions"
+        [placeholder]="qnaPlaceholder">
+      </app-option-select>
+    <h2>상품옵션</h2>
+      <app-option-select
+        [options]="productOption"
+        [withType]="true"
+        [placeholder]="optionPlaceholder">
+      </app-option-select>
+    <h2>내용</h2>
+      <textarea></textarea>
+      <p>문의하신 내용의 답변은 'MY쇼핑 > 상품Q&amp;A' 또는 '상품 판매페이지'에서 확인가능합니다.</p>
+    <div class="action">
+      <button class="submit cursor" BlueButton>등록</button>
+      <button class="close cursor">취소</button>
+    </div>
     </div>
   </div>
   `,
@@ -24,10 +34,21 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class QnaModalComponent implements OnInit {
 
   @Input() showModal: boolean;
+  @Input() productOption: product_option[];
   @Output() closeModal = new EventEmitter;
   
-  qnaOptions = ['상품', '배송', '반품', '교환', '환불', '기타'];
+  qnaOptions = [
+    { name: "상품" },
+    { name: "배송" },
+    { name: "반품" },
+    { name: "교환" },
+    { name: "환불" },
+    { name: "기타" }
+  ];
   visible = false;
+  qnaPlaceholder = '선택해주세요.';
+  optionPlaceholder = '상품옵션을 선택해주세요.';
+
 
   constructor() { }
 

@@ -81,7 +81,7 @@ import { HttpErrorResponse } from '@angular/common/http';
           </app-product-review>
           <h3 #qna>문의 <span class="qna-amount">{{ qnaAmount }}</span></h3>
           <app-product-qna
-            [originalList]="productQnas">
+            [productInfo]="productInfo">
           </app-product-qna>
           <h3 class="delivery" #delivery>배송 관련 안내</h3>
           <app-product-delivery
@@ -113,7 +113,6 @@ export class StoreDetailComponent implements OnInit {
   productOption: product_option[];
   reviewAmount: number;
   starAvg: number;
-  productQnas: qna[];
   qnaAmount: number;
   chosenOptions: ChosenOption[] = [];
   totalPrice = '0';
@@ -143,8 +142,7 @@ export class StoreDetailComponent implements OnInit {
         this.productImages = data['thumnail_images'];
         this.productDetailImages = data['detail_images'];
         this.productOption = data['product_option'];
-        this.productQnas = data['pdqna'];
-        this.qnaAmount = this.productQnas.length;
+        this.qnaAmount = data['pdqna'].length;
         this.reviewAmount = this.productInfo['review_count'];
         this.starAvg = +this.productInfo['star_avg'];
         this.activeId = this.productImages[0].id;
