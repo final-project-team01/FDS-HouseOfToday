@@ -9,8 +9,8 @@ import { product_info } from 'src/app/core/models/store.interface';
     <a href="#"><small class="text-grey">{{ productInfo.brand_name }}</small></a>
     <h1 class="product-name">{{ productInfo.name }}</h1>
     <div class="star-grade">
-    <app-star-rate [starAvg]="productInfo.star_avg" [width]="100"></app-star-rate>
-        {{ productInfo.review.length }}개 리뷰
+    <app-star-rate [starAvg]="productInfo.star_avg" [width]="18"></app-star-rate>
+      <span>{{ productInfo.review.length }}개 리뷰</span>
     </div>
     <div class="product-price">
       <del class="original-price">{{ originalPrice }}원</del>
@@ -23,7 +23,7 @@ import { product_info } from 'src/app/core/models/store.interface';
     <p class="normal-delivery">일반택배</p>
     <span class="common-etc delivery"></span>
     <hr>
-    <a href="#" class="goToShop"><span class="common-etc"></span>{{ productInfo.brand_name }} 상품보기</a>
+    <a routerLink="/brand/{{productInfo.brand_name}}" class="goToShop"><span class="common-etc"></span>{{ productInfo.brand_name }} 상품보기</a>
     </div>
   `,
   styleUrls: ['./product-info.scss']

@@ -75,8 +75,9 @@ import { HttpErrorResponse } from '@angular/common/http';
             </span>
           </h3>
           <app-product-review
-            [originalList]="productReviews"
-            [starAvg]="starAvg">
+            [productInfo]="productInfo"
+            [starAvg]="starAvg"
+            [productId]="id">
           </app-product-review>
           <h3 #qna>문의 <span class="qna-amount">{{ qnaAmount }}</span></h3>
           <app-product-qna
@@ -110,7 +111,6 @@ export class StoreDetailComponent implements OnInit {
   productImages: thumbnail_image[];
   productDetailImages: detail_image[];
   productOption: product_option[];
-  productReviews: review[];
   reviewAmount: number;
   starAvg: number;
   productQnas: qna[];
@@ -139,12 +139,10 @@ export class StoreDetailComponent implements OnInit {
     this.storeService.getProductInfo(this.id)
       .subscribe(data => {
         this.productInfo = data;
+        console.log(this.productInfo);
         this.productImages = data['thumnail_images'];
         this.productDetailImages = data['detail_images'];
         this.productOption = data['product_option'];
-        this.productReviews = data['review'].sort(function (a, b) {
-          return b.star_score - a.star_score;
-        });
         this.productQnas = data['pdqna'];
         this.qnaAmount = this.productQnas.length;
         this.reviewAmount = this.productInfo['review_count'];
@@ -229,10 +227,10 @@ export class StoreDetailComponent implements OnInit {
   }
 
   moveScroll(i: number, nav, review, qna, delivery) {
-    if (i === 0) window.scroll({ top: nav.offsetTop, behavior: 'smooth' });
-    else if (i === 2) window.scrollTo({ top: review.offsetTop + 700, left: 0, behavior: 'smooth' });
-    else if (i === 3) window.scrollTo({ top: qna.offsetTop + 700, left: 0, behavior: 'smooth' });
-    else if (i === 4) window.scroll({ top: delivery.offsetTop + 700, left: 0, behavior: 'smooth' });
+    if (i === 0) window.scroll({ top: nav.offsetTop });
+    else if (i === 2) window.scrollTo({ top: review.offsetTop + 700, left: 0 });
+    else if (i === 3) window.scrollTo({ top: qna.offsetTop + 700, left: 0 });
+    else if (i === 4) window.scroll({ top: delivery.offsetTop + 700, left: 0 });
   }
 
   intoCart() {

@@ -48,4 +48,30 @@ export class StoreService {
     const fullPath = this.commonService.getFullPath(path);
     return this.httpClient.get(fullPath);
   }
-} 
+
+  checkHelpful(id: number) {
+    const path = 'products/product/helpful/';
+    const fullPath = this.commonService.getFullPath(path);
+    const rv_id = id.toString();
+    const user = localStorage.getItem('user');
+    let headers = this.commonService.setAuthorization(user);
+    let options = { headers };
+    let payload = { rv_id };
+    return this.httpClient.post(fullPath, payload, options);
+  }
+
+  getBrandItems(name: string) {
+    const path = `products/product/brand/?query=${name}`
+    const fullPath = this.commonService.getFullPath(path);
+    return this.httpClient.get(fullPath);
+  }
+
+  createReview(formData) {
+    const path = '/products/product/review/';
+    const fullPath = this.commonService.getFullPath(path);
+    const headers = this.commonService.setAuthorizationWithoutContenttype(this.commonService.Token);
+    let options = { headers };
+    return this.httpClient.post(fullPath, formData, options);
+  }
+
+}

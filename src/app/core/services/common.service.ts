@@ -81,6 +81,16 @@ export class CommonService {
 
     return headers;
   }
+
+  setAuthorizationWithoutContenttype(token: string) {
+    if (!token.startsWith("token"))
+      token = "token " + token;
+
+    const headers = new HttpHeaders().set('Authorization', token);
+
+    return headers;
+  }
+
   setUserDetail(userDetail: user_detail) {
     this.userDetail = userDetail
   }
@@ -100,11 +110,7 @@ export class CommonService {
     return num.toString().replace(regexp, ',');
   }
 
-  // changePage(i: number, chosenList, originalList) {
-  //   const start = i * 5;
-  //   const end = start + 5;
-  //   chosenList
-  //     = originalList.filter((review, index) => index >= start && index < end);
-  //   return chosenList;
-  // }
+  range(i: number){
+    return Array(i);
+  }
 }

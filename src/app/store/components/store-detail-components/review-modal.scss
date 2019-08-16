@@ -1,0 +1,354 @@
+.review-modal-container{
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  transition: visibility 0s .45s, opacity .15s linear;
+  position: fixed;
+  // overflow-y: scroll;
+  overflow-x: hidden;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 10000;
+  -webkit-overflow-scrolling: touch;
+  background: rgba(0,0,0,0.4);
+  color: #424242;
+  .icon-etc{
+    display: inline-block;
+    background-image: url('../../../../assets/image/icon-etc-2.png');
+  }
+  .icon-pointer{
+    display: inline-block;
+    background-image: url('../../../../assets/image/icon-pointer.png');
+    background-size: 400px;
+  }
+  .review-modal{
+    background: white;
+    border-radius: 4px;
+    margin: 30px auto;
+    width: 760px;
+    overflow: hidden;
+    position: relative;
+    section{
+      padding: 25px 60px;
+    }
+    h1{
+      padding: 60px 20px 25px 60px;
+      font-size: 25px;
+      font-weight: bold;
+      line-height: 25px;
+      display: inline-block;
+    }
+    h2{
+      margin-bottom: 15px;
+      font-size: 17px;
+      font-weight: bold;
+      line-height: 17px;
+    }
+    .sub-message{
+      font-size: 13px;
+      color: #757575;
+    }
+    .review-point{
+      margin-top: 65px;
+      font-size: 14px;
+      line-height: 14px;
+      color: #35c5f0;
+      font-weight: bold;
+      display: inline-block;
+    }
+    .product-info{
+      img{
+        width: 94px;
+        height: 94px;
+      }
+      figcaption{
+        display: inline-block;
+        vertical-align: top;
+        padding: 25px 20px;
+        font-size: 14px;
+        font-weight: bold;
+        .product-name{
+          font-size: 17px;
+        }
+      }
+    }
+    .select-star{
+      padding: 25px 60px;
+      height: 150px;
+      .star-container{
+        padding-top: 10px;
+        .satisfied{
+          display: inline-block;
+          vertical-align: top;
+          font-size: 14px;
+          font-weight: bold;
+          line-height: 36px;
+          margin-right: 20px;
+        }
+        .star{
+          width: 42px;
+          height: 36px;
+          background-size: 400px;
+          background-position: -109px 0;
+        }
+        .blue{
+          background-position: 3px 0;
+        }
+        .star-message{
+          margin-left: 60px;
+          display: block;
+          font-size: 14px;
+        }
+      }
+    }
+    .select-picture{
+      position: relative;
+      span{
+        color: #757575;
+        font-size: 15px;
+        vertical-align: top;
+      }
+      .red-bubble{
+        background-color: #ff7777;
+        color: #ffffff;
+        font-size: 11px;
+        font-weight: bold;
+        display: inline-block;
+        padding: 0 6px;
+        height: 20px;
+        line-height: 21px;
+        position: absolute;
+        border-radius: 4px;
+        margin-left: 7px;
+        top: 24px;
+        left: 240px;
+      }
+      .red-bubble::after{
+        content: '';
+        display: block;
+        border-top: solid transparent 3px;
+        border-bottom: solid transparent 3px;
+        border-right: solid #ff7777 5px;
+        left: 0.5px;
+        top: 50%;
+        position: absolute;
+        transform: translate(-100%, -50%);
+      }
+      .img-container{
+        margin-top: 20px;
+        position: relative;
+        text-align: center;
+        img{
+          height: 300px;
+        }
+        .img-cover{
+          height: 300px;
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          background-color: rgba(0,0,0,0.4);
+          color: #ffffff;
+          font-size: 16px;
+          font-weight: bold;
+          text-align: center;
+          .delete-img{
+            display: block;
+            margin: 130px auto 10px;
+            width: 16px;
+            height: 16px;
+            background-position: -295px -76px;
+          }
+        }
+      }
+      .upload{
+        display: block;
+        width: 240px;
+        height: 50px;
+        margin-top: 20px;
+        border: none;
+        border-radius: 4px;
+        background-color: #35c5f0;
+        font-weight: bold;
+        color: #ffffff;
+        text-align: center;
+        padding-top: 12px;
+        label{
+          width: 240px;
+          height: 50px;
+          display: inline-block;
+        }
+        label::before{
+          content: "";
+          display: inline-block;
+          margin: 0 5px 3px 0;
+          width: 14px;
+          height: 14px;
+          background-image: url(https://d1nyaccf3kuclt.cloudfront.net/assets/icon_map/icon-pointer.png);
+          background-repeat: no-repeat;
+          background-size: 400px;
+          background-position: top -76px left -331px;
+          vertical-align: middle;
+        }
+        /* 파일 필드 숨기기 */ 
+        input[type="file"]{ 
+          position: absolute; 
+          width: 1px; 
+          height: 1px; 
+          padding: 0; 
+          margin: -1px; 
+          overflow: hidden; 
+          clip:rect(0,0,0,0); border: 0; 
+        }
+      }
+    }
+    .write-review{
+      .sub-message{
+        display: inline-block;
+      }
+      .count{
+        float: right;
+        font-size: 12px;
+        line-height: 20px;
+        color: #bdbdbd;
+      }
+      textarea{
+        width: 660px;
+        height: 200px;
+        padding: 15px 20px;
+        margin-top: 20px;
+        border: solid 1px #dcdcdc;
+        box-sizing: border-box;
+        resize: none;
+        font-size: 18px;
+        line-height: 30px;
+      }
+      textarea::placeholder{
+        color: #bdbdbd;
+      }
+      small{
+        margin-top: 10px;
+        color: #757575;
+        font-size: 12px;
+      }
+    }
+    .confirmation{
+      input{
+        display: none;
+      }
+      label{
+        font-size: 14px;
+        line-height: 20px;
+        .checkbox{
+          width: 22px;
+          height: 22px;
+          background-size: 400px;
+          background-position: top -264px left -253px;
+          vertical-align: bottom;
+          margin-right: 10px;
+        }
+        .confirm{
+          background-position: top -264px left -201px;
+        }
+        .more_info{
+          color: #35c5f0;
+          font-weight: bold;
+        }
+      }
+    }
+    .actions{
+      margin-top: 25px;
+      padding: 20px 30px;
+      border-top: 1px solid #dcdcdc;
+      div{
+        float: left;
+        padding-top: 7px;
+        p{
+          min-width: 420px;
+          font-size: 13px;
+        }
+      }
+      .submit{
+        float: right;
+        padding: 15px 30px;
+        font-size: 15px;
+      }
+      .close{
+        border-style: none;
+        border-radius: 5px;
+        background-color: white;
+        font-size: 15px;
+        font-weight: bold;
+        color: #35c5f0;
+        padding: 16px;
+        margin-left: 60px;
+      }
+    }
+    .actions::after{
+      content:'';
+      display: block;
+      clear: both;
+    }
+    .more-info-modal{
+      position: absolute;
+      width: 660px;
+      padding: 15px;
+      box-sizing: border-box;
+      border: 1px solid #dcdcdc;
+      background-color: #ffffff;
+      box-shadow: 0 0 8px 0 rgba(0,0,0,0.3);
+      font-size: 14px;
+      line-height: 20px;
+      z-index: 1;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      visibility: hidden;
+      opacity: 0;
+      ol{
+        list-style-type: decimal;
+        list-style-position: inside;
+      }
+      .close-more-info{
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        width: 8px;
+        height: 8px;
+        background-position: top -76px left -365px;
+      }
+    }
+    .show{
+      opacity: 1;
+      visibility: visible;
+      transition: visibility 0s 0s, opacity .15s linear;
+    }
+  }
+}
+.show{
+  opacity: 1;
+  visibility: visible;
+  transition: visibility 0s 0s, opacity .15s linear;
+}
+.invalid-message{
+  background-color: rgba(255,0,0,0.5);
+  width: 300px;
+  height: 50px;
+  text-align: center;
+  border-radius: 8px;
+  border: 1px solid #f56464;
+  position: fixed;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: opacity ease .3s;
+  z-index: 100000;
+  opacity: 0;
+  span{
+    line-height: 50px;
+    color: white;
+  }
+}
