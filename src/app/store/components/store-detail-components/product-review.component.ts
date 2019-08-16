@@ -100,7 +100,8 @@ import { StoreService } from 'src/app/core/services/store.service';
     <app-review-modal
     [showModal]="showModal"
     [productInfo]="_productInfo"
-    (closeModal)="close()"></app-review-modal>
+    (closeModal)="close()"
+    (sendNewReview)="getNewReview($event)"></app-review-modal>
   `,
   styleUrls: ['./product-review.scss']
 })
@@ -119,6 +120,7 @@ export class ProductReviewComponent implements OnInit {
       return b.star_score - a.star_score;
     });
   };
+  @Output() sendNewReview = new EventEmitter;
   
   userInfo: any;
   _productInfo: product_info;
@@ -196,5 +198,13 @@ export class ProductReviewComponent implements OnInit {
     this.renderer.setStyle(document.body, 'top', '');
     this.renderer.removeClass(document.body, 'no-scroll');
     window.scrollTo({ top: this.top, left: 0 });
+  }
+
+  getNewReview(review: review[]) {
+    this._originalList = review.sort(function (a, b) {
+      return b.star_score - a.star_score;
+    });
+    this.cancelFilter();
+    this.sendNewReview.emit(review);
   }
 }
