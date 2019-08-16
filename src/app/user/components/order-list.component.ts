@@ -4,6 +4,7 @@ import { user_order } from 'src/app/core/models/user.interface';
 import { Title } from '@angular/platform-browser';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonService } from 'src/app/core/services/common.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-order-list',
@@ -110,15 +111,15 @@ import { CommonService } from 'src/app/core/services/common.service';
               </div>
               <div class="view-detail">상세보기</div>
             </div>
-            <a
-              class="product"
-              *ngFor="let item of list['order_list']"
-              ImageZoom
-            >
-              <div class="item-image">
+            <a class="product" *ngFor="let item of list['order_list']">
+              <div
+                class="item-image"
+                (click)="goDetail(item['product_id'])"
+                ImageZoom
+              >
                 <img class="image-zoom" src="{{ item.thumnail_image }}" />
               </div>
-              <div class="item-content">
+              <div class="item-content" (click)="goDetail(item['product_id'])">
                 <h1 class="content-header">
                   {{ item.brand_name }}
                 </h1>
@@ -126,6 +127,7 @@ import { CommonService } from 'src/app/core/services/common.service';
                   {{ item.product }}
                 </p>
               </div>
+
               <div class="item-order-info">
                 <div class="item-product">{{ item.product }}</div>
                 <div class="item-price">
@@ -449,7 +451,8 @@ export class OrderListComponent implements OnInit {
   constructor(
     private userService: UserService,
     private titleService: Title,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private router: Router
   ) {}
   orderList: user_order[] = [];
   ngOnInit() {
@@ -464,7 +467,9 @@ export class OrderListComponent implements OnInit {
       }
     );
   }
-
+  goDetail(product_id: number) {
+    this.router.navigate([`/store/${product_id}`]);
+  }
   get OrderCount() {
     return this.orderList ? this.orderList.length : 0;
   }
