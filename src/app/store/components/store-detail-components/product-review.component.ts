@@ -57,7 +57,7 @@ import { StoreService } from 'src/app/core/services/store.service';
       <div class="chosenScore" *ngIf="chosenScore !== 0">
         <span class="star icon-etc" *ngFor="let score of commonService.range(chosenScore)">
         </span>
-        <span class="greystar icon-etc" *ngFor="let score of commonServicerange(5 - chosenScore)">
+        <span class="greystar icon-etc" *ngFor="let score of commonService.range(5 - chosenScore)">
         </span>
         <span class="blueText"> ({{ getScore(chosenScore) }}개)</span>
         <span class="icon-pointer close cursor" (click)="cancelFilter()"></span>
@@ -73,7 +73,7 @@ import { StoreService } from 'src/app/core/services/store.service';
             <img src="{{ review.image }}">
           </div>
           <p class="review-comment">{{ review.comment }}</p>
-          <button class="helpful clicked cursor" BlueButton
+          <button class="helpful clicked" BlueButton
             *ngIf="review.helpful.indexOf(this.commonService.getUserDetail()['id']) !== -1;
             else helpfulClicked"
             (click)="helpful(review)">
@@ -83,7 +83,7 @@ import { StoreService } from 'src/app/core/services/store.service';
             </svg>
           도움됨</button>
           <ng-template #helpfulClicked>
-            <button class="helpful cursor" (click)="helpful(review)">
+            <button class="helpful" (click)="helpful(review)" WhiteButton>
             도움이 돼요</button>
           </ng-template>
           <span *ngIf="review.helpful_count > 0">{{ review.helpful_count }}명에게 도움이 되었습니다.</span>

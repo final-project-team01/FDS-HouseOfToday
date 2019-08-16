@@ -1,10 +1,9 @@
-.review-modal-container{
+.review-modal-bg{
   display: block;
   opacity: 0;
   visibility: hidden;
   transition: visibility 0s .45s, opacity .15s linear;
   position: fixed;
-  // overflow-y: scroll;
   overflow-x: hidden;
   left: 0;
   top: 0;

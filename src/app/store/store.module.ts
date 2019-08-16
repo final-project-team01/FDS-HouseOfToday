@@ -34,6 +34,8 @@ import { StarRateComponent } from './components/store-detail-components/star-rat
 import { BrandComponent } from './components/brand.component';
 import { BuyModalComponent } from './components/store-detail-components/buy-modal.component';
 import { ReviewModalComponent } from './components/store-detail-components/review-modal.component';
+import { QnaModalComponent } from './components/store-detail-components/qna-modal.component';
+import { OptionSelectComponent } from './components/store-detail-components/option-select.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,7 @@ import { ReviewModalComponent } from './components/store-detail-components/revie
     , BrandComponent
     , StarRateComponent
     , BuyModalComponent
-    , ReviewModalComponent
+    , ReviewModalComponent, QnaModalComponent, OptionSelectComponent
   ],
   imports: [
     CommonModule
