@@ -36,6 +36,7 @@ import { FilterOptionComponent } from './components/filter-option/filter-option.
 import { HoverBlueBackgroundDirective } from './directive/hover-blue-background.directive';
 import { PopUpComponent } from './components/pop-up.component';
 import { RankCrownComponent } from './components/rank-crown.component';
+import { WhiteButtonDirective } from './directive/white-button.directive';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { RankCrownComponent } from './components/rank-crown.component';
     HoverBlueBackgroundDirective,
     PopUpComponent,
     RankCrownComponent,
+    WhiteButtonDirective,
   ],
   imports: [CommonModule, CoreModule, AlyleModule, SharedRoutingModule],
   exports: [
@@ -95,7 +97,8 @@ import { RankCrownComponent } from './components/rank-crown.component';
     FilterButtonDirective,
     FilterDropButtonComponent,
     FilterOptionComponent,
-    HoverBlueBackgroundDirective
+    HoverBlueBackgroundDirective,
+    WhiteButtonDirective
   ]
 })
 export class SharedModule { }

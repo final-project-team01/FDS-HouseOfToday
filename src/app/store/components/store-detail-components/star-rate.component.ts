@@ -28,7 +28,7 @@ export class StarRateComponent implements OnInit {
   fill(i: number){
     if(this.starAvg >= i + 1) return this.width;
     else if(this.starAvg > i && this.starAvg < i + 1) {
-      const point = +this.starAvg.toString().slice(2,4) * 0.01;
+      const point = +(this.starAvg.toString() + '0').slice(2,4) * 0.01
       return point * this.width;
     }
     else return 0;
