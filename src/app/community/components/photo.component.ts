@@ -20,7 +20,9 @@ import { HttpErrorResponse } from '@angular/common/http';
             >
             <app-filter-drop-button class="filter">공간</app-filter-drop-button>
             <app-filter-drop-button class="filter">평수</app-filter-drop-button>
-            <app-filter-drop-button class="filter">스타일</app-filter-drop-button>
+            <app-filter-drop-button class="filter"
+              >스타일</app-filter-drop-button
+            >
             <app-filter-drop-button class="filter">컬러</app-filter-drop-button>
             <app-filter-drop-button class="filter"
               >셀프/전문</app-filter-drop-button
@@ -30,10 +32,15 @@ import { HttpErrorResponse } from '@angular/common/http';
             >
           </ul>
         </div>
-  
+
         <div class="card_list">
           <div class="contents">
-            <article *ngFor="let item of cardItems" class="card_item" ImageZoom (click)="movePhoto(item['id'])">
+            <article
+              *ngFor="let item of cardItems"
+              class="card_item"
+              ImageZoom
+              (click)="movePhoto(item['id'])"
+            >
               <div class="card_item_top_bar">
                 <div class="user_icon_image">
                   <app-basic-uses-avatar
@@ -49,7 +56,8 @@ import { HttpErrorResponse } from '@angular/common/http';
               </div>
               <div class="card_item_content">
                 <div class="content_image">
-                  <a class="image"><img class="image image-zoom" src="{{ item.image }}"
+                  <a class="image"
+                    ><img class="image image-zoom" src="{{ item.image }}"
                   /></a>
                 </div>
                 <aside class="card_item_action">
@@ -57,19 +65,19 @@ import { HttpErrorResponse } from '@angular/common/http';
                     <a class="like_btn"></a>
                     <span class="action_info">{{ item.like_count }}</span>
                   </div>
-  
+
                   <div class="card_action">
                     <a class="scrap_btn"></a>
                     <span class="action_info">{{ item.scrap_count }}</span>
                   </div>
-  
+
                   <div class="card_action">
                     <a class="reply_comment_btn"></a>
                     <span class="action_info">{{ item.comment_count }}</span>
                   </div>
                 </aside>
                 <div class="content_description">{{ item.text }}</div>
-  
+
                 <div class="reply_user_icon_image">
                   <article>
                     <address class="card_item_user_reply_info">
@@ -78,7 +86,7 @@ import { HttpErrorResponse } from '@angular/common/http';
                         [isBorder]="false"
                         [pic]="[item.comments[0].author_profile_image]"
                       ></app-basic-uses-avatar>
-  
+
                       <div class="reply_user_name">
                         {{ item.comments[0].author }}
                       </div>
@@ -92,12 +100,12 @@ import { HttpErrorResponse } from '@angular/common/http';
         </div>
       </div>
     </div>
-    <app-footer></app-footer>
 
+    <app-footer></app-footer>
   `,
   styles: [
     `
-      .wrapp{
+      .wrapp {
         width: calc(100vw - 16px);
       }
       .container {
@@ -158,7 +166,7 @@ import { HttpErrorResponse } from '@angular/common/http';
       .card_item_user_info {
         padding-left: 48px;
         margin-bottom: 16px;
-        height:40px;
+        height: 40px;
       }
       .user_name {
         display: inline-block;
@@ -188,7 +196,8 @@ import { HttpErrorResponse } from '@angular/common/http';
         width: 100%;
         height: 269px;
         border-radius: 6px;
-        overflow:hidden;
+        overflow: hidden;
+
         display: inline-block;
         top: 0;
       }
@@ -199,6 +208,8 @@ import { HttpErrorResponse } from '@angular/common/http';
       }
       .card_action {
         display: flex;
+
+        gdisplay: flex;
         align-items: center;
       }
       .action_info {
@@ -263,25 +274,24 @@ import { HttpErrorResponse } from '@angular/common/http';
   ]
 })
 export class PhotoComponent implements OnInit {
-  cardItems: communityPhoto[] = [];
+  cardItems = [];
 
   constructor(
     private communityService: CommunityService,
-    private commonService: CommonService,
-    private router: Router,
-    private titleService: Title
-  ) { }
+    private commonService: CommonService
+  ) {
+    for (let I = 0; I < 16; I++) {
+      const item = { item: I };
+      this.cardItems =
+        this.cardItems.length > 0 ? [...this.cardItems, item] : [item];
+    }
+  }
 
   ngOnInit() {
-    this.titleService.setTitle("1등 인테리어 집꾸미기 서비스, 오늘의 집");
     this.commonService.setLocate(0);
     this.commonService.setNav(0);
     this.communityService.getPhotoImage().subscribe((data) => {
-      this.cardItems = data;
-    },
-      (error: HttpErrorResponse) => { console.log(error) });
-  }
-  movePhoto(id: number) {
-    this.router.navigate([`photo/${id}`]);
+      this.cardItems = data as communityPhoto[];
+    });
   }
 }

@@ -3,113 +3,156 @@ import { UserService } from 'src/app/core/services/user.service';
 import { user_order } from 'src/app/core/models/user.interface';
 import { Title } from '@angular/platform-browser';
 import { HttpErrorResponse } from '@angular/common/http';
+import { CommonService } from 'src/app/core/services/common.service';
 
 @Component({
   selector: 'app-order-list',
   template: `
     <app-navigation></app-navigation>
     <div class="viewport">
-    <app-user-nav></app-user-nav>
-    <div class="shopping_order_list">
-      <div class="my_mileage">
-        <div class="mileage_item">
-          <div class="coupon_icon"></div>
-          <div class="mileage_info">coupon</div>
-          <div class="mileage_count">0</div>
-        </div>
-
-        <div class="mileage_item">
-          <div class="point_icon"></div>
-          <div class="mileage_info">point</div>
-          <div class="mileage_count">0</div>
-        </div>
-
-        <div class="mileage_item">
-          <div class="rating_icon"></div>
-          <div class="mileage_info">rating</div>
-          <div class="mileage_count">0</div>
-        </div>
-      </div>
-
-      <div class="slot">
-        <div>
-          <div class="slot_item">나의 추천코드</div>
-          <div class="slot_item">LEUUJ6BU</div>
-        </div>
-        <div class="slot_item slot_coupon">
-          <div class="slot_item_description">
-            나는 5000P, 친구는 5000원 쿠폰
+      <app-user-nav></app-user-nav>
+      <div class="shopping_order_list">
+        <div class="my_mileage">
+          <div class="mileage_item">
+            <div class="coupon_icon"></div>
+            <div class="mileage_info">coupon</div>
+            <div class="mileage_count">0</div>
           </div>
-          <a BlueButton>추천하기</a>
+
+          <div class="mileage_item">
+            <div class="point_icon"></div>
+            <div class="mileage_info">point</div>
+            <div class="mileage_count">0</div>
+          </div>
+
+          <div class="mileage_item">
+            <div class="rating_icon"></div>
+            <div class="mileage_info">rating</div>
+            <div class="mileage_count">0</div>
+          </div>
+        </div>
+
+        <div class="slot">
+          <div>
+            <div class="slot_item">나의 추천코드</div>
+            <div class="slot_item">LEUUJ6BU</div>
+          </div>
+          <div class="slot_item slot_coupon">
+            <div class="slot_item_description">
+              나는 5000P, 친구는 5000원 쿠폰
+            </div>
+            <a BlueButton>추천하기</a>
+          </div>
+        </div>
+        <div class="order_state">
+          <div class="step">
+            <div class="title">입금대기</div>
+            <div class="count">0</div>
+          </div>
+          <div class="arrow"></div>
+          <div class="step">
+            <div class="title">결제완료</div>
+            <div class="count">{{ OrderCount }}</div>
+          </div>
+          <div class="arrow"></div>
+          <div class="step">
+            <div class="title">배송준비</div>
+            <div class="count">0</div>
+          </div>
+          <div class="arrow"></div>
+          <div class="step">
+            <div class="title">배송중</div>
+            <div class="count">0</div>
+          </div>
+          <div class="arrow"></div>
+          <div class="step">
+            <div class="title">배송완료</div>
+            <div class="count">0</div>
+          </div>
+          <div class="arrow"></div>
+          <div class="step">
+            <div class="title">리뷰작성</div>
+            <div class="count">0</div>
+          </div>
+        </div>
+        <div class="order_list_set">
+          <div class="order_filter">
+            <select class="delivery_before">
+              <option value="1">1개월전</option>
+              <option value="3">3개월전</option>
+              <option value="6">6개월전</option>
+              <option value="12">1년전</option>
+              <option value="24">2년전</option>
+              <option value="36">3년전</option>
+              <option value="-1">전체선택</option>
+            </select>
+            <select class="delivery_status">
+              <option value="-1">전체선택</option>
+              <option value="0">입금대기</option>
+              <option value="1">결제완료</option>
+              <option value="2">배송준비</option>
+              <option value="3">배송중</option>
+              <option value="4">배송완료</option>
+              <option value="5">구매확정</option>
+              <option value="6">리뷰작성</option>
+              <option value="7">취소</option>
+              <option value="8">교환</option>
+              <option value="9">환불</option>
+            </select>
+          </div>
+
+          <div class="ordered_item" *ngFor="let list of orderList">
+            <div class="order_tag_contain">
+              <div>
+                <div class="order_tag list-id">{{ list.id }}</div>
+                <span> | </span>
+                <div class="order_tag list-created">{{ list.created }}</div>
+              </div>
+              <div class="view-detail">상세보기</div>
+            </div>
+            <a
+              class="product"
+              *ngFor="let item of list['order_list']"
+              ImageZoom
+            >
+              <div class="item-image">
+                <img class="image-zoom" src="{{ item.thumnail_image }}" />
+              </div>
+              <div class="item-content">
+                <h1 class="content-header">
+                  {{ item.brand_name }}
+                </h1>
+                <p class="content-header-product">
+                  {{ item.product }}
+                </p>
+              </div>
+              <div class="item-order-info">
+                <div class="item-product">{{ item.product }}</div>
+                <div class="item-price">
+                  {{ commonService.addComma(item.total_price) }}<span>원</span>
+                  <div class="order-count">
+                    {{ item.quantity }}<span>개</span>
+                  </div>
+                </div>
+                <a class="order-confirm">구매확정</a>
+              </div>
+              <div class="order-control-btn">
+                <button class="tracking-item control-btn">배송추척</button>
+                <button class="comment-item control-btn">리뷰작성</button>
+              </div>
+            </a>
+            <div class="hr"></div>
+          </div>
         </div>
       </div>
-      <div class="order_state">
-        <div class="step">
-          <div class="title">입금대기</div>
-          <div class="count">0</div>
-        </div>
-        <div class="arrow"></div>
-        <div class="step">
-          <div class="title">결제완료</div>
-          <div class="count">{{OrderCount}}</div>
-        </div>
-        <div class="arrow"></div>
-        <div class="step">
-          <div class="title">배송준비</div>
-          <div class="count">0</div>
-        </div>
-        <div class="arrow"></div>
-        <div class="step">
-          <div class="title">배송중</div>
-          <div class="count">0</div>
-        </div>
-        <div class="arrow"></div>
-        <div class="step">
-          <div class="title">배송완료</div>
-          <div class="count">0</div>
-        </div>
-        <div class="arrow"></div>
-        <div class="step">
-          <div class="title">리뷰작성</div>
-          <div class="count">0</div>
-        </div>
-      </div>
-      <div class="order_list_set">
-        <div class="order_filter">
-          <select class="delivery_before">
-            <option value="1">1개월전</option>
-            <option value="3">3개월전</option>
-            <option value="6">6개월전</option>
-            <option value="12">1년전</option>
-            <option value="24">2년전</option>
-            <option value="36">3년전</option>
-            <option value="-1">전체선택</option>
-          </select>
-          <select class="delivery_status">
-            <option value="-1">전체선택</option>
-            <option value="0">입금대기</option>
-            <option value="1">결제완료</option>
-            <option value="2">배송준비</option>
-            <option value="3">배송중</option>
-            <option value="4">배송완료</option>
-            <option value="5">구매확정</option>
-            <option value="6">리뷰작성</option>
-            <option value="7">취소</option>
-            <option value="8">교환</option>
-            <option value="9">환불</option>
-          </select>
-        </div>
-        <div>주문내역이 없습니다.</div>
-      </div>
-    </div>
-    <app-footer></app-footer>
+      <app-footer></app-footer>
     </div>
   `,
   styles: [
     `
-    .viewport{
-      width: calc(100vw - 18px);
-    }
+      .viewport {
+        width: calc(100vw - 18px);
+      }
       /* order-list */
       body {
         line-height: 1;
@@ -276,18 +319,145 @@ import { HttpErrorResponse } from '@angular/common/http';
         display: block;
         font-size: 15px;
       }
+      .order_tag_contain {
+        text-align: left;
+        display: flex;
+        justify-content: space-between;
+      }
+      .order_tag {
+        display: inline-block;
+        padding-top: 20px;
+      }
+      .list-id {
+        margin-right: 15px;
+      }
+      .list-created {
+        margin-left: 15px;
+      }
+      .view-detail {
+        display: inline-block;
+        margin-top: 15px;
+      }
+      .product {
+        margin: 40px 0 20px 0;
+        display: flex;
+      }
+      .item-image {
+        flex: 0 0 auto;
+        position: relative;
+        display: block;
+        width: 70px;
+        height: 70px;
+        border-radius: 6px;
+        background-color: #ededed;
+        overflow: hidden;
+      }
+      .item-image > img {
+        display: block;
+        position: absolute;
+        width: 100%;
+        transition: transform 0.2s;
+      }
+
+      .item-content {
+        display: inline-block;
+        padding-left: 12px;
+        width: 45%;
+      }
+      .content-header {
+        min-width: 0;
+        font-size: 15px;
+        font-weight: 500;
+        color: #000;
+        line-height: 21px;
+        overflow-wrap: break-word;
+        transition: opacity 0.1s;
+        text-align: left;
+        margin-bottom: 5px;
+      }
+      .content-header-product {
+        text-align: left;
+        font-weight: 700;
+      }
+      .item-caption {
+        margin-top: 8px;
+        font-weight: 400;
+        font-size: 11px;
+        line-height: 15px;
+        color: #757575;
+        overflow-wrap: break-word;
+      }
+      .item-order-info {
+        text-align: left;
+        width: 30%;
+        padding-left: 12px;
+      }
+      .item-product,
+      .item-price,
+      .order-count {
+        margin-bottom: 5px;
+      }
+      .item-product {
+        color: #b7b7b7;
+      }
+      .item-price {
+        color: #727272;
+      }
+      .order-count {
+        display: inline-block;
+        margin-left: 25px;
+        color: #b7b7b7;
+      }
+      .order-confirm {
+        color: #35c5f0;
+        font-weight: bold;
+        font-size: 0.85rem;
+      }
+      .order-control-btn {
+        width: 20%;
+      }
+      .control-btn {
+        display: block;
+        float: right;
+        padding: 10px 50px;
+        margin-bottom: 10px;
+      }
+      .tracking-item {
+        border: 2px solid #35c5f0;
+        border-radius: 5px;
+        color: #35c5f0;
+      }
+      .comment-item {
+        border-radius: 5px;
+        background-color: #35c5f0;
+        color: white;
+      }
+      .hr {
+        border-bottom: 1px solid #dcdcdc;
+      }
     `
   ]
 })
 export class OrderListComponent implements OnInit {
-  constructor(private userService: UserService, private titleService: Title) { }
+  item = {};
+  order_list = {};
+  constructor(
+    private userService: UserService,
+    private titleService: Title,
+    private commonService: CommonService
+  ) {}
   orderList: user_order[] = [];
   ngOnInit() {
-    this.titleService.setTitle("1등 인테리어 집꾸미기 서비스, 오늘의 집");
+    this.titleService.setTitle('1등 인테리어 집꾸미기 서비스, 오늘의 집');
     this.userService.getProductOrder().subscribe(
-      orderList => { this.orderList = orderList },
-      (error: HttpErrorResponse) => { console.log(error) }
-    )
+      (orderList) => {
+        this.orderList = orderList;
+        console.log(this.orderList);
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error);
+      }
+    );
   }
 
   get OrderCount() {
