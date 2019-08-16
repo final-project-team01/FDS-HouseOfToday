@@ -81,7 +81,8 @@ import { HttpErrorResponse } from '@angular/common/http';
           </app-product-review>
           <h3 #qna>문의 <span class="qna-amount">{{ qnaAmount }}</span></h3>
           <app-product-qna
-            [productInfo]="productInfo">
+            [productInfo]="productInfo"
+            (sendNewQna)="getNewQna($event)">
           </app-product-qna>
           <h3 class="delivery" #delivery>배송 관련 안내</h3>
           <app-product-delivery
@@ -292,6 +293,10 @@ export class StoreDetailComponent implements OnInit {
       this.router.navigate(['/signin']);
       return false;
     }
+  }
+
+  getNewQna(qna: qna[]) {
+    this.qnaAmount = qna.length;
   }
 
 }

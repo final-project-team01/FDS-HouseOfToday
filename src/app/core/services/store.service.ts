@@ -74,4 +74,12 @@ export class StoreService {
     return this.httpClient.post(fullPath, formData, options);
   }
 
+  createQna(payload, userToken) {
+    const path = '/products/product/qna/';
+    const fullPath = this.commonService.getFullPath(path);
+    let headers = this.commonService.setAuthorization(userToken);
+    let options = { headers };
+    return this.httpClient.post(fullPath, payload, options);
+  }
+
 }
