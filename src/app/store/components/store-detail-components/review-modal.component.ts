@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter, ReflectiveInjector } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { StoreService } from 'src/app/core/services/store.service';
-import { product_info } from 'src/app/core/models/store.interface';
+import { product_info, review } from 'src/app/core/models/store.interface';
 import { CommonService } from 'src/app/core/services/common.service';
 
 @Component({
@@ -102,8 +102,10 @@ import { CommonService } from 'src/app/core/services/common.service';
       </div>
     </div>
   </div>
-  <div class="invalid-message" [style.opacity]="messageOpacity">
-    <span>{{ invalidMessage }}</span>
+  <div class="message" [style.opacity]="messageOpacity"
+    [style.backgroundColor]="bgColor"
+    [style.borderColor]="bdColor">
+    <span>{{ message }}</span>
   </div>
   `,
   styleUrls: ['./review-modal.scss']
@@ -118,13 +120,16 @@ export class ReviewModalComponent implements OnInit {
     this.productBrand = productInfo['brand_name'];
     this.productName = productInfo['name'];
     this.productId = productInfo['id'];
+    this.productReview = productInfo['review'];
   };
   @Output() closeModal = new EventEmitter;
+  @Output() sendNewReview = new EventEmitter;
 
   productImg: string;
   productBrand: string;
   productName: string;
   productId: number;
+  productReview: review[];
   comparePoint = -1;
   checkedPoint = -1;
   starChecked = false;
@@ -134,15 +139,21 @@ export class ReviewModalComponent implements OnInit {
   file: File = null;
   image = null;
   messageOpacity: number;
-  invalidMessage: string;
+  message: string;
+  bgColor = '';
+  bdColor = '';
 
-  constructor(private storeSerivce: StoreService
+  constructor(private storeService: StoreService
             , private commonService: CommonService) { }
 
   ngOnInit() {
   }
 
-  close(){
+  close(textarea: HTMLTextAreaElement, checkbox: HTMLInputElement){
+    this.comparePoint = -1;
+    this.checkedPoint = -1;
+    textarea.value = '';
+    checkbox.classList.remove('confirm');
     this.closeModal.emit();
   }
 
@@ -187,11 +198,7 @@ export class ReviewModalComponent implements OnInit {
       || e.target.classList.contains('close')) {
       const check = confirm('작성 중인 내용이 사라집니다.');
       if (check) {
-        this.comparePoint = -1;
-        this.checkedPoint = -1;
-        textarea.value = '';
-        checkbox.classList.remove('confirm');
-        this.close();
+        this.close(textarea, checkbox);
       }
       else return;
     }
@@ -207,38 +214,48 @@ export class ReviewModalComponent implements OnInit {
 
   submitCheck(checkbox: HTMLInputElement, textarea: HTMLTextAreaElement) {
     if (this.checkedPoint === -1) {
-      this.invalidMessage = '별점을 눌러 만족도를 알려주세요.';
-      this.showInvalidMessage();
+      this.message = '별점을 눌러 만족도를 알려주세요.';
+      this.showMessage();
     }
     else if (this.count < 20) {
-      this.invalidMessage = '리뷰를 20자 이상 작성해 주세요.';
-      this.showInvalidMessage();
+      this.message = '리뷰를 20자 이상 작성해 주세요.';
+      this.showMessage();
     }
     else if (!checkbox.classList.contains('confirm')) {
-      this.invalidMessage = '오늘의집 리뷰정책에 동의해주세요.';
-      this.showInvalidMessage();
+      this.message = '오늘의집 리뷰정책에 동의해주세요.';
+      this.showMessage();
     }
     else {
       const formData = new FormData();
       formData.append('product', this.productId.toString());
-      formData.append('star_score', this.checkedPoint.toString());
-      formData.append('image', this.file, this.file.name);
+      formData.append('star_score', (this.checkedPoint + 1).toString());
+      if(this.image !== null) formData.append('image', this.file, this.file.name);
       formData.append('comment', textarea.value);
-      
-      this.storeSerivce.createReview(formData)
+      this.storeService.createReview(formData)
         .subscribe(res => {
-          console.log(res);
+          this.storeService.getProductInfo(this.productId)
+            .subscribe(res => {
+              this.productReview = res['review'];
+              this.sendNewReview.emit(this.productReview);
+            });
+          this.bgColor = 'rgba(17, 146, 1, 0.6)';
+          this.bdColor = 'rgb(34, 146, 0)';
+          this.message = '문의가 등록되었습니다.';
+          this.showMessage();
+          this.close(textarea, checkbox);
         },
         err => {
           console.log(err);
         }
         );
     }
+    this.bgColor = '';
+    this.bdColor = '';
   }
 
-  showInvalidMessage() {
+  showMessage() {
     this.messageOpacity = 1;
-    setTimeout(() => { this.messageOpacity = 0; }, 2000);
+    setTimeout(() => { this.messageOpacity = 0; }, 1000);
   }
 
   uploadImg(imgFile) {

@@ -77,7 +77,8 @@ import { HttpErrorResponse } from '@angular/common/http';
           <app-product-review
             [productInfo]="productInfo"
             [starAvg]="starAvg"
-            [productId]="id">
+            [productId]="id"
+            (sendNewReview)="getNewReview($event)">
           </app-product-review>
           <h3 #qna>문의 <span class="qna-amount">{{ qnaAmount }}</span></h3>
           <app-product-qna
@@ -297,6 +298,10 @@ export class StoreDetailComponent implements OnInit {
 
   getNewQna(qna: qna[]) {
     this.qnaAmount = qna.length;
+  }
+
+  getNewReview(review: review[]){
+    this.reviewAmount = review.length;
   }
 
 }

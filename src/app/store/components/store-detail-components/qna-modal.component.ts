@@ -31,6 +31,11 @@ import { StoreService } from 'src/app/core/services/store.service';
     </div>
     </div>
   </div>
+  <div class="message" [style.opacity]="messageOpacity"
+    [style.backgroundColor]="bgColor"
+    [style.borderColor]="bdColor">
+    <span>{{ message }}</span>
+  </div>
   `,
   styleUrls: ['./qna-modal.scss']
 })
@@ -57,7 +62,11 @@ export class QnaModalComponent implements OnInit {
   product: number;
   qnaPlaceholder = '선택해주세요.';
   optionPlaceholder = '상품옵션을 선택해주세요.';
+  message: string;
   qnaProduct = '';
+  messageOpacity = 0;
+  bgColor = '';
+  bdColor = '';
   payload = {
     product: 0,
     type: '',
@@ -85,9 +94,18 @@ export class QnaModalComponent implements OnInit {
 
   submit(textarea: HTMLTextAreaElement) {
     const comment = textarea.value;
-    if (this.payload.type === '') alert('문의유형을 선택해주세요.');
-    else if (this.qnaProduct === '') alert('상품옵션을 선택해주세요.');
-    else if (comment.trim() === '') alert('문의내용을 입력해주세요.');
+    if (this.payload.type === '') {
+      this.message = '문의유형을 선택해주세요.';
+      this.showMessage();
+    }
+    else if (this.qnaProduct === '') {
+      this.message = '상품옵션을 선택해주세요.';
+      this.showMessage();
+    }
+    else if (comment.trim() === '') {
+      this.message = '문의내용을 입력해주세요.';
+      this.showMessage();
+    }
     else {
       this.payload.comment = comment;
       this.payload.product = this.product;
@@ -99,13 +117,25 @@ export class QnaModalComponent implements OnInit {
               this.productQna = res['pdqna'];
               this.sendNewQna.emit(this.productQna);
             });
+          this.bgColor = 'rgba(17, 146, 1, 0.6)';
+          this.bdColor = 'rgb(34, 146, 0)';
+          this.message = '문의가 등록되었습니다.';
+          this.showMessage();
           this.close();
-          
         },
         err => {
           console.log(err);
         });
     }
+    this.bgColor = '';
+    this.bdColor = '';
+    this.payload.type = '';
+    this.payload.comment = '';
+  }
+
+  showMessage() {
+    this.messageOpacity = 1;
+    setTimeout(() => { this.messageOpacity = 0; }, 1000);
   }
 
   close(){
