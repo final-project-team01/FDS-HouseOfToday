@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Renderer2 } from '@angular/core';
+import { Component, OnInit, Input, Renderer2, Output, EventEmitter } from '@angular/core';
 import { qna, product_info, product_option } from 'src/app/core/models/store.interface';
 
 @Component({
@@ -43,7 +43,9 @@ import { qna, product_info, product_option } from 'src/app/core/models/store.int
     <app-qna-modal
       [showModal]="showModal"
       [productOption]="productOption"
-      (closeModal)="close()">
+      [productId]="productId"
+      (closeModal)="close()"
+      (sendNewQna)="getNewQna($event)">
     </app-qna-modal>
   `,
   styleUrls: ['./product-qna.scss']
@@ -55,9 +57,13 @@ export class ProductQnaComponent implements OnInit {
     if(!productInfo) return;
     this.originalList = productInfo['pdqna'];
     this.productOption = productInfo['product_option'];
+    this.productId = productInfo['id'];    
   }
+  @Output() sendNewQna = new EventEmitter;
+
   showModal: boolean;
   productOption: product_option[];
+  productId: number;
   originalList: qna[];
   top: number;
 
@@ -87,6 +93,11 @@ export class ProductQnaComponent implements OnInit {
     this.renderer.setStyle(document.body, 'top', '');
     this.renderer.removeClass(document.body, 'no-scroll');
     window.scrollTo({ top: this.top, left: 0 });
+  }
+
+  getNewQna(qna: qna[]) {
+    this.originalList = qna;
+    this.sendNewQna.emit(qna);
   }
 
 }
