@@ -7,16 +7,10 @@ import { product_option } from 'src/app/core/models/store.interface';
   selector: 'app-product-option',
   template: `
     <div class="product-option-container" *ngIf="productOption">
-      <div class="selectbox" (clickOutside)="hide()">
-      <input type="text" placeholder="{{ productOption[0].type }}" readonly (focus)="show()" class="cursor" #optionInput>
-        <span class="product-option-icon icon-pointer"></span>
-        <ul class="option-item-list" *ngIf="visible">
-          <li *ngFor="let option of productOption; let i = index" class="option-item cursor"
-          (click)="add(option, optionInput)">
-          {{ option.name }}
-          </li>
-        </ul>
-      </div>
+      <app-option-select
+        [productOption]="productOption"
+        (add)="add($event)">
+      </app-option-select>
       <div class="selected-items-container" *ngIf="scroll; else noscroll">
         <div class="selected-items" *ngFor="let option of chosenOptions">
           <p class="selected-item-name">{{ getName(option.name) }}</p>
@@ -91,10 +85,8 @@ export class ProductOptionComponent implements OnInit {
     this.visible = false;
   }
 
-  add(option: object, input: HTMLInputElement) {
-    input.value = `${option['name']}`;
+  add(option: product_option) {
     this.addOption.emit(option);
-    this.hide();
   }
 
   remove(id: number) {

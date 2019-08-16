@@ -1,0 +1,76 @@
+.qna-modal-bg{
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  transition: visibility 0s .45s, opacity .15s linear;
+  position: fixed;
+  overflow-x: hidden;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 10000;
+  -webkit-overflow-scrolling: touch;
+  background: rgba(0,0,0,0.4);
+  color: #424242;
+  .qna-modal{
+    background: white;
+    border-radius: 4px;
+    margin: 80px auto;
+    width: 500px;
+    overflow: hidden;
+    position: relative;
+    height: 560px;
+    .selectbox{
+      width: 90%;
+      border: solid 3px #dbdbdb;
+      background-color: white;
+      position: relative;
+      font-size: 15px;
+      margin: 20px auto;
+      line-height: 40px;
+      .icon-pointer{
+        display: inline-block;
+        background-image: url('../../../../assets/image/icon-pointer.png');
+      }
+      input{
+        width: 100%;
+        height: 40px;
+        padding: 0 15px;
+        border: none;
+      }
+      .option-icon{
+        width: 16px;
+        height: 8px;
+        background-position: top -39px left 0;
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      .option-item-list{
+        position: absolute;
+        top: 39px;
+        left: 0;
+        background-color: white;
+        z-index: 10;
+        max-height: 240px;
+        width: 100%;
+        overflow-x: auto;
+        border: solid 1px #dbdbdb;
+        .option-item{
+          padding: 0 15px;
+        }
+        .option-item:hover{
+          background-color: rgb(30, 144, 255);
+          color: white;
+        }
+      }
+    }
+  }
+}
+.show{
+  opacity: 1;
+  visibility: visible;
+  transition: visibility 0s 0s, opacity .15s linear;
+}

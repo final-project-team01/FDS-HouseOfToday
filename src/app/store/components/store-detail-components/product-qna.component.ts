@@ -1,11 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Renderer2 } from '@angular/core';
 import { qna } from 'src/app/core/models/store.interface';
 
 @Component({
   selector: 'app-product-qna',
   template: `
     <div class="product-qna-container" *ngIf="originalList">
-      <button class="write-qna cursor">문의하기</button>
+      <button class="write-qna cursor" (click)="showReviewModal()">문의하기</button>
       <div class="user-qna-container" *ngIf="originalList.length !== 0; else noQna">
       <article class="user-qna" *ngFor="let qna of originalList | pageFilter: index; let i = index">
         <div class="qna-type">
@@ -37,25 +37,48 @@ import { qna } from 'src/app/core/models/store.interface';
       </ng-template>
       <app-pagination 
         [originalList]="originalList"
-        (change)="changePage($event)"
-      ></app-pagination>
+        (change)="changePage($event)">
+      </app-pagination>
     </div>
+    <app-qna-modal
+      [showModal]="showModal"
+      (closeModal)="close()">
+    </app-qna-modal>
   `,
   styleUrls: ['./product-qna.scss']
 })
 export class ProductQnaComponent implements OnInit {
   
   @Input() originalList: qna[];
+  showModal: boolean;
+  top: number;
 
   index = 0;
 
-  constructor() { }
+  constructor(private renderer: Renderer2) { }
 
   ngOnInit() {
   }
 
   changePage(i: number){
     this.index = i;
+  }
+
+  showReviewModal(){
+    this.showModal = true;
+    this.top = window.scrollY;
+    window.scrollTo({ top: this.top, left: 0 });
+    this.renderer.addClass(document.body, 'no-scroll');
+    this.renderer.setStyle(document.body, 'position', 'fixed');
+    this.renderer.setStyle(document.body, 'top', `-${this.top}px`);
+  }
+
+  close(){
+    this.showModal = false;
+    this.renderer.setStyle(document.body, 'position', '');
+    this.renderer.setStyle(document.body, 'top', '');
+    this.renderer.removeClass(document.body, 'no-scroll');
+    window.scrollTo({ top: this.top, left: 0 });
   }
 
 }

@@ -6,7 +6,7 @@ import { CommonService } from 'src/app/core/services/common.service';
 @Component({
   selector: 'app-review-modal',
   template: `
-  <div class="review-modal-container" (click)="modalClose($event, textarea, checkbox)"
+  <div class="review-modal-bg" (click)="modalClose($event, textarea, checkbox)"
     [class.show]="showModal">
     <div class="review-modal">
       <h1>리뷰쓰기</h1>
@@ -183,7 +183,7 @@ export class ReviewModalComponent implements OnInit {
   }
 
   modalClose(e, textarea: HTMLTextAreaElement, checkbox: HTMLInputElement) {
-    if (e.target.classList.contains('review-modal-container')
+    if (e.target.classList.contains('review-modal-bg')
       || e.target.classList.contains('close')) {
       const check = confirm('작성 중인 내용이 사라집니다.');
       if (check) {
@@ -250,8 +250,6 @@ export class ReviewModalComponent implements OnInit {
       reader.onload = (e) => {
         this.file = file;
         this.image = reader.result;
-        console.log(this.image);
-        
       };
     }
   }
