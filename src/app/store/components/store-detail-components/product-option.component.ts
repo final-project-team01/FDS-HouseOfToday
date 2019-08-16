@@ -48,8 +48,8 @@ import { product_option } from 'src/app/core/models/store.interface';
         <mark class="order-price">{{ totalPrice }}<span>원</span></mark>
       </div>
       <div class="btn-container">
-      <button type="submit" class="cart cursor" (click)="cart(optionInput)">장바구니담기</button>
-      <button class="cursor" (click)="buy(optionInput)" BlueButton>구매하기</button>
+      <button type="submit" class="cart" WhiteButton (click)="cart(optionInput)">장바구니담기</button>
+      <button (click)="buy(optionInput)" BlueButton>구매하기</button>
       </div>
     </div>
   `,

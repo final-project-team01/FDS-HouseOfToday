@@ -23,8 +23,8 @@ import { product_option } from 'src/app/core/models/store.interface';
       <textarea></textarea>
       <p>문의하신 내용의 답변은 'MY쇼핑 > 상품Q&amp;A' 또는 '상품 판매페이지'에서 확인가능합니다.</p>
     <div class="action">
-      <button class="submit cursor" BlueButton>등록</button>
-      <button class="close cursor">취소</button>
+      <button class="submit" BlueButton>등록</button>
+      <button class="close" WhiteButton>취소</button>
     </div>
     </div>
   </div>
