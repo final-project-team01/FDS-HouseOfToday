@@ -222,15 +222,17 @@ export class ReviewModalComponent implements OnInit {
       const formData = new FormData();
       formData.append('product', this.productId.toString());
       formData.append('star_score', this.checkedPoint.toString());
-      if (this.image !== null) {
-        formData.append('image', this.file, this.file.name);
-      }
+      formData.append('image', this.file, this.file.name);
       formData.append('comment', textarea.value);
       
       this.storeSerivce.createReview(formData)
         .subscribe(res => {
           console.log(res);
-        });
+        },
+        err => {
+          console.log(err);
+        }
+        );
     }
   }
 
