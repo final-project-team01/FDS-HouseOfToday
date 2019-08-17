@@ -77,9 +77,17 @@ export class StoreService {
   createQna(payload, userToken) {
     const path = '/products/product/qna/';
     const fullPath = this.commonService.getFullPath(path);
-    let headers = this.commonService.setAuthorization(userToken);
+    const headers = this.commonService.setAuthorization(userToken);
     let options = { headers };
     return this.httpClient.post(fullPath, payload, options);
+  }
+
+  deleteQna(id: number, userToken) {
+    const path = `/products/product/qna/delete/${id}/`;
+    const fullPath = this.commonService.getFullPath(path);
+    const headers = this.commonService.setAuthorization(userToken);
+    let options = { headers };
+    return this.httpClient.delete(fullPath, options);
   }
 
 }

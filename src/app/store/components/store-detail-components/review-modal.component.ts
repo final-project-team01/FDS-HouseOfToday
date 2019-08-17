@@ -28,7 +28,7 @@ import { CommonService } from 'src/app/core/services/common.service';
             (mouseover)="checkStar(i)"
             (mouseout)="checkClicked()"
             (click)="setStar(i)"
-            [class.blue]="i <= comparePoint"
+            [class.blue]="blueStar(i)"
             *ngFor="let star of commonService.range(5); let i = index"></span>
           <span class="star-message">{{ starMessage(comparePoint) }}</span>
         </div>
@@ -55,8 +55,8 @@ import { CommonService } from 'src/app/core/services/common.service';
         <h2>리뷰를 작성해주세요.</h2>
         <p class="sub-message">이 제품을 사용하면서 느꼈던 장점과 단점을 솔직하게 알려주세요.</p>
         <span class="count">{{ count }}자 | 최소 20자</span>
-        <textarea placeholder="이 제품을 사용하면서 느꼈던 장점과 단점을 솔직하게 알려주세요." #textarea
-          (input)="countChr(textarea)"></textarea>
+        <textarea placeholder="이 제품을 사용하면서 느꼈던 장점과 단점을 솔직하게 알려주세요." 
+          #textarea (input)="countChr(textarea)" [value]="comment"></textarea>
         <small>*해당 상품과 무관한 내용이나 동일 문자의 반복 등 부적합한 내용은 삭제될 수 있습니다.</small>
       </section>
       <section class="confirmation">
@@ -113,8 +113,20 @@ import { CommonService } from 'src/app/core/services/common.service';
 export class ReviewModalComponent implements OnInit {
 
   @Input() showModal: boolean;
+  @Input() editMode: boolean;
+  @Input()
+  set userReview(userReview: review) {
+    if (!userReview) return;
+    this._userReview = userReview;
+    // this.comparePoint = userReview['star_score'] - 1;
+    // this.checkedPoint = userReview['star_score'] - 1;
+    // this.starChecked = true;
+    // this.comment = userReview['comment'];
+    // this.image = userReview['image'];
+    // this.count = this.comment.length;    
+  }
   @Input() 
-  set productInfo(productInfo: product_info){
+  set productInfo(productInfo: product_info) {
     if (!productInfo) return;
     this.productImg = productInfo['thumnail_images'][0]['image'];
     this.productBrand = productInfo['brand_name'];
@@ -125,11 +137,13 @@ export class ReviewModalComponent implements OnInit {
   @Output() closeModal = new EventEmitter;
   @Output() sendNewReview = new EventEmitter;
 
+  _userReview: review;
   productImg: string;
   productBrand: string;
   productName: string;
   productId: number;
   productReview: review[];
+  comment = '';
   comparePoint = -1;
   checkedPoint = -1;
   starChecked = false;
@@ -149,8 +163,12 @@ export class ReviewModalComponent implements OnInit {
   ngOnInit() {
   }
 
+  blueStar(i: number) {
+    if (i <= this.comparePoint) return true;
+  }
+
   close(textarea: HTMLTextAreaElement, checkbox: HTMLInputElement){
-    this.comparePoint = -1;
+    // this.comparePoint = -1;
     this.checkedPoint = -1;
     textarea.value = '';
     checkbox.classList.remove('confirm');
@@ -162,6 +180,11 @@ export class ReviewModalComponent implements OnInit {
   }
 
   checkClicked() {
+    // if (this.editMode) {
+    //   if (this.starChecked === true) this.comparePoint = this.checkedPoint;
+    //   else this.comparePoint = this._userReview['star_score'] - 1;
+    // }
+    // else 
     if (this.starChecked === true) this.comparePoint = this.checkedPoint;
     else this.comparePoint = -1;
   }
@@ -240,7 +263,7 @@ export class ReviewModalComponent implements OnInit {
             });
           this.bgColor = 'rgba(17, 146, 1, 0.6)';
           this.bdColor = 'rgb(34, 146, 0)';
-          this.message = '문의가 등록되었습니다.';
+          this.message = '리뷰가 등록되었습니다.';
           this.showMessage();
           this.close(textarea, checkbox);
         },

@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Renderer2, Output, EventEmitter } from '@angular/core';
 import { qna, product_info, product_option } from 'src/app/core/models/store.interface';
+import { CommonService } from 'src/app/core/services/common.service';
+import { StoreService } from 'src/app/core/services/store.service';
 
 @Component({
   selector: 'app-product-qna',
@@ -30,6 +32,9 @@ import { qna, product_info, product_option } from 'src/app/core/models/store.int
           {{ qna.a_comment }}
         </p>
         </div>
+        <button class="delete-qna cursor" 
+          *ngIf="qna.user === commonService.getUserDetail()['id'];"
+          (click)="deleteQna(qna.id)">삭제</button>
       </article>
       </div>
       <ng-template #noQna>
@@ -66,12 +71,16 @@ export class ProductQnaComponent implements OnInit {
   productId: number;
   originalList: qna[];
   top: number;
+  userId: number;
 
   index = 0;
 
-  constructor(private renderer: Renderer2) { }
+  constructor(private renderer: Renderer2
+            , private commonService: CommonService
+            , private storeService: StoreService) { }
 
   ngOnInit() {
+    
   }
 
   changePage(i: number){
@@ -98,6 +107,23 @@ export class ProductQnaComponent implements OnInit {
   getNewQna(qna: qna[]) {
     this.originalList = qna;
     this.sendNewQna.emit(qna);
+  }
+
+  deleteQna(id: number) {
+    const deleteCheck = confirm('해당 문의를 삭제하시겠습니까?');
+    if (deleteCheck) {
+      const user = localStorage.getItem('user');
+      this.storeService.deleteQna(id, user)
+        .subscribe(res => {
+          this.storeService.getProductInfo(this.productId)
+            .subscribe(res => {
+              alert('문의가 삭제되었습니다.');
+              const newQna = res['pdqna'];
+              this.getNewQna(newQna);
+            });
+        });
+      this.changePage(0);
+    } else return;
   }
 
 }

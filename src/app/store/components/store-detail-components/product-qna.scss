@@ -18,6 +18,7 @@
     padding: 15px 0;
     margin: 30px 0;
     border-bottom: 1px solid lightgrey;
+    position: relative;
     .bar::after{
       content: '|';
       margin: 0 6px;
@@ -53,6 +54,15 @@
     }
     .company-answer::before{
       content: 'A';
+    }
+    .delete-qna{
+      position: absolute;
+      top: 15px;
+      right: 0;
+      border-style: none;
+      background-color: transparent;
+      font-size: 12px;
+      color: #bdbdbd;
     }
   }
 }
