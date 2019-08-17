@@ -87,6 +87,9 @@ import { StoreService } from 'src/app/core/services/store.service';
             도움이 돼요</button>
           </ng-template>
           <span *ngIf="review.helpful_count > 0">{{ review.helpful_count }}명에게 도움이 되었습니다.</span>
+          <button class="edit-review cursor"
+            *ngIf="review.user === commonService.getUserDetail()['id'];"
+            (click)="editReview(review)">수정</button>  
         </article>
       </div>
       <ng-template #noReview>
@@ -100,6 +103,8 @@ import { StoreService } from 'src/app/core/services/store.service';
     <app-review-modal
     [showModal]="showModal"
     [productInfo]="_productInfo"
+    [userReview]="userReview"
+    [editMode]="editMode"
     (closeModal)="close()"
     (sendNewReview)="getNewReview($event)"></app-review-modal>
   `,
@@ -132,6 +137,8 @@ export class ProductReviewComponent implements OnInit {
   index = 0;
   showModal: boolean;
   top: number;
+  userReview: review;
+  editMode = false;
 
   constructor(private commonService: CommonService
             , private storeService: StoreService
@@ -183,7 +190,8 @@ export class ProductReviewComponent implements OnInit {
     });
   }
 
-  showReviewModal(){
+  showReviewModal() {
+    this.editMode ? true : false;
     this.showModal = true;
     this.top = window.scrollY;
     window.scrollTo({ top: this.top, left: 0 });
@@ -192,7 +200,8 @@ export class ProductReviewComponent implements OnInit {
     this.renderer.setStyle(document.body, 'top', `-${this.top}px`);
   }
 
-  close(){
+  close() {
+    this.editMode = false;
     this.showModal = false;
     this.renderer.setStyle(document.body, 'position', '');
     this.renderer.setStyle(document.body, 'top', '');
@@ -206,5 +215,11 @@ export class ProductReviewComponent implements OnInit {
     });
     this.cancelFilter();
     this.sendNewReview.emit(review);
+  }
+
+  editReview(review: review) {
+    this.editMode = true;
+    this.showReviewModal();
+    this.userReview = review;
   }
 }

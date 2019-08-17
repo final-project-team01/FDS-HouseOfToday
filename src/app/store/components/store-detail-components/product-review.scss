@@ -35,6 +35,9 @@
     border-top: 1px solid lightgrey;
     border-bottom: 1px solid lightgrey;
     position: relative;
+    .review-filter-menu:first-child{
+      color: #35c5f0;
+    }
     .review-filter-menu{
       display: inline-block;
       margin-right: 12px;
@@ -107,6 +110,7 @@
       border-bottom: 1px solid lightgrey;
       .user{
         display: block;
+        font-size: 13px;
       }
       .review-star-score{
         display: inline-block;
@@ -135,6 +139,15 @@
         svg{
           margin-bottom: -2px;
         }
+      }
+      .edit-review{
+        float: right;
+        margin-top: -110px;
+        font-weight: bold;
+        font-size: 15px;
+        border: none;
+        color: #35c5f0;
+        background-color: transparent;
       }
     }
   }
