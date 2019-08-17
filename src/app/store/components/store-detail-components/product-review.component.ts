@@ -74,7 +74,7 @@ import { StoreService } from 'src/app/core/services/store.service';
           </div>
           <p class="review-comment">{{ review.comment }}</p>
           <button class="helpful clicked" BlueButton
-            *ngIf="review.helpful.indexOf(this.commonService.getUserDetail()['id']) !== -1;
+            *ngIf="review.helpful.indexOf(commonService.getUserDetail()['id']) !== -1;
             else helpfulClicked"
             (click)="helpful(review)">
             <svg width="16" height="16" viewBox="0 0 16 16" preserveAspectRatio="xMidYMid meet">

@@ -240,7 +240,7 @@ export class ReviewModalComponent implements OnInit {
             });
           this.bgColor = 'rgba(17, 146, 1, 0.6)';
           this.bdColor = 'rgb(34, 146, 0)';
-          this.message = '문의가 등록되었습니다.';
+          this.message = '리뷰가 등록되었습니다.';
           this.showMessage();
           this.close(textarea, checkbox);
         },
