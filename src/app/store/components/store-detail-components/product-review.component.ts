@@ -64,13 +64,18 @@ import { StoreService } from 'src/app/core/services/store.service';
       </div>
       <div class="user-review-container" *ngIf="filteredList?.length !== 0; else noReview">
         <article class="user-review" *ngFor="let review of filteredList | pageFilter: index">
+          <button class="edit-review cursor"
+            *ngIf="review.user === commonService.getUserDetail()['id'];"
+            (click)="editReview(review)">수정</button>  
           <span class="user">사용자</span>
           <div class="review-star-score">
             <span class="star icon-etc" *ngFor="let star of commonService.range(review['star_score'])"></span>
           </div>
           <span class="review-date">{{ review.created }}</span>
           <div class="review-image" *ngIf="review.image !== null">
-            <img src="{{ review.image }}">
+            <div class="crop-image">
+              <img src="{{ review.image }}">
+            </div>
           </div>
           <p class="review-comment">{{ review.comment }}</p>
           <button class="helpful clicked" BlueButton
@@ -87,9 +92,6 @@ import { StoreService } from 'src/app/core/services/store.service';
             도움이 돼요</button>
           </ng-template>
           <span *ngIf="review.helpful_count > 0">{{ review.helpful_count }}명에게 도움이 되었습니다.</span>
-          <button class="edit-review cursor"
-            *ngIf="review.user === commonService.getUserDetail()['id'];"
-            (click)="editReview(review)">수정</button>  
         </article>
       </div>
       <ng-template #noReview>
@@ -97,7 +99,8 @@ import { StoreService } from 'src/app/core/services/store.service';
       </ng-template>
       <app-pagination 
         [originalList]="filteredList"
-        (change)="changePage($event)">
+        (change)="changePage($event)"
+        [activeId]="index">
       </app-pagination>
     </div>
     <app-review-modal
@@ -162,6 +165,7 @@ export class ProductReviewComponent implements OnInit {
     });
     this.showFilter = 'none';
     this.chosenScore = n;
+    this.index = 0;
   }
 
   cancelFilter(){
@@ -191,7 +195,7 @@ export class ProductReviewComponent implements OnInit {
   }
 
   showReviewModal() {
-    this.editMode ? true : false;
+    this.editMode = this.editMode ? true : false;
     this.showModal = true;
     this.top = window.scrollY;
     window.scrollTo({ top: this.top, left: 0 });
