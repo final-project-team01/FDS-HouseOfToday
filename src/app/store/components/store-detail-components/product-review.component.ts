@@ -70,7 +70,9 @@ import { StoreService } from 'src/app/core/services/store.service';
           </div>
           <span class="review-date">{{ review.created }}</span>
           <div class="review-image" *ngIf="review.image !== null">
-            <img src="{{ review.image }}">
+            <div class="crop-image">
+              <img src="{{ review.image }}">
+            </div>
           </div>
           <p class="review-comment">{{ review.comment }}</p>
           <button class="helpful clicked" BlueButton
@@ -91,7 +93,7 @@ import { StoreService } from 'src/app/core/services/store.service';
             *ngIf="review.user === commonService.getUserDetail()['id'];"
             (click)="editReview(review)">수정</button>  
         </article>
-      </div>
+      </span>
       <ng-template #noReview>
         <div class="no-review"><p>리뷰가 없습니다.</p></div>
       </ng-template>

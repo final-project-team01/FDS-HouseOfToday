@@ -74,18 +74,26 @@ export class StoreService {
     return this.httpClient.post(fullPath, formData, options);
   }
 
-  createQna(payload, userToken) {
+  updateReview(formData, id: number) {
+    const path = `/products/product/review/${id}/`;
+    const fullPath = this.commonService.getFullPath(path);
+    const headers = this.commonService.setAuthorizationWithoutContenttype(this.commonService.Token);
+    let options = { headers };
+    return this.httpClient.patch(fullPath, formData, options);
+  }
+
+  createQna(payload) {
     const path = '/products/product/qna/';
     const fullPath = this.commonService.getFullPath(path);
-    const headers = this.commonService.setAuthorization(userToken);
+    const headers = this.commonService.setAuthorization(this.commonService.Token);
     let options = { headers };
     return this.httpClient.post(fullPath, payload, options);
   }
 
-  deleteQna(id: number, userToken) {
+  deleteQna(id: number) {
     const path = `/products/product/qna/delete/${id}/`;
     const fullPath = this.commonService.getFullPath(path);
-    const headers = this.commonService.setAuthorization(userToken);
+    const headers = this.commonService.setAuthorization(this.commonService.Token);
     let options = { headers };
     return this.httpClient.delete(fullPath, options);
   }

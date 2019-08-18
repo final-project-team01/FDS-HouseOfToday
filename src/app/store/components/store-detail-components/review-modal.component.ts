@@ -186,12 +186,7 @@ export class ReviewModalComponent implements OnInit, OnChanges {
     this.comparePoint = i;
   }
 
-  checkClicked() {
-    // if (this.editMode) {
-    //   if (this.starChecked === true) this.comparePoint = this.checkedPoint;
-    //   else this.comparePoint = this._userReview['star_score'] - 1;
-    // }
-    // else 
+  checkClicked() { 
     if (this.starChecked === true) this.comparePoint = this.checkedPoint;
     else this.comparePoint = -1;
   }
@@ -256,31 +251,53 @@ export class ReviewModalComponent implements OnInit, OnChanges {
       this.showMessage();
     }
     else {
-      const formData = new FormData();
-      formData.append('product', this.productId.toString());
-      formData.append('star_score', (this.checkedPoint + 1).toString());
-      if(this.image !== null) formData.append('image', this.file, this.file.name);
-      formData.append('comment', textarea.value);
-      this.storeService.createReview(formData)
-        .subscribe(res => {
-          this.storeService.getProductInfo(this.productId)
-            .subscribe(res => {
-              this.productReview = res['review'];
-              this.sendNewReview.emit(this.productReview);
-            });
-          this.bgColor = 'rgba(17, 146, 1, 0.6)';
-          this.bdColor = 'rgb(34, 146, 0)';
-          this.message = '리뷰가 등록되었습니다.';
-          this.showMessage();
-          this.close(textarea, checkbox);
-        },
-        err => {
-          console.log(err);
-        }
-        );
+      if (!this.editMode) {
+        const formData = new FormData();
+        formData.append('product', this.productId.toString());
+        formData.append('star_score', (this.checkedPoint + 1).toString());
+        if(this.image !== null) formData.append('image', this.file, this.file.name);
+        formData.append('comment', textarea.value);
+        this.storeService.createReview(formData)
+          .subscribe(res => {
+            this.getNewReview();
+            this.message = '리뷰가 등록되었습니다.';
+            this.showMessage();
+            this.close(textarea, checkbox);
+          },
+          err => {
+            console.log(err);
+          });      
+      } else {
+        const formData = new FormData();
+        const id = this._userReview['id'];
+        if (this._userReview['star_score'] !== this.checkedPoint)
+          formData.append('star_score', (this.checkedPoint + 1).toString());
+        if (this.image === null) formData.append('image', this.image);
+        else if (this._userReview['image'] !== this.image)
+          formData.append('image', this.file, this.file.name);
+        if (this._userReview['comment'] !== textarea.value)
+          formData.append('comment', textarea.value);
+        this.storeService.updateReview(formData, id)
+          .subscribe(res => {
+            this.getNewReview();
+            this.message = '리뷰가 수정되었습니다.';
+            this.showMessage();
+            this.close(textarea, checkbox);
+          });
+      }
     }
     this.bgColor = '';
     this.bdColor = '';
+  }
+
+  getNewReview() {
+    this.storeService.getProductInfo(this.productId)
+      .subscribe(res => {
+        this.productReview = res['review'];
+        this.sendNewReview.emit(this.productReview);
+      });
+    this.bgColor = 'rgba(17, 146, 1, 0.6)';
+    this.bdColor = 'rgb(34, 146, 0)';
   }
 
   showMessage() {

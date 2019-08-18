@@ -112,8 +112,7 @@ export class ProductQnaComponent implements OnInit {
   deleteQna(id: number) {
     const deleteCheck = confirm('해당 문의를 삭제하시겠습니까?');
     if (deleteCheck) {
-      const user = localStorage.getItem('user');
-      this.storeService.deleteQna(id, user)
+      this.storeService.deleteQna(id)
         .subscribe(res => {
           this.storeService.getProductInfo(this.productId)
             .subscribe(res => {
