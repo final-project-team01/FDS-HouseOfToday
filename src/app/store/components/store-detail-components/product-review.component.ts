@@ -191,7 +191,7 @@ export class ProductReviewComponent implements OnInit {
   }
 
   showReviewModal() {
-    this.editMode ? true : false;
+    this.editMode = this.editMode ? true : false;
     this.showModal = true;
     this.top = window.scrollY;
     window.scrollTo({ top: this.top, left: 0 });

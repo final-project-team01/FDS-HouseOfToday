@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange, SimpleChanges } from '@angular/core';
 import { StoreService } from 'src/app/core/services/store.service';
 import { product_info, review } from 'src/app/core/models/store.interface';
 import { CommonService } from 'src/app/core/services/common.service';
@@ -110,20 +110,14 @@ import { CommonService } from 'src/app/core/services/common.service';
   `,
   styleUrls: ['./review-modal.scss']
 })
-export class ReviewModalComponent implements OnInit {
+export class ReviewModalComponent implements OnInit, OnChanges {
 
   @Input() showModal: boolean;
   @Input() editMode: boolean;
   @Input()
   set userReview(userReview: review) {
     if (!userReview) return;
-    this._userReview = userReview;
-    // this.comparePoint = userReview['star_score'] - 1;
-    // this.checkedPoint = userReview['star_score'] - 1;
-    // this.starChecked = true;
-    // this.comment = userReview['comment'];
-    // this.image = userReview['image'];
-    // this.count = this.comment.length;    
+    this._userReview = userReview;   
   }
   @Input() 
   set productInfo(productInfo: product_info) {
@@ -163,14 +157,27 @@ export class ReviewModalComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngOnChanges(change: SimpleChanges) {
+    if (this.editMode === true) {
+      this.comparePoint = this._userReview['star_score'] - 1;
+      this.checkedPoint = this._userReview['star_score'] - 1;
+      this.starChecked = true;
+      this.comment = this._userReview['comment'];
+      this.image = this._userReview['image'];
+      this.count = this.comment.length; 
+    }
+    
+  }
+
   blueStar(i: number) {
     if (i <= this.comparePoint) return true;
   }
 
   close(textarea: HTMLTextAreaElement, checkbox: HTMLInputElement){
-    // this.comparePoint = -1;
+    this.comparePoint = -1;
     this.checkedPoint = -1;
-    textarea.value = '';
+    if (this.editMode) textarea.value = this.comment;
+    else textarea.value = '';
     checkbox.classList.remove('confirm');
     this.closeModal.emit();
   }
