@@ -64,6 +64,9 @@ import { StoreService } from 'src/app/core/services/store.service';
       </div>
       <div class="user-review-container" *ngIf="filteredList?.length !== 0; else noReview">
         <article class="user-review" *ngFor="let review of filteredList | pageFilter: index">
+          <button class="edit-review cursor"
+            *ngIf="review.user === commonService.getUserDetail()['id'];"
+            (click)="editReview(review)">수정</button>  
           <span class="user">사용자</span>
           <div class="review-star-score">
             <span class="star icon-etc" *ngFor="let star of commonService.range(review['star_score'])"></span>
@@ -89,17 +92,15 @@ import { StoreService } from 'src/app/core/services/store.service';
             도움이 돼요</button>
           </ng-template>
           <span *ngIf="review.helpful_count > 0">{{ review.helpful_count }}명에게 도움이 되었습니다.</span>
-          <button class="edit-review cursor"
-            *ngIf="review.user === commonService.getUserDetail()['id'];"
-            (click)="editReview(review)">수정</button>  
         </article>
-      </span>
+      </div>
       <ng-template #noReview>
         <div class="no-review"><p>리뷰가 없습니다.</p></div>
       </ng-template>
       <app-pagination 
         [originalList]="filteredList"
-        (change)="changePage($event)">
+        (change)="changePage($event)"
+        [activeId]="index">
       </app-pagination>
     </div>
     <app-review-modal
@@ -164,6 +165,7 @@ export class ProductReviewComponent implements OnInit {
     });
     this.showFilter = 'none';
     this.chosenScore = n;
+    this.index = 0;
   }
 
   cancelFilter(){

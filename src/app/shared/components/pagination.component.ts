@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonService } from 'src/app/core/services/common.service';
+import { ActivationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-pagination',
@@ -21,7 +22,7 @@ import { CommonService } from 'src/app/core/services/common.service';
   `,
   styleUrls: ['./pagination.scss']
 })
-export class PaginationComponent implements OnInit {
+export class PaginationComponent implements OnInit, OnChanges {
 
   @Input() 
   set originalList(originalList){
@@ -30,9 +31,9 @@ export class PaginationComponent implements OnInit {
     const p = Math.ceil(this._originalList.length / 5)
     this.pages = Array(p);
   };
+  @Input() activeId: number;
   @Output() change = new EventEmitter;
 
-  activeId = 0;
   previousIndex = 0;
   left = 0;
   pages = [];
@@ -42,6 +43,10 @@ export class PaginationComponent implements OnInit {
 
   ngOnInit() {
     
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.activeId === 0) this.left = 0;
   }
 
   getWidth(pages: any){
