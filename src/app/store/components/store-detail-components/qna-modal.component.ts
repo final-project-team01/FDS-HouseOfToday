@@ -109,8 +109,7 @@ export class QnaModalComponent implements OnInit {
     else {
       this.payload.comment = comment;
       this.payload.product = this.product;
-      const user = localStorage.getItem('user');
-      this.storeService.createQna(this.payload, user)
+      this.storeService.createQna(this.payload)
         .subscribe(res => {
           this.storeService.getProductInfo(this.product)
             .subscribe(res => {

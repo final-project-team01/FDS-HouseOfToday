@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange, SimpleChanges } from '@angular/core';
 import { StoreService } from 'src/app/core/services/store.service';
 import { product_info, review } from 'src/app/core/models/store.interface';
 import { CommonService } from 'src/app/core/services/common.service';
@@ -110,20 +110,14 @@ import { CommonService } from 'src/app/core/services/common.service';
   `,
   styleUrls: ['./review-modal.scss']
 })
-export class ReviewModalComponent implements OnInit {
+export class ReviewModalComponent implements OnInit, OnChanges {
 
   @Input() showModal: boolean;
   @Input() editMode: boolean;
   @Input()
   set userReview(userReview: review) {
     if (!userReview) return;
-    this._userReview = userReview;
-    // this.comparePoint = userReview['star_score'] - 1;
-    // this.checkedPoint = userReview['star_score'] - 1;
-    // this.starChecked = true;
-    // this.comment = userReview['comment'];
-    // this.image = userReview['image'];
-    // this.count = this.comment.length;    
+    this._userReview = userReview;   
   }
   @Input() 
   set productInfo(productInfo: product_info) {
@@ -163,14 +157,27 @@ export class ReviewModalComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngOnChanges(change: SimpleChanges) {
+    if (this.editMode === true) {
+      this.comparePoint = this._userReview['star_score'] - 1;
+      this.checkedPoint = this._userReview['star_score'] - 1;
+      this.starChecked = true;
+      this.comment = this._userReview['comment'];
+      this.image = this._userReview['image'];
+      this.count = this.comment.length; 
+    }
+    
+  }
+
   blueStar(i: number) {
     if (i <= this.comparePoint) return true;
   }
 
   close(textarea: HTMLTextAreaElement, checkbox: HTMLInputElement){
-    // this.comparePoint = -1;
+    this.comparePoint = -1;
     this.checkedPoint = -1;
-    textarea.value = '';
+    if (this.editMode) textarea.value = this.comment;
+    else textarea.value = '';
     checkbox.classList.remove('confirm');
     this.closeModal.emit();
   }
@@ -179,12 +186,7 @@ export class ReviewModalComponent implements OnInit {
     this.comparePoint = i;
   }
 
-  checkClicked() {
-    // if (this.editMode) {
-    //   if (this.starChecked === true) this.comparePoint = this.checkedPoint;
-    //   else this.comparePoint = this._userReview['star_score'] - 1;
-    // }
-    // else 
+  checkClicked() { 
     if (this.starChecked === true) this.comparePoint = this.checkedPoint;
     else this.comparePoint = -1;
   }
@@ -249,31 +251,53 @@ export class ReviewModalComponent implements OnInit {
       this.showMessage();
     }
     else {
-      const formData = new FormData();
-      formData.append('product', this.productId.toString());
-      formData.append('star_score', (this.checkedPoint + 1).toString());
-      if(this.image !== null) formData.append('image', this.file, this.file.name);
-      formData.append('comment', textarea.value);
-      this.storeService.createReview(formData)
-        .subscribe(res => {
-          this.storeService.getProductInfo(this.productId)
-            .subscribe(res => {
-              this.productReview = res['review'];
-              this.sendNewReview.emit(this.productReview);
-            });
-          this.bgColor = 'rgba(17, 146, 1, 0.6)';
-          this.bdColor = 'rgb(34, 146, 0)';
-          this.message = '리뷰가 등록되었습니다.';
-          this.showMessage();
-          this.close(textarea, checkbox);
-        },
-        err => {
-          console.log(err);
-        }
-        );
+      if (!this.editMode) {
+        const formData = new FormData();
+        formData.append('product', this.productId.toString());
+        formData.append('star_score', (this.checkedPoint + 1).toString());
+        if(this.image !== null) formData.append('image', this.file, this.file.name);
+        formData.append('comment', textarea.value);
+        this.storeService.createReview(formData)
+          .subscribe(res => {
+            this.getNewReview();
+            this.message = '리뷰가 등록되었습니다.';
+            this.showMessage();
+            this.close(textarea, checkbox);
+          },
+          err => {
+            console.log(err);
+          });      
+      } else {
+        const formData = new FormData();
+        const id = this._userReview['id'];
+        if (this._userReview['star_score'] !== this.checkedPoint)
+          formData.append('star_score', (this.checkedPoint + 1).toString());
+        if (this.image === null) formData.append('image', this.image);
+        else if (this._userReview['image'] !== this.image)
+          formData.append('image', this.file, this.file.name);
+        if (this._userReview['comment'] !== textarea.value)
+          formData.append('comment', textarea.value);
+        this.storeService.updateReview(formData, id)
+          .subscribe(res => {
+            this.getNewReview();
+            this.message = '리뷰가 수정되었습니다.';
+            this.showMessage();
+            this.close(textarea, checkbox);
+          });
+      }
     }
     this.bgColor = '';
     this.bdColor = '';
+  }
+
+  getNewReview() {
+    this.storeService.getProductInfo(this.productId)
+      .subscribe(res => {
+        this.productReview = res['review'];
+        this.sendNewReview.emit(this.productReview);
+      });
+    this.bgColor = 'rgba(17, 146, 1, 0.6)';
+    this.bdColor = 'rgb(34, 146, 0)';
   }
 
   showMessage() {
