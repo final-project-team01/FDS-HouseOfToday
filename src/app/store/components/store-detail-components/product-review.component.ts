@@ -64,17 +64,22 @@ import { StoreService } from 'src/app/core/services/store.service';
       </div>
       <div class="user-review-container" *ngIf="filteredList?.length !== 0; else noReview">
         <article class="user-review" *ngFor="let review of filteredList | pageFilter: index">
+          <button class="edit-review cursor"
+            *ngIf="review.user === commonService.getUserDetail()['id'];"
+            (click)="editReview(review)">수정</button>  
           <span class="user">사용자</span>
           <div class="review-star-score">
             <span class="star icon-etc" *ngFor="let star of commonService.range(review['star_score'])"></span>
           </div>
           <span class="review-date">{{ review.created }}</span>
           <div class="review-image" *ngIf="review.image !== null">
-            <img src="{{ review.image }}">
+            <div class="crop-image">
+              <img src="{{ review.image }}">
+            </div>
           </div>
           <p class="review-comment">{{ review.comment }}</p>
           <button class="helpful clicked" BlueButton
-            *ngIf="review.helpful.indexOf(this.commonService.getUserDetail()['id']) !== -1;
+            *ngIf="review.helpful.indexOf(commonService.getUserDetail()['id']) !== -1;
             else helpfulClicked"
             (click)="helpful(review)">
             <svg width="16" height="16" viewBox="0 0 16 16" preserveAspectRatio="xMidYMid meet">
@@ -94,13 +99,17 @@ import { StoreService } from 'src/app/core/services/store.service';
       </ng-template>
       <app-pagination 
         [originalList]="filteredList"
-        (change)="changePage($event)">
+        (change)="changePage($event)"
+        [activeId]="index">
       </app-pagination>
     </div>
     <app-review-modal
     [showModal]="showModal"
     [productInfo]="_productInfo"
-    (closeModal)="close()"></app-review-modal>
+    [userReview]="userReview"
+    [editMode]="editMode"
+    (closeModal)="close()"
+    (sendNewReview)="getNewReview($event)"></app-review-modal>
   `,
   styleUrls: ['./product-review.scss']
 })
@@ -119,6 +128,7 @@ export class ProductReviewComponent implements OnInit {
       return b.star_score - a.star_score;
     });
   };
+  @Output() sendNewReview = new EventEmitter;
   
   userInfo: any;
   _productInfo: product_info;
@@ -130,6 +140,8 @@ export class ProductReviewComponent implements OnInit {
   index = 0;
   showModal: boolean;
   top: number;
+  userReview: review;
+  editMode = false;
 
   constructor(private commonService: CommonService
             , private storeService: StoreService
@@ -153,6 +165,7 @@ export class ProductReviewComponent implements OnInit {
     });
     this.showFilter = 'none';
     this.chosenScore = n;
+    this.index = 0;
   }
 
   cancelFilter(){
@@ -181,7 +194,8 @@ export class ProductReviewComponent implements OnInit {
     });
   }
 
-  showReviewModal(){
+  showReviewModal() {
+    this.editMode = this.editMode ? true : false;
     this.showModal = true;
     this.top = window.scrollY;
     window.scrollTo({ top: this.top, left: 0 });
@@ -190,11 +204,26 @@ export class ProductReviewComponent implements OnInit {
     this.renderer.setStyle(document.body, 'top', `-${this.top}px`);
   }
 
-  close(){
+  close() {
+    this.editMode = false;
     this.showModal = false;
     this.renderer.setStyle(document.body, 'position', '');
     this.renderer.setStyle(document.body, 'top', '');
     this.renderer.removeClass(document.body, 'no-scroll');
     window.scrollTo({ top: this.top, left: 0 });
+  }
+
+  getNewReview(review: review[]) {
+    this._originalList = review.sort(function (a, b) {
+      return b.star_score - a.star_score;
+    });
+    this.cancelFilter();
+    this.sendNewReview.emit(review);
+  }
+
+  editReview(review: review) {
+    this.editMode = true;
+    this.showReviewModal();
+    this.userReview = review;
   }
 }

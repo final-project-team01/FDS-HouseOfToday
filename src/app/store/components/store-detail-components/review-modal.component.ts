@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter, ReflectiveInjector } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange, SimpleChanges } from '@angular/core';
 import { StoreService } from 'src/app/core/services/store.service';
-import { product_info } from 'src/app/core/models/store.interface';
+import { product_info, review } from 'src/app/core/models/store.interface';
 import { CommonService } from 'src/app/core/services/common.service';
 
 @Component({
@@ -28,7 +28,7 @@ import { CommonService } from 'src/app/core/services/common.service';
             (mouseover)="checkStar(i)"
             (mouseout)="checkClicked()"
             (click)="setStar(i)"
-            [class.blue]="i <= comparePoint"
+            [class.blue]="blueStar(i)"
             *ngFor="let star of commonService.range(5); let i = index"></span>
           <span class="star-message">{{ starMessage(comparePoint) }}</span>
         </div>
@@ -55,8 +55,8 @@ import { CommonService } from 'src/app/core/services/common.service';
         <h2>리뷰를 작성해주세요.</h2>
         <p class="sub-message">이 제품을 사용하면서 느꼈던 장점과 단점을 솔직하게 알려주세요.</p>
         <span class="count">{{ count }}자 | 최소 20자</span>
-        <textarea placeholder="이 제품을 사용하면서 느꼈던 장점과 단점을 솔직하게 알려주세요." #textarea
-          (input)="countChr(textarea)"></textarea>
+        <textarea placeholder="이 제품을 사용하면서 느꼈던 장점과 단점을 솔직하게 알려주세요." 
+          #textarea (input)="countChr(textarea)" [value]="comment"></textarea>
         <small>*해당 상품과 무관한 내용이나 동일 문자의 반복 등 부적합한 내용은 삭제될 수 있습니다.</small>
       </section>
       <section class="confirmation">
@@ -102,29 +102,42 @@ import { CommonService } from 'src/app/core/services/common.service';
       </div>
     </div>
   </div>
-  <div class="invalid-message" [style.opacity]="messageOpacity">
-    <span>{{ invalidMessage }}</span>
+  <div class="message" [style.opacity]="messageOpacity"
+    [style.backgroundColor]="bgColor"
+    [style.borderColor]="bdColor">
+    <span>{{ message }}</span>
   </div>
   `,
   styleUrls: ['./review-modal.scss']
 })
-export class ReviewModalComponent implements OnInit {
+export class ReviewModalComponent implements OnInit, OnChanges {
 
   @Input() showModal: boolean;
+  @Input() editMode: boolean;
+  @Input()
+  set userReview(userReview: review) {
+    if (!userReview) return;
+    this._userReview = userReview;   
+  }
   @Input() 
-  set productInfo(productInfo: product_info){
+  set productInfo(productInfo: product_info) {
     if (!productInfo) return;
     this.productImg = productInfo['thumnail_images'][0]['image'];
     this.productBrand = productInfo['brand_name'];
     this.productName = productInfo['name'];
     this.productId = productInfo['id'];
+    this.productReview = productInfo['review'];
   };
   @Output() closeModal = new EventEmitter;
+  @Output() sendNewReview = new EventEmitter;
 
+  _userReview: review;
   productImg: string;
   productBrand: string;
   productName: string;
   productId: number;
+  productReview: review[];
+  comment = '';
   comparePoint = -1;
   checkedPoint = -1;
   starChecked = false;
@@ -134,15 +147,38 @@ export class ReviewModalComponent implements OnInit {
   file: File = null;
   image = null;
   messageOpacity: number;
-  invalidMessage: string;
+  message: string;
+  bgColor = '';
+  bdColor = '';
 
-  constructor(private storeSerivce: StoreService
+  constructor(private storeService: StoreService
             , private commonService: CommonService) { }
 
   ngOnInit() {
   }
 
-  close(){
+  ngOnChanges(change: SimpleChanges) {
+    if (this.editMode === true) {
+      this.comparePoint = this._userReview['star_score'] - 1;
+      this.checkedPoint = this._userReview['star_score'] - 1;
+      this.starChecked = true;
+      this.comment = this._userReview['comment'];
+      this.image = this._userReview['image'];
+      this.count = this.comment.length; 
+    }
+    
+  }
+
+  blueStar(i: number) {
+    if (i <= this.comparePoint) return true;
+  }
+
+  close(textarea: HTMLTextAreaElement, checkbox: HTMLInputElement){
+    this.comparePoint = -1;
+    this.checkedPoint = -1;
+    if (this.editMode) textarea.value = this.comment;
+    else textarea.value = '';
+    checkbox.classList.remove('confirm');
     this.closeModal.emit();
   }
 
@@ -150,7 +186,7 @@ export class ReviewModalComponent implements OnInit {
     this.comparePoint = i;
   }
 
-  checkClicked() {
+  checkClicked() { 
     if (this.starChecked === true) this.comparePoint = this.checkedPoint;
     else this.comparePoint = -1;
   }
@@ -187,11 +223,7 @@ export class ReviewModalComponent implements OnInit {
       || e.target.classList.contains('close')) {
       const check = confirm('작성 중인 내용이 사라집니다.');
       if (check) {
-        this.comparePoint = -1;
-        this.checkedPoint = -1;
-        textarea.value = '';
-        checkbox.classList.remove('confirm');
-        this.close();
+        this.close(textarea, checkbox);
       }
       else return;
     }
@@ -207,38 +239,70 @@ export class ReviewModalComponent implements OnInit {
 
   submitCheck(checkbox: HTMLInputElement, textarea: HTMLTextAreaElement) {
     if (this.checkedPoint === -1) {
-      this.invalidMessage = '별점을 눌러 만족도를 알려주세요.';
-      this.showInvalidMessage();
+      this.message = '별점을 눌러 만족도를 알려주세요.';
+      this.showMessage();
     }
     else if (this.count < 20) {
-      this.invalidMessage = '리뷰를 20자 이상 작성해 주세요.';
-      this.showInvalidMessage();
+      this.message = '리뷰를 20자 이상 작성해 주세요.';
+      this.showMessage();
     }
     else if (!checkbox.classList.contains('confirm')) {
-      this.invalidMessage = '오늘의집 리뷰정책에 동의해주세요.';
-      this.showInvalidMessage();
+      this.message = '오늘의집 리뷰정책에 동의해주세요.';
+      this.showMessage();
     }
     else {
-      const formData = new FormData();
-      formData.append('product', this.productId.toString());
-      formData.append('star_score', this.checkedPoint.toString());
-      formData.append('image', this.file, this.file.name);
-      formData.append('comment', textarea.value);
-      
-      this.storeSerivce.createReview(formData)
-        .subscribe(res => {
-          console.log(res);
-        },
-        err => {
-          console.log(err);
-        }
-        );
+      if (!this.editMode) {
+        const formData = new FormData();
+        formData.append('product', this.productId.toString());
+        formData.append('star_score', (this.checkedPoint + 1).toString());
+        if(this.image !== null) formData.append('image', this.file, this.file.name);
+        formData.append('comment', textarea.value);
+        this.storeService.createReview(formData)
+          .subscribe(res => {
+            this.getNewReview();
+            this.message = '리뷰가 등록되었습니다.';
+            this.showMessage();
+            this.close(textarea, checkbox);
+          },
+          err => {
+            console.log(err);
+          });      
+      } else {
+        const formData = new FormData();
+        const id = this._userReview['id'];
+        if (this._userReview['star_score'] !== this.checkedPoint)
+          formData.append('star_score', (this.checkedPoint + 1).toString());
+        if (this.image === null) formData.append('image', this.image);
+        else if (this._userReview['image'] !== this.image)
+          formData.append('image', this.file, this.file.name);
+        if (this._userReview['comment'] !== textarea.value)
+          formData.append('comment', textarea.value);
+        this.storeService.updateReview(formData, id)
+          .subscribe(res => {
+            this.getNewReview();
+            this.message = '리뷰가 수정되었습니다.';
+            this.showMessage();
+            this.close(textarea, checkbox);
+          });
+      }
     }
+    this.bgColor = '';
+    this.bdColor = '';
   }
 
-  showInvalidMessage() {
+  getNewReview() {
+    this.storeService.getProductInfo(this.productId)
+      .subscribe(res => {
+        this.productReview = res['review'];
+        this.sendNewReview.emit(this.productReview);
+      });
+    this.bgColor = 'rgba(17, 146, 1, 0.6)';
+    this.bdColor = 'rgb(34, 146, 0)';
+  }
+
+  showMessage() {
     this.messageOpacity = 1;
-    setTimeout(() => { this.messageOpacity = 0; }, 2000);
+    setTimeout(() => { this.messageOpacity = 0; }, 1000);
   }
 
   uploadImg(imgFile) {

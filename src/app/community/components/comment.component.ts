@@ -37,7 +37,8 @@ import { CommonService } from 'src/app/core/services/common.service';
   </div>
   <app-pagination
     [originalList]="originalList"
-    (change)="changePage($event)">
+    (change)="changePage($event)"
+    [activeId]="index">
   </app-pagination>
   `,
   styles: [`

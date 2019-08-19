@@ -1,5 +1,7 @@
-import { Component, OnInit, Input, Renderer2 } from '@angular/core';
+import { Component, OnInit, Input, Renderer2, Output, EventEmitter } from '@angular/core';
 import { qna, product_info, product_option } from 'src/app/core/models/store.interface';
+import { CommonService } from 'src/app/core/services/common.service';
+import { StoreService } from 'src/app/core/services/store.service';
 
 @Component({
   selector: 'app-product-qna',
@@ -30,6 +32,9 @@ import { qna, product_info, product_option } from 'src/app/core/models/store.int
           {{ qna.a_comment }}
         </p>
         </div>
+        <button class="delete-qna cursor" 
+          *ngIf="qna.user === commonService.getUserDetail()['id'];"
+          (click)="deleteQna(qna.id)">삭제</button>
       </article>
       </div>
       <ng-template #noQna>
@@ -43,7 +48,9 @@ import { qna, product_info, product_option } from 'src/app/core/models/store.int
     <app-qna-modal
       [showModal]="showModal"
       [productOption]="productOption"
-      (closeModal)="close()">
+      [productId]="productId"
+      (closeModal)="close()"
+      (sendNewQna)="getNewQna($event)">
     </app-qna-modal>
   `,
   styleUrls: ['./product-qna.scss']
@@ -55,17 +62,25 @@ export class ProductQnaComponent implements OnInit {
     if(!productInfo) return;
     this.originalList = productInfo['pdqna'];
     this.productOption = productInfo['product_option'];
+    this.productId = productInfo['id'];    
   }
+  @Output() sendNewQna = new EventEmitter;
+
   showModal: boolean;
   productOption: product_option[];
+  productId: number;
   originalList: qna[];
   top: number;
+  userId: number;
 
   index = 0;
 
-  constructor(private renderer: Renderer2) { }
+  constructor(private renderer: Renderer2
+            , private commonService: CommonService
+            , private storeService: StoreService) { }
 
   ngOnInit() {
+    
   }
 
   changePage(i: number){
@@ -87,6 +102,27 @@ export class ProductQnaComponent implements OnInit {
     this.renderer.setStyle(document.body, 'top', '');
     this.renderer.removeClass(document.body, 'no-scroll');
     window.scrollTo({ top: this.top, left: 0 });
+  }
+
+  getNewQna(qna: qna[]) {
+    this.originalList = qna;
+    this.sendNewQna.emit(qna);
+  }
+
+  deleteQna(id: number) {
+    const deleteCheck = confirm('해당 문의를 삭제하시겠습니까?');
+    if (deleteCheck) {
+      this.storeService.deleteQna(id)
+        .subscribe(res => {
+          this.storeService.getProductInfo(this.productId)
+            .subscribe(res => {
+              alert('문의가 삭제되었습니다.');
+              const newQna = res['pdqna'];
+              this.getNewQna(newQna);
+            });
+        });
+      this.changePage(0);
+    } else return;
   }
 
 }
