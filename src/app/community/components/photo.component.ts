@@ -39,7 +39,7 @@ import { HttpErrorResponse } from '@angular/common/http';
               *ngFor="let item of cardItems"
               class="card_item"
               ImageZoom
-              (click)="movePhoto(item['id'])"
+              routerLink="/photo/{{ item.id }}"
             >
               <div class="card_item_top_bar">
                 <div class="user_icon_image">
@@ -279,13 +279,7 @@ export class PhotoComponent implements OnInit {
   constructor(
     private communityService: CommunityService,
     private commonService: CommonService
-  ) {
-    for (let I = 0; I < 16; I++) {
-      const item = { item: I };
-      this.cardItems =
-        this.cardItems.length > 0 ? [...this.cardItems, item] : [item];
-    }
-  }
+  ) {}
 
   ngOnInit() {
     this.commonService.setLocate(0);
@@ -293,5 +287,10 @@ export class PhotoComponent implements OnInit {
     this.communityService.getPhotoImage().subscribe((data) => {
       this.cardItems = data as communityPhoto[];
     });
+    for (let I = 0; I < 16; I++) {
+      let item = { item: I };
+      this.cardItems =
+        this.cardItems.length > 0 ? [...this.cardItems, item] : [item];
+    }
   }
 }
