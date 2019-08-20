@@ -355,6 +355,7 @@ import { Router } from '@angular/router';
         border-radius: 6px;
         background-color: #ededed;
         overflow: hidden;
+        cursor: pointer;
       }
       .item-image > img {
         display: block;
@@ -367,6 +368,7 @@ import { Router } from '@angular/router';
         display: inline-block;
         padding-left: 12px;
         width: 45%;
+        cursor: pointer;
       }
       .content-header {
         min-width: 0;

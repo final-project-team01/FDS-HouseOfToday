@@ -190,6 +190,7 @@ import { HttpErrorResponse } from '@angular/common/http';
         text-overflow: ellipsis;
         white-space: normal;
         max-height: 76px;
+        cursor: pointer;
       }
       .image {
         background-color: lightgray;
@@ -197,6 +198,7 @@ import { HttpErrorResponse } from '@angular/common/http';
         height: 269px;
         border-radius: 6px;
         overflow: hidden;
+        cursor: pointer;
 
         display: inline-block;
         top: 0;
@@ -263,6 +265,7 @@ import { HttpErrorResponse } from '@angular/common/http';
         text-overflow: ellipsis;
         white-space: normal;
         max-height: 30px;
+        cursor: pointer;
       }
       .reply_user_name {
         font-weight: 700;
