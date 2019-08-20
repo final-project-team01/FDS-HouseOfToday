@@ -117,9 +117,9 @@ export class ReviewModalComponent implements OnInit, OnChanges {
   @Input()
   set userReview(userReview: review) {
     if (!userReview) return;
-    this._userReview = userReview;   
+    this._userReview = userReview;
   }
-  @Input() 
+  @Input()
   set productInfo(productInfo: product_info) {
     if (!productInfo) return;
     this.productImg = productInfo['thumnail_images'][0]['image'];
@@ -152,7 +152,7 @@ export class ReviewModalComponent implements OnInit, OnChanges {
   bdColor = '';
 
   constructor(private storeService: StoreService
-            , private commonService: CommonService) { }
+    , public commonService: CommonService) { }
 
   ngOnInit() {
   }
@@ -164,16 +164,16 @@ export class ReviewModalComponent implements OnInit, OnChanges {
       this.starChecked = true;
       this.comment = this._userReview['comment'];
       this.image = this._userReview['image'];
-      this.count = this.comment.length; 
+      this.count = this.comment.length;
     }
-    
+
   }
 
   blueStar(i: number) {
     if (i <= this.comparePoint) return true;
   }
 
-  close(textarea: HTMLTextAreaElement, checkbox: HTMLInputElement){
+  close(textarea: HTMLTextAreaElement, checkbox: HTMLInputElement) {
     this.comparePoint = -1;
     this.checkedPoint = -1;
     if (this.editMode) textarea.value = this.comment;
@@ -186,7 +186,7 @@ export class ReviewModalComponent implements OnInit, OnChanges {
     this.comparePoint = i;
   }
 
-  checkClicked() { 
+  checkClicked() {
     if (this.starChecked === true) this.comparePoint = this.checkedPoint;
     else this.comparePoint = -1;
   }
@@ -198,7 +198,7 @@ export class ReviewModalComponent implements OnInit, OnChanges {
   }
 
   starMessage(i: number) {
-    switch(i) {
+    switch (i) {
       case 0:
         return '별로예요.';
       case 1:
@@ -207,7 +207,7 @@ export class ReviewModalComponent implements OnInit, OnChanges {
         return '괜찮네요!';
       case 3:
         return '좋아요! 마음에 듭니다.';
-      case 4: 
+      case 4:
         return '맘에 쏙 들어요! 적극 추천~';
       default:
         return '';
@@ -255,7 +255,7 @@ export class ReviewModalComponent implements OnInit, OnChanges {
         const formData = new FormData();
         formData.append('product', this.productId.toString());
         formData.append('star_score', (this.checkedPoint + 1).toString());
-        if(this.image !== null) formData.append('image', this.file, this.file.name);
+        if (this.image !== null) formData.append('image', this.file, this.file.name);
         formData.append('comment', textarea.value);
         this.storeService.createReview(formData)
           .subscribe(res => {
@@ -264,9 +264,9 @@ export class ReviewModalComponent implements OnInit, OnChanges {
             this.showMessage();
             this.close(textarea, checkbox);
           },
-          err => {
-            console.log(err);
-          });      
+            err => {
+              console.log(err);
+            });
       } else {
         const formData = new FormData();
         const id = this._userReview['id'];
@@ -307,7 +307,7 @@ export class ReviewModalComponent implements OnInit, OnChanges {
 
   uploadImg(imgFile) {
     const files = imgFile.files;
-    if (files && files.length > 0){
+    if (files && files.length > 0) {
       const file = files[0];
       const reader = new FileReader();
       reader.readAsDataURL(file);
