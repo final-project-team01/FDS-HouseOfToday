@@ -341,6 +341,7 @@ import { Router } from '@angular/router';
       .view-detail {
         display: inline-block;
         margin-top: 15px;
+        display: none;
       }
       .product {
         margin: 40px 0 20px 0;
@@ -430,6 +431,7 @@ import { Router } from '@angular/router';
         float: right;
         padding: 10px 50px;
         margin-bottom: 10px;
+        display: none;
       }
       .tracking-item {
         border: 2px solid #35c5f0;
