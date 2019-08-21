@@ -349,7 +349,7 @@ export class BrandComponent implements OnInit {
   constructor(private route: ActivatedRoute
     , private storeService: StoreService
     , private userService: UserService
-    , private commonService: CommonService
+    , public commonService: CommonService
     , private cartService: CartService
     , private titleService: Title
     , private router: Router) { }

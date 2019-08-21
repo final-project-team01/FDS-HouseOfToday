@@ -125,7 +125,7 @@ export class StoreDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute
     , private storeService: StoreService
     , private userService: UserService
-    , private commonService: CommonService
+    , public commonService: CommonService
     , private cartService: CartService
     , private titleService: Title
     , private router: Router) { }
@@ -264,18 +264,18 @@ export class StoreDetailComponent implements OnInit {
     const pd_id = this.chosenOptions[0].productId.toString();
     const po_list = this.chosenOptions.map(option => option.optionId).join();
     const qty_list = this.chosenOptions.map(option => option.quantity).join();
-    const payload: buy_option = { pd_id, po_list, qty_list }; 
+    const payload: buy_option = { pd_id, po_list, qty_list };
     this.cartService.buyDirect(payload, user)
       .subscribe(res => {
         this.chosenOptions = [];
-        this.getTotalPrice(); 
+        this.getTotalPrice();
         this.showBuyModal = true;
       },
         err => {
           console.log(err.message);
         });
     this.chosenOptions = [];
-    this.getTotalPrice(); 
+    this.getTotalPrice();
     this.showBuyModal = true;
   }
 
@@ -300,7 +300,7 @@ export class StoreDetailComponent implements OnInit {
     this.qnaAmount = qna.length;
   }
 
-  getNewReview(review: review[]){
+  getNewReview(review: review[]) {
     this.reviewAmount = review.length;
   }
 

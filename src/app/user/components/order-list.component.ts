@@ -341,6 +341,7 @@ import { Router } from '@angular/router';
       .view-detail {
         display: inline-block;
         margin-top: 15px;
+        display: none;
       }
       .product {
         margin: 40px 0 20px 0;
@@ -355,6 +356,7 @@ import { Router } from '@angular/router';
         border-radius: 6px;
         background-color: #ededed;
         overflow: hidden;
+        cursor: pointer;
       }
       .item-image > img {
         display: block;
@@ -367,6 +369,7 @@ import { Router } from '@angular/router';
         display: inline-block;
         padding-left: 12px;
         width: 45%;
+        cursor: pointer;
       }
       .content-header {
         min-width: 0;
@@ -428,6 +431,7 @@ import { Router } from '@angular/router';
         float: right;
         padding: 10px 50px;
         margin-bottom: 10px;
+        display: none;
       }
       .tracking-item {
         border: 2px solid #35c5f0;

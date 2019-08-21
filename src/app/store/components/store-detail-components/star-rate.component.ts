@@ -20,15 +20,15 @@ export class StarRateComponent implements OnInit {
   @Input() starAvg: number;
   @Input() width: number;
 
-  constructor(private commonService: CommonService) { }
+  constructor(public commonService: CommonService) { }
 
   ngOnInit() {
   }
 
-  fill(i: number){
-    if(this.starAvg >= i + 1) return this.width;
-    else if(this.starAvg > i && this.starAvg < i + 1) {
-      const point = +(this.starAvg.toString() + '0').slice(2,4) * 0.01
+  fill(i: number) {
+    if (this.starAvg >= i + 1) return this.width;
+    else if (this.starAvg > i && this.starAvg < i + 1) {
+      const point = +(this.starAvg.toString() + '0').slice(2, 4) * 0.01
       return point * this.width;
     }
     else return 0;
