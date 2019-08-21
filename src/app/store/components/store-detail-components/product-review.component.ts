@@ -176,6 +176,7 @@ export class ProductReviewComponent implements OnInit {
   }
 
   helpful(review: review){
+    if(this.goToLogin() === false) return;
     const id = review.id;
     this.storeService.checkHelpful(id)
       .subscribe(res => {
@@ -197,12 +198,7 @@ export class ProductReviewComponent implements OnInit {
   }
 
   showReviewModal() {
-    if(!this.commonService.Token) {
-      alert('로그인이 필요한 서비스입니다.');
-      this.router.navigate(['/signin']);
-      return false;
-    }
-    
+    if(this.goToLogin() === false) return;
     this.editMode = this.editMode ? true : false;
     this.showModal = true;
     this.top = window.scrollY;
@@ -238,5 +234,13 @@ export class ProductReviewComponent implements OnInit {
   getUserId() {
     if (!this.commonService.Token) return 0;
     else return this.commonService.getUserDetail()['id'];
+  }
+
+  goToLogin() {
+    if(!this.commonService.Token) {
+      alert('로그인이 필요한 서비스입니다.');
+      this.router.navigate(['/signin']);
+      return false;
+    }
   }
 }
