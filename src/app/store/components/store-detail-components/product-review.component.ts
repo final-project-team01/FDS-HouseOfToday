@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, Renderer2 } from '@angu
 import { review, product_info } from 'src/app/core/models/store.interface';
 import { CommonService } from 'src/app/core/services/common.service';
 import { StoreService } from 'src/app/core/services/store.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -65,7 +66,7 @@ import { StoreService } from 'src/app/core/services/store.service';
       <div class="user-review-container" *ngIf="filteredList?.length !== 0; else noReview">
         <article class="user-review" *ngFor="let review of filteredList | pageFilter: index">
           <button class="edit-review cursor"
-            *ngIf="review.user === commonService.getUserDetail()['id'];"
+            *ngIf="review.user === getUserId();"
             (click)="editReview(review)">수정</button>  
           <span class="user">사용자</span>
           <div class="review-star-score">
@@ -79,7 +80,7 @@ import { StoreService } from 'src/app/core/services/store.service';
           </div>
           <p class="review-comment">{{ review.comment }}</p>
           <button class="helpful clicked" BlueButton
-            *ngIf="review.helpful.indexOf(commonService.getUserDetail()['id']) !== -1;
+            *ngIf="review.helpful.indexOf(getUserId()) !== -1;
             else helpfulClicked"
             (click)="helpful(review)">
             <svg width="16" height="16" viewBox="0 0 16 16" preserveAspectRatio="xMidYMid meet">
@@ -145,7 +146,8 @@ export class ProductReviewComponent implements OnInit {
 
   constructor(private commonService: CommonService
             , private storeService: StoreService
-            , private renderer: Renderer2) { }
+            , private renderer: Renderer2
+            , private router: Router) { }
 
   ngOnInit() {
     
@@ -174,6 +176,7 @@ export class ProductReviewComponent implements OnInit {
   }
 
   helpful(review: review){
+    if(this.goToLogin() === false) return;
     const id = review.id;
     this.storeService.checkHelpful(id)
       .subscribe(res => {
@@ -195,6 +198,7 @@ export class ProductReviewComponent implements OnInit {
   }
 
   showReviewModal() {
+    if(this.goToLogin() === false) return;
     this.editMode = this.editMode ? true : false;
     this.showModal = true;
     this.top = window.scrollY;
@@ -225,5 +229,18 @@ export class ProductReviewComponent implements OnInit {
     this.editMode = true;
     this.showReviewModal();
     this.userReview = review;
+  }
+
+  getUserId() {
+    if (!this.commonService.Token) return 0;
+    else return this.commonService.getUserDetail()['id'];
+  }
+
+  goToLogin() {
+    if(!this.commonService.Token) {
+      alert('로그인이 필요한 서비스입니다.');
+      this.router.navigate(['/signin']);
+      return false;
+    }
   }
 }

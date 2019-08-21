@@ -2,12 +2,13 @@ import { Component, OnInit, Input, Renderer2, Output, EventEmitter } from '@angu
 import { qna, product_info, product_option } from 'src/app/core/models/store.interface';
 import { CommonService } from 'src/app/core/services/common.service';
 import { StoreService } from 'src/app/core/services/store.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-qna',
   template: `
     <div class="product-qna-container" *ngIf="originalList">
-      <button class="write-qna cursor" (click)="showReviewModal()">문의하기</button>
+      <button class="write-qna cursor" (click)="showQnaModal()">문의하기</button>
       <div class="user-qna-container" *ngIf="originalList.length !== 0; else noQna">
       <article class="user-qna" *ngFor="let qna of originalList | pageFilter: index; let i = index">
         <div class="qna-type">
@@ -33,7 +34,7 @@ import { StoreService } from 'src/app/core/services/store.service';
         </p>
         </div>
         <button class="delete-qna cursor" 
-          *ngIf="qna.user === commonService.getUserDetail()['id'];"
+          *ngIf="qna.user === getUserId();"
           (click)="deleteQna(qna.id)">삭제</button>
       </article>
       </div>
@@ -42,7 +43,8 @@ import { StoreService } from 'src/app/core/services/store.service';
       </ng-template>
       <app-pagination 
         [originalList]="originalList"
-        (change)="changePage($event)">
+        (change)="changePage($event)"
+        [activeId]="index">
       </app-pagination>
     </div>
     <app-qna-modal
@@ -77,7 +79,8 @@ export class ProductQnaComponent implements OnInit {
 
   constructor(private renderer: Renderer2
             , private commonService: CommonService
-            , private storeService: StoreService) { }
+            , private storeService: StoreService
+            , private router: Router) { }
 
   ngOnInit() {
     
@@ -87,7 +90,12 @@ export class ProductQnaComponent implements OnInit {
     this.index = i;
   }
 
-  showReviewModal(){
+  showQnaModal(){
+    if(!this.commonService.Token) {
+      alert('로그인이 필요한 서비스입니다.');
+      this.router.navigate(['/signin']);
+      return false;
+    }
     this.showModal = true;
     this.top = window.scrollY;
     window.scrollTo({ top: this.top, left: 0 });
@@ -123,6 +131,11 @@ export class ProductQnaComponent implements OnInit {
         });
       this.changePage(0);
     } else return;
+  }
+
+  getUserId() {
+    if (!this.commonService.Token) return 0;
+    else return this.commonService.getUserDetail()['id'];
   }
 
 }

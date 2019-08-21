@@ -3,6 +3,7 @@ import { CoreModule } from '../core.module';
 import { HttpHeaders } from '@angular/common/http';
 import { user_detail } from '../models/user.interface';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: CoreModule
